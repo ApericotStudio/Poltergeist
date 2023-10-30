@@ -19,7 +19,7 @@ public class RoamState : INpcState
             _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
         }
 
-        if(_npcController.AnxietyValue == 100f)
+        if(_npcController.AnxietyValue >= 100f)
         {
             _npcController.StopCoroutine(_roamCoroutine);
             _npcController.CurrentState = new PanickedState(_npcController);

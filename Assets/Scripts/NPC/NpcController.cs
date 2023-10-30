@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -21,7 +22,7 @@ public class NpcController : MonoBehaviour
     [Tooltip("The anxiety value of the NPC.")]
     [SerializeField]
     [Range(0f, 100f)]
-    private float _anxietyValue = 0f;
+    private float _anxietyValue = 50f;
     [SerializeField]
     [Tooltip("The event that will be invoked when the anxiety value changes.")]
     private UnityEvent<float> _onAnxietyValueChange;
@@ -49,7 +50,7 @@ public class NpcController : MonoBehaviour
         get => _anxietyValue; 
         set {
             _anxietyValue = value;
-            _onAnxietyValueChange?.Invoke(_anxietyValue);
+            _onAnxietyValueChange.Invoke(_anxietyValue);
         }  
     }
 
@@ -58,13 +59,21 @@ public class NpcController : MonoBehaviour
         NavMeshAgent = GetComponent<NavMeshAgent>();
         InitializeAnimator();
         _currentState = new RoamState(this);
-        _onAnxietyValueChange = new UnityEvent<float>();
     }
 
     private void Update()
     {
         Animate();
         _currentState.Execute();
+        SlowlyDecreaseAnxiety();
+    }
+
+    private void SlowlyDecreaseAnxiety()
+    {
+        if(AnxietyValue > 0f)
+        {
+            AnxietyValue -= Time.deltaTime * 1f;
+        }
     }
 
     private void InitializeAnimator()
