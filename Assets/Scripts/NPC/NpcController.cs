@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,7 @@ public enum NpcState
 }
 public class NpcController : MonoBehaviour
 {
+    [Header("NPC Settings")]
     [Tooltip("The target location the NPC will roam around.")]
     public Transform RoamTargetLocation;
     [Tooltip("The radius around the Roam Target Location the NPC will in.")]
@@ -17,71 +19,53 @@ public class NpcController : MonoBehaviour
     public float RoamRadius = 5f;
     [Tooltip("The target location the NPC will run to when frightened.")]
     public Transform FrightenedTargetLocation;
+    [Tooltip("The speed the NPC will move when frightened.")]
+    [Range(2f, 10f)]
+    public float FrightenedSpeed = 5.335f;
+    [Tooltip("Enable this to make the NPC run away.")]
+    public bool IsFrightened;
+    [Tooltip("The audio clips that will be played when the NPC moves.")]
+    public AudioClip[] FootstepAudioClips;
+    [Tooltip("The volume of the footstep audio clips.")]
+    [Range(0f, 1f)]
+    public float footstepVolume = 0.5f;
 
-    private NavMeshAgent _agent;
-    private NpcState _currentState;
-    private Coroutine _roamCoroutine;
+    private NavMeshAgent _navMeshAgent;
+    private INpcState _currentState;
+    private bool _ranAway;
 
     private int _animIDMotionSpeed;
     private int _animIDSpeed;
     private float _animationBlend;
     private Animator _animator;
 
-    public AudioClip[] FootstepAudioClips;
-    [Range(0f, 1f)]
-    public float footstepVolume = 0.5f;
-    
+
+
+    public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
+    public INpcState CurrentState { get => _currentState; set => _currentState = value; }
+    public bool RanAway { get => _ranAway; set => _ranAway = value; }
+
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
+        NavMeshAgent = GetComponent<NavMeshAgent>();
         InitializeAnimator();
+        _currentState = new RoamState(this);
     }
 
     private void Update()
     {
+        if(IsFrightened && _currentState.GetType() != typeof(FrightenedState))
+        {
+            TurnFrightened();
+        }
         Animate();
-        ActOutState();
+        _currentState.Execute();
+
     }
 
-    private void ActOutState()
+    private void TurnFrightened()
     {
-        switch (_currentState)
-        {
-            case NpcState.Roam:
-                Roam();
-                break;
-            case NpcState.Frightened:
-                Frightened();
-                break;
-        }
-    }
-
-    private void Roam()
-    {
-        if (_roamCoroutine == null)
-        {
-            _roamCoroutine = StartCoroutine(RoamCoroutine());
-        }
-    }
-
-    private IEnumerator RoamCoroutine()
-    {
-        while (true)
-        {
-            if (_agent.remainingDistance < 0.5f)
-            {
-                Vector3 randomDirection = Random.insideUnitSphere * RoamRadius;
-                randomDirection += RoamTargetLocation.position;
-                NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, 10f, NavMesh.AllAreas);
-                _agent.SetDestination(hit.position);
-            }
-            yield return new WaitForSeconds(Random.Range(3f, 5f));
-        }
-    }
-
-    private void Frightened()
-    {
-        _agent.SetDestination(FrightenedTargetLocation.position);
+        _currentState = new FrightenedState(this);
     }
 
     private void InitializeAnimator()
@@ -90,10 +74,10 @@ public class NpcController : MonoBehaviour
         _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         _animIDSpeed = Animator.StringToHash("Speed");
     }
-    
+
     private void Animate()
     {
-        _animationBlend = Mathf.Lerp(_animationBlend, _agent.velocity.magnitude, Time.deltaTime * _agent.acceleration);
+        _animationBlend = Mathf.Lerp(_animationBlend, NavMeshAgent.velocity.magnitude, Time.deltaTime * NavMeshAgent.acceleration);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
         _animator.SetFloat(_animIDSpeed, _animationBlend);
