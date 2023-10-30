@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     private Camera cam;
     private Rigidbody rb;
+    private Quaternion rotation;
+    [SerializeField] float rotationSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,11 +16,24 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         rb = this.GetComponent<Rigidbody>();
         cam = Camera.main;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        if (Input.GetKey(KeyCode.Q)) {
+            Vector3 rotation = new Vector3(0, -1, 0);
+            transform.Rotate(rotation * Time.deltaTime * rotationSpeed);
+        }
+        
+        if (Input.GetKey(KeyCode.E))
+        {
+            Vector3 rotation = new Vector3(0, 1, 0);
+            transform.Rotate(rotation * Time.deltaTime * rotationSpeed);
+        }
+
         if (Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log(cam.transform.forward);

@@ -7,16 +7,18 @@ public class Throwing : MonoBehaviour
     [Header("Throw Controls")]
     [SerializeField] public bool throwMode;
     [SerializeField] private float throwForce;
-    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 1;
     private Vector3 releasePosition;
 
     [Header("Display Controls")]
+    [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] [Range(10, 100)] private int linePoints = 25;
     [SerializeField] [Range(0.01f, 0.25f)] private float timeBetweenPoints = 0.1f;
     private LayerMask throwLayerMask;
 
     private Camera cam;
     private Rigidbody rb;
+    private Vector3 aim;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,8 @@ public class Throwing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        aim = cam.transform.forward;
+        aim.y = aim.y * ySense;
         if (throwMode)
         {
             if (Input.GetKey(KeyCode.Mouse0))
@@ -58,7 +62,7 @@ public class Throwing : MonoBehaviour
     }
     private void ThrowObject()
     {
-        rb.AddForce(cam.transform.forward * throwForce, ForceMode.Impulse);
+        rb.AddForce(aim * throwForce, ForceMode.Impulse);
     }
 
     private void DrawProjection()
@@ -67,7 +71,7 @@ public class Throwing : MonoBehaviour
         lineRenderer.enabled = true;
         lineRenderer.positionCount = Mathf.CeilToInt(linePoints / timeBetweenPoints) + 1;
         Vector3 startPosition = releasePosition;
-        Vector3 startVelocity = throwForce * cam.transform.forward / rb.mass;
+        Vector3 startVelocity = throwForce * aim / rb.mass;
         int i = 0;
         lineRenderer.SetPosition(i, startPosition);
         for (float time = 0; time < linePoints; time += timeBetweenPoints)
