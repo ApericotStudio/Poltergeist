@@ -8,6 +8,7 @@ public class Throwing : MonoBehaviour
     [SerializeField] public bool throwMode;
     [SerializeField] private float throwForce;
     [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 1;
+    [SerializeField] float rotationSpeed = 10;
     private Vector3 releasePosition;
 
     [Header("Display Controls")]
@@ -42,6 +43,8 @@ public class Throwing : MonoBehaviour
         aim.y = aim.y * ySense;
         if (throwMode)
         {
+            float playerRotate = rotationSpeed * Input.GetAxis("Mouse X");
+            transform.Rotate(0, playerRotate, 0);
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 DrawProjection();
