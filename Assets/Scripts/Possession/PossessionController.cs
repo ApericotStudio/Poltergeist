@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PossessionController : MonoBehaviour
 {
+    private Highlight target;
     private CinemachineVirtualCamera currentVirtualCamera;
     private Camera mainCamera;
 
@@ -20,6 +21,11 @@ public class PossessionController : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        LookForPossessables();
+    }
+
     public void Possess()
     {
         ThirdPersonCamera thirdPersonCamera = TryGetThirdPersonCamera();
@@ -30,15 +36,6 @@ public class PossessionController : MonoBehaviour
         currentVirtualCamera.Priority = 0;
         thirdPersonCamera.VirtualCamera.Priority = 1;
         currentVirtualCamera = thirdPersonCamera.VirtualCamera;
-    }
-
-    private void ShowHighlight()
-    {
-        ThirdPersonCamera thirdPersonCamera = TryGetThirdPersonCamera();
-        if (thirdPersonCamera == null)
-        {
-            return;
-        }
     }
 
     public ThirdPersonCamera TryGetThirdPersonCamera()
@@ -52,5 +49,31 @@ public class PossessionController : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private void LookForPossessables()
+    {
+        Highlight temp = null;
+        RaycastHit hit;
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity))
+        {
+            if (hit.collider.gameObject.TryGetComponent(out Highlight highlight))
+            {
+                temp = highlight;
+            }
+        }
+        if (temp == target)
+        {
+            return;
+        }
+        if (target != null)
+        {
+            target.ToggleHighlight(false);
+        }
+        target = temp;
+        if (target != null)
+        {
+            target.ToggleHighlight(true);
+        }
     }
 }
