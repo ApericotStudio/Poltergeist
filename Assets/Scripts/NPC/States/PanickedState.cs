@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
-
-public class FrightenedState : INpcState
+public class PanickedState : INpcState
 {
     private readonly NpcController _npcController;
 
-    public FrightenedState(NpcController npcController)
+    public PanickedState(NpcController npcController)
     {
         _npcController = npcController;
     }
