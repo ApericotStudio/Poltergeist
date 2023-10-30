@@ -3,23 +3,47 @@ using UnityEngine.UI;
 
 public class AnxietyProgressBar : MonoBehaviour
 {
+    public Slider slider;
+
     [SerializeField]
-    private Image fillImage;
-    private float anxiety;
+    [Tooltip("The inidicator image that gets shown when anxiety is low")]
+    private GameObject lowAnxietyIndicator;
 
-    public void OnMinAnxiety()
-    {
+    [SerializeField]
+    [Tooltip("The inidicator image that gets shown when anxiety is medium")]
+    private GameObject mediumAnxietyIndicator;
 
-    }
+    [SerializeField]
+    [Tooltip("The inidicator image that gets shown when anxiety is high")]
+    private GameObject highAnxietyIndicator;
 
-    public void OnMaxAnxiety()
-    {
-        
-    }
+    private float maxAnxiety = 100;
 
+    /// <summary>
+    /// Updates the Anxiety Meter based on the new anxiety value
+    /// </summary>
+    /// <param name="anxiety">The new value for anxiety</param>
     public void OnValueUpdate(float anxiety)
     {
-        this.anxiety = anxiety;
-        fillImage.fillAmount = anxiety;
+        slider.value = anxiety/maxAnxiety;
+
+        if(anxiety <= 25f)
+        {
+            lowAnxietyIndicator.SetActive(true);
+            mediumAnxietyIndicator.SetActive(false);
+            highAnxietyIndicator.SetActive(false);
+        }
+        else if(anxiety >= 75f)
+        {
+            lowAnxietyIndicator.SetActive(false);
+            mediumAnxietyIndicator.SetActive(false);
+            highAnxietyIndicator.SetActive(true);
+        }
+        else
+        {
+            lowAnxietyIndicator.SetActive(false);
+            mediumAnxietyIndicator.SetActive(true);
+            highAnxietyIndicator.SetActive(false);
+        }
     }
 }
