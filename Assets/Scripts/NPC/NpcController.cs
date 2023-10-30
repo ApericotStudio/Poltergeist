@@ -17,6 +17,9 @@ public class NpcController : MonoBehaviour
     [Tooltip("The radius around the Roam Target Location the NPC will in.")]
     [Range(0f, 10f)]
     public float RoamRadius = 5f;
+    [Range(2f, 10f)]
+    [Tooltip("The speed the NPC will move when roaming.")]
+    public float RoamingSpeed = 2f;
     [Tooltip("The target location the NPC will run to when frightened.")]
     public Transform FrightenedTargetLocation;
     [Tooltip("The speed the NPC will move when frightened.")]
@@ -38,8 +41,6 @@ public class NpcController : MonoBehaviour
     private int _animIDSpeed;
     private float _animationBlend;
     private Animator _animator;
-
-
 
     public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
     public INpcState CurrentState { get => _currentState; set => _currentState = value; }

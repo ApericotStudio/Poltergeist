@@ -31,6 +31,7 @@ public class RoamState : INpcState
 
         if (_npcController.CurrentState == this)
         {
+            _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
             _npcController.NavMeshAgent.SetDestination(GetRandomRoamLocation());
             _roamCoroutine = null;
         }
