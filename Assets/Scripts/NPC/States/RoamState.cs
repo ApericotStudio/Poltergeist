@@ -14,6 +14,18 @@ public class RoamState : INpcState
 
     public void Execute()
     {
+        if(_npcController.NavMeshAgent.speed != _npcController.RoamingSpeed)
+        {
+            _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
+        }
+
+        if(_npcController.AnxietyValue == 100f)
+        {
+            _npcController.StopCoroutine(_roamCoroutine);
+            _npcController.CurrentState = new PanickedState(_npcController);
+            return;
+        }
+        
         if (_npcController.RoamTargetLocation == null)
         {
             return;
@@ -27,13 +39,14 @@ public class RoamState : INpcState
 
     private IEnumerator RoamCoroutine()
     {
-        yield return new WaitForSeconds(2f);
-
-        if (_npcController.CurrentState == this)
+        while (true)
         {
-            _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
-            _npcController.NavMeshAgent.SetDestination(GetRandomRoamLocation());
-            _roamCoroutine = null;
+            if (_npcController.NavMeshAgent.remainingDistance < 0.5f)
+            {
+                Vector3 randomRoamLocation = GetRandomRoamLocation();
+                _npcController.NavMeshAgent.SetDestination(randomRoamLocation);
+            }
+            yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
     }
 

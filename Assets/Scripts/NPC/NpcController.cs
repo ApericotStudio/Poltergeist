@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -66,18 +63,8 @@ public class NpcController : MonoBehaviour
 
     private void Update()
     {
-        if(AnxietyValue == 100f && _currentState.GetType() != typeof(FrightenedState))
-        {
-            GetScared();
-        }
         Animate();
         _currentState.Execute();
-
-    }
-
-    private void GetScared()
-    {
-        _currentState = new FrightenedState(this);
     }
 
     private void InitializeAnimator()
