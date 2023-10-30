@@ -32,17 +32,19 @@ namespace StarterAssets
         public AudioClip[] FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
+ 
         [Space(10)]
         [Tooltip("The height the player can jump")]
         public float JumpHeight = 1.2f;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float Gravity = -15.0f;
+      
 
         [Space(10)]
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
         public float JumpTimeout = 0.50f;
-
+       
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
 
@@ -74,6 +76,12 @@ namespace StarterAssets
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
+
+        [Header("Flying")]
+        public float flySpeed;
+        public float minFloat;
+        public float maxFloat;
+        public float currentHeight;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -134,6 +142,7 @@ namespace StarterAssets
 
         private void Start()
         {
+            currentHeight = transform.position.y;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -147,9 +156,9 @@ namespace StarterAssets
 
             AssignAnimationIDs();
 
-            // reset our timeouts on start
-            _jumpTimeoutDelta = JumpTimeout;
-            _fallTimeoutDelta = FallTimeout;
+            //reset our timeouts on start
+           _jumpTimeoutDelta = JumpTimeout;
+           _fallTimeoutDelta = FallTimeout;
         }
 
         private void Update()
@@ -159,6 +168,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            Fly();
         }
 
         private void LateUpdate()
@@ -213,17 +223,26 @@ namespace StarterAssets
 
         private void Move()
         {
+            Vector3 flyDirection = new Vector3(_input.fly.x, 0.0f, _input.move.y).normalized;
+
+            transform.position += flyDirection * flySpeed * Time.deltaTime;
+
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
+            float targetSpeedFly = _input.sprint ? SprintSpeed : MoveSpeed;
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
+            if (_input.fly == Vector2.zero) targetSpeedFly = 0.0f;
+
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+
+            float currentVelocitySpeed = new Vector3(0.0f, _controller.velocity.y, 0.0f).magnitude;
 
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
@@ -248,9 +267,11 @@ namespace StarterAssets
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
+            
             // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            Vector3 inputDirection = new Vector3(_input.move.x, _input.fly.y, _input.move.y).normalized;
 
+            Debug.Log(inputDirection.y);
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero)
@@ -269,7 +290,7 @@ namespace StarterAssets
 
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+                             new Vector3(0.0f, inputDirection.y, 0.0f) * Time.deltaTime);
 
             // update animator if using character
             if (_hasAnimator)
@@ -278,6 +299,23 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
         }
+        private void Fly()
+        {
+            /*
+            // normalise input direction
+            Vector3 inputDirection = new Vector3(_input.move.x, _input.fly.y, _input.move.y).normalized;
+
+            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.up;
+
+            _controller.Move(inputDirection);
+            
+            // move the player
+            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            Debug.Log(_speed);
+            */
+        }
+
 
         private void JumpAndGravity()
         {
@@ -347,6 +385,7 @@ namespace StarterAssets
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
+
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {

@@ -12,6 +12,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public Vector2 fly;
+		public bool flying;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -24,6 +26,11 @@ namespace StarterAssets
 		public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
+		}
+
+		public void OnFly(InputValue value)
+		{
+			FlyInput(value.Get<Vector2>());
 		}
 
 		public void OnLook(InputValue value)
@@ -39,6 +46,11 @@ namespace StarterAssets
 			JumpInput(value.isPressed);
 		}
 
+		public void OnFlying(InputValue value)
+		{
+			FlyingInput(value.isPressed);
+		}
+
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
@@ -50,6 +62,16 @@ namespace StarterAssets
 		{
 			move = newMoveDirection;
 		} 
+
+		public void FlyInput(Vector2 newFlyDirection)
+		{
+			fly = newFlyDirection;
+		}
+
+		public void FlyingInput(bool newFlyState)
+		{
+			flying = newFlyState;
+		}
 
 		public void LookInput(Vector2 newLookDirection)
 		{
