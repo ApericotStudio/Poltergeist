@@ -63,8 +63,8 @@ namespace StarterAssets
         public bool LockCameraPosition = false;
 
         [Header("Flying")]
-        public float minFloat;
-        public float maxFloat;
+        public float minHeight;
+        public float maxHeight;
         public float currentHeight;
 
         // cinemachine
@@ -143,6 +143,7 @@ namespace StarterAssets
 
             GroundedCheck();
             Move();
+            UpDownCharacter();
         }
 
         private void LateUpdate()
@@ -277,16 +278,25 @@ namespace StarterAssets
             }
         }
 
-        private void MoveCharacter()
+        private void UpDownCharacter()
         {
-            Vector3 cameraForward = new Vector3(_mainCamera.transform.forward.x, 0, _mainCamera.transform.forward.z);
-            transform.rotation = Quaternion.LookRotation(cameraForward);
-            transform.Rotate(new Vector3(0, 0, 0), Space.Self);
+            if(_input.move != Vector2.zero)
+            {
+                Vector3 cameraForward = new Vector3(_mainCamera.transform.forward.x, 0, _mainCamera.transform.forward.z);
+                transform.rotation = Quaternion.LookRotation(cameraForward);
+                transform.Rotate(new Vector3(0, 0, 0), Space.Self);
 
-            Vector3 forward = _mainCamera.transform.forward;
-            Vector3 flyDirection = forward.normalized;
+                Vector3 forward = _mainCamera.transform.forward;
+                Vector3 flyDirection = forward.normalized;
 
-            transform.position += flyDirection * MoveSpeed * Time.deltaTime;
+                currentHeight += flyDirection.y * MoveSpeed * Time.deltaTime;
+
+                transform.position += flyDirection * MoveSpeed * Time.deltaTime;
+
+                transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+            }
+
+            currentHeight = Mathf.Clamp(transform.position.y, minHeight, maxHeight);
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
