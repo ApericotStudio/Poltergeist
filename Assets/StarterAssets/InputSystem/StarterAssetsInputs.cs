@@ -13,7 +13,6 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public float fly;
-		public bool flying;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -46,11 +45,6 @@ namespace StarterAssets
 			JumpInput(value.isPressed);
 		}
 
-        private void OnFlying(InputValue value)
-		{
-			FlyingInput(value.isPressed);
-		}
-
         private void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
@@ -66,11 +60,6 @@ namespace StarterAssets
         public void FlyInput(float newFlyDirection)
 		{
 			fly = newFlyDirection;
-		}
-
-        public void FlyingInput(bool newFlyState)
-		{
-			flying = newFlyState;
 		}
 
         public void LookInput(Vector2 newLookDirection)
