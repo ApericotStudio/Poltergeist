@@ -12,7 +12,7 @@ public class Throwing : MonoBehaviour
     private Vector3 releasePosition;
 
     [Header("Display Controls")]
-    [SerializeField] private LineRenderer lineRenderer;
+    private LineRenderer lineRenderer;
     [SerializeField] [Range(10, 100)] private int linePoints = 25;
     [SerializeField] [Range(0.01f, 0.25f)] private float timeBetweenPoints = 0.1f;
     private LayerMask throwLayerMask;
@@ -23,6 +23,7 @@ public class Throwing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lineRenderer = this.GetComponent<LineRenderer>();
         rb = this.GetComponent<Rigidbody>();
         cam = Camera.main;
 

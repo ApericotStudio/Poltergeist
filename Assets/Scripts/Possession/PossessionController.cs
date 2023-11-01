@@ -30,11 +30,17 @@ public class PossessionController : MonoBehaviour
         IPossessable possessable = LookForPossessableObject();
         if (possessable == null)
         {
+            Unpossess();
             return;
         }
         currentPossession.Unpossess();
         possessable.Possess();
         currentPossession = possessable;
+    }
+
+    private void Unpossess()
+    {
+        currentPossession.Unpossess();
     }
 
     /// <summary>
