@@ -202,29 +202,9 @@ namespace StarterAssets
             // if there is no input, set the target speed to 0
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
-            // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-            float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
-            // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
-            {
-                // creates curved result rather than a linear one giving a more organic speed change
-                // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                    Time.deltaTime * SpeedChangeRate);
-
-                // round speed to 3 decimal places
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            }
-            else
-            {
-                _speed = targetSpeed;
-            }
-            
+            _speed = targetSpeed;
 
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
@@ -247,7 +227,7 @@ namespace StarterAssets
 
                 // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-            }
+            } 
 
             // changes player input based on camera orientation
             Vector3 targetRight = _input.move.x * _mainCamera.transform.right;
@@ -255,7 +235,9 @@ namespace StarterAssets
             Vector3 targetUp = _input.fly * _mainCamera.transform.up;
 
             Vector3 targetDirection = (targetRight + targetForward + targetUp).normalized;
+
             targetDirection *= _speed * Time.deltaTime;
+
 
             // move the player
             _controller.Move(targetDirection + new Vector3(0.0f, inputDirection.y * flySpeed, 0.0f) * Time.deltaTime);
