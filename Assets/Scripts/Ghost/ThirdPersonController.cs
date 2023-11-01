@@ -256,12 +256,12 @@ namespace StarterAssets
             Vector3 targetForward = _input.move.y * _mainCamera.transform.forward;
             Vector3 targetFly = _input.fly * _mainCamera.transform.up;
 
-            Vector3 targetDirection = (targetRight + targetForward + targetFly).normalized;
+            Vector3 targetDirection = (targetRight + targetForward).normalized;
             targetDirection *= _speed * Time.deltaTime;
 
+            Debug.Log(targetFly);
             // move the player
             _controller.Move(targetDirection + new Vector3(0.0f, inputDirection.y * flySpeed, 0.0f) * Time.deltaTime);
-
             // update animator if using character
             if (_hasAnimator)
             {
