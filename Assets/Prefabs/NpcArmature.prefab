@@ -2342,6 +2342,7 @@ GameObject:
   - component: {fileID: 9153184056854559937}
   - component: {fileID: 6070195381934028526}
   - component: {fileID: 4531111113754646614}
+  - component: {fileID: 1306518244182312063}
   m_Layer: 8
   m_Name: NpcArmature
   m_TagString: Player
@@ -2442,6 +2443,27 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   footstepVolume: 0.5
+--- !u!114 &1306518244182312063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969111268812583773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083bc7aaae7d3144e8aa18d4b04015cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FieldOfViewAngle: 110
+  SightRange: 10
+  AuditoryRange: 10
+  TargetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  ObstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!1 &9034284117161447404
 GameObject:
   m_ObjectHideFlags: 0
