@@ -7,18 +7,23 @@ public class NpcController : MonoBehaviour
 {
     [Header("NPC Settings")]
     [Tooltip("The target location the NPC will roam around.")]
-    public Transform RoamTargetLocation;
+    [SerializeField]
+    private Transform _roamTargetLocation;
     [Tooltip("The radius around the Roam Target Location the NPC will in.")]
     [Range(0f, 10f)]
-    public float RoamRadius = 5f;
+    [SerializeField]
+    private float _roamRadius = 5f;
     [Range(2f, 10f)]
     [Tooltip("The speed the NPC will move when roaming.")]
-    public float RoamingSpeed = 2f;
+    [SerializeField]
+    private float _roamingSpeed = 2f;
     [Tooltip("The target location the NPC will run to when frightened.")]
-    public Transform FrightenedTargetLocation;
+    [SerializeField]
+    private Transform _frightenedTargetLocation;
     [Tooltip("The speed the NPC will move when frightened.")]
     [Range(2f, 10f)]
-    public float FrightenedSpeed = 5.335f;
+    [SerializeField]
+    private float _frightenedSpeed = 5.335f;
     [Tooltip("The anxiety value of the NPC.")]
     [SerializeField]
     [Range(0f, 100f)]
@@ -28,10 +33,12 @@ public class NpcController : MonoBehaviour
     private UnityEvent<float> _onAnxietyValueChange;
 
     [Tooltip("The audio clips that will be played when the NPC moves.")]
-    public AudioClip[] FootstepAudioClips;
+    [SerializeField]
+    private AudioClip[] _footstepAudioClips;
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
-    public float footstepVolume = 0.5f;
+    [SerializeField]
+    private float _footstepVolume = 0.5f;
     
     private NavMeshAgent _navMeshAgent;
     private INpcState _currentState;
@@ -45,6 +52,14 @@ public class NpcController : MonoBehaviour
     public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
     public INpcState CurrentState { get => _currentState; set => _currentState = value; }
     public bool RanAway { get => _ranAway; set => _ranAway = value; }
+    public Transform RoamTargetLocation { get => _roamTargetLocation; set => _roamTargetLocation = value; }
+    public float RoamRadius { get => _roamRadius; set => _roamRadius = value; }
+    public float RoamingSpeed { get => _roamingSpeed; set => _roamingSpeed = value; }
+    public Transform FrightenedTargetLocation { get => _frightenedTargetLocation; set => _frightenedTargetLocation = value; }
+    public float FrightenedSpeed { get => _frightenedSpeed; set => _frightenedSpeed = value; }
+    public AudioClip[] FootstepAudioClips { get => _footstepAudioClips; set => _footstepAudioClips = value; }
+    public float FootstepVolume { get => _footstepVolume; set => _footstepVolume = value; }
+
     public float AnxietyValue
     { 
         get => _anxietyValue; 
@@ -56,7 +71,7 @@ public class NpcController : MonoBehaviour
 
     private void Awake()
     {
-        NavMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         InitializeAnimator();
         _currentState = new RoamState(this);
     }
@@ -85,7 +100,7 @@ public class NpcController : MonoBehaviour
 
     private void Animate()
     {
-        _animationBlend = Mathf.Lerp(_animationBlend, NavMeshAgent.velocity.magnitude, Time.deltaTime * NavMeshAgent.acceleration);
+        _animationBlend = Mathf.Lerp(_animationBlend, _navMeshAgent.velocity.magnitude, Time.deltaTime * NavMeshAgent.acceleration);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
         _animator.SetFloat(_animIDSpeed, _animationBlend);
@@ -98,8 +113,8 @@ public class NpcController : MonoBehaviour
         {
             if (FootstepAudioClips.Length > 0)
             {
-                int index = Random.Range(0, FootstepAudioClips.Length);
-                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, footstepVolume);
+                int index = Random.Range(0, _footstepAudioClips.Length);
+                AudioSource.PlayClipAtPoint(_footstepAudioClips[index], transform.position, _footstepVolume);
             }
         }
     }
