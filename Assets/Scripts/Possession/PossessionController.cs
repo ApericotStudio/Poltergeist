@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PossessionController : MonoBehaviour
 {
-    private Highlight target;
     private IPossessable currentPossession;
     private Camera mainCamera;
 
@@ -19,11 +18,6 @@ public class PossessionController : MonoBehaviour
         {
             Possess();
         }
-    }
-
-    private void FixedUpdate()
-    {
-        LookForPossessables();
     }
 
     /// <summary>
@@ -56,35 +50,5 @@ public class PossessionController : MonoBehaviour
             }
         }
         return null;
-    }
-
-
-    /// <summary>
-    /// Highlight objects with highlight script when looking at them. Dev note: This should be in a different class.
-    /// </summary>
-    private void LookForPossessables()
-    {
-        Highlight temp = null;
-        RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity))
-        {
-            if (hit.collider.gameObject.TryGetComponent(out Highlight highlight))
-            {
-                temp = highlight;
-            }
-        }
-        if (temp == target)
-        {
-            return;
-        }
-        if (target != null)
-        {
-            target.ToggleHighlight(false);
-        }
-        target = temp;
-        if (target != null)
-        {
-            target.ToggleHighlight(true);
-        }
     }
 }

@@ -9,7 +9,7 @@ public class TemporaryMovementController : MonoBehaviour, IPossessable
     [SerializeField] private bool isPossessed = false;
 
     private float horizontalInput;
-    private float speed = 10;
+    private float speed = 25;
 
     private void Update()
     {
