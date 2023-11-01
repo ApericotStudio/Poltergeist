@@ -261,14 +261,13 @@ namespace StarterAssets
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
-
-
+            // changes player input based on camera orientation
             Vector3 targetRight = _input.move.x * _mainCamera.transform.right;
             Vector3 targetForward = _input.move.y * _mainCamera.transform.forward;
             Vector3 targetFly = _input.fly * _mainCamera.transform.up;
+
             Vector3 targetDirection = (targetRight + targetForward + targetFly).normalized;
             targetDirection *= _speed * Time.deltaTime;
-            Debug.Log(targetDirection);
 
             // move the player
             _controller.Move(targetDirection + new Vector3(0.0f, inputDirection.y * flySpeed, 0.0f) * Time.deltaTime);
@@ -279,27 +278,6 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
-        }
-
-        private void UpDownCharacter()
-        {
-            if(_input.move != Vector2.zero)
-            {
-                Vector3 cameraForward = new Vector3(_mainCamera.transform.forward.x, 0, _mainCamera.transform.forward.z);
-                transform.rotation = Quaternion.LookRotation(cameraForward);
-                transform.Rotate(new Vector3(0, 0, 0), Space.Self);
-
-                Vector3 forward = _mainCamera.transform.forward;
-                Vector3 flyDirection = forward;
-
-                currentHeight += flyDirection.y * MoveSpeed * Time.deltaTime;
-
-                transform.position += flyDirection * MoveSpeed * Time.deltaTime;
-
-                transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
-            }
-
-            currentHeight = Mathf.Clamp(transform.position.y, minHeight, maxHeight);
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
