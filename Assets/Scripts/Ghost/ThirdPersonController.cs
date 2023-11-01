@@ -17,20 +17,20 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
-        public float MoveSpeed = 2.0f;
-        public float SprintSpeed = 5.335f;
-        public float flySpeed = 2.0f;
+        [SerializeField] private float MoveSpeed = 2.0f;
+        [SerializeField] private float SprintSpeed = 5.335f;
+        [SerializeField] private float flySpeed = 2.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
-        public float RotationSmoothTime = 0.12f;
+        [SerializeField] private float RotationSmoothTime = 0.12f;
 
         [Tooltip("Acceleration and deceleration")]
-        public float SpeedChangeRate = 10.0f;
+        [SerializeField] private float SpeedChangeRate = 10.0f;
 
-        public AudioClip LandingAudioClip;
-        public AudioClip[] FootstepAudioClips;
-        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
+        [SerializeField] private AudioClip LandingAudioClip;
+        [SerializeField] private AudioClip[] FootstepAudioClips;
+        [SerializeField] [Range(0, 1)] private float FootstepAudioVolume = 0.5f;
 
 
         [Header("Player Grounded")]
@@ -38,29 +38,29 @@ namespace StarterAssets
         public bool Grounded = true;
 
         [Tooltip("Useful for rough ground")]
-        public float GroundedOffset = -0.14f;
+        [SerializeField] private float GroundedOffset = -0.14f;
 
         [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
-        public float GroundedRadius = 0.28f;
+        [SerializeField] private float GroundedRadius = 0.28f;
 
         [Tooltip("What layers the character uses as ground")]
         public LayerMask GroundLayers;
 
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-        public GameObject CinemachineCameraTarget;
+        [SerializeField] private GameObject CinemachineCameraTarget;
 
         [Tooltip("How far in degrees can you move the camera up")]
-        public float TopClamp = 70.0f;
+        [SerializeField] private float TopClamp = 70.0f;
 
         [Tooltip("How far in degrees can you move the camera down")]
-        public float BottomClamp = -30.0f;
+        [SerializeField] private float BottomClamp = -30.0f;
 
         [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
-        public float CameraAngleOverride = 0.0f;
+        [SerializeField] private float CameraAngleOverride = 0.0f;
 
         [Tooltip("For locking the camera position on all axis")]
-        public bool LockCameraPosition = false;
+        [SerializeField]private bool LockCameraPosition = false;
 
         [Header("Flying")]
         public float minHeight;
@@ -76,8 +76,6 @@ namespace StarterAssets
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
-        private float _verticalVelocity;
-        private float _terminalVelocity = 53.0f;
 
         // animation IDs
         private int _animIDSpeed;
@@ -197,15 +195,9 @@ namespace StarterAssets
 
         private void Move()
         {
-
-            //Vector3 flyDirection = new Vector3(_input.fly.x, 0.0f, _input.move.y).normalized;
-
-            //transform.position += flyDirection * flySpeed * Time.deltaTime;
-
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
-            float targetSpeedFly = _input.sprint ? SprintSpeed : MoveSpeed;
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -214,8 +206,6 @@ namespace StarterAssets
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-            float currentVerticalSpeed = new Vector3(0.0f, _controller.velocity.y, 0.0f).magnitude;
 
             float speedOffset = 0.1f;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
