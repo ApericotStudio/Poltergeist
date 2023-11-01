@@ -74,6 +74,8 @@ namespace StarterAssets
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
+        [SerializeField] float rotationSpeed = 10;
+        public bool freeze;
 
         // animation IDs
         private int _animIDSpeed;
@@ -129,7 +131,8 @@ namespace StarterAssets
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
-
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             AssignAnimationIDs();
         }
 
@@ -138,7 +141,17 @@ namespace StarterAssets
             _hasAnimator = TryGetComponent(out _animator);
 
             GroundedCheck();
-            Move();
+            if (!freeze)
+            {
+                Look();
+                Move();
+            }
+        }
+
+        private void Look()
+        {
+            float playerRotate = rotationSpeed * Input.GetAxis("Mouse X");
+            transform.Rotate(0, playerRotate, 0);
         }
 
         private void LateUpdate()
