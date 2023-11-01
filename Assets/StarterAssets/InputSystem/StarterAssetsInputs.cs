@@ -12,6 +12,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public float fly;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -21,12 +22,17 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+		private void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
 
-		public void OnLook(InputValue value)
+        private void OnFly(InputValue value)
+		{
+			FlyInput(value.Get<float>());
+		}
+
+        private void OnLook(InputValue value)
 		{
 			if(cursorInputForLook)
 			{
@@ -34,39 +40,44 @@ namespace StarterAssets
 			}
 		}
 
-		public void OnJump(InputValue value)
+        private void OnJump(InputValue value)
 		{
 			JumpInput(value.isPressed);
 		}
 
-		public void OnSprint(InputValue value)
+        private void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
 		}
 #endif
 
 
-		public void MoveInput(Vector2 newMoveDirection)
+        public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
-		} 
+		}
 
-		public void LookInput(Vector2 newLookDirection)
+        public void FlyInput(float newFlyDirection)
+		{
+			fly = newFlyDirection;
+		}
+
+        public void LookInput(Vector2 newLookDirection)
 		{
 			look = newLookDirection;
 		}
 
-		public void JumpInput(bool newJumpState)
+        public void JumpInput(bool newJumpState)
 		{
 			jump = newJumpState;
 		}
 
-		public void SprintInput(bool newSprintState)
+        public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
 		}
 
-		private void OnApplicationFocus(bool hasFocus)
+        private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
