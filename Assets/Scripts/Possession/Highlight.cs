@@ -3,45 +3,49 @@ using UnityEngine;
 
 public class Highlight : MonoBehaviour
 {
-    //we assign all the renderers here through the inspector
-    [SerializeField]
-    private List<Renderer> renderers;
-    [SerializeField]
-    private Color color = Color.white;
+    [Header("References")]
+    [Tooltip("Renderers that will be highlighted")]
+    [SerializeField] private List<Renderer> renderers;
 
-    //helper list to cache all the materials ofd this object
+    [Header("Adjustable variables")]
+    [SerializeField] private Color highlightColor = Color.white;
+
     private List<Material> materials;
 
-    //Gets all the materials from each renderer
     private void Awake()
     {
+        SetupMaterials();
+    }
+
+    /// <summary>
+    /// Gets materials from renderers and stores them in local variable 'materials'
+    /// </summary>
+    private void SetupMaterials()
+    {
         materials = new List<Material>();
-        foreach (var renderer in renderers)
+        foreach (Renderer renderer in renderers)
         {
-            //A single child-object might have mutliple materials on it
-            //that is why we need to all materials with "s"
             materials.AddRange(new List<Material>(renderer.materials));
         }
     }
 
-    public void ToggleHighlight(bool val)
+    /// <summary>
+    /// Turn highlight on or off
+    /// </summary>
+    public void ToggleHighlight(bool turnOn)
     {
-        if (val)
+        if (turnOn)
         {
-            foreach (var material in materials)
+            foreach (Material material in materials)
             {
-                //We need to enable the EMISSION
                 material.EnableKeyword("_EMISSION");
-                //before we can set the color
-                material.SetColor("_EmissionColor", color);
+                material.SetColor("_EmissionColor", highlightColor);
             }
         }
         else
         {
-            foreach (var material in materials)
+            foreach (Material material in materials)
             {
-                //we can just disable the EMISSION
-                //if we don't use emission color anywhere else
                 material.DisableKeyword("_EMISSION");
             }
         }
