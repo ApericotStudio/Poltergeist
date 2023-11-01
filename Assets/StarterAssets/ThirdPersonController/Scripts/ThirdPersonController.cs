@@ -143,7 +143,6 @@ namespace StarterAssets
 
             GroundedCheck();
             Move();
-            UpDownCharacter();
         }
 
         private void LateUpdate()
@@ -264,11 +263,17 @@ namespace StarterAssets
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+
+
+            Vector3 targetRight = _input.move.x * _mainCamera.transform.right;
+            Vector3 targetForward = _input.move.y * _mainCamera.transform.forward;
+            Vector3 targetFly = _input.fly.y * _mainCamera.transform.up;
+            Vector3 targetDirection = (targetRight + targetForward + targetFly).normalized;
+            targetDirection *= _speed * Time.deltaTime;
+            Debug.Log(targetDirection);
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, inputDirection.y * flySpeed, 0.0f) * Time.deltaTime);
+            _controller.Move(targetDirection + new Vector3(0.0f, inputDirection.y * flySpeed, 0.0f) * Time.deltaTime);
 
             // update animator if using character
             if (_hasAnimator)
@@ -287,7 +292,7 @@ namespace StarterAssets
                 transform.Rotate(new Vector3(0, 0, 0), Space.Self);
 
                 Vector3 forward = _mainCamera.transform.forward;
-                Vector3 flyDirection = forward.normalized;
+                Vector3 flyDirection = forward;
 
                 currentHeight += flyDirection.y * MoveSpeed * Time.deltaTime;
 
