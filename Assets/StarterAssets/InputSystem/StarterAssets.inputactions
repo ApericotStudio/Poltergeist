@@ -45,19 +45,10 @@
                     "name": "Fly",
                     "type": "Value",
                     "id": "e6e4fb66-c968-4a13-bc86-081fa6f315a7",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Flying",
-                    "type": "Button",
-                    "id": "72ae6f2a-dfc0-405f-b512-aad6bc646f18",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -196,7 +187,7 @@
                 {
                     "name": "UpDown",
                     "id": "8987f08e-297f-4c81-b3e4-172b582391e5",
-                    "path": "2DVector",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -205,7 +196,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Up",
+                    "name": "positive",
                     "id": "c413ddf2-62f2-475b-8a60-fd134f956a97",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -216,7 +207,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Down",
+                    "name": "negative",
                     "id": "9e03588b-401c-4488-b9d4-9e7fd72f43b3",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
@@ -227,37 +218,37 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Left",
-                    "id": "978e832c-5c48-4a7d-b15f-1a6ddefed8f4",
-                    "path": "",
+                    "name": "1D Axis",
+                    "id": "eb3bd671-5f2f-46ad-b20f-bbaff1dcd975",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Fly",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Right",
-                    "id": "c1e962ce-d4bd-4844-ac27-6c273bbfe512",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Fly",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "6a7706a1-f157-481e-94e8-1a4d9e922a8e",
-                    "path": "<Keyboard>/numpad7",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Flying",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "f4ff0464-199e-4fd7-9ce4-eac5fcdb60ed",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Fly",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "e723f6d1-7f84-4aa0-8133-7a8dae641471",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Fly",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

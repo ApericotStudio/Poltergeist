@@ -12,7 +12,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
-		public Vector2 fly;
+		public float fly;
 		public bool flying;
 
 		[Header("Movement Settings")]
@@ -30,7 +30,7 @@ namespace StarterAssets
 
 		public void OnFly(InputValue value)
 		{
-			FlyInput(value.Get<Vector2>());
+			FlyInput(value.Get<float>());
 		}
 
 		public void OnLook(InputValue value)
@@ -63,7 +63,7 @@ namespace StarterAssets
 			move = newMoveDirection;
 		} 
 
-		public void FlyInput(Vector2 newFlyDirection)
+		public void FlyInput(float newFlyDirection)
 		{
 			fly = newFlyDirection;
 		}

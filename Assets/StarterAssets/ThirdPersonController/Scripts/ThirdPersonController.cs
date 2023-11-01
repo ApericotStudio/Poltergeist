@@ -198,9 +198,9 @@ namespace StarterAssets
         private void Move()
         {
 
-            Vector3 flyDirection = new Vector3(_input.fly.x, 0.0f, _input.move.y).normalized;
+            //Vector3 flyDirection = new Vector3(_input.fly.x, 0.0f, _input.move.y).normalized;
 
-            transform.position += flyDirection * flySpeed * Time.deltaTime;
+            //transform.position += flyDirection * flySpeed * Time.deltaTime;
 
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
@@ -211,8 +211,6 @@ namespace StarterAssets
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-
-            if (_input.fly == Vector2.zero) targetSpeedFly = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -245,7 +243,7 @@ namespace StarterAssets
 
             
             // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.move.x, _input.fly.y, _input.move.y).normalized;
+            Vector3 inputDirection = new Vector3(_input.move.x, _input.fly, _input.move.y).normalized;
 
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -267,7 +265,7 @@ namespace StarterAssets
 
             Vector3 targetRight = _input.move.x * _mainCamera.transform.right;
             Vector3 targetForward = _input.move.y * _mainCamera.transform.forward;
-            Vector3 targetFly = _input.fly.y * _mainCamera.transform.up;
+            Vector3 targetFly = _input.fly * _mainCamera.transform.up;
             Vector3 targetDirection = (targetRight + targetForward + targetFly).normalized;
             targetDirection *= _speed * Time.deltaTime;
             Debug.Log(targetDirection);
