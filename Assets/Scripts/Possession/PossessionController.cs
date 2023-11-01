@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PossessionController : MonoBehaviour
 {
+    [Tooltip("Max range for possession")]
+    [SerializeField, Range(0f, 20f)] private float possessionRange;
+
     private IPossessable currentPossession;
     private Camera mainCamera;
 
@@ -41,7 +44,7 @@ public class PossessionController : MonoBehaviour
     private IPossessable LookForPossessableObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity))
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, possessionRange))
         {
             if (hit.collider.gameObject.TryGetComponent(out IPossessable possessableObject))
             {

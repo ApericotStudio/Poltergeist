@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class HighlightController : MonoBehaviour
 {
+    [Tooltip("Max range for activating highlight")]
+    [SerializeField, Range(0f, 20f)] private float highlightRange;
+
     private Camera mainCamera;
     private Highlight currentHighlight;
 
@@ -22,7 +25,7 @@ public class HighlightController : MonoBehaviour
     {
         Highlight foundHighlight = null;
         RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, Mathf.Infinity))
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, highlightRange))
         {
             if (hit.collider.gameObject.TryGetComponent(out Highlight highlight))
             {
