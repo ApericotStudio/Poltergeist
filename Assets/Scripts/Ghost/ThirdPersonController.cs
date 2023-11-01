@@ -252,8 +252,9 @@ namespace StarterAssets
             // changes player input based on camera orientation
             Vector3 targetRight = _input.move.x * _mainCamera.transform.right;
             Vector3 targetForward = _input.move.y * _mainCamera.transform.forward;
+            Vector3 targetUp = _input.fly * _mainCamera.transform.up;
 
-            Vector3 targetDirection = (targetRight + targetForward).normalized;
+            Vector3 targetDirection = (targetRight + targetForward + targetUp).normalized;
             targetDirection *= _speed * Time.deltaTime;
 
             // move the player
