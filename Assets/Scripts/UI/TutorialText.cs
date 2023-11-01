@@ -4,21 +4,21 @@ using TMPro;
 [RequireComponent(typeof(TMP_Text))]
 public class TutorialText : MonoBehaviour
 {
-    private TMP_Text text;
+    private TMP_Text textComponent;
 
     private void Start()
     {
-        text = GetComponent<TMP_Text>();
+        textComponent = GetComponent<TMP_Text>();
     }
 
     /// <summary>
     /// Updates the text displayed by the Text object.
     /// Call this function on an event.
     /// </summary>
-    /// <param name="text">The new text for the </param>
-    public void UpdateText(string text)
+    /// <param name="text">The new text for the TMPro text component</param>
+    public void UpdateText(string newText)
     {
-        this.text.text = text;
+        textComponent.text = newText;
     }
     
     /// <summary>
@@ -27,6 +27,11 @@ public class TutorialText : MonoBehaviour
     /// </summary>
     public void Hide()
     {
-        text.gameObject.SetActive(false);
+        textComponent.gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        textComponent.gameObject.SetActive(true);
     }
 }
