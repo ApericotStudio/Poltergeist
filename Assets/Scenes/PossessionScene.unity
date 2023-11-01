@@ -298,8 +298,8 @@ GameObject:
   - component: {fileID: 301646404}
   - component: {fileID: 301646403}
   - component: {fileID: 301646402}
-  - component: {fileID: 301646401}
   - component: {fileID: 301646406}
+  - component: {fileID: 301646407}
   m_Layer: 0
   m_Name: Object 2
   m_TagString: Untagged
@@ -307,19 +307,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &301646401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301646400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b51dceb9b3ea60349b773cd5ee515b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VirtualCamera: {fileID: 614949716}
 --- !u!136 &301646402
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -423,7 +410,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 301646403}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &301646407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301646400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fa4e853349ce64ab7730527ab4ac79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 614949716}
+  isPossessed: 0
 --- !u!1 &318402512
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,9 +945,9 @@ GameObject:
   - component: {fileID: 779790233}
   - component: {fileID: 779790232}
   - component: {fileID: 779790231}
-  - component: {fileID: 779790235}
   - component: {fileID: 779790236}
   - component: {fileID: 779790237}
+  - component: {fileID: 779790238}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1043,19 +1044,6 @@ Transform:
   - {fileID: 935517199}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &779790235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779790230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b51dceb9b3ea60349b773cd5ee515b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VirtualCamera: {fileID: 935517200}
 --- !u!114 &779790236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,7 +1070,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 779790232}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &779790238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779790230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fa4e853349ce64ab7730527ab4ac79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 935517200}
+  isPossessed: 1
 --- !u!1 &891877460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,7 +1236,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 0
+  m_Priority: 1
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -1631,8 +1633,8 @@ GameObject:
   - component: {fileID: 1585079264}
   - component: {fileID: 1585079263}
   - component: {fileID: 1585079262}
-  - component: {fileID: 1585079261}
   - component: {fileID: 1585079266}
+  - component: {fileID: 1585079267}
   m_Layer: 0
   m_Name: Object 1
   m_TagString: Untagged
@@ -1640,19 +1642,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1585079261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585079260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b51dceb9b3ea60349b773cd5ee515b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VirtualCamera: {fileID: 976260043}
 --- !u!136 &1585079262
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1756,7 +1745,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers:
   - {fileID: 1585079263}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1585079267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585079260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fa4e853349ce64ab7730527ab4ac79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 976260043}
+  isPossessed: 0
 --- !u!1 &2104216564
 GameObject:
   m_ObjectHideFlags: 0
