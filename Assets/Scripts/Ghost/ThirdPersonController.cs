@@ -1,6 +1,4 @@
-﻿using TMPro;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -63,9 +61,9 @@ namespace StarterAssets
         [SerializeField]private bool LockCameraPosition = false;
 
         [Header("Flying")]
-        public float minHeight;
-        public float maxHeight;
-        public float currentHeight;
+        public float MinHeight;
+        public float MaxHeight;
+        public float CurrentHeight;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -120,7 +118,7 @@ namespace StarterAssets
 
         private void Start()
         {
-            currentHeight = transform.position.y;
+            CurrentHeight = transform.position.y;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
