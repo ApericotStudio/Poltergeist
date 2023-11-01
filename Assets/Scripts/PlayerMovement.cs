@@ -14,11 +14,13 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         rb = this.GetComponent<Rigidbody>();
         cam = Camera.main;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log(cam.transform.forward);
