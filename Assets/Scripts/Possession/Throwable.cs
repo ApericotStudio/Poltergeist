@@ -75,11 +75,6 @@ public class Throwable : MonoBehaviour, IPossessable
             {
                 ThrowObject();
             }
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                Debug.Log(_clutter.State);
-                Debug.Log(_rb.velocity.magnitude);
-            }
         }
     }
 
@@ -119,7 +114,6 @@ public class Throwable : MonoBehaviour, IPossessable
         if (collision.impulse.magnitude > 0.1f)
         {
             _clutter.State = ClutterState.Destroyed;
-            Debug.Log(collision.impulse.magnitude);
         }
     }
 
