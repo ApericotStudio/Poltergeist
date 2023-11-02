@@ -38,11 +38,15 @@ public class PossessionController : MonoBehaviour
             if (currentPossession != null)
             {
                 Unpossess();
-                return;
             }
+            return;
         }
         controller.freeze = true;
         this.virtcam.Priority = 0;
+        if (this.currentPossession != null)
+        {
+            currentPossession.Unpossess();
+        }
         possessable.Possess();
         currentPossession = possessable;
     }
@@ -51,6 +55,7 @@ public class PossessionController : MonoBehaviour
     {
         this.virtcam.Priority = 1;
         currentPossession.Unpossess();
+        currentPossession = null;
         controller.freeze = false;
     }
 
