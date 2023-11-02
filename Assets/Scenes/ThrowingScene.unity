@@ -1231,8 +1231,8 @@ GameObject:
   - component: {fileID: 1111073275}
   - component: {fileID: 1111073279}
   - component: {fileID: 1111073280}
-  - component: {fileID: 1111073281}
   - component: {fileID: 1111073282}
+  - component: {fileID: 1111073283}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1370,25 +1370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39099660458d94285ae51084adbcafd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1111073281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111073274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0a3de52c0a07402795f71e2e416d694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  throwMode: 1
-  throwForce: 15
-  ySense: 2
-  rotationSpeed: 10
-  lineRenderer: {fileID: 1111073282}
-  linePoints: 25
-  timeBetweenPoints: 0.1
 --- !u!120 &1111073282
 LineRenderer:
   serializedVersion: 2
@@ -1493,6 +1474,25 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1111073283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111073274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399332fd2b8604e0ba48f13a236d8f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _throwForce: 15
+  ySense: 2
+  _rotationSpeed: 10
+  _linePoints: 25
+  _timeBetweenPoints: 0.1
+  _virtualCamera: {fileID: 909111245}
+  _isPossessed: 0
 --- !u!1 &1134219226
 GameObject:
   m_ObjectHideFlags: 3

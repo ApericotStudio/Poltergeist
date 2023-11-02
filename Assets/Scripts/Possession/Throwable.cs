@@ -6,48 +6,48 @@ using Cinemachine;
 public class Throwable : MonoBehaviour, IPossessable
 {
     [Header("Throw Controls")]
-    [SerializeField] private float throwForce = 15;
+    [SerializeField] private float _throwForce = 15;
     [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 2;
-    [SerializeField] float rotationSpeed = 10;
-    private Vector3 releasePosition;
+    [SerializeField] private float _rotationSpeed = 10;
+    private Vector3 _releasePosition;
 
     [Header("Display Controls")]
-    [SerializeField] [Range(10, 100)] private int linePoints = 25;
-    [SerializeField] [Range(0.01f, 0.25f)] private float timeBetweenPoints = 0.1f;
-    private LayerMask throwLayerMask;
+    [SerializeField] [Range(10, 100)] private int _linePoints = 25;
+    [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints = 0.1f;
+    private LayerMask _throwLayerMask;
 
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    private bool isPossessed;
+    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    public bool _isPossessed;
 
-    private Camera cam;
-    private Rigidbody rb;
-    private Vector3 aim;
-    private LineRenderer lineRenderer;
+    private Camera _cam;
+    private Rigidbody _rb;
+    private Vector3 _aim;
+    private LineRenderer _lineRenderer;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        rb = this.GetComponent<Rigidbody>();
-        lineRenderer = this.GetComponent<LineRenderer>();
-        cam = Camera.main;
+        _rb = this.GetComponent<Rigidbody>();
+        _lineRenderer = this.GetComponent<LineRenderer>();
+        _cam = Camera.main;
 
         int throwLayer = this.gameObject.layer;
         for (int i = 0; i < 32; i++)
         {
             if (!Physics.GetIgnoreLayerCollision(throwLayer, i))
             {
-                throwLayerMask |= 1 << i;
+                _throwLayerMask |= 1 << i;
             }
         }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        aim = cam.transform.forward;
-        aim.y = aim.y * ySense;
-        if (isPossessed)
+        _aim = _cam.transform.forward;
+        _aim.y = _aim.y * ySense;
+        if (_isPossessed)
         {
-            float playerRotate = rotationSpeed * Input.GetAxis("Mouse X");
+            float playerRotate = _rotationSpeed * Input.GetAxis("Mouse X");
             transform.Rotate(0, playerRotate, 0);
             if (Input.GetKey(KeyCode.Mouse0))
             {
@@ -55,7 +55,7 @@ public class Throwable : MonoBehaviour, IPossessable
             }
             else
             {
-                lineRenderer.enabled = false;
+                _lineRenderer.enabled = false;
             }
 
 
@@ -68,31 +68,31 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Possess()
     {
-        virtualCamera.Priority = 1;
-        isPossessed = true;
+        _virtualCamera.Priority = 1;
+        _isPossessed = true;
     }
 
     public void Unpossess()
     {
-        virtualCamera.Priority = 0;
-        isPossessed = false;
+        _virtualCamera.Priority = 0;
+        _isPossessed = false;
     }
 
     private void ThrowObject()
     {
-        rb.AddForce(aim * throwForce, ForceMode.Impulse);
+        _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
     }
 
     private void DrawProjection()
     {
-        releasePosition = transform.position;
-        lineRenderer.enabled = true;
-        lineRenderer.positionCount = Mathf.CeilToInt(linePoints / timeBetweenPoints) + 1;
-        Vector3 startPosition = releasePosition;
-        Vector3 startVelocity = throwForce * aim / rb.mass;
+        _releasePosition = transform.position;
+        _lineRenderer.enabled = true;
+        _lineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
+        Vector3 startPosition = _releasePosition;
+        Vector3 startVelocity = _throwForce * _aim / _rb.mass;
         int i = 0;
-        lineRenderer.SetPosition(i, startPosition);
-        for (float time = 0; time < linePoints; time += timeBetweenPoints)
+        _lineRenderer.SetPosition(i, startPosition);
+        for (float time = 0; time < _linePoints; time += _timeBetweenPoints)
         {
             i++;
             Vector3 point = startPosition + time * startVelocity;
@@ -100,14 +100,14 @@ public class Throwable : MonoBehaviour, IPossessable
             //Trajectory formula here
             point.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2f * time * time);
 
-            lineRenderer.SetPosition(i, point);
+            _lineRenderer.SetPosition(i, point);
 
-            Vector3 lastPosition = lineRenderer.GetPosition(i - 1);
+            Vector3 lastPosition = _lineRenderer.GetPosition(i - 1);
 
-            if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, (point - lastPosition).magnitude, throwLayerMask))
+            if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, (point - lastPosition).magnitude, _throwLayerMask))
             {
-                lineRenderer.SetPosition(i, hit.point);
-                lineRenderer.positionCount = i + 1;
+                _lineRenderer.SetPosition(i, hit.point);
+                _lineRenderer.positionCount = i + 1;
                 return;
             }
         }
