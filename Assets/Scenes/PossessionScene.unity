@@ -413,6 +413,7 @@ GameObject:
   - component: {fileID: 152132489}
   - component: {fileID: 152132488}
   - component: {fileID: 152132487}
+  - component: {fileID: 152132494}
   m_Layer: 0
   m_Name: Object 1
   m_TagString: Untagged
@@ -675,6 +676,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152132485}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &152132494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152132485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de1a478009c8414e9303b12dd63f349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveAnxietyValue: 2
+  DestroyAnxietyValue: 10
+  AuditoryMultiplier: 1
+  VisualMultiplier: 3
 --- !u!1 &200849597
 GameObject:
   m_ObjectHideFlags: 3
@@ -3220,6 +3237,7 @@ GameObject:
   - component: {fileID: 1206899723}
   - component: {fileID: 1206899730}
   - component: {fileID: 1206899731}
+  - component: {fileID: 1206899732}
   m_Layer: 0
   m_Name: Object 3
   m_TagString: Untagged
@@ -3482,6 +3500,22 @@ MonoBehaviour:
   renderers:
   - {fileID: 1206899728}
   highlightColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1206899732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206899721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de1a478009c8414e9303b12dd63f349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveAnxietyValue: 2
+  DestroyAnxietyValue: 10
+  AuditoryMultiplier: 1
+  VisualMultiplier: 3
 --- !u!1 &1259284987
 GameObject:
   m_ObjectHideFlags: 3
@@ -3577,6 +3611,7 @@ GameObject:
   - component: {fileID: 1327424715}
   - component: {fileID: 1327424714}
   - component: {fileID: 1327424713}
+  - component: {fileID: 1327424720}
   m_Layer: 0
   m_Name: Object 2
   m_TagString: Untagged
@@ -3839,6 +3874,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327424711}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1327424720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327424711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6de1a478009c8414e9303b12dd63f349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveAnxietyValue: 2
+  DestroyAnxietyValue: 10
+  AuditoryMultiplier: 1
+  VisualMultiplier: 3
 --- !u!1 &1359245195 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
