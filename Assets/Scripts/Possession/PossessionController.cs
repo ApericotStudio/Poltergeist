@@ -1,4 +1,6 @@
 using UnityEngine;
+using Cinemachine;
+using StarterAssets;
 
 public class PossessionController : MonoBehaviour
 {
@@ -7,11 +9,14 @@ public class PossessionController : MonoBehaviour
 
     private IPossessable currentPossession;
     private Camera mainCamera;
+    private CinemachineVirtualCamera virtcam;
+    private ThirdPersonController controller;
 
     private void Start()
     {
         mainCamera = Camera.main;
-        currentPossession = GetComponent<IPossessable>();
+        virtcam = this.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
+        controller = this.gameObject.GetComponent<ThirdPersonController>();
     }
 
     private void Update()
@@ -30,11 +35,28 @@ public class PossessionController : MonoBehaviour
         IPossessable possessable = LookForPossessableObject();
         if (possessable == null)
         {
+            if (currentPossession != null)
+            {
+                Unpossess();
+            }
             return;
         }
-        currentPossession.Unpossess();
+        controller.freeze = true;
+        this.virtcam.Priority = 0;
+        if (this.currentPossession != null)
+        {
+            currentPossession.Unpossess();
+        }
         possessable.Possess();
         currentPossession = possessable;
+    }
+
+    private void Unpossess()
+    {
+        this.virtcam.Priority = 1;
+        currentPossession.Unpossess();
+        currentPossession = null;
+        controller.freeze = false;
     }
 
     /// <summary>

@@ -5,6 +5,7 @@ public class TemporaryMovementController : MonoBehaviour, IPossessable
 {
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private bool isPossessed = false;
+    [SerializeField] float rotationSpeed = 10;
 
     private float horizontalInput;
     private float speed = 25;
@@ -24,7 +25,8 @@ public class TemporaryMovementController : MonoBehaviour, IPossessable
 
     private void Look()
     {
-        transform.rotation = Quaternion.Euler(new Vector3(0, horizontalInput, 0) * Time.deltaTime * speed + transform.rotation.eulerAngles);
+        float playerRotate = rotationSpeed * Input.GetAxis("Mouse X");
+        transform.Rotate(0, playerRotate, 0);
     }
 
     public void Possess()
