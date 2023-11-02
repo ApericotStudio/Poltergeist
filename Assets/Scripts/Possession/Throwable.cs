@@ -111,7 +111,7 @@ public class Throwable : MonoBehaviour, IPossessable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.impulse.magnitude > 0.1f)
+        if (collision.impulse.magnitude > _destroyMinimumImpulse)
         {
             _clutter.State = ClutterState.Destroyed;
         }
