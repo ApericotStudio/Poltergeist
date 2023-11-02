@@ -9,6 +9,7 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] private float _throwForce = 15;
     [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 2;
     [SerializeField] private float _rotationSpeed = 10;
+    [SerializeField] [Tooltip("Minimum Impulse needed to destroy the object")] private float _destroyMinimumImpulse = 1;
     private Vector3 _releasePosition;
 
     [Header("Display Controls")]
@@ -17,18 +18,23 @@ public class Throwable : MonoBehaviour, IPossessable
     private LayerMask _throwLayerMask;
 
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
-    public bool _isPossessed;
+    public bool isPossessed;
 
     private Camera _cam;
     private Rigidbody _rb;
+    private Collider _collider;
     private Vector3 _aim;
     private LineRenderer _lineRenderer;
+    private Clutter _clutter;
+
     // Start is called before the first frame update
     private void Start()
     {
         _rb = this.GetComponent<Rigidbody>();
         _lineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
+        _clutter = this.GetComponent<Clutter>();
+        _collider = this.GetComponent<Collider>();
 
         int throwLayer = this.gameObject.layer;
         for (int i = 0; i < 32; i++)
@@ -40,12 +46,18 @@ public class Throwable : MonoBehaviour, IPossessable
         }
     }
 
+    private void FixedUpdate()
+    {
+        UpdateClutterState();
+    }
+
     // Update is called once per frame
     private void Update()
     {
         _aim = _cam.transform.forward;
         _aim.y = _aim.y * ySense;
-        if (_isPossessed)
+        _aim.Normalize();
+        if (isPossessed)
         {
             float playerRotate = _rotationSpeed * Input.GetAxis("Mouse X");
             transform.Rotate(0, playerRotate, 0);
@@ -63,24 +75,52 @@ public class Throwable : MonoBehaviour, IPossessable
             {
                 ThrowObject();
             }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Debug.Log(_clutter.State);
+                Debug.Log(_rb.velocity.magnitude);
+            }
         }
     }
 
     public void Possess()
     {
         _virtualCamera.Priority = 1;
-        _isPossessed = true;
+        isPossessed = true;
     }
 
     public void Unpossess()
     {
         _virtualCamera.Priority = 0;
-        _isPossessed = false;
+        isPossessed = false;
     }
 
     private void ThrowObject()
     {
         _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
+    }
+
+    private void UpdateClutterState()
+    {
+        if (_clutter.State != ClutterState.Destroyed)
+        {
+            if (_rb.velocity.magnitude > 0.01f)
+            {
+                _clutter.State = ClutterState.Moving;
+            } else
+            {
+                _clutter.State = ClutterState.Idle;
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.impulse.magnitude > 0.1f)
+        {
+            _clutter.State = ClutterState.Destroyed;
+            Debug.Log(collision.impulse.magnitude);
+        }
     }
 
     private void DrawProjection()
