@@ -29,11 +29,11 @@ public class PossessionController : MonoBehaviour
         {
             Look();
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && currentPossession == null)
         {
             EnterAimMode();
         }
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyUp(KeyCode.Mouse0) && currentPossession == null)
         {
             Possess();
             if (currentPossession == null)
@@ -47,7 +47,7 @@ public class PossessionController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Possess();
+            Unpossess();
         }
     }
 
@@ -81,10 +81,7 @@ public class PossessionController : MonoBehaviour
         IPossessable possessable = LookForPossessableObject();
         if (possessable == null)
         {
-            if (currentPossession != null)
-            {
-                Unpossess();
-            }
+            Unpossess();
             return;
         }
         controller.freeze = true;
@@ -99,10 +96,13 @@ public class PossessionController : MonoBehaviour
 
     private void Unpossess()
     {
-        this.movecam.Priority = 1;
-        currentPossession.Unpossess();
-        currentPossession = null;
-        controller.freeze = false;
+        if (currentPossession != null)
+        {
+            this.movecam.Priority = 1;
+            currentPossession.Unpossess();
+            currentPossession = null;
+            controller.freeze = false;
+        }
     }
 
     /// <summary>
