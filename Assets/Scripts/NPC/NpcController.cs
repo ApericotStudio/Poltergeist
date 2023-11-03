@@ -39,6 +39,8 @@ public class NpcController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float _footstepVolume = 0.5f;
+
+    public UnityEvent NpcPanickedEvent;
     
     private NavMeshAgent _navMeshAgent;
     private INpcState _currentState;
@@ -50,7 +52,6 @@ public class NpcController : MonoBehaviour
     private Animator _animator;
 
     public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
-    public INpcState CurrentState { get => _currentState; set => _currentState = value; }
     public bool RanAway { get => _ranAway; set => _ranAway = value; }
     public Transform RoamTargetLocation { get => _roamTargetLocation; set => _roamTargetLocation = value; }
     public float RoamRadius { get => _roamRadius; set => _roamRadius = value; }
@@ -59,6 +60,15 @@ public class NpcController : MonoBehaviour
     public float FrightenedSpeed { get => _frightenedSpeed; set => _frightenedSpeed = value; }
     public AudioClip[] FootstepAudioClips { get => _footstepAudioClips; set => _footstepAudioClips = value; }
     public float FootstepVolume { get => _footstepVolume; set => _footstepVolume = value; }
+
+    public INpcState CurrentState
+    {
+        get => _currentState;
+        set
+        {
+            _currentState = value;
+        }
+    }
 
     public float AnxietyValue
     { 

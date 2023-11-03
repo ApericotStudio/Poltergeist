@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class RoamState : INpcState
 {
@@ -23,6 +25,7 @@ public class RoamState : INpcState
         {
             _npcController.StopCoroutine(_roamCoroutine);
             _npcController.CurrentState = new PanickedState(_npcController);
+            _npcController.NpcPanickedEvent.Invoke();
             return;
         }
         
