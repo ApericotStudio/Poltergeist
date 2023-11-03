@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class RoamState : INpcState
 {
@@ -14,6 +16,10 @@ public class RoamState : INpcState
 
     public void Execute()
     {
+        if(_npcController.AnxietyValue <= 0f)
+        {
+            _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerLost);
+        }
         if(_npcController.NavMeshAgent.speed != _npcController.RoamingSpeed)
         {
             _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
