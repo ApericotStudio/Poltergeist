@@ -143,7 +143,7 @@ namespace StarterAssets
             GroundedCheck();
             if (!freeze)
             {
-                Look();
+                //Look();
                 Move();
             }
         }
@@ -156,7 +156,7 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            //CameraRotation();
+            CameraRotation();
         }
 
         private void AssignAnimationIDs()
@@ -239,7 +239,7 @@ namespace StarterAssets
 
 
                 // rotate to face input direction relative to camera position
-                //transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
             // changes player input based on camera orientation

@@ -9,22 +9,68 @@ public class PossessionController : MonoBehaviour
 
     private IPossessable currentPossession;
     private Camera mainCamera;
-    private CinemachineVirtualCamera virtcam;
+    [SerializeField] private CinemachineVirtualCamera movecam;
+    private CinemachineVirtualCamera aimCam;
     private ThirdPersonController controller;
+
+    private bool aimmode;
+    [SerializeField] float rotationSpeed = 10;
 
     private void Start()
     {
         mainCamera = Camera.main;
-        virtcam = this.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
+        aimCam = this.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
         controller = this.gameObject.GetComponent<ThirdPersonController>();
     }
 
     private void Update()
     {
+        if (aimmode)
+        {
+            Look();
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            EnterAimMode();
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            Possess();
+            if (currentPossession == null)
+            {
+                ExitAimCancel();
+            }
+            else
+            {
+                ExitAimToPossess();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.E))
         {
             Possess();
         }
+    }
+
+    private void EnterAimMode()
+    {
+        aimCam.Priority = 1;
+        movecam.Priority = 0;
+        aimmode = true;
+        controller.freeze = true;
+    }
+
+    private void ExitAimToPossess()
+    {
+        aimCam.Priority = 0;
+        aimmode = false;
+    }
+
+    private void ExitAimCancel()
+    {
+        movecam.Priority = 1;
+        aimCam.Priority = 0;
+        aimmode = false;
+        controller.freeze = false;
     }
 
     /// <summary>
@@ -42,7 +88,7 @@ public class PossessionController : MonoBehaviour
             return;
         }
         controller.freeze = true;
-        this.virtcam.Priority = 0;
+        this.movecam.Priority = 0;
         if (this.currentPossession != null)
         {
             currentPossession.Unpossess();
@@ -53,7 +99,7 @@ public class PossessionController : MonoBehaviour
 
     private void Unpossess()
     {
-        this.virtcam.Priority = 1;
+        this.movecam.Priority = 1;
         currentPossession.Unpossess();
         currentPossession = null;
         controller.freeze = false;
@@ -74,5 +120,10 @@ public class PossessionController : MonoBehaviour
             }
         }
         return null;
+    }
+    private void Look()
+    {
+        float playerRotate = rotationSpeed * Input.GetAxis("Mouse X");
+        transform.Rotate(0, playerRotate, 0);
     }
 }
