@@ -29,7 +29,7 @@ public class PanickedState : INpcState
         }
 
 
-        if(_npcController.NavMeshAgent.remainingDistance < 0.5f)
+        if(_npcController.NavMeshAgent.velocity.magnitude > 0 &&_npcController.NavMeshAgent.remainingDistance < 0.5f)
         {
             _npcController.RanAway = true;
             _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerWon);
