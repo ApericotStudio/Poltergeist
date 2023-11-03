@@ -10,67 +10,33 @@ public class PossessionController : MonoBehaviour
     private IPossessable currentPossession;
     private Camera mainCamera;
     [SerializeField] private CinemachineVirtualCamera movecam;
-    private CinemachineVirtualCamera aimCam;
     private ThirdPersonController controller;
 
-    private bool aimmode;
+    private AimMode aimMode;
     [SerializeField] float rotationSpeed = 10;
 
     private void Start()
     {
         mainCamera = Camera.main;
-        aimCam = this.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
+        aimMode = this.gameObject.GetComponent<AimMode>();
         controller = this.gameObject.GetComponent<ThirdPersonController>();
     }
 
     private void Update()
     {
-        if (aimmode)
-        {
-            Look();
-        }
         if (Input.GetKeyDown(KeyCode.Mouse0) && currentPossession == null)
         {
-            EnterAimMode();
+            aimMode.enabled = true;
         }
         if (Input.GetKeyUp(KeyCode.Mouse0) && currentPossession == null)
         {
+            aimMode.enabled = false;
             Possess();
-            if (currentPossession == null)
-            {
-                ExitAimCancel();
-            }
-            else
-            {
-                ExitAimToPossess();
-            }
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             Unpossess();
         }
-    }
-
-    private void EnterAimMode()
-    {
-        aimCam.Priority = 1;
-        movecam.Priority = 0;
-        aimmode = true;
-        controller.freeze = true;
-    }
-
-    private void ExitAimToPossess()
-    {
-        aimCam.Priority = 0;
-        aimmode = false;
-    }
-
-    private void ExitAimCancel()
-    {
-        movecam.Priority = 1;
-        aimCam.Priority = 0;
-        aimmode = false;
-        controller.freeze = false;
     }
 
     /// <summary>
@@ -120,10 +86,5 @@ public class PossessionController : MonoBehaviour
             }
         }
         return null;
-    }
-    private void Look()
-    {
-        float playerRotate = rotationSpeed * Input.GetAxis("Mouse X");
-        transform.Rotate(0, playerRotate, 0);
     }
 }
