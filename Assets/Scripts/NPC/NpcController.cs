@@ -31,7 +31,9 @@ public class NpcController : MonoBehaviour
     [SerializeField]
     [Tooltip("The event that will be invoked when the anxiety value changes.")]
     private UnityEvent<float> _onAnxietyValueChange;
-
+    [SerializeField]
+    [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
+    private GameEventManager _gameEventManager;
     [Tooltip("The audio clips that will be played when the NPC moves.")]
     [SerializeField]
     private AudioClip[] _footstepAudioClips;
@@ -39,8 +41,6 @@ public class NpcController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float _footstepVolume = 0.5f;
-    [SerializeField]
-    private GameEventManager _gameEventManager;
 
     public UnityEvent NpcPanickedEvent;
     
