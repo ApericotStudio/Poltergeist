@@ -17,8 +17,8 @@ public class PanickedState : INpcState
             if(_npcController.NavMeshAgent.remainingDistance < 0.5f)
             {
                 _npcController.RanAway = true;
-                _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.GameOver);
                 _npcController.GameEventManager.Won = true;
+                _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.GameOver);
             }
         }
     }

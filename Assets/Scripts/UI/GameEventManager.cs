@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,7 +19,7 @@ public class GameEventManager : MonoBehaviour
     [SerializeField]
     private TMP_Text _gameOverText;
 
-    private bool _won = false;
+    private bool _won;
     public bool Won { get => _won; set => _won = value; }
     public UnityEvent<GameEvents> OnGameEvent { get => _onGameEvent; set => _onGameEvent = value; }
 

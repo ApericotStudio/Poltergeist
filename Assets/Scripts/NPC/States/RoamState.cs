@@ -18,8 +18,8 @@ public class RoamState : INpcState
     {
         if(_npcController.AnxietyValue == 0f)
         {
-            _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.GameOver);
             _npcController.GameEventManager.Won = false;
+            _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.GameOver);
         }
         if(_npcController.NavMeshAgent.speed != _npcController.RoamingSpeed)
         {
