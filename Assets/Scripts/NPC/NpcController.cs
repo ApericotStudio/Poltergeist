@@ -34,6 +34,14 @@ public class NpcController : MonoBehaviour
     [SerializeField]
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
     private GameEventManager _gameEventManager;
+    [Header("NPC Audio Settings")]
+    [Tooltip("The audio clips that will be played when the NPC screams.")]
+    [SerializeField]
+    private AudioClip[] _screamAudioClips;
+    [Tooltip("The volume of the scream audio clips.")]
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float _screamVolume = 1f;
     [Tooltip("The audio clips that will be played when the NPC moves.")]
     [SerializeField]
     private AudioClip[] _footstepAudioClips;
@@ -41,13 +49,12 @@ public class NpcController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float _footstepVolume = 0.5f;
-
-    public UnityEvent NpcPanickedEvent;
     
     private NavMeshAgent _navMeshAgent;
     private INpcState _currentState;
     private bool _ranAway;
 
+    private AudioSource _npcAudioSource;
     private int _animIDMotionSpeed;
     private int _animIDSpeed;
     private float _animationBlend;
@@ -60,8 +67,12 @@ public class NpcController : MonoBehaviour
     public float RoamingSpeed { get => _roamingSpeed; set => _roamingSpeed = value; }
     public Transform FrightenedTargetLocation { get => _frightenedTargetLocation; set => _frightenedTargetLocation = value; }
     public float FrightenedSpeed { get => _frightenedSpeed; set => _frightenedSpeed = value; }
+    public AudioSource NpcAudioSource { get => _npcAudioSource; set => _npcAudioSource = value; }
+    
     public AudioClip[] FootstepAudioClips { get => _footstepAudioClips; set => _footstepAudioClips = value; }
+    public AudioClip[] ScreamAudioClips { get => _screamAudioClips; set => _screamAudioClips = value; }
     public float FootstepVolume { get => _footstepVolume; set => _footstepVolume = value; }
+    public float ScreamVolume { get => _screamVolume; set => _screamVolume = value; }
     public GameEventManager GameEventManager { get => _gameEventManager; set => _gameEventManager = value; }
 
     public INpcState CurrentState
@@ -85,6 +96,7 @@ public class NpcController : MonoBehaviour
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _npcAudioSource = GetComponent<AudioSource>();
         InitializeAnimator();
         _currentState = new RoamState(this);
     }

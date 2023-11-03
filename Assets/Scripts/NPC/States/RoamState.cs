@@ -29,7 +29,6 @@ public class RoamState : INpcState
         {
             _npcController.StopCoroutine(_roamCoroutine);
             _npcController.CurrentState = new PanickedState(_npcController);
-            _npcController.NpcPanickedEvent.Invoke();
             return;
         }
         
