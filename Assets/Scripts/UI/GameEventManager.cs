@@ -8,7 +8,8 @@ using UnityEngine.Events;
 public enum GameEvents 
 {
     Playing,
-    GameOver
+    PlayerLost,
+    PlayerWon
 }
 public class GameEventManager : MonoBehaviour
 {
@@ -19,8 +20,6 @@ public class GameEventManager : MonoBehaviour
     [SerializeField]
     private TMP_Text _gameOverText;
 
-    private bool _won;
-    public bool Won { get => _won; set => _won = value; }
     public UnityEvent<GameEvents> OnGameEvent { get => _onGameEvent; set => _onGameEvent = value; }
 
     private void Awake()
@@ -31,9 +30,15 @@ public class GameEventManager : MonoBehaviour
 
     private void OnGameEventOccurred(GameEvents gameEvent)
     {
-        if (gameEvent == GameEvents.GameOver)
+        if (gameEvent == GameEvents.PlayerLost)
         {
-            _gameOverText.text = _won ? "You Won!" : "You Lost!";
+            _gameOverText.text = "You lost!";
+            _menu.SetActive(true);
+            Time.timeScale = 0;
+        }
+        if (gameEvent == GameEvents.PlayerWon)
+        {
+            _gameOverText.text = "You won!";
             _menu.SetActive(true);
             Time.timeScale = 0;
         }
