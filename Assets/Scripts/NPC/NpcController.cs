@@ -39,6 +39,8 @@ public class NpcController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float _footstepVolume = 0.5f;
+    [SerializeField]
+    private GameEventManager _gameEventManager;
 
     public UnityEvent NpcPanickedEvent;
     
@@ -60,6 +62,7 @@ public class NpcController : MonoBehaviour
     public float FrightenedSpeed { get => _frightenedSpeed; set => _frightenedSpeed = value; }
     public AudioClip[] FootstepAudioClips { get => _footstepAudioClips; set => _footstepAudioClips = value; }
     public float FootstepVolume { get => _footstepVolume; set => _footstepVolume = value; }
+    public GameEventManager GameEventManager { get => _gameEventManager; set => _gameEventManager = value; }
 
     public INpcState CurrentState
     {

@@ -16,6 +16,11 @@ public class RoamState : INpcState
 
     public void Execute()
     {
+        if(_npcController.AnxietyValue == 0f)
+        {
+            _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.GameOver);
+            _npcController.GameEventManager.Won = false;
+        }
         if(_npcController.NavMeshAgent.speed != _npcController.RoamingSpeed)
         {
             _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
