@@ -111,7 +111,7 @@ public class NpcSenses : MonoBehaviour
             {
                 case ClutterState.Idle:
                     break;
-                case ClutterState.Moving:
+                case ClutterState.Falling:
                     UpdateAnxietyValue(clutter, clutter.MoveAnxietyValue);
                     break;
                 case ClutterState.Destroyed:
@@ -127,14 +127,28 @@ public class NpcSenses : MonoBehaviour
     /// <param name="value">The amount of anxiety to be added.</param>
     private void UpdateAnxietyValue(Clutter clutter, float value)
     {
+        float anxietyToAdd = 0f;
+        
         if (clutter.IsVisible)
         {
-            _npcController.AnxietyValue += value * clutter.VisualMultiplier * Time.deltaTime;
+            anxietyToAdd += clutter.VisualAnxietyValue;
         }
-        else if (clutter.IsAudible)
+
+        if (clutter.IsAudible && clutter.State != ClutterState.Falling)
         {
-            _npcController.AnxietyValue += value * clutter.AuditoryMultiplier * Time.deltaTime;
+            anxietyToAdd += clutter.AuditoryAnxietyValue;
         }
+
+        if (clutter.Type == ClutterType.Big)
+        {
+            anxietyToAdd += clutter.BigClutterAnxietyValue;
+        }
+        else if (clutter.Type == ClutterType.Small)
+        {
+            anxietyToAdd += clutter.SmallClutterAnxietyValue;
+        }
+
+        _npcController.AnxietyValue += anxietyToAdd;
     }
     /// <summary>
     /// Clears the detected clutter, also setting their visibility and audibility to false.

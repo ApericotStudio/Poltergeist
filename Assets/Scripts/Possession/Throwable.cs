@@ -102,7 +102,7 @@ public class Throwable : MonoBehaviour, IPossessable
         {
             if (_rb.velocity.magnitude > 0.01f)
             {
-                _clutter.State = ClutterState.Moving;
+                _clutter.State = ClutterState.Falling;
             } else
             {
                 _clutter.State = ClutterState.Idle;
