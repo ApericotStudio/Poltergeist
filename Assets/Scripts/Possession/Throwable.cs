@@ -88,6 +88,7 @@ public class Throwable : MonoBehaviour, IPossessable
     public void Unpossess()
     {
         _virtualCamera.Priority = 0;
+        _lineRenderer.enabled = false;
         isPossessed = false;
     }
 
