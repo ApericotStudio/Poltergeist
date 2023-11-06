@@ -5,17 +5,23 @@ public class Interactable : MonoBehaviour
 {
     [Tooltip("Interactable is reusable")]
     [SerializeField] private bool singleUse = false;
-    private bool isUsed = false;
+    private bool used = false;
 
     public UnityEvent InteractEvent;
 
     public void Use()
     {
-        if (singleUse && isUsed)
+        if (singleUse && used)
         {
             return;
         }
         InteractEvent?.Invoke();
-        isUsed = true;
+        used = true;
+        if (singleUse)
+        {
+            if (gameObject.TryGetComponent(out Highlight highlight)){
+                highlight.EnableHighlight(false);
+            }
+        }
     }
 }
