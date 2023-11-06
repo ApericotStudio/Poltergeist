@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -115,6 +116,12 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            int clutterLayer = LayerMask.NameToLayer("Clutter");
+            int playerLayer = LayerMask.NameToLayer("Player");
+            Debug.Log(clutterLayer);
+            Debug.Log(playerLayer);
+            Physics.IgnoreLayerCollision(playerLayer, clutterLayer);
         }
 
         private void Start()
@@ -155,7 +162,7 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            CameraRotation();
+            //CameraRotation();
         }
 
         private void AssignAnimationIDs()
@@ -167,6 +174,23 @@ namespace StarterAssets
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
 
+        private void GoThroughObjects()
+        {
+            
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            /*
+            Clutter clutter = hit.gameObject.GetComponent<Clutter>();
+            if(clutter != null)
+            {
+                Physics.IgnoreLayerCollision(7, 3);
+            }
+
+            Debug.Log(clutter);
+            */
+        }
         private void GroundedCheck()
         {
             // set sphere position, with offset
