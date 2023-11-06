@@ -13,10 +13,11 @@ public class PossessionController : MonoBehaviour
     private ThirdPersonController controller;
 
     private AimMode aimMode;
-    [SerializeField] float rotationSpeed = 10;
+    private StarterAssetsInputs starterAssetsInputs;
 
-    private void Start()
+    private void Awake()
     {
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         mainCamera = Camera.main;
         aimMode = this.gameObject.GetComponent<AimMode>();
         controller = this.gameObject.GetComponent<ThirdPersonController>();
@@ -24,13 +25,8 @@ public class PossessionController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && currentPossession == null)
-        {
-            aimMode.enabled = true;
-        }
         if (Input.GetKeyUp(KeyCode.Mouse0) && currentPossession == null)
         {
-            aimMode.enabled = false;
             Possess();
         }
         if (Input.GetKeyDown(KeyCode.E))

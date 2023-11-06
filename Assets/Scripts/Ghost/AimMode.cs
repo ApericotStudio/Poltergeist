@@ -2,25 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using StarterAssets;
 
 public class AimMode : MonoBehaviour
 {
-    private CinemachineVirtualCamera aimCam;
-    [SerializeField] private float _rotationSpeed = 5;
+    private CinemachineVirtualCamera _aimCam;
+    private CinemachineVirtualCamera _defaultCam;
+    private ThirdPersonController _controller;
+    private StarterAssetsInputs _starterAssetsInputs;
+    [SerializeField] private float normalSensitivity = 1;
+    [SerializeField] private float aimSensitivity = 1;
     private bool _aimmode;
-    private CinemachineVirtualCamera defaultCam;
     // Start is called before the first frame update
     private void Awake()
     {
-        aimCam = this.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
-        if (this.gameObject.CompareTag("Player"))
-        {
-            defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        }
-        else
-        {
-            defaultCam = this.gameObject.GetComponent<CinemachineVirtualCamera>();
-        }
+        _starterAssetsInputs = this.gameObject.GetComponent<StarterAssetsInputs>();
+        _controller = this.gameObject.GetComponent<ThirdPersonController>();
+        _aimCam = GameObject.Find("PlayerAimCamera").GetComponent<CinemachineVirtualCamera>();
+        _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
     }
 
     private void Start()
@@ -31,24 +30,34 @@ public class AimMode : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (_aimmode)
+        if (_starterAssetsInputs.aim)
         {
-            float playerRotate = _rotationSpeed * Input.GetAxis("Mouse X");
-            transform.Rotate(0, playerRotate, 0);
+            EnterAimMode();
+
+            Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
+            worldAimTarget.y = transform.position.y;
+            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+            transform.forward = aimDirection;
+        }
+        else
+        {
+            ExitAimMode();
         }
     }
 
-    public void OnEnable()
+    public void EnterAimMode()
     {
         _aimmode = true;
-        this.aimCam.Priority = 1;
-        this.defaultCam.Priority = 0;
+        _controller.SetSensitivity(aimSensitivity);
+        this._aimCam.Priority = 1;
+        this._defaultCam.Priority = 0;
     }
 
-    public void OnDisable()
+    public void ExitAimMode()
     {
         _aimmode = false;
-        this.aimCam.Priority = 0;
-        this.defaultCam.Priority = 1;
+        _controller.SetSensitivity(normalSensitivity);
+        this._aimCam.Priority = 0;
+        this._defaultCam.Priority = 1;
     }
 }
