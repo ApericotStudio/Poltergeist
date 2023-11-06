@@ -10,6 +10,7 @@ public class Highlight : MonoBehaviour
     [Header("Adjustable variables")]
     [SerializeField] private Color highlightColor = Color.white;
 
+    private bool _disableHightlight;
     private List<Material> materials;
 
     private void Awake()
@@ -36,6 +37,10 @@ public class Highlight : MonoBehaviour
     {
         if (turnOn)
         {
+            if (_disableHightlight)
+            {
+                return;
+            }
             foreach (Material material in materials)
             {
                 material.EnableKeyword("_EMISSION");
@@ -48,6 +53,19 @@ public class Highlight : MonoBehaviour
             {
                 material.DisableKeyword("_EMISSION");
             }
+        }
+    }
+
+    /// <summary>
+    /// Enable or disable the ability to highlight.
+    /// </summary>
+    /// <param name="enableHighlight"></param>
+    public void EnableHighlight(bool enableHighlight)
+    {
+        _disableHightlight = !enableHighlight;
+        if (_disableHightlight)
+        {
+            ToggleHighlight(false);
         }
     }
 }
