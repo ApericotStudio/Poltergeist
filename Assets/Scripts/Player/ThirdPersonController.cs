@@ -119,8 +119,7 @@ namespace StarterAssets
 
             int clutterLayer = LayerMask.NameToLayer("Clutter");
             int playerLayer = LayerMask.NameToLayer("Player");
-            Debug.Log(clutterLayer);
-            Debug.Log(playerLayer);
+
             Physics.IgnoreLayerCollision(playerLayer, clutterLayer);
         }
 
