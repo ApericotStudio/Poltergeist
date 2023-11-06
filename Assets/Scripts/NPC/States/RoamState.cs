@@ -7,56 +7,32 @@ using UnityEngine.Events;
 public class RoamState : INpcState
 {
     private readonly NpcController _npcController;
-    private Coroutine _roamCoroutine;
 
     public RoamState(NpcController npcController)
     {
         _npcController = npcController;
     }
 
-    public void Execute()
+    public void Handle()
     {
-        if(_npcController.AnxietyValue <= 0f)
-        {
-            _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerLost);
-        }
-        if(_npcController.NavMeshAgent.speed != _npcController.RoamingSpeed)
-        {
-            _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
-        }
-
-        if(_npcController.AnxietyValue >= 100f)
-        {
-            _npcController.StopCoroutine(_roamCoroutine);
-            _npcController.CurrentState = new PanickedState(_npcController);
-            return;
-        }
-        
-        if (_npcController.RoamTargetLocation == null)
-        {
-            return;
-        }
-
-        if (!_npcController.NavMeshAgent.pathPending && _npcController.NavMeshAgent.remainingDistance < 0.5f)
-        {
-            _roamCoroutine ??= _npcController.StartCoroutine(RoamCoroutine());
-        }
+        _npcController.StartCoroutine(RoamCoroutine());
     }
 
     private IEnumerator RoamCoroutine()
     {
+        _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
         while (true)
         {
             if (_npcController.NavMeshAgent.remainingDistance < 0.5f)
             {
-                Vector3 randomRoamLocation = GetRandomRoamLocation();
-                _npcController.NavMeshAgent.SetDestination(randomRoamLocation);
+                Vector3 newRoamLocation = GetRoamLocation();
+                _npcController.NavMeshAgent.SetDestination(newRoamLocation);
             }
             yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
     }
 
-    private Vector3 GetRandomRoamLocation()
+    private Vector3 GetRoamLocation()
     {
         Vector3 randomDirection = Random.insideUnitSphere * _npcController.RoamRadius;
         randomDirection += _npcController.RoamTargetLocation.position;

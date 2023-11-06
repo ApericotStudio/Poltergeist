@@ -1,4 +1,4 @@
 public interface INpcState
 {
-    void Execute();
+    void Handle();
 }
