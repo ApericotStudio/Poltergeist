@@ -17,7 +17,6 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints = 0.1f;
     private LayerMask _throwLayerMask;
 
-    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
     public bool isPossessed;
 
     private Camera _cam;
@@ -26,7 +25,6 @@ public class Throwable : MonoBehaviour, IPossessable
     private Vector3 _aim;
     private LineRenderer _lineRenderer;
     private Clutter _clutter;
-
     // Start is called before the first frame update
     private void Start()
     {
@@ -35,15 +33,6 @@ public class Throwable : MonoBehaviour, IPossessable
         _cam = Camera.main;
         _clutter = this.GetComponent<Clutter>();
         _collider = this.GetComponent<Collider>();
-
-        int throwLayer = this.gameObject.layer;
-        for (int i = 0; i < 32; i++)
-        {
-            if (!Physics.GetIgnoreLayerCollision(throwLayer, i))
-            {
-                _throwLayerMask |= 1 << i;
-            }
-        }
     }
 
     private void FixedUpdate()
@@ -59,8 +48,6 @@ public class Throwable : MonoBehaviour, IPossessable
         _aim.Normalize();
         if (isPossessed)
         {
-            float playerRotate = _rotationSpeed * Input.GetAxis("Mouse X");
-            transform.Rotate(0, playerRotate, 0);
             if (Input.GetKey(KeyCode.Mouse0))
             {
                 DrawProjection();
@@ -80,14 +67,12 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Possess()
     {
-        _virtualCamera.Priority = 1;
         
         isPossessed = true;
     }
 
     public void Unpossess()
     {
-        _virtualCamera.Priority = 0;
         isPossessed = false;
     }
 

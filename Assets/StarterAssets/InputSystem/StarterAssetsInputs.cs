@@ -14,6 +14,9 @@ namespace StarterAssets
 		public bool sprint;
 		public float fly;
 		public bool aim;
+		public bool aimCancel;
+		public Button aimButton;
+		public Button aimCancelButton;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -55,10 +58,15 @@ namespace StarterAssets
         {
 			AimInput(value.isPressed);
         }
+
+		private void OnAimCancel(InputValue value)
+        {
+			AimCancelInput(value.isPressed);
+        }
 #endif
 
 
-        public void MoveInput(Vector2 newMoveDirection)
+		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		}
@@ -85,8 +93,19 @@ namespace StarterAssets
 
 		public void AimInput(bool newAimState)
         {
+			if (!aim && newAimState) { aimButton = Button.isPressed; }
+			if (aim && !newAimState) { aimButton = Button.isReleased; }
+			if (aim == newAimState) { aimButton = Button.idle;  }
 			aim = newAimState;
         }
+
+		public void AimCancelInput(bool newAimCancelState)
+        {
+			if (!aimCancel && newAimCancelState) { aimCancelButton = Button.isPressed; }
+			if (aimCancel && !newAimCancelState) { aimCancelButton = Button.isReleased; }
+			if (aimCancel == newAimCancelState) { aimCancelButton = Button.idle; }
+			aimCancel = newAimCancelState;
+		}
 
         private void OnApplicationFocus(bool hasFocus)
 		{
@@ -98,5 +117,12 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
+
+	public enum Button {
+		idle,
+		isPressed,
+		isReleased,
+	}
+
 	
 }

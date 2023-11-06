@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AimCancel",
+                    "type": "PassThrough",
+                    "id": "67517238-3414-41f3-9303-ae1b0841d298",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -263,10 +272,21 @@
                     "name": "",
                     "id": "874da260-ea24-4290-a5f6-ec0de3e80c09",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b973940-1b70-4d6a-8c7c-4b6b71799bc2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "AimCancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

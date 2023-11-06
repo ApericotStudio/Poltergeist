@@ -8,8 +8,8 @@ public class PossessionController : MonoBehaviour
     [SerializeField, Range(0f, 20f)] private float possessionRange;
 
     private IPossessable currentPossession;
+    public GameObject currentPossessionObject { get; private set; }
     private Camera mainCamera;
-    [SerializeField] private CinemachineVirtualCamera movecam;
     private ThirdPersonController controller;
 
     private AimMode aimMode;
@@ -25,44 +25,31 @@ public class PossessionController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Mouse0) && currentPossession == null)
-        {
-            Possess();
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Unpossess();
-        }
+
     }
 
     /// <summary>
     /// If camera is looking at possessable object possess it and unpossess current possession
     /// </summary>
-    private void Possess()
+    public void Possess()
     {
         IPossessable possessable = LookForPossessableObject();
         if (possessable == null)
         {
-            Unpossess();
             return;
         }
         controller.freeze = true;
-        this.movecam.Priority = 0;
-        if (this.currentPossession != null)
-        {
-            currentPossession.Unpossess();
-        }
         possessable.Possess();
         currentPossession = possessable;
     }
 
-    private void Unpossess()
+    public void Unpossess()
     {
         if (currentPossession != null)
         {
-            this.movecam.Priority = 1;
             currentPossession.Unpossess();
             currentPossession = null;
+            currentPossessionObject = null;
             controller.freeze = false;
         }
     }
@@ -78,6 +65,7 @@ public class PossessionController : MonoBehaviour
         {
             if (hit.collider.gameObject.TryGetComponent(out IPossessable possessableObject))
             {
+                currentPossessionObject = hit.collider.gameObject;
                 return possessableObject;
             }
         }
