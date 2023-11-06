@@ -16,7 +16,6 @@ namespace StarterAssets
     {
         [Header("Player")]
         [SerializeField] private float MoveSpeed = 2.0f;
-        [SerializeField] private float SprintSpeed = 5.335f;
         [SerializeField] private float flySpeed = 2.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
@@ -156,7 +155,7 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            //CameraRotation();
+            CameraRotation();
         }
 
         private void AssignAnimationIDs()
@@ -207,7 +206,7 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -267,20 +266,6 @@ namespace StarterAssets
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-            Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
-
-            if (Grounded) Gizmos.color = transparentGreen;
-            else Gizmos.color = transparentRed;
-
-            // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawSphere(
-                new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
-                GroundedRadius);
         }
 
         private void OnFootstep(AnimationEvent animationEvent)
