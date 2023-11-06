@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
@@ -10,6 +8,9 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 2;
     [SerializeField] private float _rotationSpeed = 10;
     [SerializeField] [Tooltip("Minimum Impulse needed to destroy the object")] private float _destroyMinimumImpulse = 1;
+    [SerializeField]
+    [Tooltip("The maximum speed the object is allowed to go before being throwable again")]
+    private float _maxThrowSpeed = 5f;
     private Vector3 _releasePosition;
 
     [Header("Display Controls")]
@@ -80,8 +81,7 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Possess()
     {
-        _virtualCamera.Priority = 1;
-        
+        _virtualCamera.Priority = 1;        
         isPossessed = true;
     }
 
@@ -93,7 +93,11 @@ public class Throwable : MonoBehaviour, IPossessable
 
     private void ThrowObject()
     {
-        _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
+        
+        if(_rb.velocity.magnitude < _maxThrowSpeed)
+        {
+            _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
+        }        
     }
 
     private void UpdateClutterState()
