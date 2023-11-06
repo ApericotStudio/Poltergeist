@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PanickedState : INpcState
@@ -5,7 +6,6 @@ public class PanickedState : INpcState
     private readonly NpcController _npcController;
     private readonly AudioSource _npcAudioSource;
     private readonly AudioClip[] _screamClips;
-    private bool hasScreamed = false;
 
     public PanickedState(NpcController npcController)
     {
@@ -14,32 +14,31 @@ public class PanickedState : INpcState
         _screamClips = _npcController.ScreamAudioClips;
     }
 
-    public void Execute()
+    public void Handle()
     {
-        if (_npcController.RanAway)
-        {
-           return;
-        }
+        _npcController.StartCoroutine(RunAway());
+    }
+
+    IEnumerator RunAway()
+    {
         _npcController.NavMeshAgent.speed = _npcController.FrightenedSpeed;
         _npcController.NavMeshAgent.SetDestination(_npcController.FrightenedTargetLocation.position);
-
-        if (!hasScreamed)
+        PlayRandomScreamClip();
+        while (true)
         {
-            Scream();
-        }
-
-
-        if(_npcController.NavMeshAgent.velocity.magnitude > 0 &&_npcController.NavMeshAgent.remainingDistance < 0.5f)
-        {
-            _npcController.RanAway = true;
-            _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerWon);
+            if (_npcController.NavMeshAgent.velocity.magnitude > 0 && _npcController.NavMeshAgent.remainingDistance < 0.5f)
+            {
+                _npcController.RanAway = true;
+                _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerWon);
+                _npcController.StopCoroutine(RunAway());
+            }
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
-    private void Scream()
+    private void PlayRandomScreamClip()
     {
         _npcAudioSource.PlayOneShot(_screamClips[Random.Range(0, _screamClips.Length)]);
-        hasScreamed = true;
     }
 }
 

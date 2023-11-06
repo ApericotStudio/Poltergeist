@@ -32,6 +32,9 @@ public class NpcController : MonoBehaviour
     [Tooltip("The event that will be invoked when the anxiety value changes.")]
     private UnityEvent<float> _onAnxietyValueChange;
     [SerializeField]
+    [Tooltip("The event that will be invoked when the npc changes state.")]
+    private UnityEvent _onStateChange;
+    [SerializeField]
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
     private GameEventManager _gameEventManager;
     [Header("NPC Audio Settings")]
@@ -59,7 +62,9 @@ public class NpcController : MonoBehaviour
     private int _animIDSpeed;
     private float _animationBlend;
     private Animator _animator;
-
+    
+    public UnityEvent OnStateChange { get => _onStateChange; set => _onStateChange = value; }
+    public UnityEvent<float> OnAnxietyValueChange { get => _onAnxietyValueChange; set => _onAnxietyValueChange = value; }
     public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
     public bool RanAway { get => _ranAway; set => _ranAway = value; }
     public Transform RoamTargetLocation { get => _roamTargetLocation; set => _roamTargetLocation = value; }
@@ -81,6 +86,7 @@ public class NpcController : MonoBehaviour
         set
         {
             _currentState = value;
+            OnStateChange.Invoke();
         }
     }
 
@@ -98,14 +104,42 @@ public class NpcController : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _npcAudioSource = GetComponent<AudioSource>();
         InitializeAnimator();
-        _currentState = new RoamState(this);
+        OnStateChange.AddListener(OnStateChanged);
     }
 
     private void Update()
     {
         Animate();
-        _currentState.Execute();
         SlowlyDecreaseAnxiety();
+    }
+
+    private void FixedUpdate()
+    {
+        ChangeBehaviourBasedOnAnxiety();
+    }
+
+    private void ChangeBehaviourBasedOnAnxiety()
+    {
+        if(AnxietyValue <= 0f)
+        {
+            GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerLost);
+            return;
+        }
+        if(AnxietyValue >= 100f && CurrentState is not PanickedState)
+        {
+            CurrentState = new PanickedState(this);
+            return;
+        }
+        if(CurrentState is not RoamState && CurrentState is not PanickedState)
+        {
+            CurrentState = new RoamState(this);
+            return;
+        }
+    }
+
+    private void OnStateChanged()
+    {
+        _currentState.Handle();
     }
 
     private void SlowlyDecreaseAnxiety()
