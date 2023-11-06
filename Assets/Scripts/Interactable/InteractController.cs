@@ -37,6 +37,10 @@ public class InteractController : MonoBehaviour
         interactable.Use();
     }
 
+    /// <summary>
+    /// Checks if the camera is looking at an interactable object
+    /// </summary>
+    /// <returns>Found interactable object or null</returns>
     private Interactable LookForInteractableObject()
     {
         if (playerCamera == null)
