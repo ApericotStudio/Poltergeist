@@ -7,7 +7,7 @@ public class ScaredState : INpcState
         _npcController = npcController;
     }
 
-    public void Execute()
+    public void Handle()
     {
         if (!_npcController.RanAway)
         {
