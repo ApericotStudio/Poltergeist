@@ -10,17 +10,16 @@ public class AimMode : MonoBehaviour
     private CinemachineVirtualCamera _defaultCam;
     private CinemachineVirtualCamera _possessionAimCam;
     private CinemachineVirtualCamera _possessionDefaultCam;
-    private CinemachineVirtualCamera[] cameras;
+    private CinemachineVirtualCamera[] _cameras;
 
     private ThirdPersonController _controller;
     private PossessionController _possessionController;
 
-    private GameObject _currentPossessionObject;
     private Throwable _currentThrowable;
 
     [SerializeField] private float normalSensitivity = 1;
     [SerializeField] private float aimSensitivity = 1;
-    private bool _aimmode;
+    public bool aimmode;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -31,21 +30,27 @@ public class AimMode : MonoBehaviour
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionAimCam = GameObject.Find("PossessionAimCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionDefaultCam = GameObject.Find("PossessionFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
+        _cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (_currentThrowable != null) { _currentThrowable.lineRenderer.enabled = _aimmode; }
-        if (_aimmode)
+        if (_currentThrowable != null) { _currentThrowable.lineRenderer.enabled = aimmode; }
+        if (aimmode)
         {
-            Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
-            worldAimTarget.y = transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
-            transform.forward = aimDirection;
-            if (_currentThrowable != null)
+            if (_currentThrowable == null)
             {
+                Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
+                worldAimTarget.y = transform.position.y;
+                Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+                transform.forward = aimDirection;
+            } else
+            {
+                Vector3 worldAimTarget = _possessionAimCam.transform.position + _possessionAimCam.transform.forward * 1000f;
+                worldAimTarget.y = _possessionController.currentPossessionObject.transform.position.y;
+                Vector3 aimDirection = (worldAimTarget - _possessionController.currentPossessionObject.transform.position).normalized;
+                _possessionController.currentPossessionObject.transform.forward = aimDirection;
                 _currentThrowable.DrawProjection();
             }
         }
@@ -53,8 +58,8 @@ public class AimMode : MonoBehaviour
 
     public void EnterAimMode()
     {
-        _aimmode = true;
-        if (_currentPossessionObject == null)
+        aimmode = true;
+        if (_possessionController.currentPossessionObject == null)
         {
             _controller.SetSensitivity(aimSensitivity);
             switchCamera(1);
@@ -66,17 +71,16 @@ public class AimMode : MonoBehaviour
     }
     public void ExitAimModeConfirm()
     {
-        if (_currentPossessionObject == null)
+        if (_possessionController.currentPossessionObject == null)
         {
             _possessionController.Possess();
-            _currentPossessionObject = _possessionController.currentPossessionObject;
-            if (_currentPossessionObject != null)
+            if (_possessionController.currentPossessionObject != null)
             {
                 changeToPossession();
                 switchCamera(2);
-                _aimmode = false;
+                aimmode = false;
                 _controller.SetSensitivity(normalSensitivity);
-                if (_currentPossessionObject.TryGetComponent(out Throwable throwable))
+                if (_possessionController.currentPossessionObject.TryGetComponent(out Throwable throwable))
                 {
                     _currentThrowable = throwable;
                 }
@@ -88,7 +92,7 @@ public class AimMode : MonoBehaviour
         }
         else
         {
-            if (_currentThrowable != null && _aimmode)
+            if (_currentThrowable != null && aimmode)
             {
                 _currentThrowable.Throw();
                 ExitAimMode();
@@ -98,14 +102,8 @@ public class AimMode : MonoBehaviour
 
     public void ExitAimMode()
     {
-        if (!_aimmode && _currentPossessionObject != null)
-        {
-            _possessionController.Unpossess();
-            _currentPossessionObject = null;
-            _currentThrowable = null;
-        }
-        _aimmode = false;
-        if (_currentPossessionObject == null)
+        aimmode = false;
+        if (_possessionController.currentPossessionObject == null)
         {
             _controller.SetSensitivity(normalSensitivity);
             switchCamera(0);
@@ -119,9 +117,8 @@ public class AimMode : MonoBehaviour
     }
 
     private void changeToPossession()
-    {
-        GameObject currentPossession = _possessionController.currentPossessionObject;
-        Transform pos = currentPossession.transform;
+    { 
+        Transform pos = _possessionController.currentPossessionObject.transform.Find("ObjectCameraRoot");
         _possessionDefaultCam.LookAt = pos;
         _possessionDefaultCam.Follow = pos;
         _possessionAimCam.LookAt = pos;
@@ -131,15 +128,15 @@ public class AimMode : MonoBehaviour
 
     private void switchCamera(int index)
     {
-        for (int i = 0; i < cameras.Length; i++)
+        for (int i = 0; i < _cameras.Length; i++)
         {
             if (i == index)
             {
-                cameras[i].Priority = 1;
+                _cameras[i].Priority = 1;
             }
             else
             {
-                cameras[i].Priority = 0;
+                _cameras[i].Priority = 0;
             }
         }
 

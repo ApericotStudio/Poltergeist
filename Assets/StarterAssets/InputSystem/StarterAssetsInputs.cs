@@ -22,10 +22,12 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 		private AimMode aimMode;
+		private PossessionController possessionController;
 
         private void Awake()
         {
 			aimMode = gameObject.GetComponent<AimMode>();
+			possessionController = gameObject.GetComponent<PossessionController>();
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -64,7 +66,14 @@ namespace StarterAssets
 
 		private void OnAimCancel(InputValue value)
         {
-			aimMode.ExitAimMode();
+			if (possessionController.currentPossessionObject != null && !aimMode.aimmode)
+            {
+				possessionController.Unpossess();
+            } else
+            {
+				aimMode.ExitAimMode();
+			}
+
         }
 
 		private void OnAimConfirm(InputValue value)

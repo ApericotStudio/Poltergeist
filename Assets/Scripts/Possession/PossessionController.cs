@@ -50,6 +50,7 @@ public class PossessionController : MonoBehaviour
             currentPossession.Unpossess();
             currentPossession = null;
             currentPossessionObject = null;
+            aimMode.ExitAimMode();
             controller.freeze = false;
         }
     }
