@@ -41,11 +41,13 @@ public class ObservablePhysics : MonoBehaviour
         {
             _firstHit = false;
         }
-
-        if(collision.impulse.magnitude > _destroyMinimumImpulse)
+        if(_isBreakable)
         {
-            _observableObject.State = ObjectState.Broken;
-            _observableObject.ClearObservers();
+            if(collision.impulse.magnitude > _destroyMinimumImpulse)
+            {
+                _observableObject.State = ObjectState.Broken;
+                _observableObject.ClearObservers();
+            }
         }
     }
         
