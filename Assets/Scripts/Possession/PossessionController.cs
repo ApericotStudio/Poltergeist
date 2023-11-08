@@ -7,22 +7,20 @@ public class PossessionController : MonoBehaviour, IObserver
     [Tooltip("Max range for possession")]
     [SerializeField, Range(0f, 20f)] private float possessionRange;
 
-    private IPossessable currentPossession;
+    private IPossessable _currentPossession;
 
     public GameObject currentPossessionObject { get; private set; }
     private ObservableObject _currentObservableObject;
-    private Camera mainCamera;
-    private ThirdPersonController controller;
+    private Camera _mainCamera;
+    private ThirdPersonController _controller;
 
-    private AimMode aimMode;
-    private StarterAssetsInputs starterAssetsInputs;
+    private AimMode _aimMode;
 
     private void Awake()
     {
-        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-        mainCamera = Camera.main;
-        aimMode = this.gameObject.GetComponent<AimMode>();
-        controller = this.gameObject.GetComponent<ThirdPersonController>();
+        _mainCamera = Camera.main;
+        _aimMode = this.gameObject.GetComponent<AimMode>();
+        _controller = this.gameObject.GetComponent<ThirdPersonController>();
     }
 
     /// <summary>
@@ -36,21 +34,21 @@ public class PossessionController : MonoBehaviour, IObserver
         {
             return;
         }
-        controller.freeze = true;
+        _controller.freeze = true;
         possessable.Possess();
         _currentObservableObject.AddObserver(this);
-        currentPossession = possessable;
+        _currentPossession = possessable;
     }
 
     public void Unpossess()
     {
-        if (currentPossession != null)
+        if (_currentPossession != null)
         {
-            currentPossession.Unpossess();
-            aimMode.ExitAimMode();
-            currentPossession = null;
+            _currentPossession.Unpossess();
+            _aimMode.ExitAimMode();
+            _currentPossession = null;
             currentPossessionObject = null;
-            controller.freeze = false;
+            _controller.freeze = false;
         }
     }
 
@@ -61,7 +59,7 @@ public class PossessionController : MonoBehaviour, IObserver
     private IPossessable LookForPossessableObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, possessionRange))
+        if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, possessionRange))
         {
             if (hit.collider.gameObject.TryGetComponent(out IPossessable possessable))
             {

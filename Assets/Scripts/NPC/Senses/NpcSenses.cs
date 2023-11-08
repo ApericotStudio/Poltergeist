@@ -106,47 +106,7 @@ public class NpcSenses : MonoBehaviour, IObserver
     {
 
     }
-
-    // IEnumerator ReactionCoroutine(ObservableObject observableObject)
-    // {
-    //     yield return new WaitForSeconds(_reactionDelay);
-    //     while(observableObject.State == ObjectState.Falling || observableObject.State == ObjectState.Destroyed)
-    //     {
-    //         CalculateFear(observableObject);
-    //     }
-    //     yield break;
-    // }
-
-    // private void CalculateFear(ObservableObject observableObject)
-    // {
-    //     float fearValueToAdd = 0f;
-    //     if (observableObject.IsVisible)
-    //     {
-    //         fearValueToAdd += observableObject.VisualAnxietyValue;
-    //     }
-    //     if (observableObject.IsAudible)
-    //     {
-    //         fearValueToAdd += observableObject.AuditoryAnxietyValue;
-    //     }
-    //     if (observableObject.Type == ObjectType.Big)
-    //     {
-    //         fearValueToAdd += observableObject.BigObjectAnxietyValue;
-    //     }
-    //     if (observableObject.Type == ObjectType.Small)
-    //     {
-    //         fearValueToAdd += observableObject.SmallObjectAnxietyValue;
-    //     }
-    //     if (observableObject.State == ObjectState.Destroyed)
-    //     {
-    //         fearValueToAdd += observableObject.DestroyAnxietyValue;
-    //     }
-    //     if (observableObject.State == ObjectState.Falling && observableObject.IsVisible)
-    //     {
-    //         fearValueToAdd += observableObject.MoveAnxietyValue;
-    //     }
-    //     _npcController.FearValue += fearValueToAdd;
-    // }
-
+    
     /// <summary>
     /// Clears the detected clutter, also setting their visibility and audibility to false.
     /// </summary>
