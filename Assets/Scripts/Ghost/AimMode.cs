@@ -10,12 +10,14 @@ public class AimMode : MonoBehaviour
     private CinemachineVirtualCamera _defaultCam;
     private CinemachineVirtualCamera _possessionAimCam;
     private CinemachineVirtualCamera _possessionDefaultCam;
+    CinemachineVirtualCamera[] cameras;
 
     private ThirdPersonController _controller;
     private PossessionController _possessionController;
     private StarterAssetsInputs _starterAssetsInputs;
 
-    private GameObject _currentPossessionObject;
+    public GameObject currentPossessionObject;
+    public Throwable currentThrowable;
 
     [SerializeField] private float normalSensitivity = 1;
     [SerializeField] private float aimSensitivity = 1;
@@ -31,6 +33,7 @@ public class AimMode : MonoBehaviour
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionAimCam = GameObject.Find("PossessionAimCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionDefaultCam = GameObject.Find("PossessionFollowCamera").GetComponent<CinemachineVirtualCamera>();
+        cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
     }
 
     private void Start()
@@ -41,72 +44,80 @@ public class AimMode : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (currentThrowable != null) { currentThrowable.lineRenderer.enabled = _aimmode; }
         if (_aimmode)
         {
             Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
             worldAimTarget.y = transform.position.y;
             Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
             transform.forward = aimDirection;
-        }
-        if (_starterAssetsInputs.aimButton is Button.isPressed)
-        {
-            EnterAimMode();
-        }
-        if (_starterAssetsInputs.aimButton is Button.isReleased)
-        {
-            _possessionController.Possess();
-            ExitAimMode();
-            _currentPossessionObject = _possessionController.currentPossessionObject;
-            if (_currentPossessionObject != null) {
-                changeToPossession();
-            }
-        }
-        if (_starterAssetsInputs.aimCancelButton is Button.isPressed)
-        {
-            if (!_aimmode)
+            if (currentThrowable != null)
             {
-                _possessionController.Unpossess();
-                _currentPossessionObject = null;
+                currentThrowable.DrawProjection();
             }
-            ExitAimMode();
         }
     }
 
     public void EnterAimMode()
     {
         _aimmode = true;
-        if (_currentPossessionObject == null)
+        if (currentPossessionObject == null)
         {
             _controller.SetSensitivity(aimSensitivity);
-            _aimCam.Priority = 1;
-            _defaultCam.Priority = 0;
-            _possessionAimCam.Priority = 0;
-            _possessionDefaultCam.Priority = 0;
+            switchCamera(1);
         } else
         {
-            _aimCam.Priority = 0;
-            _defaultCam.Priority = 0;
-            _possessionAimCam.Priority = 1;
-            _possessionDefaultCam.Priority = 0;
+            switchCamera(3);
+        }
+    }
+    public void ExitAimModeConfirm()
+    {
+        if (currentPossessionObject == null)
+        {
+            _possessionController.Possess();
+            currentPossessionObject = _possessionController.currentPossessionObject;
+            if (currentPossessionObject != null)
+            {
+                changeToPossession();
+                switchCamera(2);
+                _aimmode = false;
+                if (currentPossessionObject.TryGetComponent(out Throwable throwable))
+                {
+                    currentThrowable = throwable;
+                }
+            }
+            else
+            {
+                ExitAimMode();
+            }
+        }
+        else
+        {
+            if (currentThrowable != null && _aimmode)
+            {
+                currentThrowable.Throw();
+                ExitAimMode();
+            }
         }
     }
 
     public void ExitAimMode()
     {
+        if (!_aimmode && currentPossessionObject != null)
+        {
+            _possessionController.Unpossess();
+            currentPossessionObject = null;
+            currentThrowable = null;
+        }
         _aimmode = false;
-        if (_currentPossessionObject == null)
+        if (currentPossessionObject == null)
         {
             _controller.SetSensitivity(normalSensitivity);
-            _aimCam.Priority = 0;
-            _defaultCam.Priority = 1;
-            _possessionAimCam.Priority = 0;
-            _possessionDefaultCam.Priority = 0;
+            switchCamera(0);
         } else
         {
-            _aimCam.Priority = 0;
-            _defaultCam.Priority = 0;
-            _possessionAimCam.Priority = 0;
-            _possessionDefaultCam.Priority = 1;
+            _controller.SetSensitivity(normalSensitivity);
+            switchCamera(2);
         }
 
 
@@ -121,5 +132,21 @@ public class AimMode : MonoBehaviour
         _possessionAimCam.LookAt = pos;
         _possessionAimCam.Follow = pos;
         ExitAimMode();
+    }
+
+    private void switchCamera(int index)
+    {
+        for (int i = 0; i < cameras.Length; i++)
+        {
+            if (i == index)
+            {
+                cameras[i].Priority = 1;
+            }
+            else
+            {
+                cameras[i].Priority = 0;
+            }
+        }
+
     }
 }

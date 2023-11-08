@@ -13,10 +13,6 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public float fly;
-		public bool aim;
-		public bool aimCancel;
-		public Button aimButton;
-		public Button aimCancelButton;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -25,8 +21,15 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		private AimMode aimMode;
+
+        private void Awake()
+        {
+			aimMode = gameObject.GetComponent<AimMode>();
+        }
+
 #if ENABLE_INPUT_SYSTEM
-		private void OnMove(InputValue value)
+        private void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -56,12 +59,17 @@ namespace StarterAssets
 
 		private void OnAim(InputValue value)
         {
-			AimInput(value.isPressed);
+			aimMode.EnterAimMode();
         }
 
 		private void OnAimCancel(InputValue value)
         {
-			AimCancelInput(value.isPressed);
+			aimMode.ExitAimMode();
+        }
+
+		private void OnAimConfirm(InputValue value)
+        {
+			aimMode.ExitAimModeConfirm();
         }
 #endif
 
@@ -89,22 +97,6 @@ namespace StarterAssets
         public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
-		}
-
-		public void AimInput(bool newAimState)
-        {
-			if (!aim && newAimState) { aimButton = Button.isPressed; }
-			if (aim && !newAimState) { aimButton = Button.isReleased; }
-			if (aim == newAimState) { aimButton = Button.idle;  }
-			aim = newAimState;
-        }
-
-		public void AimCancelInput(bool newAimCancelState)
-        {
-			if (!aimCancel && newAimCancelState) { aimCancelButton = Button.isPressed; }
-			if (aimCancel && !newAimCancelState) { aimCancelButton = Button.isReleased; }
-			if (aimCancel == newAimCancelState) { aimCancelButton = Button.idle; }
-			aimCancel = newAimCancelState;
 		}
 
         private void OnApplicationFocus(bool hasFocus)

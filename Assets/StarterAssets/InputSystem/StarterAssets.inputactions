@@ -52,21 +52,30 @@
                 },
                 {
                     "name": "Aim",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "67482f90-11ee-42a1-b768-42bf4a50a9c9",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "AimCancel",
+                    "type": "Button",
+                    "id": "67517238-3414-41f3-9303-ae1b0841d298",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "AimCancel",
-                    "type": "PassThrough",
-                    "id": "67517238-3414-41f3-9303-ae1b0841d298",
-                    "expectedControlType": "",
+                    "name": "AimConfirm",
+                    "type": "Button",
+                    "id": "62471306-ecc7-4313-8228-5ebce33f91ba",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -272,7 +281,7 @@
                     "name": "",
                     "id": "874da260-ea24-4290-a5f6-ec0de3e80c09",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Aim",
@@ -283,10 +292,21 @@
                     "name": "",
                     "id": "1b973940-1b70-4d6a-8c7c-4b6b71799bc2",
                     "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "AimCancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "82178a7b-47ae-4bf2-907d-4b0b35b9cdc6",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "AimConfirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
