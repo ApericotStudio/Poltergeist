@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -691,8 +691,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveAnxietyValue: 2
   DestroyAnxietyValue: 10
-  AuditoryMultiplier: 1
-  VisualMultiplier: 3
+  AuditoryAnxietyValue: 1
+  VisualAnxietyValue: 3
+  _objectType: 0
+  _smallObjectAnxietyValue: 1
+  _bigObjectAnxietyValue: 3
+  _state: 0
 --- !u!114 &152132495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1512,7 +1516,7 @@ PrefabInstance:
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.79
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
@@ -2671,12 +2675,12 @@ PrefabInstance:
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.79
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.933672
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
@@ -2727,6 +2731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Priority
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8,
+        type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2980,7 +2989,7 @@ Camera:
     height: 1
   near clip plane: 0.2
   far clip plane: 500
-  field of view: 40
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -3007,7 +3016,7 @@ Transform:
   m_GameObject: {fileID: 1026742296}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.348836, y: 1.7939358, z: -3.9929707}
+  m_LocalPosition: {x: 2.3500001, y: 3, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3695,8 +3704,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveAnxietyValue: 2
   DestroyAnxietyValue: 10
-  AuditoryMultiplier: 1
-  VisualMultiplier: 3
+  AuditoryAnxietyValue: 1
+  VisualAnxietyValue: 3
+  _objectType: 0
+  _smallObjectAnxietyValue: 1
+  _bigObjectAnxietyValue: 3
+  _state: 0
 --- !u!114 &1206899733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4088,8 +4101,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveAnxietyValue: 2
   DestroyAnxietyValue: 10
-  AuditoryMultiplier: 1
-  VisualMultiplier: 3
+  AuditoryAnxietyValue: 1
+  VisualAnxietyValue: 3
+  _objectType: 0
+  _smallObjectAnxietyValue: 1
+  _bigObjectAnxietyValue: 3
+  _state: 0
 --- !u!114 &1327424721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4610,7 +4627,7 @@ PrefabInstance:
     - target: {fileID: 8338988566280778637, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.79
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -4698,7 +4715,7 @@ PrefabInstance:
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.79
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
@@ -6026,7 +6043,7 @@ PrefabInstance:
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.79
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}

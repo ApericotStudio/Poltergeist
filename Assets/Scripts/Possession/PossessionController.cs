@@ -8,76 +8,65 @@ public class PossessionController : MonoBehaviour, IObserver
     [SerializeField, Range(0f, 20f)] private float possessionRange;
 
     private IPossessable currentPossession;
-    private ObservableObject currentObservableObject;
-    
+
+    public GameObject currentPossessionObject { get; private set; }
     private Camera mainCamera;
-    private CinemachineVirtualCamera virtcam;
     private ThirdPersonController controller;
 
-    private void Start()
-    {
-        mainCamera = Camera.main;
-        virtcam = this.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
-        controller = this.gameObject.GetComponent<ThirdPersonController>();
-    }
+    private AimMode aimMode;
+    private StarterAssetsInputs starterAssetsInputs;
 
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Possess();
-        }
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+        mainCamera = Camera.main;
+        aimMode = this.gameObject.GetComponent<AimMode>();
+        controller = this.gameObject.GetComponent<ThirdPersonController>();
     }
 
     /// <summary>
     /// If camera is looking at possessable object possess it and unpossess current possession
     /// </summary>
-    private void Possess()
+    public void Possess()
     {
-        GameObject possessableObject = LookForPossessableObject();
+        IPossessable possessable = LookForPossessableObject();
     
-        if (possessableObject == null)
+        if (possessable == null)
         {
-            if (currentPossession != null)
-            {
-                Unpossess();
-            }
             return;
         }
-        possessableObject.TryGetComponent(out IPossessable possessable);
-        possessableObject.TryGetComponent(out ObservableObject observableObject);
 
         controller.freeze = true;
-        this.virtcam.Priority = 0;
-        if (this.currentPossession != null)
-        {
-            currentPossession.Unpossess();
-        }
         possessable.Possess();
         currentPossession = possessable;
-        observableObject.AddObserver(this);
+        currentPossessionObject.GetComponent<ObservableObject>().AddObserver(this);
     }
 
-    private void Unpossess()
+    public void Unpossess()
     {
-        this.virtcam.Priority = 1;
-        currentPossession.Unpossess();
-        currentPossession = null;
-        controller.freeze = false;
+        if (currentPossession != null)
+        {
+            currentPossession.Unpossess();
+            currentPossession = null;
+            currentPossessionObject = null;
+            controller.freeze = false;
+            currentPossessionObject.GetComponent<ObservableObject>().RemoveObserver(this);
+        }
     }
 
     /// <summary>
     /// Checks if the mainCamera is pointing at an object with the IPossessable interface
     /// </summary>
     /// <returns>The found IPossessable interface or null when no IPossessable interface is found</returns>
-    private GameObject LookForPossessableObject()
+    private IPossessable LookForPossessableObject()
     {
         RaycastHit hit;
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, possessionRange))
         {
             if (hit.collider.gameObject.TryGetComponent(out IPossessable possessableObject))
             {
-                return hit.collider.gameObject;
+                currentPossessionObject = hit.collider.gameObject;
+                return possessableObject;
             }
         }
         return null;
@@ -88,7 +77,6 @@ public class PossessionController : MonoBehaviour, IObserver
         if (observableObject.State == ObjectState.Broken)
         {
             Unpossess();
-            observableObject.RemoveObserver(this);
         }
     }
 }
