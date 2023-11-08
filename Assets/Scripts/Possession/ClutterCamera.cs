@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class ClutterCamera : MonoBehaviour
 {
     [SerializeField] private bool LockCameraPosition = false;
-    [SerializeField] private GameObject CinemachineCameraTarget;
+    [SerializeField] public GameObject CinemachineCameraTarget;
     [SerializeField] private float Sensitivity = 1f;
     [Tooltip("How far in degrees can you move the camera up")]
     [SerializeField] private float TopClamp = 70.0f;

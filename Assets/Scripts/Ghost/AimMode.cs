@@ -15,8 +15,6 @@ public class AimMode : MonoBehaviour
     private ThirdPersonController _controller;
     private PossessionController _possessionController;
 
-    private Throwable _currentThrowable;
-
     [SerializeField] 
     private float _normalSensitivity = 1;
     [SerializeField] 
@@ -38,10 +36,10 @@ public class AimMode : MonoBehaviour
 
     private void Update()
     {
-        if (_currentThrowable != null) { _currentThrowable.lineRenderer.enabled = aimmode; }
+        if (_possessionController.currentThrowable != null) { _possessionController.currentThrowable.LineRenderer.enabled = aimmode; }
         if (aimmode)
         {
-            if (_currentThrowable == null)
+            if (_possessionController.currentThrowable == null)
             {
                 Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
                 worldAimTarget.y = transform.position.y;
@@ -49,56 +47,27 @@ public class AimMode : MonoBehaviour
                 transform.forward = aimDirection;
             } else
             {
-                Vector3 worldAimTarget = _possessionAimCam.transform.position + _possessionAimCam.transform.forward * 1000f;
-                worldAimTarget.y = _possessionController.currentPossessionObject.transform.position.y;
-                Vector3 aimDirection = (worldAimTarget - _possessionController.currentPossessionObject.transform.position).normalized;
-                _possessionController.currentPossessionObject.transform.forward = aimDirection;
-                _currentThrowable.DrawProjection();
+                _possessionController.currentThrowable.DrawProjection();
             }
         }
     }
 
     public void EnterAimMode()
     {
-        aimmode = true;
         if (_possessionController.currentPossessionObject == null)
         {
+            aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(1);
         } else
         {
+            if (_possessionController.currentThrowable != null)
+            {
+                if (_possessionController.currentThrowable.GetState() is not ObjectState.Idle) { return; }
+            }
+            aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(3);
-        }
-    }
-    public void ExitAimModeConfirm()
-    {
-        if (_possessionController.currentPossessionObject == null)
-        {
-            _possessionController.Possess();
-            if (_possessionController.currentPossessionObject != null)
-            {
-                changeToPossession();
-                switchCamera(2);
-                aimmode = false;
-                _controller.SetSensitivity(_normalSensitivity);
-                if (_possessionController.currentPossessionObject.TryGetComponent(out Throwable throwable))
-                {
-                    _currentThrowable = throwable;
-                }
-            }
-            else
-            {
-                ExitAimMode();
-            }
-        }
-        else
-        {
-            if (_currentThrowable != null && aimmode)
-            {
-                _currentThrowable.Throw();
-                ExitAimMode();
-            }
         }
     }
 
@@ -116,9 +85,9 @@ public class AimMode : MonoBehaviour
         }
     }
 
-    private void changeToPossession()
-    { 
-        Transform pos = _possessionController.currentPossessionObject.transform.Find("ObjectCameraRoot");
+    public void changeCameraToPossession()
+    {
+        Transform pos = _possessionController.currentPossessionObject.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
         _possessionDefaultCam.LookAt = pos;
         _possessionDefaultCam.Follow = pos;
         _possessionAimCam.LookAt = pos;
