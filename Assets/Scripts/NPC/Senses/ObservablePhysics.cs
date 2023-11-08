@@ -45,6 +45,7 @@ public class ObservablePhysics : MonoBehaviour
         if(collision.impulse.magnitude > _destroyMinimumImpulse)
         {
             _observableObject.State = ObjectState.Broken;
+            _observableObject.ClearObservers();
         }
     }
         
@@ -77,7 +78,10 @@ public class ObservablePhysics : MonoBehaviour
         }
         else
         {
-            _observableObject.State = ObjectState.Idle;
+            if(_observableObject.State != ObjectState.Idle)
+            {
+                _observableObject.State = ObjectState.Idle;
+            }
         }
     }
 

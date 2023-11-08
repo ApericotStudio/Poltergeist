@@ -10,6 +10,7 @@ public class PossessionController : MonoBehaviour, IObserver
     private IPossessable currentPossession;
 
     public GameObject currentPossessionObject { get; private set; }
+    private ObservableObject _currentObservableObject;
     private Camera mainCamera;
     private ThirdPersonController controller;
 
@@ -35,11 +36,10 @@ public class PossessionController : MonoBehaviour, IObserver
         {
             return;
         }
-
         controller.freeze = true;
         possessable.Possess();
+        _currentObservableObject.AddObserver(this);
         currentPossession = possessable;
-        currentPossessionObject.GetComponent<ObservableObject>().AddObserver(this);
     }
 
     public void Unpossess()
@@ -47,10 +47,10 @@ public class PossessionController : MonoBehaviour, IObserver
         if (currentPossession != null)
         {
             currentPossession.Unpossess();
+            aimMode.ExitAimMode();
             currentPossession = null;
             currentPossessionObject = null;
             controller.freeze = false;
-            currentPossessionObject.GetComponent<ObservableObject>().RemoveObserver(this);
         }
     }
 
@@ -63,10 +63,11 @@ public class PossessionController : MonoBehaviour, IObserver
         RaycastHit hit;
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, possessionRange))
         {
-            if (hit.collider.gameObject.TryGetComponent(out IPossessable possessableObject))
+            if (hit.collider.gameObject.TryGetComponent(out IPossessable possessable))
             {
                 currentPossessionObject = hit.collider.gameObject;
-                return possessableObject;
+                _currentObservableObject = currentPossessionObject.GetComponent<ObservableObject>();
+                return possessable;
             }
         }
         return null;

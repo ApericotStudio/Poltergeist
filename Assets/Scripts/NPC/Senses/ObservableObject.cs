@@ -83,4 +83,8 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     {
         _observers.Remove(observer);
     }
+    public void ClearObservers()
+    {
+        _observers.Clear();
+    }
 }

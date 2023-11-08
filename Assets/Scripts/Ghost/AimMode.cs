@@ -100,7 +100,6 @@ public class AimMode : MonoBehaviour
     {
         if (!_aimmode && _currentPossessionObject != null)
         {
-            _possessionController.Unpossess();
             _currentPossessionObject = null;
             _currentThrowable = null;
         }
@@ -114,8 +113,6 @@ public class AimMode : MonoBehaviour
             _controller.SetSensitivity(normalSensitivity);
             switchCamera(2);
         }
-
-
     }
 
     private void changeToPossession()
