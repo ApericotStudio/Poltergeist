@@ -50,17 +50,17 @@ public class NpcSensesEditor : Editor
     /// </summary>
     private void DrawDetectionLine()
     {
-		foreach (Clutter detectedClutter in _npcSenses.DetectedClutter) {
-            if(detectedClutter.IsVisible)
+		foreach (ObservableObject detectedObject in _npcSenses.DetectedObjects) {
+            if(detectedObject.IsVisible)
             {
                 Handles.color = Color.red;
             }
-            if(detectedClutter.IsAudible && !detectedClutter.IsVisible)
+            if(detectedObject.IsAudible && !detectedObject.IsVisible)
             {
                 Handles.color = Color.yellow;
             }
 
-			Handles.DrawLine(_npcSenses.transform.position, detectedClutter.transform.position);
+			Handles.DrawLine(_npcSenses.transform.position, detectedObject.transform.position);
 		}
     }
 

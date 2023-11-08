@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 8966552674158279842}
   - component: {fileID: 3686544538405586728}
   - component: {fileID: 4394482085602639997}
+  - component: {fileID: 5851030043797822464}
   m_Layer: 5
   m_Name: AnxietyMeter
   m_TagString: Untagged
@@ -180,6 +181,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5851030043797822464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2918358516844239746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85cb98b53305ae4429e7bc4d26337ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 5004338889728897024}
+  lowAnxietyIndicator: {fileID: 4407263426806398484}
+  mediumAnxietyIndicator: {fileID: 2450115369669922366}
+  highAnxietyIndicator: {fileID: 7004911539232439087}
 --- !u!1 &4407263426806398484
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +654,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1029629180274932180}
   - component: {fileID: 5004338889728897024}
-  - component: {fileID: 12536408438777668}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -718,19 +734,3 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &12536408438777668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9088238438491786073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85cb98b53305ae4429e7bc4d26337ac7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 5004338889728897024}
-  lowAnxietyIndicator: {fileID: 4407263426806398484}
-  mediumAnxietyIndicator: {fileID: 2450115369669922366}
-  highAnxietyIndicator: {fileID: 7004911539232439087}

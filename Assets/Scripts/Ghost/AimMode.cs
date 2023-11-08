@@ -10,7 +10,7 @@ public class AimMode : MonoBehaviour
     private CinemachineVirtualCamera _defaultCam;
     private CinemachineVirtualCamera _possessionAimCam;
     private CinemachineVirtualCamera _possessionDefaultCam;
-    private CinemachineVirtualCamera[] cameras;
+    private CinemachineVirtualCamera[] _cameras;
 
     private ThirdPersonController _controller;
     private PossessionController _possessionController;
@@ -18,10 +18,12 @@ public class AimMode : MonoBehaviour
     private GameObject _currentPossessionObject;
     private Throwable _currentThrowable;
 
-    [SerializeField] private float normalSensitivity = 1;
-    [SerializeField] private float aimSensitivity = 1;
+    [SerializeField] 
+    private float _normalSensitivity = 1;
+    [SerializeField] 
+    private float _aimSensitivity = 1;
     private bool _aimmode;
-    // Start is called before the first frame update
+
     private void Awake()
     {
         _controller = this.gameObject.GetComponent<ThirdPersonController>();
@@ -31,13 +33,12 @@ public class AimMode : MonoBehaviour
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionAimCam = GameObject.Find("PossessionAimCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionDefaultCam = GameObject.Find("PossessionFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
+        _cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        if (_currentThrowable != null) { _currentThrowable.lineRenderer.enabled = _aimmode; }
+        if (_currentThrowable != null) { _currentThrowable.LineRenderer.enabled = _aimmode; }
         if (_aimmode)
         {
             Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
@@ -56,11 +57,11 @@ public class AimMode : MonoBehaviour
         _aimmode = true;
         if (_currentPossessionObject == null)
         {
-            _controller.SetSensitivity(aimSensitivity);
+            _controller.SetSensitivity(_aimSensitivity);
             switchCamera(1);
         } else
         {
-            _controller.SetSensitivity(aimSensitivity);
+            _controller.SetSensitivity(_aimSensitivity);
             switchCamera(3);
         }
     }
@@ -75,7 +76,7 @@ public class AimMode : MonoBehaviour
                 changeToPossession();
                 switchCamera(2);
                 _aimmode = false;
-                _controller.SetSensitivity(normalSensitivity);
+                _controller.SetSensitivity(_normalSensitivity);
                 if (_currentPossessionObject.TryGetComponent(out Throwable throwable))
                 {
                     _currentThrowable = throwable;
@@ -100,22 +101,19 @@ public class AimMode : MonoBehaviour
     {
         if (!_aimmode && _currentPossessionObject != null)
         {
-            _possessionController.Unpossess();
             _currentPossessionObject = null;
             _currentThrowable = null;
         }
         _aimmode = false;
         if (_currentPossessionObject == null)
         {
-            _controller.SetSensitivity(normalSensitivity);
+            _controller.SetSensitivity(_normalSensitivity);
             switchCamera(0);
         } else
         {
-            _controller.SetSensitivity(normalSensitivity);
+            _controller.SetSensitivity(_normalSensitivity);
             switchCamera(2);
         }
-
-
     }
 
     private void changeToPossession()
@@ -131,15 +129,15 @@ public class AimMode : MonoBehaviour
 
     private void switchCamera(int index)
     {
-        for (int i = 0; i < cameras.Length; i++)
+        for (int i = 0; i < _cameras.Length; i++)
         {
             if (i == index)
             {
-                cameras[i].Priority = 1;
+                _cameras[i].Priority = 1;
             }
             else
             {
-                cameras[i].Priority = 0;
+                _cameras[i].Priority = 0;
             }
         }
 

@@ -15,7 +15,6 @@ public class ClutterCamera : MonoBehaviour
     [SerializeField] private float BottomClamp = -30.0f;
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField] private float CameraAngleOverride = 0.0f;
-
     private PlayerInput _playerInput;
     private StarterAssetsInputs _input;
     private const float _threshold = 0.01f;
