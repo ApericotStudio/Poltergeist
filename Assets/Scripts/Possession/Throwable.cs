@@ -25,7 +25,7 @@ public class Throwable : MonoBehaviour, IPossessable
     private Collider _collider;
     private Vector3 _aim;
     private LineRenderer _lineRenderer;
-    private Clutter _clutter;
+    private ObservableObject _clutter;
 
     // Start is called before the first frame update
     private void Start()
@@ -33,7 +33,7 @@ public class Throwable : MonoBehaviour, IPossessable
         _rb = this.GetComponent<Rigidbody>();
         _lineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
-        _clutter = this.GetComponent<Clutter>();
+        _clutter = this.GetComponent<ObservableObject>();
         _collider = this.GetComponent<Collider>();
 
         int throwLayer = this.gameObject.layer;
@@ -44,11 +44,6 @@ public class Throwable : MonoBehaviour, IPossessable
                 _throwLayerMask |= 1 << i;
             }
         }
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateClutterState();
     }
 
     // Update is called once per frame
@@ -94,28 +89,6 @@ public class Throwable : MonoBehaviour, IPossessable
     private void ThrowObject()
     {
         _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
-    }
-
-    private void UpdateClutterState()
-    {
-        if (_clutter.State != ClutterState.Destroyed)
-        {
-            if (_rb.velocity.magnitude > 0.01f)
-            {
-                _clutter.State = ClutterState.Falling;
-            } else
-            {
-                _clutter.State = ClutterState.Idle;
-            }
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.impulse.magnitude > _destroyMinimumImpulse)
-        {
-            _clutter.State = ClutterState.Destroyed;
-        }
     }
 
     private void DrawProjection()

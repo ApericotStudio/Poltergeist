@@ -2,12 +2,14 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 
-public class PossessionController : MonoBehaviour
+public class PossessionController : MonoBehaviour, IObserver
 {
     [Tooltip("Max range for possession")]
     [SerializeField, Range(0f, 20f)] private float possessionRange;
 
     private IPossessable currentPossession;
+    private ObservableObject currentObservableObject;
+    
     private Camera mainCamera;
     private CinemachineVirtualCamera virtcam;
     private ThirdPersonController controller;
@@ -32,8 +34,9 @@ public class PossessionController : MonoBehaviour
     /// </summary>
     private void Possess()
     {
-        IPossessable possessable = LookForPossessableObject();
-        if (possessable == null)
+        GameObject possessableObject = LookForPossessableObject();
+    
+        if (possessableObject == null)
         {
             if (currentPossession != null)
             {
@@ -41,6 +44,9 @@ public class PossessionController : MonoBehaviour
             }
             return;
         }
+        possessableObject.TryGetComponent(out IPossessable possessable);
+        possessableObject.TryGetComponent(out ObservableObject observableObject);
+
         controller.freeze = true;
         this.virtcam.Priority = 0;
         if (this.currentPossession != null)
@@ -49,6 +55,7 @@ public class PossessionController : MonoBehaviour
         }
         possessable.Possess();
         currentPossession = possessable;
+        observableObject.AddObserver(this);
     }
 
     private void Unpossess()
@@ -63,16 +70,25 @@ public class PossessionController : MonoBehaviour
     /// Checks if the mainCamera is pointing at an object with the IPossessable interface
     /// </summary>
     /// <returns>The found IPossessable interface or null when no IPossessable interface is found</returns>
-    private IPossessable LookForPossessableObject()
+    private GameObject LookForPossessableObject()
     {
         RaycastHit hit;
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, possessionRange))
         {
             if (hit.collider.gameObject.TryGetComponent(out IPossessable possessableObject))
             {
-                return possessableObject;
+                return hit.collider.gameObject;
             }
         }
         return null;
+    }
+
+    public void OnNotify(ObservableObject observableObject)
+    {
+        if (observableObject.State == ObjectState.Broken)
+        {
+            Unpossess();
+            observableObject.RemoveObserver(this);
+        }
     }
 }

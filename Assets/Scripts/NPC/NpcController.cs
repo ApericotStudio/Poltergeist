@@ -24,13 +24,13 @@ public class NpcController : MonoBehaviour
     [Range(2f, 10f)]
     [SerializeField]
     private float _frightenedSpeed = 5.335f;
-    [Tooltip("The anxiety value of the NPC.")]
+    [Tooltip("The fear value of the NPC.")]
     [SerializeField]
     [Range(0f, 100f)]
-    private float _anxietyValue = 50f;
+    private float _fearValue = 50f;
     [SerializeField]
-    [Tooltip("The event that will be invoked when the anxiety value changes.")]
-    private UnityEvent<float> _onAnxietyValueChange;
+    [Tooltip("The event that will be invoked when the fear value changes.")]
+    private UnityEvent<float> _onFearValueChange;
     [SerializeField]
     [Tooltip("The event that will be invoked when the npc changes state.")]
     private UnityEvent _onStateChange;
@@ -64,7 +64,7 @@ public class NpcController : MonoBehaviour
     private Animator _animator;
     
     public UnityEvent OnStateChange { get => _onStateChange; set => _onStateChange = value; }
-    public UnityEvent<float> OnAnxietyValueChange { get => _onAnxietyValueChange; set => _onAnxietyValueChange = value; }
+    public UnityEvent<float> OnFearValueChange { get => _onFearValueChange; set => _onFearValueChange = value; }
     public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
     public bool RanAway { get => _ranAway; set => _ranAway = value; }
     public Transform RoamTargetLocation { get => _roamTargetLocation; set => _roamTargetLocation = value; }
@@ -90,12 +90,12 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    public float AnxietyValue
+    public float FearValue
     { 
-        get => _anxietyValue; 
+        get => _fearValue; 
         set {
-            _anxietyValue = value;
-            _onAnxietyValueChange.Invoke(_anxietyValue);
+            _fearValue = value;
+            _onFearValueChange.Invoke(_fearValue);
         }  
     }
 
@@ -120,12 +120,12 @@ public class NpcController : MonoBehaviour
 
     private void ChangeBehaviourBasedOnAnxiety()
     {
-        if(AnxietyValue <= 0f)
+        if(FearValue <= 0f)
         {
             GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerLost);
             return;
         }
-        if(AnxietyValue >= 100f && CurrentState is not PanickedState)
+        if(FearValue >= 100f && CurrentState is not PanickedState)
         {
             CurrentState = new PanickedState(this);
             return;
@@ -144,9 +144,9 @@ public class NpcController : MonoBehaviour
 
     private void SlowlyDecreaseAnxiety()
     {
-        if(AnxietyValue > 0f)
+        if(FearValue > 0f)
         {
-            AnxietyValue -= Time.deltaTime * 1f;
+            FearValue -= Time.deltaTime * 1f;
         }
     }
 
