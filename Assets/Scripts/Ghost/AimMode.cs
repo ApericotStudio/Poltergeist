@@ -17,10 +17,12 @@ public class AimMode : MonoBehaviour
 
     private Throwable _currentThrowable;
 
-    [SerializeField] private float normalSensitivity = 1;
-    [SerializeField] private float aimSensitivity = 1;
+    [SerializeField] 
+    private float _normalSensitivity = 1;
+    [SerializeField] 
+    private float _aimSensitivity = 1;
     public bool aimmode;
-    // Start is called before the first frame update
+
     private void Awake()
     {
         _controller = this.gameObject.GetComponent<ThirdPersonController>();
@@ -31,9 +33,9 @@ public class AimMode : MonoBehaviour
         _possessionAimCam = GameObject.Find("PossessionAimCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionDefaultCam = GameObject.Find("PossessionFollowCamera").GetComponent<CinemachineVirtualCamera>();
         _cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
+        _cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (_currentThrowable != null) { _currentThrowable.lineRenderer.enabled = aimmode; }
@@ -61,11 +63,11 @@ public class AimMode : MonoBehaviour
         aimmode = true;
         if (_possessionController.currentPossessionObject == null)
         {
-            _controller.SetSensitivity(aimSensitivity);
+            _controller.SetSensitivity(_aimSensitivity);
             switchCamera(1);
         } else
         {
-            _controller.SetSensitivity(aimSensitivity);
+            _controller.SetSensitivity(_aimSensitivity);
             switchCamera(3);
         }
     }
@@ -79,7 +81,7 @@ public class AimMode : MonoBehaviour
                 changeToPossession();
                 switchCamera(2);
                 aimmode = false;
-                _controller.SetSensitivity(normalSensitivity);
+                _controller.SetSensitivity(_normalSensitivity);
                 if (_possessionController.currentPossessionObject.TryGetComponent(out Throwable throwable))
                 {
                     _currentThrowable = throwable;
@@ -105,15 +107,13 @@ public class AimMode : MonoBehaviour
         aimmode = false;
         if (_possessionController.currentPossessionObject == null)
         {
-            _controller.SetSensitivity(normalSensitivity);
+            _controller.SetSensitivity(_normalSensitivity);
             switchCamera(0);
         } else
         {
-            _controller.SetSensitivity(normalSensitivity);
+            _controller.SetSensitivity(_normalSensitivity);
             switchCamera(2);
         }
-
-
     }
 
     private void changeToPossession()
