@@ -10,7 +10,7 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] [Tooltip("Minimum Impulse needed to destroy the object")] private float _destroyMinimumImpulse = 1;
     [SerializeField]
     [Tooltip("The maximum speed the object is allowed to go before being throwable again")]
-    private float _maxThrowSpeed = 5f;
+    private float _notThrowableThresholdSpeed = 5f;
     private Vector3 _releasePosition;
 
     [Header("Display Controls")]
@@ -22,7 +22,6 @@ public class Throwable : MonoBehaviour, IPossessable
 
     private Camera _cam;
     private Rigidbody _rb;
-    private Collider _collider;
     private Vector3 _aim;
     private LineRenderer _lineRenderer;
     private ObservableObject _observableObject;
@@ -36,7 +35,6 @@ public class Throwable : MonoBehaviour, IPossessable
         LineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
         _observableObject = this.GetComponent<ObservableObject>();
-        _collider = this.GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -61,7 +59,7 @@ public class Throwable : MonoBehaviour, IPossessable
     public void Throw()
     {
         
-        if(_rb.velocity.magnitude < _maxThrowSpeed)
+        if(_observableObject.State == ObjectState.Idle)
         {
             _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
         }        
