@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 3211727876779930997}
   - component: {fileID: 4358672273463480267}
   - component: {fileID: 1302191811235360556}
+  - component: {fileID: 1928970086127011661}
   m_Layer: 3
   m_Name: TVCabinet
   m_TagString: Untagged
@@ -451,6 +452,20 @@ MonoBehaviour:
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
+--- !u!114 &1928970086127011661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133408826412941834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcccc81285b52549b75ddee2fadf09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBreakable: 0
+  _destroyMinimumImpulse: 10
 --- !u!1 &2216527254673139898
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +519,7 @@ GameObject:
   - component: {fileID: 7404128563625226568}
   - component: {fileID: 3527261767252608624}
   - component: {fileID: 8881286804597737792}
+  - component: {fileID: 95930120094347335}
   m_Layer: 3
   m_Name: Glass1
   m_TagString: Untagged
@@ -800,6 +816,20 @@ MonoBehaviour:
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
+--- !u!114 &95930120094347335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3273517543312067971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcccc81285b52549b75ddee2fadf09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBreakable: 1
+  _destroyMinimumImpulse: 10
 --- !u!1 &4302885077901380329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,6 +1132,7 @@ GameObject:
   - component: {fileID: 2206231708064101080}
   - component: {fileID: 1387899238973649107}
   - component: {fileID: 6350317053951994013}
+  - component: {fileID: 1274934658138767581}
   m_Layer: 3
   m_Name: Glass2
   m_TagString: Untagged
@@ -1398,6 +1429,20 @@ MonoBehaviour:
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
+--- !u!114 &1274934658138767581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585074854611163350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcccc81285b52549b75ddee2fadf09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBreakable: 1
+  _destroyMinimumImpulse: 10
 --- !u!1 &6329626862651295451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,6 +1598,7 @@ GameObject:
   - component: {fileID: 1281752093940873606}
   - component: {fileID: 2747869018595811727}
   - component: {fileID: 5724419059106225341}
+  - component: {fileID: 5209740458018961801}
   m_Layer: 3
   m_Name: Table
   m_TagString: Untagged
@@ -1849,6 +1895,20 @@ MonoBehaviour:
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
+--- !u!114 &5209740458018961801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736358314703866979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcccc81285b52549b75ddee2fadf09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBreakable: 0
+  _destroyMinimumImpulse: 10
 --- !u!1 &7941203677082201934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,6 +2169,7 @@ GameObject:
   - component: {fileID: 843589286783230055}
   - component: {fileID: 401941084535591511}
   - component: {fileID: 21688485254929044}
+  - component: {fileID: 3106695808272803445}
   m_Layer: 3
   m_Name: Sofa
   m_TagString: Untagged
@@ -2405,6 +2466,20 @@ MonoBehaviour:
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
+--- !u!114 &3106695808272803445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8539064505942079075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcccc81285b52549b75ddee2fadf09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBreakable: 0
+  _destroyMinimumImpulse: 10
 --- !u!1 &8732282119259365291
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,6 +2498,7 @@ GameObject:
   - component: {fileID: 7210731250756573645}
   - component: {fileID: 6404969408345781969}
   - component: {fileID: 7893969398641370144}
+  - component: {fileID: 8234804236398688612}
   m_Layer: 3
   m_Name: Glass3
   m_TagString: Untagged
@@ -2719,6 +2795,20 @@ MonoBehaviour:
   TopClamp: 70
   BottomClamp: -30
   CameraAngleOverride: 0
+--- !u!114 &8234804236398688612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8732282119259365291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcccc81285b52549b75ddee2fadf09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isBreakable: 1
+  _destroyMinimumImpulse: 10
 --- !u!1 &8870891130095997619
 GameObject:
   m_ObjectHideFlags: 0
