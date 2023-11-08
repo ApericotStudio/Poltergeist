@@ -25,6 +25,7 @@ namespace StarterAssets
 
         [Tooltip("Acceleration and deceleration")]
         [SerializeField] private float SpeedChangeRate = 10.0f;
+        [SerializeField] private float Sensitivity = 1f;
 
         [SerializeField] private AudioClip LandingAudioClip;
         [SerializeField] private AudioClip[] FootstepAudioClips;
@@ -74,7 +75,6 @@ namespace StarterAssets
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
-        [SerializeField] float rotationSpeed = 10;
         public bool freeze;
 
         // animation IDs
@@ -148,20 +148,13 @@ namespace StarterAssets
             GroundedCheck();
             if (!freeze)
             {
-                Look();
                 Move();
             }
         }
 
-        private void Look()
-        {
-            float playerRotate = rotationSpeed * Input.GetAxis("Mouse X");
-            transform.Rotate(0, playerRotate, 0);
-        }
-
         private void LateUpdate()
         {
-            //CameraRotation();
+            CameraRotation();
         }
 
         private void AssignAnimationIDs()
@@ -213,8 +206,8 @@ namespace StarterAssets
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * Sensitivity;
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * Sensitivity;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -224,6 +217,11 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
+        }
+
+        public void SetSensitivity (float newSensitivity)
+        {
+            Sensitivity = newSensitivity;
         }
 
         private void Move()
@@ -261,7 +259,7 @@ namespace StarterAssets
 
 
                 // rotate to face input direction relative to camera position
-                //transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
             // changes player input based on camera orientation

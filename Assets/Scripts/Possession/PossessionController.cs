@@ -8,55 +8,50 @@ public class PossessionController : MonoBehaviour
     [SerializeField, Range(0f, 20f)] private float possessionRange;
 
     private IPossessable currentPossession;
+    public GameObject currentPossessionObject { get; private set; }
     private Camera mainCamera;
-    private CinemachineVirtualCamera virtcam;
     private ThirdPersonController controller;
 
-    private void Start()
+    private AimMode aimMode;
+    private StarterAssetsInputs starterAssetsInputs;
+
+    private void Awake()
     {
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         mainCamera = Camera.main;
-        virtcam = this.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
+        aimMode = this.gameObject.GetComponent<AimMode>();
         controller = this.gameObject.GetComponent<ThirdPersonController>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Possess();
-        }
+
     }
 
     /// <summary>
     /// If camera is looking at possessable object possess it and unpossess current possession
     /// </summary>
-    private void Possess()
+    public void Possess()
     {
         IPossessable possessable = LookForPossessableObject();
         if (possessable == null)
         {
-            if (currentPossession != null)
-            {
-                Unpossess();
-            }
             return;
         }
         controller.freeze = true;
-        this.virtcam.Priority = 0;
-        if (this.currentPossession != null)
-        {
-            currentPossession.Unpossess();
-        }
         possessable.Possess();
         currentPossession = possessable;
     }
 
-    private void Unpossess()
+    public void Unpossess()
     {
-        this.virtcam.Priority = 1;
-        currentPossession.Unpossess();
-        currentPossession = null;
-        controller.freeze = false;
+        if (currentPossession != null)
+        {
+            currentPossession.Unpossess();
+            currentPossession = null;
+            currentPossessionObject = null;
+            controller.freeze = false;
+        }
     }
 
     /// <summary>
@@ -70,6 +65,7 @@ public class PossessionController : MonoBehaviour
         {
             if (hit.collider.gameObject.TryGetComponent(out IPossessable possessableObject))
             {
+                currentPossessionObject = hit.collider.gameObject;
                 return possessableObject;
             }
         }
