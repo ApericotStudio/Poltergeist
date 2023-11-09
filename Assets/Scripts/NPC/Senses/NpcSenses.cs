@@ -105,7 +105,6 @@ public class NpcSenses : MonoBehaviour, IObserver
     }
     public void OnNotify(ObservableObject observableObject)
     {
-        Debug.Log( $"name: {observableObject.name}:" + $"state: {observableObject.State}");
 
         if (observableObject.IsAudible && observableObject.State == ObjectState.Hit)
         {
