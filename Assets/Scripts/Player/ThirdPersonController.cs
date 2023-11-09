@@ -2,6 +2,7 @@
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -16,8 +17,9 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
-        [SerializeField] private float MoveSpeed = 2.0f;
-        [SerializeField] private float flySpeed = 2.0f;
+        [SerializeField] private float MoveSpeed = 5.0f;
+        [SerializeField] private float flySpeed = 5.0f;
+        [SerializeField] private float _aimSpeed = 2.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -95,7 +97,8 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
-
+        private float _targetSpeed;
+        private bool _aim;
         private bool IsCurrentDeviceMouse
         {
             get
@@ -116,11 +119,10 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
-
-            int clutterLayer = LayerMask.NameToLayer("Clutter");
             int playerLayer = LayerMask.NameToLayer("Player");
+            int observableObjectLayer = LayerMask.NameToLayer("Observable Object");
 
-            Physics.IgnoreLayerCollision(playerLayer, clutterLayer);
+            Physics.IgnoreLayerCollision(playerLayer, observableObjectLayer);
         }
 
         private void Start()
@@ -227,19 +229,26 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = MoveSpeed;
+            if (_aim)
+            {
+                _targetSpeed = _aimSpeed;
+            }
+            else
+            {
+                _targetSpeed = MoveSpeed;
+            }
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.move == Vector2.zero) _targetSpeed = 0.0f;
 
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
-            _speed = targetSpeed;
+            _speed = _targetSpeed;
 
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+            _animationBlend = Mathf.Lerp(_animationBlend, _targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             
@@ -280,6 +289,16 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
+        }
+
+        public void AimEnter()
+        {
+            _aim = true;
+        }
+
+        public void AimExit()
+        {
+            _aim = false;
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
