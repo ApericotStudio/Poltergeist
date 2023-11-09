@@ -54,6 +54,7 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Unpossess()
     {
+        _lineRenderer.enabled = false;
         isPossessed = false;
     }
 
