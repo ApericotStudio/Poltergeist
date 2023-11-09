@@ -21,11 +21,13 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
-		private AimMode aimMode;
+		private AimMode _aimMode;
+		private PossessionController _possessionController;
 
         private void Awake()
         {
-			aimMode = gameObject.GetComponent<AimMode>();
+			_aimMode = gameObject.GetComponent<AimMode>();
+			_possessionController = gameObject.GetComponent<PossessionController>();
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -59,18 +61,36 @@ namespace StarterAssets
 
 		private void OnAim(InputValue value)
         {
-			aimMode.EnterAimMode();
+			_aimMode.EnterAimMode();
         }
 
 		private void OnAimCancel(InputValue value)
         {
-			aimMode.ExitAimMode();
+			if (_possessionController.currentPossessionObject != null && !_aimMode.aimmode)
+            {
+				_possessionController.Unpossess();
+            } else
+            {
+				_aimMode.ExitAimMode();
+			}
+
         }
 
 		private void OnAimConfirm(InputValue value)
         {
-			aimMode.ExitAimModeConfirm();
-        }
+			if (_possessionController.currentPossessionObject == null)
+			{
+				_possessionController.Possess();
+			}
+			else
+			{
+				if (_possessionController.currentThrowable != null && _aimMode.aimmode)
+				{
+					_possessionController.currentThrowable.Throw();
+				}
+			}
+			_aimMode.ExitAimMode();
+		}
 #endif
 
 
@@ -109,12 +129,4 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
-
-	public enum Button {
-		idle,
-		isPressed,
-		isReleased,
-	}
-
-	
 }

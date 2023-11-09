@@ -23,7 +23,7 @@ public class Throwable : MonoBehaviour, IPossessable
     private Rigidbody _rb;
     private Collider _collider;
     private Vector3 _aim;
-    private LineRenderer _lineRenderer;
+    private LineRenderer _lineRenderer { get; set; }
     private ObservableObject _observableObject;
 
     public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
@@ -91,5 +91,10 @@ public class Throwable : MonoBehaviour, IPossessable
                 return;
             }
         }
+    }
+
+    public ObjectState GetState()
+    {
+        return _observableObject.State;
     }
 }

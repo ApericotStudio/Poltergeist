@@ -15,14 +15,11 @@ public class AimMode : MonoBehaviour
     private ThirdPersonController _controller;
     private PossessionController _possessionController;
 
-    private GameObject _currentPossessionObject;
-    private Throwable _currentThrowable;
-
     [SerializeField] 
     private float _normalSensitivity = 1;
     [SerializeField] 
     private float _aimSensitivity = 1;
-    private bool _aimmode;
+    public bool aimmode;
 
     private void Awake()
     {
@@ -34,78 +31,50 @@ public class AimMode : MonoBehaviour
         _possessionAimCam = GameObject.Find("PossessionAimCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionDefaultCam = GameObject.Find("PossessionFollowCamera").GetComponent<CinemachineVirtualCamera>();
         _cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
+        _cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
     }
 
     private void Update()
     {
-        if (_currentThrowable != null) { _currentThrowable.LineRenderer.enabled = _aimmode; }
-        if (_aimmode)
+        if (_possessionController.currentThrowable != null) { _possessionController.currentThrowable.LineRenderer.enabled = aimmode; }
+        if (aimmode)
         {
-            Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
-            worldAimTarget.y = transform.position.y;
-            Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
-            transform.forward = aimDirection;
-            if (_currentThrowable != null)
+            if (_possessionController.currentThrowable == null)
             {
-                _currentThrowable.DrawProjection();
+                Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
+                worldAimTarget.y = transform.position.y;
+                Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+                transform.forward = aimDirection;
+            } else
+            {
+                _possessionController.currentThrowable.DrawProjection();
             }
         }
     }
 
     public void EnterAimMode()
     {
-        _aimmode = true;
-        if (_currentPossessionObject == null)
+        if (_possessionController.currentPossessionObject == null)
         {
+            aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(1);
         } else
         {
+            if (_possessionController.currentThrowable != null)
+            {
+                if (_possessionController.currentThrowable.GetState() is not ObjectState.Idle) { return; }
+            }
+            aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(3);
-        }
-    }
-    public void ExitAimModeConfirm()
-    {
-        if (_currentPossessionObject == null)
-        {
-            _possessionController.Possess();
-            _currentPossessionObject = _possessionController.currentPossessionObject;
-            if (_currentPossessionObject != null)
-            {
-                changeToPossession();
-                switchCamera(2);
-                _aimmode = false;
-                _controller.SetSensitivity(_normalSensitivity);
-                if (_currentPossessionObject.TryGetComponent(out Throwable throwable))
-                {
-                    _currentThrowable = throwable;
-                }
-            }
-            else
-            {
-                ExitAimMode();
-            }
-        }
-        else
-        {
-            if (_currentThrowable != null && _aimmode)
-            {
-                _currentThrowable.Throw();
-                ExitAimMode();
-            }
         }
     }
 
     public void ExitAimMode()
     {
-        if (!_aimmode && _currentPossessionObject != null)
-        {
-            _currentPossessionObject = null;
-            _currentThrowable = null;
-        }
-        _aimmode = false;
-        if (_currentPossessionObject == null)
+        aimmode = false;
+        if (_possessionController.currentPossessionObject == null)
         {
             _controller.SetSensitivity(_normalSensitivity);
             switchCamera(0);
@@ -116,10 +85,9 @@ public class AimMode : MonoBehaviour
         }
     }
 
-    private void changeToPossession()
+    public void changeCameraToPossession()
     {
-        GameObject currentPossession = _possessionController.currentPossessionObject;
-        Transform pos = currentPossession.transform;
+        Transform pos = _possessionController.currentPossessionObject.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
         _possessionDefaultCam.LookAt = pos;
         _possessionDefaultCam.Follow = pos;
         _possessionAimCam.LookAt = pos;
