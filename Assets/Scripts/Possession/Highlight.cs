@@ -5,13 +5,13 @@ public class Highlight : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("Renderers that will be highlighted")]
-    [SerializeField] private List<Renderer> renderers;
+    [SerializeField] private List<Renderer> _renderers;
 
     [Header("Adjustable variables")]
-    [SerializeField] private Color highlightColor = Color.white;
+    [SerializeField] private Color _highlightColor = Color.white;
 
     private bool _disableHightlight;
-    private List<Material> materials;
+    private List<Material> _materials;
 
     private void Awake()
     {
@@ -23,10 +23,10 @@ public class Highlight : MonoBehaviour
     /// </summary>
     private void SetupMaterials()
     {
-        materials = new List<Material>();
-        foreach (Renderer renderer in renderers)
+        _materials = new List<Material>();
+        foreach (Renderer renderer in _renderers)
         {
-            materials.AddRange(new List<Material>(renderer.materials));
+            _materials.AddRange(new List<Material>(renderer.materials));
         }
     }
 
@@ -41,15 +41,15 @@ public class Highlight : MonoBehaviour
             {
                 return;
             }
-            foreach (Material material in materials)
+            foreach (Material material in _materials)
             {
                 material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", highlightColor);
+                material.SetColor("_EmissionColor", _highlightColor);
             }
         }
         else
         {
-            foreach (Material material in materials)
+            foreach (Material material in _materials)
             {
                 material.DisableKeyword("_EMISSION");
             }

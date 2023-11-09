@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class InteractController : MonoBehaviour
 {
-    [SerializeField, Range(0f, 20f)] private float interactRange;
-    private Camera playerCamera;
+    [SerializeField, Range(0f, 20f)] private float _interactRange;
+    private Camera _playerCamera;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class InteractController : MonoBehaviour
         {
             throw new System.Exception("Camera reference may not be null.");
         }
-        playerCamera = camera;
+        _playerCamera = camera;
     }
 
     private void Update()
@@ -43,12 +43,12 @@ public class InteractController : MonoBehaviour
     /// <returns>Found interactable object or null</returns>
     private Interactable LookForInteractableObject()
     {
-        if (playerCamera == null)
+        if (_playerCamera == null)
         {
             throw new System.Exception("Missing camera reference.");
         }
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactRange))
+        if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out hit, _interactRange))
         {
             if (hit.collider.gameObject.TryGetComponent(out Interactable interactable))
             {
