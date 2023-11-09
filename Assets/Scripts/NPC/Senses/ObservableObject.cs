@@ -14,8 +14,8 @@ public enum ObjectState
 }
 public enum ObjectType
 {
-    Big,
-    Small
+    Big = 5,
+    Small = 2
 }
 /// <summary>
 /// The Observable Object class is used to store the state of the object. 

@@ -37,6 +37,7 @@ public class NpcSenses : MonoBehaviour, IObserver
     private float _reactionDelay = 1f;
 
     private float _detectionRange;
+    [SerializeField] private AudioClip _scaredAudio;
     public float DetectionRange 
     { 
         get {
@@ -104,7 +105,17 @@ public class NpcSenses : MonoBehaviour, IObserver
     }
     public void OnNotify(ObservableObject observableObject)
     {
+        Debug.Log( $"name: {observableObject.name}:" + $"state: {observableObject.State}");
 
+        if (observableObject.IsAudible && observableObject.State == ObjectState.Hit)
+        {
+            _npcController.FearValue += (float)observableObject.Type + 1f;
+            AudioSource.PlayClipAtPoint(_scaredAudio, transform.position);
+        }
+        else if(observableObject.IsVisible && observableObject.State == ObjectState.Moving)
+        {
+            _npcController.FearValue += (float)observableObject.Type + 1f;
+        }
     }
     
     /// <summary>
