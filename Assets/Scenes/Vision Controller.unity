@@ -1484,7 +1484,6 @@ GameObject:
   - component: {fileID: 1026742297}
   - component: {fileID: 1026742301}
   - component: {fileID: 1026742300}
-  - component: {fileID: 1026742302}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1644,19 +1643,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1026742302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1026742296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecf2022beb66c47448a29150e76cd197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  highlightRange: 10
 --- !u!1 &1028513131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,6 +2630,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1411555903}
+    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1411555910}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!4 &1411555888 stripped
 Transform:
@@ -2663,7 +2653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8ab235cca8fb949bf26947807ca037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possessionRange: 20
+  CurrentPossession: {fileID: 0}
   currentThrowable: {fileID: 0}
 --- !u!114 &1411555902
 MonoBehaviour:
@@ -2697,6 +2687,18 @@ MonoBehaviour:
       m_Calls: []
   LookingAt: {fileID: 0}
   _visionRange: 10
+--- !u!114 &1411555910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359245195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf2022beb66c47448a29150e76cd197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1477968860
 PrefabInstance:
   m_ObjectHideFlags: 0
