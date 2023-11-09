@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class Throwable : MonoBehaviour, IPossessable
 {
@@ -21,9 +18,8 @@ public class Throwable : MonoBehaviour, IPossessable
 
     private Camera _cam;
     private Rigidbody _rb;
-    private Collider _collider;
     private Vector3 _aim;
-    private LineRenderer _lineRenderer;
+    private LineRenderer _lineRenderer { get; set; }
     private ObservableObject _observableObject;
 
     public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
@@ -35,7 +31,6 @@ public class Throwable : MonoBehaviour, IPossessable
         LineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
         _observableObject = this.GetComponent<ObservableObject>();
-        _collider = this.GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -60,7 +55,11 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Throw()
     {
-        _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
+        
+        if(_observableObject.State == ObjectState.Idle)
+        {
+            _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
+        }        
     }
 
     public void DrawProjection()
@@ -91,5 +90,10 @@ public class Throwable : MonoBehaviour, IPossessable
                 return;
             }
         }
+    }
+
+    public ObjectState GetState()
+    {
+        return _observableObject.State;
     }
 }
