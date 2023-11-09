@@ -1,5 +1,4 @@
 using UnityEngine;
-using Cinemachine;
 
 public class Throwable : MonoBehaviour, IPossessable
 {
@@ -8,9 +7,6 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 2;
     [SerializeField] private float _rotationSpeed = 10;
     [SerializeField] [Tooltip("Minimum Impulse needed to destroy the object")] private float _destroyMinimumImpulse = 1;
-    [SerializeField]
-    [Tooltip("The maximum speed the object is allowed to go before being throwable again")]
-    private float _notThrowableThresholdSpeed = 5f;
     private Vector3 _releasePosition;
 
     [Header("Display Controls")]
