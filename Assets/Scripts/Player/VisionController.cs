@@ -22,6 +22,9 @@ public class VisionController : MonoBehaviour
         Look();
     }
 
+    /// <summary>
+    /// Updates LookingAt when player looks at a different game object
+    /// </summary>
     private void Look()
     {
         GameObject foundObject = CheckForObject();
@@ -33,6 +36,10 @@ public class VisionController : MonoBehaviour
         LookingAtChanged?.Invoke();
     }
 
+    /// <summary>
+    /// Check if the middle of the camera is pointing at a game object that is no more than _visionRange away
+    /// </summary>
+    /// <returns></returns>
     private GameObject CheckForObject()
     {
         RaycastHit hit;
