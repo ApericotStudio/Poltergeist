@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
 /// The NPC's senses. Handles the NPC's field of view, hearing radius, and detection radius.
 /// </summary>
-public class NpcSenses : MonoBehaviour
+public class NpcSenses : MonoBehaviour, IObserver
 {
     [Header("Sight Settings")]
     [Range(0, 360)]
@@ -29,6 +30,11 @@ public class NpcSenses : MonoBehaviour
     [Tooltip("The obstacle layers that block the NPC's vision.")]
     [SerializeField]
     private LayerMask _obstacleMask;
+    [Header("Reaction Settings")]
+    [SerializeField]
+    [Tooltip("The delay between the NPC detecting a target and reacting to it.")]
+    [Range(0f, 5f)]
+    private float _reactionDelay = 1f;
 
     private float _detectionRange;
     public float DetectionRange 
@@ -39,8 +45,8 @@ public class NpcSenses : MonoBehaviour
         }
     }
     private NpcController _npcController;
-    private List<Clutter> _detectedClutter = new();
-    public List<Clutter> DetectedClutter { get => _detectedClutter; set => _detectedClutter = value; }
+    private List<ObservableObject> _detectedObjects = new();
+    public List<ObservableObject> DetectedObjects { get => _detectedObjects; set => _detectedObjects = value; }
     public float SightRange{ get => _sightRange; set => _sightRange = value; }
     public float FieldOfViewAngle { get => _fieldOfViewAngle; set => _fieldOfViewAngle = value; }
     public float AuditoryRange { get => _auditoryRange; set => _auditoryRange = value; }
@@ -64,22 +70,18 @@ public class NpcSenses : MonoBehaviour
 		}
 	}
 
-    private void Update()
-    {
-        ReactToClutterState();
-    }
     /// <summary>
     /// Detects all targets in the NPC's detection radius.
     /// </summary>
     private void DetectTargets()
     {
-        ClearDetectedClutter();
+        ClearDetectedObjects();
 
         Collider[] targetsInDetectionRadius = Physics.OverlapSphere(transform.position, DetectionRange, _targetMask);
         for (int i = 0; i < targetsInDetectionRadius.Length; i++)
         {
             Transform target = targetsInDetectionRadius[i].transform;
-            if (target.TryGetComponent<Clutter>(out var clutter))
+            if (target.TryGetComponent<ObservableObject>(out var clutter))
             {
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
@@ -89,64 +91,34 @@ public class NpcSenses : MonoBehaviour
                 }
                 if (Vector3.Angle (transform.forward, dirToTarget) < _fieldOfViewAngle / 2) {
                     clutter.IsVisible = true;
-                    DetectedClutter.Add(clutter);
+                    DetectedObjects.Add(clutter);
                     return;
                 }
                 if (!(dstToTarget <= _auditoryRange))
                     return;
                 clutter.IsAudible = true;
-                DetectedClutter.Add(clutter);
-            }
-        }
-        
-    }
-    /// <summary>
-    /// Reacts to the state of the detected clutter.
-    /// </summary>
-    private void ReactToClutterState()
-    {
-        foreach (Clutter clutter in DetectedClutter)
-        {
-            switch(clutter.State)
-            {
-                case ClutterState.Idle:
-                    break;
-                case ClutterState.Moving:
-                    UpdateAnxietyValue(clutter, clutter.MoveAnxietyValue);
-                    break;
-                case ClutterState.Destroyed:
-                    UpdateAnxietyValue(clutter, clutter.DestroyAnxietyValue);
-                    break;
+                DetectedObjects.Add(clutter);
+                clutter.AddObserver(this);
             }
         }
     }
-    /// <summary>
-    /// Updates the NPC's anxiety value based on the state of the detected clutter.
-    /// </summary>
-    /// <param name="clutter">The detected clutter.</param>
-    /// <param name="value">The amount of anxiety to be added.</param>
-    private void UpdateAnxietyValue(Clutter clutter, float value)
+    public void OnNotify(ObservableObject observableObject)
     {
-        if (clutter.IsVisible)
-        {
-            _npcController.AnxietyValue += value * clutter.VisualMultiplier * Time.deltaTime;
-        }
-        else if (clutter.IsAudible)
-        {
-            _npcController.AnxietyValue += value * clutter.AuditoryMultiplier * Time.deltaTime;
-        }
+
     }
+    
     /// <summary>
     /// Clears the detected clutter, also setting their visibility and audibility to false.
     /// </summary>
-    private void ClearDetectedClutter()
+    private void ClearDetectedObjects()
     {
-        foreach (Clutter clutter in DetectedClutter)
+        foreach (ObservableObject observableObject in DetectedObjects)
         {
-            clutter.IsVisible = false;
-            clutter.IsAudible = false;
+            observableObject.IsVisible = false;
+            observableObject.IsAudible = false;
+            observableObject.RemoveObserver(this);
         }
-        DetectedClutter.Clear();
+        DetectedObjects.Clear();
     }
     /// <summary>
     /// Returns a vector3 direction from an angle. Used for the field of view.

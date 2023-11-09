@@ -21,8 +21,17 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		private AimMode _aimMode;
+		private PossessionController _possessionController;
+
+        private void Awake()
+        {
+			_aimMode = gameObject.GetComponent<AimMode>();
+			_possessionController = gameObject.GetComponent<PossessionController>();
+        }
+
 #if ENABLE_INPUT_SYSTEM
-		private void OnMove(InputValue value)
+        private void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -49,10 +58,43 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		private void OnAim(InputValue value)
+        {
+			_aimMode.EnterAimMode();
+        }
+
+		private void OnAimCancel(InputValue value)
+        {
+			if (_possessionController.currentPossessionObject != null && !_aimMode.aimmode)
+            {
+				_possessionController.Unpossess();
+            } else
+            {
+				_aimMode.ExitAimMode();
+			}
+
+        }
+
+		private void OnAimConfirm(InputValue value)
+        {
+			if (_possessionController.currentPossessionObject == null)
+			{
+				_possessionController.Possess();
+			}
+			else
+			{
+				if (_possessionController.currentThrowable != null && _aimMode.aimmode)
+				{
+					_possessionController.currentThrowable.Throw();
+				}
+			}
+			_aimMode.ExitAimMode();
+		}
 #endif
 
 
-        public void MoveInput(Vector2 newMoveDirection)
+		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
 		}
@@ -87,5 +129,4 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
-	
 }

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class Throwable : MonoBehaviour, IPossessable
 {
@@ -17,38 +14,23 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints = 0.1f;
     private LayerMask _throwLayerMask;
 
-    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
     public bool isPossessed;
 
     private Camera _cam;
     private Rigidbody _rb;
-    private Collider _collider;
     private Vector3 _aim;
-    private LineRenderer _lineRenderer;
-    private Clutter _clutter;
+    private LineRenderer _lineRenderer { get; set; }
+    private ObservableObject _observableObject;
+
+    public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
 
     // Start is called before the first frame update
     private void Start()
     {
         _rb = this.GetComponent<Rigidbody>();
-        _lineRenderer = this.GetComponent<LineRenderer>();
+        LineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
-        _clutter = this.GetComponent<Clutter>();
-        _collider = this.GetComponent<Collider>();
-
-        int throwLayer = this.gameObject.layer;
-        for (int i = 0; i < 32; i++)
-        {
-            if (!Physics.GetIgnoreLayerCollision(throwLayer, i))
-            {
-                _throwLayerMask |= 1 << i;
-            }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateClutterState();
+        _observableObject = this.GetComponent<ObservableObject>();
     }
 
     // Update is called once per frame
@@ -57,76 +39,38 @@ public class Throwable : MonoBehaviour, IPossessable
         _aim = _cam.transform.forward;
         _aim.y = _aim.y * ySense;
         _aim.Normalize();
-        if (isPossessed)
-        {
-            float playerRotate = _rotationSpeed * Input.GetAxis("Mouse X");
-            transform.Rotate(0, playerRotate, 0);
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                DrawProjection();
-            }
-            else
-            {
-                _lineRenderer.enabled = false;
-            }
-
-
-            if (Input.GetKeyUp(KeyCode.Mouse0))
-            {
-                ThrowObject();
-            }
-        }
     }
 
     public void Possess()
     {
-        _virtualCamera.Priority = 1;
         
         isPossessed = true;
     }
 
     public void Unpossess()
     {
-        _virtualCamera.Priority = 0;
+        _lineRenderer.enabled = false;
         isPossessed = false;
     }
 
-    private void ThrowObject()
+    public void Throw()
     {
-        _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
-    }
-
-    private void UpdateClutterState()
-    {
-        if (_clutter.State != ClutterState.Destroyed)
+        
+        if(_observableObject.State == ObjectState.Idle)
         {
-            if (_rb.velocity.magnitude > 0.01f)
-            {
-                _clutter.State = ClutterState.Moving;
-            } else
-            {
-                _clutter.State = ClutterState.Idle;
-            }
-        }
+            _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
+        }        
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.impulse.magnitude > _destroyMinimumImpulse)
-        {
-            _clutter.State = ClutterState.Destroyed;
-        }
-    }
-
-    private void DrawProjection()
+    public void DrawProjection()
     {
         _releasePosition = transform.position;
-        _lineRenderer.enabled = true;
-        _lineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
+        LineRenderer.enabled = true;
+        LineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
         Vector3 startPosition = _releasePosition;
         Vector3 startVelocity = _throwForce * _aim / _rb.mass;
         int i = 0;
-        _lineRenderer.SetPosition(i, startPosition);
+        LineRenderer.SetPosition(i, startPosition);
         for (float time = 0; time < _linePoints; time += _timeBetweenPoints)
         {
             i++;
@@ -135,16 +79,21 @@ public class Throwable : MonoBehaviour, IPossessable
             //Trajectory formula here
             point.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2f * time * time);
 
-            _lineRenderer.SetPosition(i, point);
+            LineRenderer.SetPosition(i, point);
 
-            Vector3 lastPosition = _lineRenderer.GetPosition(i - 1);
+            Vector3 lastPosition = LineRenderer.GetPosition(i - 1);
 
             if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, (point - lastPosition).magnitude, _throwLayerMask))
             {
-                _lineRenderer.SetPosition(i, hit.point);
-                _lineRenderer.positionCount = i + 1;
+                LineRenderer.SetPosition(i, hit.point);
+                LineRenderer.positionCount = i + 1;
                 return;
             }
         }
+    }
+
+    public ObjectState GetState()
+    {
+        return _observableObject.State;
     }
 }

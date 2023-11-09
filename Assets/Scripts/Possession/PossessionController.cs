@@ -2,61 +2,62 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 
-public class PossessionController : MonoBehaviour
+public class PossessionController : MonoBehaviour, IObserver
 {
     [Tooltip("Max range for possession")]
     [SerializeField, Range(0f, 20f)] private float possessionRange;
 
-    private IPossessable currentPossession;
-    private Camera mainCamera;
-    private CinemachineVirtualCamera virtcam;
-    private ThirdPersonController controller;
+    private IPossessable _currentPossession;
 
-    private void Start()
-    {
-        mainCamera = Camera.main;
-        virtcam = this.gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
-        controller = this.gameObject.GetComponent<ThirdPersonController>();
-    }
+    public GameObject currentPossessionObject { get; private set; }
+    public Throwable currentThrowable;
+    private ObservableObject _currentObservableObject;
+    private Camera _mainCamera;
+    private ThirdPersonController _controller;
 
-    private void Update()
+    private AimMode _aimMode;
+
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Possess();
-        }
+        _mainCamera = Camera.main;
+        _aimMode = this.gameObject.GetComponent<AimMode>();
+        _controller = this.gameObject.GetComponent<ThirdPersonController>();
     }
 
     /// <summary>
     /// If camera is looking at possessable object possess it and unpossess current possession
     /// </summary>
-    private void Possess()
+    public void Possess()
     {
         IPossessable possessable = LookForPossessableObject();
+    
         if (possessable == null)
         {
-            if (currentPossession != null)
-            {
-                Unpossess();
-            }
             return;
         }
-        controller.freeze = true;
-        this.virtcam.Priority = 0;
-        if (this.currentPossession != null)
+        _aimMode.changeCameraToPossession();
+        if (currentPossessionObject.TryGetComponent(out Throwable throwable))
         {
-            currentPossession.Unpossess();
+            currentThrowable = throwable;
         }
+        _controller.freeze = true;
         possessable.Possess();
-        currentPossession = possessable;
+        _currentObservableObject.AddObserver(this);
+        _currentPossession = possessable;
+        _aimMode.ExitAimMode();
     }
 
-    private void Unpossess()
+    public void Unpossess()
     {
-        this.virtcam.Priority = 1;
-        currentPossession.Unpossess();
-        currentPossession = null;
-        controller.freeze = false;
+        if (_currentPossession != null)
+        {
+            _currentPossession.Unpossess();
+            _currentPossession = null;
+            currentPossessionObject = null;
+            currentThrowable = null;
+            _aimMode.ExitAimMode();
+            _controller.freeze = false;
+        }
     }
 
     /// <summary>
@@ -66,13 +67,23 @@ public class PossessionController : MonoBehaviour
     private IPossessable LookForPossessableObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, possessionRange))
+        if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, possessionRange))
         {
-            if (hit.collider.gameObject.TryGetComponent(out IPossessable possessableObject))
+            if (hit.collider.gameObject.TryGetComponent(out IPossessable possessable))
             {
-                return possessableObject;
+                currentPossessionObject = hit.collider.gameObject;
+                _currentObservableObject = currentPossessionObject.GetComponent<ObservableObject>();
+                return possessable;
             }
         }
         return null;
+    }
+
+    public void OnNotify(ObservableObject observableObject)
+    {
+        if (observableObject.State == ObjectState.Broken)
+        {
+            Unpossess();
+        }
     }
 }
