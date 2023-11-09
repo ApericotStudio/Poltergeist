@@ -66,7 +66,7 @@ namespace StarterAssets
 
 		private void OnAimCancel(InputValue value)
         {
-			if (_possessionController.currentPossessionObject != null && !_aimMode.aimmode)
+			if (_possessionController.CurrentPossession != null && !_aimMode.aimmode)
             {
 				_possessionController.Unpossess();
             } else
@@ -78,7 +78,7 @@ namespace StarterAssets
 
 		private void OnAimConfirm(InputValue value)
         {
-			if (_possessionController.currentPossessionObject == null)
+			if (_possessionController.CurrentPossession == null)
 			{
 				_possessionController.Possess();
 			}

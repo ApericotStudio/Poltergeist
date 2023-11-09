@@ -54,7 +54,7 @@ public class AimMode : MonoBehaviour
 
     public void EnterAimMode()
     {
-        if (_possessionController.currentPossessionObject == null)
+        if (_possessionController.CurrentPossession == null)
         {
             aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
@@ -74,7 +74,7 @@ public class AimMode : MonoBehaviour
     public void ExitAimMode()
     {
         aimmode = false;
-        if (_possessionController.currentPossessionObject == null)
+        if (_possessionController.CurrentPossession == null)
         {
             _controller.SetSensitivity(_normalSensitivity);
             switchCamera(0);
@@ -87,7 +87,7 @@ public class AimMode : MonoBehaviour
 
     public void changeCameraToPossession()
     {
-        Transform pos = _possessionController.currentPossessionObject.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
+        Transform pos = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
         _possessionDefaultCam.LookAt = pos;
         _possessionDefaultCam.Follow = pos;
         _possessionAimCam.LookAt = pos;
