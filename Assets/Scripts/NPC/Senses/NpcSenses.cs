@@ -35,6 +35,10 @@ public class NpcSenses : MonoBehaviour, IObserver
     [Tooltip("The delay between the NPC detecting a target and reacting to it.")]
     [Range(0f, 5f)]
     private float _reactionDelay = 1f;
+    [SerializeField]
+    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioClip _audioClip;
 
     private float _detectionRange;
     public float DetectionRange 
@@ -104,7 +108,12 @@ public class NpcSenses : MonoBehaviour, IObserver
     }
     public void OnNotify(ObservableObject observableObject)
     {
-
+        if(observableObject.IsAudible && observableObject.State == ObjectState.Hit && _npcController.CurrentState is RoamState)
+        {
+            _audioSource.PlayOneShot(_audioClip);
+            _npcController.CurrentState = new ScaredState(_npcController);
+            _npcController.FearValue += 10f;
+        }
     }
     
     /// <summary>

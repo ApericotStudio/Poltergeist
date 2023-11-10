@@ -23,6 +23,10 @@ public class PanickedState : INpcState
     {
         _npcController.NavMeshAgent.speed = _npcController.FrightenedSpeed;
         _npcController.NavMeshAgent.SetDestination(_npcController.FrightenedTargetLocation.position);
+        while (_npcController.NavMeshAgent.pathPending)
+        {
+            yield return null;
+        }
         PlayRandomScreamClip();
         while (true)
         {
@@ -31,8 +35,9 @@ public class PanickedState : INpcState
                 _npcController.RanAway = true;
                 _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerWon);
                 _npcController.StopCoroutine(RunAway());
+                _npcController.CurrentState = new RoamState(_npcController);
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

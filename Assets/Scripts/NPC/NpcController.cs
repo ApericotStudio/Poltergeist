@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -52,6 +53,9 @@ public class NpcController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField]
     private float _footstepVolume = 0.5f;
+    [Header("Roam Targets")]
+    [Tooltip("The ordered queue of roaming locations")]
+    public List<Transform> RoamingTargets;
     
     private NavMeshAgent _navMeshAgent;
     private INpcState _currentState;
@@ -105,6 +109,7 @@ public class NpcController : MonoBehaviour
         _npcAudioSource = GetComponent<AudioSource>();
         InitializeAnimator();
         OnStateChange.AddListener(OnStateChanged);
+        CurrentState = new RoamState(this);
     }
 
     private void Update()
@@ -130,11 +135,11 @@ public class NpcController : MonoBehaviour
             CurrentState = new PanickedState(this);
             return;
         }
-        if(CurrentState is not RoamState && CurrentState is not PanickedState)
+        /*if(CurrentState is not RoamState && CurrentState is not PanickedState)
         {
             CurrentState = new RoamState(this);
             return;
-        }
+        }*/
     }
 
     private void OnStateChanged()
@@ -146,7 +151,7 @@ public class NpcController : MonoBehaviour
     {
         if(FearValue > 0f)
         {
-            FearValue -= Time.deltaTime * 1f;
+            FearValue -= Time.deltaTime * 0.5f;
         }
     }
 
