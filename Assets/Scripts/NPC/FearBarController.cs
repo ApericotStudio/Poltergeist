@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class FearBarController : MonoBehaviour
 {
-    [Header("Fear Bar Settings")]
-    [Tooltip("The fear bar shows the amount of fear an NPC has. "), SerializeField]
     private Slider _fearBar;
 
     private readonly float _maxFear = 100;
@@ -12,6 +10,7 @@ public class FearBarController : MonoBehaviour
 
     private void Awake()
     {
+        _fearBar = GetComponent<Slider>();
         _npcController = GetComponentInParent<NpcController>();
     }
 
