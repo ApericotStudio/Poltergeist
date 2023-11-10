@@ -25,6 +25,7 @@ public class AimMode : MonoBehaviour
     {
         _controller = this.gameObject.GetComponent<ThirdPersonController>();
         _possessionController = this.gameObject.GetComponent<PossessionController>();
+        _possessionController.CurrentPossessionChanged.AddListener(changeCameraToPossession);
 
         _aimCam = GameObject.Find("PlayerAimCamera").GetComponent<CinemachineVirtualCamera>();
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
@@ -87,12 +88,16 @@ public class AimMode : MonoBehaviour
 
     public void changeCameraToPossession()
     {
+        ExitAimMode();
+        if (_possessionController.CurrentPossession == null)
+        {
+            return;
+        }
         Transform pos = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
         _possessionDefaultCam.LookAt = pos;
         _possessionDefaultCam.Follow = pos;
         _possessionAimCam.LookAt = pos;
         _possessionAimCam.Follow = pos;
-        ExitAimMode();
     }
 
     private void switchCamera(int index)

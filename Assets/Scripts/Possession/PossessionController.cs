@@ -1,18 +1,19 @@
 using UnityEngine;
 using StarterAssets;
+using UnityEngine.Events;
 
 public class PossessionController : MonoBehaviour, IObserver
 {
+    public UnityEvent CurrentPossessionChanged = new UnityEvent();
+
     public GameObject CurrentPossession;
 
     public Throwable currentThrowable;
     private ThirdPersonController _thirdPersonController;
     private VisionController _visionController;
-    private AimMode _aimMode;
 
     private void Awake()
     {
-        _aimMode = GetComponent<AimMode>();
         _thirdPersonController = GetComponent<ThirdPersonController>();
         _visionController = GetComponent<VisionController>();
     }
@@ -39,13 +40,11 @@ public class PossessionController : MonoBehaviour, IObserver
         possessable.Possess();
         CurrentPossession.GetComponent<ObservableObject>().AddObserver(this);
         _thirdPersonController.freeze = true;
-
-        _aimMode.changeCameraToPossession();
+        CurrentPossessionChanged?.Invoke();
         if (CurrentPossession.TryGetComponent(out Throwable throwable))
         {
             currentThrowable = throwable;
         }
-        _aimMode.ExitAimMode();
     }
 
     public void Unpossess()
@@ -55,8 +54,8 @@ public class PossessionController : MonoBehaviour, IObserver
             CurrentPossession.GetComponent<IPossessable>().Unpossess();
             CurrentPossession = null;
             currentThrowable = null;
-            _aimMode.ExitAimMode();
             _thirdPersonController.freeze = false;
+            CurrentPossessionChanged?.Invoke();
         }
     }
 
