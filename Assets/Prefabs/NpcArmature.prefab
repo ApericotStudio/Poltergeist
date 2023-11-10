@@ -2948,36 +2948,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1aed4cef7e38f4397ef21d9db3efbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roamTargetLocation: {fileID: 0}
-  _roamRadius: 5
-  _roamingSpeed: 2
-  _frightenedTargetLocation: {fileID: 0}
-  _frightenedSpeed: 5.335
+  RoamTargetLocation: {fileID: 0}
+  RoamRadius: 5
+  RoamingSpeed: 2
+  FrightenedTargetLocation: {fileID: 0}
+  FrightenedSpeed: 5.335
   _fearValue: 50
   _onFearValueChange:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4380823125018660199}
-        m_TargetAssemblyTypeName: FearBarController, Assembly-CSharp
-        m_MethodName: OnFearChange
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _onStateChange:
+      m_Calls: []
+  OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-  _gameEventManager: {fileID: 0}
-  _screamAudioClips:
+  GameEventManager: {fileID: 0}
+  ScreamAudioClips:
   - {fileID: 8300000, guid: ca54368baa460454f8b5de91a7b7f825, type: 3}
   - {fileID: 8300000, guid: 1aa179d29c47b5d42b219c270858871a, type: 3}
-  _screamVolume: 1
-  _footstepAudioClips:
+  ScreamVolume: 1
+  FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
   - {fileID: 8300000, guid: 186de84b3207156479abe98f4958fed0, type: 3}
@@ -2988,7 +2976,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 67c8b33e424ccdc4486edf538ab91c5a, type: 3}
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
-  _footstepVolume: 0.5
+  FootstepVolume: 0.5
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0

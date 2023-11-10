@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class ObservablePhysics : MonoBehaviour
@@ -9,10 +7,9 @@ public class ObservablePhysics : MonoBehaviour
     private Rigidbody _rigidbody;
     private LayerMask _obstacleMask;
     private Collider _collider;
-    [SerializeField]
+    [Tooltip("Is the object breakable?"), SerializeField]
     private bool _isBreakable = false;
-    [SerializeField] 
-    [Tooltip("Minimum Impulse needed to destroy the object")] 
+    [Tooltip("Minimum Impulse needed to destroy the object"), SerializeField] 
     private float _destroyMinimumImpulse = 10;
 
     private bool _firstHit = true;

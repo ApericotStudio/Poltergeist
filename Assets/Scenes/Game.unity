@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3722,6 +3722,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
+      propertyPath: GameEventManager
+      value: 
+      objectReference: {fileID: 1358441371}
+    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
+        type: 3}
       propertyPath: TargetDestination
       value: 
       objectReference: {fileID: 0}
@@ -3734,7 +3739,7 @@ PrefabInstance:
         type: 3}
       propertyPath: RoamTargetLocation
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 530267189}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: _roamTargetLocation
@@ -3744,7 +3749,7 @@ PrefabInstance:
         type: 3}
       propertyPath: FrightenedTargetLocation
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1573081431}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: _frightenedTargetLocation
