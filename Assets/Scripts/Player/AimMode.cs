@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using StarterAssets;
+using UnityEngine.Events;
 
 public class AimMode : MonoBehaviour
 {
@@ -19,7 +20,16 @@ public class AimMode : MonoBehaviour
     private float _normalSensitivity = 1;
     [SerializeField] 
     private float _aimSensitivity = 1;
+    [SerializeField]
+    private float _aimSpeed;
+
     public bool aimmode;
+
+    [SerializeField] private UnityEvent _enterAimModeEvent;
+    [SerializeField] private UnityEvent _exitAimModeEvent;
+
+    public UnityEvent EnterAimModeEvent { get => _enterAimModeEvent; set => _enterAimModeEvent = value; }
+    public UnityEvent ExitAimModeEvent { get => _exitAimModeEvent; set => _exitAimModeEvent = value; }
 
     private void Awake()
     {
@@ -54,6 +64,7 @@ public class AimMode : MonoBehaviour
 
     public void EnterAimMode()
     {
+        EnterAimModeEvent.Invoke();
         if (_possessionController.currentPossessionObject == null)
         {
             aimmode = true;
@@ -73,6 +84,7 @@ public class AimMode : MonoBehaviour
 
     public void ExitAimMode()
     {
+        ExitAimModeEvent.Invoke();
         aimmode = false;
         if (_possessionController.currentPossessionObject == null)
         {
