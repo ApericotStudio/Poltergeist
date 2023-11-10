@@ -43,7 +43,6 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Possess()
     {
-        
         isPossessed = true;
     }
 
