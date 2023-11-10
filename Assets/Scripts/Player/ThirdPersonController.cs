@@ -168,23 +168,6 @@ namespace StarterAssets
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
 
-        private void GoThroughObjects()
-        {
-            
-        }
-
-        private void OnControllerColliderHit(ControllerColliderHit hit)
-        {
-            /*
-            Clutter clutter = hit.gameObject.GetComponent<Clutter>();
-            if(clutter != null)
-            {
-                Physics.IgnoreLayerCollision(7, 3);
-            }
-
-            Debug.Log(clutter);
-            */
-        }
         private void GroundedCheck()
         {
             // set sphere position, with offset
