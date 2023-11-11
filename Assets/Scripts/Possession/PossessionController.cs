@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class PossessionController : MonoBehaviour, IObserver
 {
-    public UnityEvent CurrentPossessionChanged = new UnityEvent();
+    public UnityEvent<GameObject> OnCurrentPossessionChange = new UnityEvent<GameObject>();
 
     public GameObject CurrentPossession;
 
@@ -40,7 +40,7 @@ public class PossessionController : MonoBehaviour, IObserver
         possessable.Possess();
         CurrentPossession.GetComponent<ObservableObject>().AddObserver(this);
         _thirdPersonController.freeze = true;
-        CurrentPossessionChanged?.Invoke();
+        OnCurrentPossessionChange?.Invoke(CurrentPossession);
         if (CurrentPossession.TryGetComponent(out Throwable throwable))
         {
             currentThrowable = throwable;
@@ -55,7 +55,7 @@ public class PossessionController : MonoBehaviour, IObserver
             CurrentPossession = null;
             currentThrowable = null;
             _thirdPersonController.freeze = false;
-            CurrentPossessionChanged?.Invoke();
+            OnCurrentPossessionChange?.Invoke(CurrentPossession);
         }
     }
 

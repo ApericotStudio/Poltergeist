@@ -3,42 +3,46 @@ using UnityEngine;
 public class Throwable : MonoBehaviour, IPossessable
 {
     [Header("Throw Controls")]
-    [SerializeField] private float _throwForce = 15;
-    [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 2;
-    [SerializeField] private float _rotationSpeed = 10;
+    public float _throwForce = 15;
+    [Tooltip("Extra sensitivity on y-axis for easier throwing")] public float ySense = 2;
     [SerializeField] [Tooltip("Minimum Impulse needed to destroy the object")] private float _destroyMinimumImpulse = 1;
-    private Vector3 _releasePosition;
 
     [Header("Display Controls")]
-    [SerializeField] [Range(10, 100)] private int _linePoints = 25;
-    [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints = 0.1f;
-    private LayerMask _throwLayerMask;
+    public LayerMask _throwLayerMask;
 
     public bool isPossessed;
 
     private Camera _cam;
     private Rigidbody _rb;
-    private Vector3 _aim;
+    public Vector3 _aim { get; private set; }
     private LineRenderer _lineRenderer { get; set; }
     private ObservableObject _observableObject;
 
     public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
 
-    // Start is called before the first frame update
+    private IThrowState _throwState;
+    public IdleState IdleState { get; private set; }
+    public AimState AimState { get; private set; }
+    public ThrownState ThrownState { get; private set; }
+
     private void Start()
     {
         _rb = this.GetComponent<Rigidbody>();
         LineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
         _observableObject = this.GetComponent<ObservableObject>();
+
+        IdleState = new IdleState(this);
+        AimState = new AimState(this, LineRenderer, _cam, _rb);
+        ThrownState = new ThrownState(this);
+        _throwState = IdleState;
     }
 
-    // Update is called once per frame
-    private void Update()
+    public void SetThrowState(IThrowState state)
     {
-        _aim = _cam.transform.forward;
-        _aim.y = _aim.y * ySense;
-        _aim.Normalize();
+        _throwState.OnStateLeave();
+        _throwState = state;
+        _throwState.OnStateEnter();
     }
 
     public void Possess()
@@ -54,45 +58,31 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Throw()
     {
-        
         if(_observableObject.State == ObjectState.Idle)
         {
             _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
         }        
     }
 
-    public void DrawProjection()
-    {
-        _releasePosition = transform.position;
-        LineRenderer.enabled = true;
-        LineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
-        Vector3 startPosition = _releasePosition;
-        Vector3 startVelocity = _throwForce * _aim / _rb.mass;
-        int i = 0;
-        LineRenderer.SetPosition(i, startPosition);
-        for (float time = 0; time < _linePoints; time += _timeBetweenPoints)
-        {
-            i++;
-            Vector3 point = startPosition + time * startVelocity;
-
-            //Trajectory formula here
-            point.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2f * time * time);
-
-            LineRenderer.SetPosition(i, point);
-
-            Vector3 lastPosition = LineRenderer.GetPosition(i - 1);
-
-            if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, (point - lastPosition).magnitude, _throwLayerMask))
-            {
-                LineRenderer.SetPosition(i, hit.point);
-                LineRenderer.positionCount = i + 1;
-                return;
-            }
-        }
-    }
-
     public ObjectState GetState()
     {
         return _observableObject.State;
+    }
+
+    private void OnAimCancelled()
+    {
+        _throwState.OnStopAim();
+    }
+
+    private void OnAimStateChanged(bool isAiming)
+    {
+        if (isAiming)
+        {
+            _throwState.OnAim();
+        }
+        else
+        {
+            _throwState.Throw();
+        }
     }
 }
