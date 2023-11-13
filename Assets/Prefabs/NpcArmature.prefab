@@ -43,8 +43,9 @@ GameObject:
   - component: {fileID: 8528130814138710925}
   - component: {fileID: 346808087079767542}
   - component: {fileID: 391052436472913837}
+  - component: {fileID: 8294502575045218528}
   m_Layer: 8
-  m_Name: Image
+  m_Name: Reaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,6 +108,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8294502575045218528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257605372035363291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c84dd8277c07c498aeec3fb4052ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lowFearSprite: {fileID: 21300000, guid: 8df247a442773ec44ad879872678a966, type: 3}
+  _mediumFearSprite: {fileID: 21300000, guid: 27b00f840479f2f4db9f1f964020f7f4, type: 3}
+  _highFearSprite: {fileID: 21300000, guid: cc75a99b8a1b37e44ba6d250681673dd, type: 3}
 --- !u!1 &287491677359048772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,7 +1685,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994b0866e8352cb44b324360349957d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fearBar: {fileID: 3864756172958031144}
 --- !u!1 &5441580592568251844
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,7 +2022,6 @@ GameObject:
   - component: {fileID: 5737734881069940793}
   - component: {fileID: 4070708653394435727}
   - component: {fileID: 3386660791856615650}
-  - component: {fileID: 5280810275081352582}
   m_Layer: 8
   m_Name: Stats
   m_TagString: Untagged
@@ -2099,22 +2113,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5280810275081352582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6918952713955799670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c84dd8277c07c498aeec3fb4052ac5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _reactionImage: {fileID: 391052436472913837}
-  _lowFearSprite: {fileID: 21300000, guid: 8df247a442773ec44ad879872678a966, type: 3}
-  _mediumFearSprite: {fileID: 21300000, guid: 27b00f840479f2f4db9f1f964020f7f4, type: 3}
-  _highFearSprite: {fileID: 21300000, guid: cc75a99b8a1b37e44ba6d250681673dd, type: 3}
 --- !u!1 &6919625496276368808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,7 +2952,7 @@ MonoBehaviour:
   FrightenedTargetLocation: {fileID: 0}
   FrightenedSpeed: 5.335
   _fearValue: 50
-  _onFearValueChange:
+  OnFearValueChange:
     m_PersistentCalls:
       m_Calls: []
   OnStateChange:
@@ -2989,9 +2987,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083bc7aaae7d3144e8aa18d4b04015cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fieldOfViewAngle: 110
-  _sightRange: 10
-  _auditoryRange: 10
+  FieldOfViewAngle: 110
+  SightRange: 10
+  AuditoryRange: 10
   _targetMask:
     serializedVersion: 2
     m_Bits: 8
@@ -2999,6 +2997,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   _reactionDelay: 1
+  DetectedObjects: []
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0

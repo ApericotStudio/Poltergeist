@@ -8,8 +8,6 @@ using UnityEngine.UI;
 /// </summary>
 public class ReactionController : MonoBehaviour
 {
-    [Tooltip("The image object that will be used to display the reaction sprite."), SerializeField]
-    private Image _reactionImage;
     [Tooltip("The sprite that will be displayed when the fear value is low."), SerializeField]
     private Sprite _lowFearSprite;
     [Tooltip("The sprite that will be displayed when the fear value is medium."), SerializeField]
@@ -19,12 +17,14 @@ public class ReactionController : MonoBehaviour
 
     private NpcController _npcController;
     private Canvas _reactionCanvas;
+    private Image _reactionImage;
 
     private void Awake()
     {
-        _reactionCanvas = GetComponent<Canvas>();
+        _reactionCanvas = GetComponentInParent<Canvas>();
         _npcController = GetComponentInParent<NpcController>();
         _npcController.OnFearValueChange.AddListener(SetNpcReaction);
+        _reactionImage = GetComponent<Image>();
     }
 
     private void Update()
