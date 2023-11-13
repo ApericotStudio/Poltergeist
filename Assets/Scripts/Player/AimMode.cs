@@ -14,9 +14,9 @@ public class AimMode : MonoBehaviour
     private ThirdPersonController _controller;
     private PossessionController _possessionController;
 
-    [SerializeField] 
+    [SerializeField]
     private float _normalSensitivity = 1;
-    [SerializeField] 
+    [SerializeField]
     private float _aimSensitivity = 1;
     [SerializeField]
     private float _aimSpeed;
@@ -39,8 +39,8 @@ public class AimMode : MonoBehaviour
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionAimCam = GameObject.Find("PossessionAimCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionDefaultCam = GameObject.Find("PossessionFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        _cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
-        _cameras = new CinemachineVirtualCamera[]{ _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
+        _cameras = new CinemachineVirtualCamera[] { _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
+        _cameras = new CinemachineVirtualCamera[] { _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
     }
 
     private void Update()
@@ -54,7 +54,8 @@ public class AimMode : MonoBehaviour
                 worldAimTarget.y = transform.position.y;
                 Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
                 transform.forward = aimDirection;
-            } else
+            }
+            else
             {
                 _possessionController.currentThrowable.DrawProjection();
             }
@@ -69,7 +70,8 @@ public class AimMode : MonoBehaviour
             aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(1);
-        } else
+        }
+        else
         {
             if (_possessionController.currentThrowable != null)
             {
@@ -89,11 +91,40 @@ public class AimMode : MonoBehaviour
         {
             _controller.SetSensitivity(_normalSensitivity);
             switchCamera(0);
-        } else
+        }
+        else
         {
             _controller.SetSensitivity(_normalSensitivity);
             switchCamera(2);
         }
+    }
+
+    public void CancelAimMode()
+    {
+        if (_possessionController.currentPossessionObject != null && !aimmode)
+        {
+            _possessionController.Unpossess();
+        }
+        else
+        {
+            ExitAimMode();
+        }
+    }
+
+    public void ConfirmAimMode()
+    {
+        if (_possessionController.currentPossessionObject == null && aimmode)
+        {
+            _possessionController.Possess();
+        }
+        else
+        {
+            if (_possessionController.currentThrowable != null && aimmode)
+            {
+                _possessionController.currentThrowable.Throw();
+            }
+        }
+        ExitAimMode();
     }
 
     public void changeCameraToPossession()
