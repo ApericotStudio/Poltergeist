@@ -9,18 +9,18 @@ namespace StarterAssets
 	public class StarterAssetsInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
-		public Vector2 move;
-		public Vector2 look;
-		public bool jump;
-		public bool sprint;
-		public float fly;
+		public Vector2 Move;
+		public Vector2 Look;
+		public bool Jump;
+		public bool Sprint;
+		public float Fly;
 
 		[Header("Movement Settings")]
-		public bool analogMovement;
+		public bool AnalogMovement;
 
 		[Header("Mouse Cursor Settings")]
-		public bool cursorLocked = true;
-		public bool cursorInputForLook = true;
+		public bool CursorLocked = true;
+		public bool CursorInputForLook = true;
 
 		//events
 		[SerializeField] private UnityEvent _onPressAimInput;
@@ -44,7 +44,7 @@ namespace StarterAssets
 
 		private void OnLook(InputValue value)
 		{
-			if (cursorInputForLook)
+			if (CursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
@@ -79,32 +79,32 @@ namespace StarterAssets
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
-			move = newMoveDirection;
+			Move = newMoveDirection;
 		}
 
 		public void FlyInput(float newFlyDirection)
 		{
-			fly = newFlyDirection;
+			Fly = newFlyDirection;
 		}
 
 		public void LookInput(Vector2 newLookDirection)
 		{
-			look = newLookDirection;
+			Look = newLookDirection;
 		}
 
 		public void JumpInput(bool newJumpState)
 		{
-			jump = newJumpState;
+			Jump = newJumpState;
 		}
 
 		public void SprintInput(bool newSprintState)
 		{
-			sprint = newSprintState;
+			Sprint = newSprintState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			SetCursorState(cursorLocked);
+			SetCursorState(CursorLocked);
 		}
 
 		private void SetCursorState(bool newState)
