@@ -19,7 +19,7 @@ public class NpcController : MonoBehaviour
     [Tooltip("The fear value of the NPC."), SerializeField, Range(0f, 100f)]
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
-    public UnityEvent<float> _onFearValueChange;
+    public UnityEvent<float> OnFearValueChange;
     [Tooltip("The event that will be invoked when the npc changes state.")]
     public UnityEvent OnStateChange;
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
@@ -58,7 +58,7 @@ public class NpcController : MonoBehaviour
         get => _fearValue; 
         set {
             _fearValue = value;
-            _onFearValueChange.Invoke(_fearValue);
+            OnFearValueChange.Invoke(_fearValue);
         }  
     }
 
