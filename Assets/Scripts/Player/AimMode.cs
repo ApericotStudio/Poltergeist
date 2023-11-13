@@ -45,10 +45,10 @@ public class AimMode : MonoBehaviour
 
     private void Update()
     {
-        if (_possessionController.currentThrowable != null) { _possessionController.currentThrowable.LineRenderer.enabled = aimmode; }
+        if (_possessionController.CurrentThrowable != null) { _possessionController.CurrentThrowable.LineRenderer.enabled = aimmode; }
         if (aimmode)
         {
-            if (_possessionController.currentThrowable == null)
+            if (_possessionController.CurrentThrowable == null)
             {
                 Vector3 worldAimTarget = _aimCam.transform.position + _aimCam.transform.forward * 1000f;
                 worldAimTarget.y = transform.position.y;
@@ -57,7 +57,7 @@ public class AimMode : MonoBehaviour
             }
             else
             {
-                _possessionController.currentThrowable.DrawProjection();
+                _possessionController.CurrentThrowable.DrawProjection();
             }
         }
     }
@@ -73,9 +73,9 @@ public class AimMode : MonoBehaviour
         }
         else
         {
-            if (_possessionController.currentThrowable != null)
+            if (_possessionController.CurrentThrowable != null)
             {
-                if (_possessionController.currentThrowable.GetState() is not ObjectState.Idle) { return; }
+                if (_possessionController.CurrentThrowable.GetState() is not ObjectState.Idle) { return; }
             }
             aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
@@ -101,7 +101,7 @@ public class AimMode : MonoBehaviour
 
     public void CancelAimMode()
     {
-        if (_possessionController.currentPossessionObject != null && !aimmode)
+        if (_possessionController.CurrentPossession != null && !aimmode)
         {
             _possessionController.Unpossess();
         }
@@ -113,15 +113,15 @@ public class AimMode : MonoBehaviour
 
     public void ConfirmAimMode()
     {
-        if (_possessionController.currentPossessionObject == null && aimmode)
+        if (_possessionController.CurrentPossession == null && aimmode)
         {
             _possessionController.Possess();
         }
         else
         {
-            if (_possessionController.currentThrowable != null && aimmode)
+            if (_possessionController.CurrentThrowable != null && aimmode)
             {
-                _possessionController.currentThrowable.Throw();
+                _possessionController.CurrentThrowable.Throw();
             }
         }
         ExitAimMode();
