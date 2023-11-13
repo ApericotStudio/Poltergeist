@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -21,75 +22,57 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
-		private AimMode _aimMode;
-		private PossessionController _possessionController;
+		//events
+		[SerializeField] private UnityEvent _onPressAim;
+		[SerializeField] private UnityEvent _onCancelAim;
+		[SerializeField] private UnityEvent _onConfirmAim;
 
-        private void Awake()
-        {
-			_aimMode = gameObject.GetComponent<AimMode>();
-			_possessionController = gameObject.GetComponent<PossessionController>();
-        }
+		public UnityEvent OnPressAim { get => _onPressAim; set => _onPressAim = value; }
+		public UnityEvent OnCancelAim { get => _onCancelAim; set => _onCancelAim = value; }
+		public UnityEvent OnConfirmAim { get => _onConfirmAim; set => _onConfirmAim = value; }
 
 #if ENABLE_INPUT_SYSTEM
-        private void OnMove(InputValue value)
+		private void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
 
-        private void OnFly(InputValue value)
+		private void OnFly(InputValue value)
 		{
 			FlyInput(value.Get<float>());
 		}
 
-        private void OnLook(InputValue value)
+		private void OnLook(InputValue value)
 		{
-			if(cursorInputForLook)
+			if (cursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
 		}
 
-        private void OnJump(InputValue value)
+		private void OnJump(InputValue value)
 		{
 			JumpInput(value.isPressed);
 		}
 
-        private void OnSprint(InputValue value)
+		private void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
 		}
 
 		private void OnAim(InputValue value)
-        {
-			_aimMode.EnterAimMode();
-        }
+		{
+			_onPressAim.Invoke();
+		}
 
 		private void OnAimCancel(InputValue value)
-        {
-			if (_possessionController.currentPossessionObject != null && !_aimMode.aimmode)
-            {
-				_possessionController.Unpossess();
-            } else
-            {
-				_aimMode.ExitAimMode();
-			}
-
-        }
+		{
+			_onCancelAim.Invoke();
+		}
 
 		private void OnAimConfirm(InputValue value)
-        {
-			if (_possessionController.currentPossessionObject == null)
-			{
-				_possessionController.Possess();
-			}
-			else
-			{
-				if (_possessionController.currentThrowable != null && _aimMode.aimmode)
-				{
-					_possessionController.currentThrowable.Throw();
-				}
-			}
-			_aimMode.ExitAimMode();
+		{
+			_onConfirmAim.Invoke();
 		}
 #endif
 
@@ -99,27 +82,27 @@ namespace StarterAssets
 			move = newMoveDirection;
 		}
 
-        public void FlyInput(float newFlyDirection)
+		public void FlyInput(float newFlyDirection)
 		{
 			fly = newFlyDirection;
 		}
 
-        public void LookInput(Vector2 newLookDirection)
+		public void LookInput(Vector2 newLookDirection)
 		{
 			look = newLookDirection;
 		}
 
-        public void JumpInput(bool newJumpState)
+		public void JumpInput(bool newJumpState)
 		{
 			jump = newJumpState;
 		}
 
-        public void SprintInput(bool newSprintState)
+		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
 		}
 
-        private void OnApplicationFocus(bool hasFocus)
+		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
