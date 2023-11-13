@@ -23,13 +23,13 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 		//events
-		[SerializeField] private UnityEvent _onPressAim;
-		[SerializeField] private UnityEvent _onCancelAim;
-		[SerializeField] private UnityEvent _onConfirmAim;
+		[SerializeField] private UnityEvent _onPressAimInput;
+		[SerializeField] private UnityEvent _onCancelAimInput;
+		[SerializeField] private UnityEvent _onConfirmAimInput;
 
-		public UnityEvent OnPressAim { get => _onPressAim; set => _onPressAim = value; }
-		public UnityEvent OnCancelAim { get => _onCancelAim; set => _onCancelAim = value; }
-		public UnityEvent OnConfirmAim { get => _onConfirmAim; set => _onConfirmAim = value; }
+		public UnityEvent OnPressAimInput { get => _onPressAimInput; set => _onPressAimInput = value; }
+		public UnityEvent OnCancelAimInput { get => _onCancelAimInput; set => _onCancelAimInput = value; }
+		public UnityEvent OnConfirmAimInput { get => _onConfirmAimInput; set => _onConfirmAimInput = value; }
 
 #if ENABLE_INPUT_SYSTEM
 		private void OnMove(InputValue value)
@@ -62,17 +62,17 @@ namespace StarterAssets
 
 		private void OnAim(InputValue value)
 		{
-			_onPressAim.Invoke();
+			_onPressAimInput.Invoke();
 		}
 
 		private void OnAimCancel(InputValue value)
 		{
-			_onCancelAim.Invoke();
+			_onCancelAimInput.Invoke();
 		}
 
 		private void OnAimConfirm(InputValue value)
 		{
-			_onConfirmAim.Invoke();
+			_onConfirmAimInput.Invoke();
 		}
 #endif
 
