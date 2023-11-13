@@ -86,10 +86,6 @@ public class AimMode : MonoBehaviour
     public void ChangeCameraToPossession(GameObject possessedObject)
     {
         ExitAimMode();
-        if (possessedObject == null)
-        {
-            return;
-        }
         Transform pos = possessedObject.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
         _possessionDefaultCam.LookAt = pos;
         _possessionDefaultCam.Follow = pos;
@@ -124,10 +120,10 @@ public class AimMode : MonoBehaviour
 
     private void OnPossessionChanged(GameObject possessedObject)
     {
-        ChangeCameraToPossession(possessedObject);
         _inGhostForm = possessedObject == null;
         if (!_inGhostForm)
         {
+            ChangeCameraToPossession(possessedObject);
             if (possessedObject.TryGetComponent(out Throwable throwable))
             {
                 throwable.SetAimMode(this);

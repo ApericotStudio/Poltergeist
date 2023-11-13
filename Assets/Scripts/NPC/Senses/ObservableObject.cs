@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -68,7 +69,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
 
     public void NotifyObservers()
     {
-        foreach (IObserver observer in _observers)
+        foreach (IObserver observer in _observers.ToList())
         {
             observer.OnNotify(this);
         }

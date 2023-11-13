@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class ThrownState : IThrowState, IObserver
 {
     private Throwable controller;
@@ -19,9 +17,7 @@ public class ThrownState : IThrowState, IObserver
 
     public void OnStateLeave()
     {
-        Debug.Log("before");
         observableObject.RemoveObserver(this);
-        Debug.Log("after");
     }
 
     public void OnAim()
@@ -36,7 +32,7 @@ public class ThrownState : IThrowState, IObserver
 
     public void Throw()
     {
-        // do nothing
+        isAiming = false;
     }
 
     public void OnNotify(ObservableObject observableObject)
