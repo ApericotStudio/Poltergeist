@@ -4,14 +4,10 @@ using UnityEngine;
 public class PanickedState : INpcState
 {
     private readonly NpcController _npcController;
-    private readonly AudioSource _npcAudioSource;
-    private readonly AudioClip[] _screamClips;
 
     public PanickedState(NpcController npcController)
     {
         _npcController = npcController;
-        _npcAudioSource = _npcController.NpcAudioSource;
-        _screamClips = _npcController.ScreamAudioClips;
     }
 
     public void Handle()
@@ -38,7 +34,7 @@ public class PanickedState : INpcState
 
     private void PlayRandomScreamClip()
     {
-        _npcAudioSource.PlayOneShot(_screamClips[Random.Range(0, _screamClips.Length)]);
+        _npcController.NpcAudioSource.PlayOneShot(_npcController.ScreamAudioClips[Random.Range(0, _npcController.ScreamAudioClips.Length)]);
     }
 }
 

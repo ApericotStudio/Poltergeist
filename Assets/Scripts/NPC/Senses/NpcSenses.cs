@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -10,60 +9,35 @@ using UnityEngine;
 public class NpcSenses : MonoBehaviour, IObserver
 {
     [Header("Sight Settings")]
-    [Range(0, 360)]
-    [Tooltip("The angle of the NPC's field of view.")]
-    [SerializeField]
-    private float _fieldOfViewAngle = 110f;
-    [Tooltip("The distance that the NPC can see.")]
-    [Range(0, 10)]
-    [SerializeField]
-    private float _sightRange = 10f;
+    [Tooltip("The angle of the NPC's field of view."), Range(0, 360)]
+    public float FieldOfViewAngle = 110f;
+    [Tooltip("The distance that the NPC can see."), Range(0, 10)]
+    public float SightRange = 10f;
     [Header("Auditory Settings")]
-    [Tooltip("The distance that the NPC can hear.")]
-    [Range(0, 20)]
-    [SerializeField]
-    private float _auditoryRange = 10f;
+    [Tooltip("The distance that the NPC can hear."), Range(0, 20)]
+    public float AuditoryRange = 10f;
     [Header("Senses Layers")]
-    [Tooltip("The target layers that the NPC can see and hear.")]
-    [SerializeField]
+    [Tooltip("The target layers that the NPC can see and hear."), SerializeField]
     private LayerMask _targetMask;
-    [Tooltip("The obstacle layers that block the NPC's vision.")]
-    [SerializeField]
+    [Tooltip("The obstacle layers that block the NPC's vision."), SerializeField]
     private LayerMask _obstacleMask;
     [Header("Reaction Settings")]
-    [SerializeField]
-    [Tooltip("The delay between the NPC detecting a target and reacting to it.")]
-    [Range(0f, 5f)]
+    [Tooltip("The delay between the NPC detecting a target and reacting to it."), Range(0f, 5f), SerializeField]
     private float _reactionDelay = 1f;
-
-    private float _detectionRange;
-    [SerializeField] private AudioClip _scaredAudio;
-    public float DetectionRange 
-    { 
-        get {
-            _detectionRange = Math.Max(_auditoryRange, _sightRange);
-            return _detectionRange;
-        }
-    }
-    private NpcController _npcController;
-    private List<ObservableObject> _detectedObjects = new();
-    public List<ObservableObject> DetectedObjects { get => _detectedObjects; set => _detectedObjects = value; }
-    public float SightRange{ get => _sightRange; set => _sightRange = value; }
-    public float FieldOfViewAngle { get => _fieldOfViewAngle; set => _fieldOfViewAngle = value; }
-    public float AuditoryRange { get => _auditoryRange; set => _auditoryRange = value; }
+    [HideInInspector]
+    public List<ObservableObject> DetectedObjects;
+    public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
     private void Awake()
     {
-        _npcController = GetComponent<NpcController>();
         StartCoroutine (DetectTargetsWithDelay(.2f));
-        _detectionRange = Math.Max(_auditoryRange, _sightRange);
     }
+
     /// <summary>
     /// Detects targets in the NPC's detection radius with a delay.
     /// </summary>
     /// <param name="delay">The delay between detecting.</param>
     /// <returns></returns>
-
 	private IEnumerator DetectTargetsWithDelay(float delay) {
 		while (true) {
 			yield return new WaitForSeconds (delay);
@@ -90,12 +64,12 @@ public class NpcSenses : MonoBehaviour, IObserver
                 {
                     return;
                 }
-                if (Vector3.Angle (transform.forward, dirToTarget) < _fieldOfViewAngle / 2) {
+                if (Vector3.Angle (transform.forward, dirToTarget) < FieldOfViewAngle / 2) {
                     clutter.IsVisible = true;
                     DetectedObjects.Add(clutter);
                     return;
                 }
-                if (!(dstToTarget <= _auditoryRange))
+                if (!(dstToTarget <= AuditoryRange))
                     return;
                 clutter.IsAudible = true;
                 DetectedObjects.Add(clutter);
@@ -103,18 +77,10 @@ public class NpcSenses : MonoBehaviour, IObserver
             }
         }
     }
+
     public void OnNotify(ObservableObject observableObject)
     {
 
-        if (observableObject.IsAudible && observableObject.State == ObjectState.Hit)
-        {
-            _npcController.FearValue += (float)observableObject.Type + 1f;
-            AudioSource.PlayClipAtPoint(_scaredAudio, transform.position);
-        }
-        else if(observableObject.IsVisible && observableObject.State == ObjectState.Moving)
-        {
-            _npcController.FearValue += (float)observableObject.Type + 1f;
-        }
     }
     
     /// <summary>
@@ -130,6 +96,7 @@ public class NpcSenses : MonoBehaviour, IObserver
         }
         DetectedObjects.Clear();
     }
+
     /// <summary>
     /// Returns a vector3 direction from an angle. Used for the field of view.
     /// </summary>

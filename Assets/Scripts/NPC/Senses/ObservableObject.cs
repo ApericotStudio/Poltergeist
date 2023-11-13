@@ -12,6 +12,9 @@ public enum ObjectState
     Hit,
     Broken
 }
+/// <summary>
+/// The various types of objects that can be in the game.
+/// </summary>
 public enum ObjectType
 {
     Big = 5,
@@ -28,31 +31,23 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public float MoveAnxietyValue = 2f;
     [Tooltip("This value gets added to the NPC's anxiety when the object is destroyed.")]
     public float DestroyAnxietyValue = 10f;
-    [Tooltip("The value that gets applied to the NPC's anxiety when the object is audible.")]
-    [Range(1f, 10f)]
+    [Tooltip("The value that gets applied to the NPC's anxiety when the object is audible."), Range(1f, 10f)]
     public float AuditoryAnxietyValue = 1f;
-    [Tooltip("The value that gets applied to the NPC's anxiety when the object is visible.")]
-    [Range(1f, 10f)]
+    [Tooltip("The value that gets applied to the NPC's anxiety when the object is visible."), Range(1f, 10f)]
     public float VisualAnxietyValue = 3f;
-    [SerializeField]
     [Tooltip("The type of object.")]
-    private ObjectType _objectType;
-    [SerializeField]
+    public ObjectType Type;
     [Tooltip("The value that gets added to the NPC's anxiety when the object is small.")]
-    private float _smallObjectAnxietyValue = 1f;
-    [SerializeField]
+    public float SmallObjectAnxietyValue = 1f;
     [Tooltip("The value that gets added to the NPC's anxiety when the object is big.")]
-    private float _bigObjectAnxietyValue = 3f;
-    [SerializeField]
+    public float BigObjectAnxietyValue = 3f;
     private ObjectState _state = ObjectState.Idle;
 
     private readonly List<IObserver> _observers = new();
-
-    private bool _isAudible = false;
-    private bool _isVisible = false;
-
-    public bool IsVisible { get => _isVisible; set => _isVisible = value; }
-    public bool IsAudible { get => _isAudible; set => _isAudible = value; }
+    [HideInInspector]
+    public bool IsVisible;
+    [HideInInspector]
+    public bool IsAudible;
 
     public ObjectState State 
     { 
@@ -62,9 +57,6 @@ public class ObservableObject : MonoBehaviour, IObservableObject
             NotifyObservers();
         }
     }
-    public ObjectType Type { get => _objectType; set => _objectType = value; }
-    public float SmallObjectAnxietyValue { get => _smallObjectAnxietyValue; set => _smallObjectAnxietyValue = value; }
-    public float BigObjectAnxietyValue { get => _bigObjectAnxietyValue; set => _bigObjectAnxietyValue = value; }
 
     public void NotifyObservers()
     {
