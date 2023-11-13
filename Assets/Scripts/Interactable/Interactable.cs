@@ -21,7 +21,7 @@ public class Interactable : MonoBehaviour
         if (_singleUse)
         {
             if (gameObject.TryGetComponent(out Highlight highlight)){
-                highlight.EnableHighlight(false);
+                highlight.Highlightable(false);
             }
         }
     }
