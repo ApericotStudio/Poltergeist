@@ -16,7 +16,7 @@ public class AimState : MonoBehaviour, IThrowState
     [SerializeField][Range(10, 100)] private int _linePoints = 25;
     [SerializeField][Range(0.01f, 0.25f)] private float _timeBetweenPoints = 0.1f;
 
-    public AimState(Throwable controller, LineRenderer lineRenderer, Camera camera, Rigidbody rb)
+    public void Setup(Throwable controller, LineRenderer lineRenderer, Camera camera, Rigidbody rb)
     {
         _controller = controller;
         _lineRenderer = lineRenderer;
@@ -48,7 +48,7 @@ public class AimState : MonoBehaviour, IThrowState
 
     public void Throw()
     {
-        _controller.GetComponent<Rigidbody>().AddForce(_controller._aim * _controller._throwForce, ForceMode.Impulse);
+        _rb.AddForce(_aimDirection * _controller._throwForce, ForceMode.Impulse);
         _controller.SetThrowState(_controller.ThrownState);
     }
 

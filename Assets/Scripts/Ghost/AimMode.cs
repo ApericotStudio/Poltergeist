@@ -26,8 +26,8 @@ public class AimMode : MonoBehaviour
 
     private void Awake()
     {
-        _controller = this.gameObject.GetComponent<ThirdPersonController>();
-        _possessionController = this.gameObject.GetComponent<PossessionController>();
+        _controller = GetComponent<ThirdPersonController>();
+        _possessionController = GetComponent<PossessionController>();
         _possessionController.OnCurrentPossessionChange.AddListener(OnPossessionChanged);
 
         _aimCam = GameObject.Find("PlayerAimCamera").GetComponent<CinemachineVirtualCamera>();
@@ -56,17 +56,13 @@ public class AimMode : MonoBehaviour
     {
         if (_inGhostForm)
         {
-            aimmode = true;
+            SetAimMode(true);
             _controller.SetSensitivity(_aimSensitivity);
             SwitchCamera(1);
         }
         else
         {
-            if (_possessionController.currentThrowable != null)
-            {
-                if (_possessionController.currentThrowable.GetState() is not ObjectState.Idle) { return; }
-            }
-            aimmode = true;
+            SetAimMode(true);
             _controller.SetSensitivity(_aimSensitivity);
             SwitchCamera(3);
         }
@@ -74,7 +70,7 @@ public class AimMode : MonoBehaviour
 
     public void ExitAimMode()
     {
-        aimmode = false;
+        SetAimMode(false);
         if (_inGhostForm)
         {
             _controller.SetSensitivity(_normalSensitivity);
@@ -130,5 +126,12 @@ public class AimMode : MonoBehaviour
     {
         ChangeCameraToPossession(possessedObject);
         _inGhostForm = possessedObject == null;
+        if (!_inGhostForm)
+        {
+            if (possessedObject.TryGetComponent(out Throwable throwable))
+            {
+                throwable.SetAimMode(this);
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ public class Throwable : MonoBehaviour, IPossessable
 
     private Camera _cam;
     private Rigidbody _rb;
+    private AimMode _aimMode;
     public Vector3 _aim { get; private set; }
     private LineRenderer _lineRenderer { get; set; }
     private ObservableObject _observableObject;
@@ -27,13 +28,14 @@ public class Throwable : MonoBehaviour, IPossessable
 
     private void Start()
     {
-        _rb = this.GetComponent<Rigidbody>();
-        LineRenderer = this.GetComponent<LineRenderer>();
+        _rb = GetComponent<Rigidbody>();
+        LineRenderer = GetComponent<LineRenderer>();
         _cam = Camera.main;
-        _observableObject = this.GetComponent<ObservableObject>();
+        _observableObject = GetComponent<ObservableObject>();
 
         IdleState = new IdleState(this);
-        AimState = new AimState(this, LineRenderer, _cam, _rb);
+        AimState = gameObject.AddComponent<AimState>();
+        AimState.Setup(this, LineRenderer, _cam, _rb);
         ThrownState = new ThrownState(this);
         _throwState = IdleState;
     }
@@ -54,6 +56,7 @@ public class Throwable : MonoBehaviour, IPossessable
     {
         _lineRenderer.enabled = false;
         isPossessed = false;
+        _aimMode.OnAimModeChange.RemoveListener(OnAimStateChanged);
     }
 
     public void Throw()
@@ -67,6 +70,12 @@ public class Throwable : MonoBehaviour, IPossessable
     public ObjectState GetState()
     {
         return _observableObject.State;
+    }
+
+    public void SetAimMode(AimMode aimMode)
+    {
+        _aimMode = aimMode;
+        _aimMode.OnAimModeChange.AddListener(OnAimStateChanged);
     }
 
     private void OnAimCancelled()

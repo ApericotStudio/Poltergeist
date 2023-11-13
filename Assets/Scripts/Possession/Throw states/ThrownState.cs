@@ -1,7 +1,10 @@
+using UnityEngine;
+
 public class ThrownState : IThrowState, IObserver
 {
     private Throwable controller;
     private ObservableObject observableObject;
+    private bool isAiming = false;
 
     public ThrownState(Throwable controller)
     {
@@ -16,17 +19,19 @@ public class ThrownState : IThrowState, IObserver
 
     public void OnStateLeave()
     {
+        Debug.Log("before");
         observableObject.RemoveObserver(this);
+        Debug.Log("after");
     }
 
     public void OnAim()
     {
-        // do nothing
+        isAiming = true;
     }
 
     public void OnStopAim()
     {
-        // do nothing
+        isAiming = false;
     }
 
     public void Throw()
@@ -38,7 +43,14 @@ public class ThrownState : IThrowState, IObserver
     {
         if (observableObject.State == ObjectState.Idle)
         {
-            controller.SetThrowState(controller.IdleState);
+            if (isAiming)
+            {
+                controller.SetThrowState(controller.AimState);
+            }
+            else
+            {
+                controller.SetThrowState(controller.IdleState);
+            }
         }
     }
 }
