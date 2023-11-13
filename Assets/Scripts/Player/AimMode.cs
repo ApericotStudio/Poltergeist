@@ -65,9 +65,9 @@ public class AimMode : MonoBehaviour
 
     public void EnterAimMode()
     {
-        EnterAimModeEvent.Invoke();
         if (_possessionController.currentPossessionObject == null)
         {
+            EnterAimModeEvent.Invoke();
             aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(1);
@@ -78,6 +78,7 @@ public class AimMode : MonoBehaviour
             {
                 if (_possessionController.currentThrowable.GetState() is not ObjectState.Idle) { return; }
             }
+            EnterAimModeEvent.Invoke();
             aimmode = true;
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(3);
