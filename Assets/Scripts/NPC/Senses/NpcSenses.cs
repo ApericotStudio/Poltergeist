@@ -80,12 +80,7 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
-        if(observableObject.IsAudible && observableObject.State == ObjectState.Hit && _npcController.CurrentState is RoamState)
-        {
-            _audioSource.PlayOneShot(_audioClip);
-            _npcController.CurrentState = new ScaredState(_npcController);
-            _npcController.FearValue += 10f;
-        }
+
     }
     
     /// <summary>
