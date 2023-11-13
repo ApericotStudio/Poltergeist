@@ -7,78 +7,41 @@ public class NpcController : MonoBehaviour
 {
     [Header("NPC Settings")]
     [Tooltip("The target location the NPC will roam around.")]
-    [SerializeField]
-    private Transform _roamTargetLocation;
-    [Tooltip("The radius around the Roam Target Location the NPC will in.")]
-    [Range(0f, 10f)]
-    [SerializeField]
-    private float _roamRadius = 5f;
-    [Range(2f, 10f)]
-    [Tooltip("The speed the NPC will move when roaming.")]
-    [SerializeField]
-    private float _roamingSpeed = 2f;
+    public Transform RoamTargetLocation;
+    [Tooltip("The radius around the Roam Target Location the NPC will in."), Range(0f, 10f)]
+    public float RoamRadius = 5f;
+    [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
+    public float RoamingSpeed = 2f;
     [Tooltip("The target location the NPC will run to when frightened.")]
-    [SerializeField]
-    private Transform _frightenedTargetLocation;
-    [Tooltip("The speed the NPC will move when frightened.")]
-    [Range(2f, 10f)]
-    [SerializeField]
-    private float _frightenedSpeed = 5.335f;
-    [Tooltip("The fear value of the NPC.")]
-    [SerializeField]
-    [Range(0f, 100f)]
+    public Transform FrightenedTargetLocation;
+    [Tooltip("The speed the NPC will move when frightened."), Range(2f, 10f)]
+    public float FrightenedSpeed = 5.335f;
+    [Tooltip("The fear value of the NPC."), SerializeField, Range(0f, 100f)]
     private float _fearValue = 50f;
-    [SerializeField]
     [Tooltip("The event that will be invoked when the fear value changes.")]
-    private UnityEvent<float> _onFearValueChange;
-    [SerializeField]
+    public UnityEvent<float> OnFearValueChange;
     [Tooltip("The event that will be invoked when the npc changes state.")]
-    private UnityEvent _onStateChange;
-    [SerializeField]
+    public UnityEvent OnStateChange;
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
-    private GameEventManager _gameEventManager;
+    public GameEventManager GameEventManager;
     [Header("NPC Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC screams.")]
-    [SerializeField]
-    private AudioClip[] _screamAudioClips;
+    public AudioClip[] ScreamAudioClips;
     [Tooltip("The volume of the scream audio clips.")]
     [Range(0f, 1f)]
-    [SerializeField]
-    private float _screamVolume = 1f;
+    public float ScreamVolume = 1f;
     [Tooltip("The audio clips that will be played when the NPC moves.")]
-    [SerializeField]
-    private AudioClip[] _footstepAudioClips;
+    public AudioClip[] FootstepAudioClips;
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
-    [SerializeField]
-    private float _footstepVolume = 0.5f;
-    
-    private NavMeshAgent _navMeshAgent;
-    private INpcState _currentState;
-    private bool _ranAway;
+    public float FootstepVolume = 0.5f;
 
-    private AudioSource _npcAudioSource;
+    private INpcState _currentState;
+    
     private int _animIDMotionSpeed;
     private int _animIDSpeed;
     private float _animationBlend;
     private Animator _animator;
-    
-    public UnityEvent OnStateChange { get => _onStateChange; set => _onStateChange = value; }
-    public UnityEvent<float> OnFearValueChange { get => _onFearValueChange; set => _onFearValueChange = value; }
-    public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
-    public bool RanAway { get => _ranAway; set => _ranAway = value; }
-    public Transform RoamTargetLocation { get => _roamTargetLocation; set => _roamTargetLocation = value; }
-    public float RoamRadius { get => _roamRadius; set => _roamRadius = value; }
-    public float RoamingSpeed { get => _roamingSpeed; set => _roamingSpeed = value; }
-    public Transform FrightenedTargetLocation { get => _frightenedTargetLocation; set => _frightenedTargetLocation = value; }
-    public float FrightenedSpeed { get => _frightenedSpeed; set => _frightenedSpeed = value; }
-    public AudioSource NpcAudioSource { get => _npcAudioSource; set => _npcAudioSource = value; }
-    
-    public AudioClip[] FootstepAudioClips { get => _footstepAudioClips; set => _footstepAudioClips = value; }
-    public AudioClip[] ScreamAudioClips { get => _screamAudioClips; set => _screamAudioClips = value; }
-    public float FootstepVolume { get => _footstepVolume; set => _footstepVolume = value; }
-    public float ScreamVolume { get => _screamVolume; set => _screamVolume = value; }
-    public GameEventManager GameEventManager { get => _gameEventManager; set => _gameEventManager = value; }
 
     public INpcState CurrentState
     {
@@ -95,14 +58,18 @@ public class NpcController : MonoBehaviour
         get => _fearValue; 
         set {
             _fearValue = value;
-            _onFearValueChange.Invoke(_fearValue);
+            OnFearValueChange.Invoke(_fearValue);
         }  
     }
 
+    public AudioSource NpcAudioSource { get; private set; }
+    public NavMeshAgent NavMeshAgent { get; private set; }
+    public bool RanAway { get; set; }
+
     private void Awake()
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _npcAudioSource = GetComponent<AudioSource>();
+        NavMeshAgent = GetComponent<NavMeshAgent>();
+        NpcAudioSource = GetComponent<AudioSource>();
         InitializeAnimator();
         OnStateChange.AddListener(OnStateChanged);
     }
@@ -159,7 +126,7 @@ public class NpcController : MonoBehaviour
 
     private void Animate()
     {
-        _animationBlend = Mathf.Lerp(_animationBlend, _navMeshAgent.velocity.magnitude, Time.deltaTime * NavMeshAgent.acceleration);
+        _animationBlend = Mathf.Lerp(_animationBlend, NavMeshAgent.velocity.magnitude, Time.deltaTime * NavMeshAgent.acceleration);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
         _animator.SetFloat(_animIDSpeed, _animationBlend);
@@ -172,8 +139,8 @@ public class NpcController : MonoBehaviour
         {
             if (FootstepAudioClips.Length > 0)
             {
-                int index = Random.Range(0, _footstepAudioClips.Length);
-                AudioSource.PlayClipAtPoint(_footstepAudioClips[index], transform.position, _footstepVolume);
+                int index = Random.Range(0, FootstepAudioClips.Length);
+                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepVolume);
             }
         }
     }
