@@ -47,13 +47,13 @@ public class ClutterCamera : MonoBehaviour
     private void CameraRotation()
     {
         // if there is an input and camera position is not fixed
-        if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+        if (_input.Look.sqrMagnitude >= _threshold && !LockCameraPosition)
         {
             //Don't multiply mouse input by Time.deltaTime;
             float deltaTimeMultiplier = _isCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-            _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * _sensitivity;
-            _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * _sensitivity;
+            _cinemachineTargetYaw += _input.Look.x * deltaTimeMultiplier * _sensitivity;
+            _cinemachineTargetPitch += _input.Look.y * deltaTimeMultiplier * _sensitivity;
         }
 
         // clamp our rotations so our values are limited 360 degrees

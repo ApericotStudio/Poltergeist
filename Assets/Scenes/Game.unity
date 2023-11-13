@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2671,10 +2671,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1411555902}
-    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1411555907}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!4 &1411555888 stripped
@@ -2697,64 +2693,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possessionRange: 20
   currentThrowable: {fileID: 0}
---- !u!114 &1411555902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359245195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b322ab5382a04ce4bcf843949c6e6db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normalSensitivity: 1
-  _aimSensitivity: 1
-  _aimSpeed: 0
-  aimmode: 0
-  _enterAimModeEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1411555906}
-        m_TargetAssemblyTypeName: StarterAssets.ThirdPersonController, Assembly-CSharp
-        m_MethodName: AimEnter
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _exitAimModeEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1411555906}
-        m_TargetAssemblyTypeName: StarterAssets.ThirdPersonController, Assembly-CSharp
-        m_MethodName: AimExit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1411555906 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544,
-    type: 3}
-  m_PrefabInstance: {fileID: 1411555887}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359245195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1411555907
 MonoBehaviour:
   m_ObjectHideFlags: 0
