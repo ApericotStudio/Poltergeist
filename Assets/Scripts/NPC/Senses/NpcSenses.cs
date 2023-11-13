@@ -28,8 +28,13 @@ public class NpcSenses : MonoBehaviour, IObserver
     public List<ObservableObject> DetectedObjects;
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
+    private NpcController _npcController;
+    public AudioClip ScaredAudio;
+    private bool _hasScreamed;
+
     private void Awake()
     {
+        _npcController = GetComponent<NpcController>();
         StartCoroutine (DetectTargetsWithDelay(.2f));
     }
 
@@ -62,15 +67,15 @@ public class NpcSenses : MonoBehaviour, IObserver
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (Physics.Raycast(transform.position, dirToTarget, dstToTarget, _obstacleMask))
                 {
-                    return;
+                    continue;
                 }
                 if (Vector3.Angle (transform.forward, dirToTarget) < FieldOfViewAngle / 2) {
                     clutter.IsVisible = true;
                     DetectedObjects.Add(clutter);
-                    return;
+                    continue;
                 }
                 if (!(dstToTarget <= AuditoryRange))
-                    return;
+                    continue;
                 clutter.IsAudible = true;
                 DetectedObjects.Add(clutter);
                 clutter.AddObserver(this);
@@ -81,8 +86,24 @@ public class NpcSenses : MonoBehaviour, IObserver
     public void OnNotify(ObservableObject observableObject)
     {
 
+        if(observableObject.IsAudible && observableObject.State == ObjectState.Hit)
+        {
+            _npcController.FearValue += (float)observableObject.Type + 1f;
+            Debug.Log(_npcController.FearValue);
+            Debug.Log("hit");
+            if (!_hasScreamed)
+            {
+                _hasScreamed = true;
+                AudioSource.PlayClipAtPoint(ScaredAudio, transform.position);
+            }
+        }
+        else if(observableObject.IsVisible && observableObject.State == ObjectState.Moving)
+        {
+            _npcController.FearValue += (float)observableObject.Type + 1f;
+            Debug.Log(_npcController.FearValue);
+        }
     }
-    
+
     /// <summary>
     /// Clears the detected clutter, also setting their visibility and audibility to false.
     /// </summary>
