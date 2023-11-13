@@ -38,12 +38,12 @@ public class HighlightController : MonoBehaviour
         }
         if (currentHighlight != null)
         {
-            currentHighlight.ToggleHighlight(false);
+            currentHighlight.Highlighted(false);
         }
         currentHighlight = foundHighlight;
         if (currentHighlight != null)
         {
-            currentHighlight.ToggleHighlight(true);
+            currentHighlight.Highlighted(true);
         }
     }
 }
