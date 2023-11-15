@@ -2,48 +2,35 @@ using UnityEngine;
 
 public class HighlightController : MonoBehaviour
 {
-    [Tooltip("Max range for activating highlight")]
-    [SerializeField, Range(0f, 20f)] private float highlightRange;
-
-    private Camera mainCamera;
-    private Highlight currentHighlight;
+    private VisionController _visionController;
+    private Highlight _currentHighlight;
 
     private void Start()
     {
-        mainCamera = Camera.main;
-    }
-
-    private void FixedUpdate()
-    {
-        LookForHighlightableObject();
+        _visionController = GetComponent<VisionController>();
+        _visionController.LookingAtChanged.AddListener(HandleHighlighting);
     }
 
     /// <summary>
-    /// Highlight objects with highlight script when looking at them
+    /// Handles turning highlights on and off when the player looks at a different object
     /// </summary>
-    private void LookForHighlightableObject()
+    private void HandleHighlighting()
     {
-        Highlight foundHighlight = null;
-        RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, highlightRange))
+        if (_currentHighlight != null)
         {
-            if (hit.collider.gameObject.TryGetComponent(out Highlight highlight))
-            {
-                foundHighlight = highlight;
-            }
+            _currentHighlight.Highlighted(false);
         }
-        if (foundHighlight == currentHighlight)
+        GameObject objectInView = _visionController.LookingAt;
+        if (objectInView == null)
         {
             return;
         }
-        if (currentHighlight != null)
+        if (!objectInView.TryGetComponent(out Highlight highlight))
         {
-            currentHighlight.ToggleHighlight(false);
+            _currentHighlight = null;
+            return;
         }
-        currentHighlight = foundHighlight;
-        if (currentHighlight != null)
-        {
-            currentHighlight.ToggleHighlight(true);
-        }
+        _currentHighlight = highlight;
+        _currentHighlight.Highlighted(true);
     }
 }

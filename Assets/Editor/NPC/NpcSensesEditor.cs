@@ -40,14 +40,15 @@ public class NpcSensesEditor : Editor
 		foreach (ObservableObject detectedObject in _npcSenses.DetectedObjects) {
             if(detectedObject.IsVisible)
             {
-                Handles.color = Color.red;
+                Handles.color = Color.blue;
+                Handles.DrawLine(_npcSenses.transform.position, detectedObject.transform.position);
             }
-            if(detectedObject.IsAudible && !detectedObject.IsVisible)
+            else if(detectedObject.IsAudible && !detectedObject.IsVisible)
             {
                 Handles.color = Color.yellow;
+                Handles.DrawLine(_npcSenses.transform.position, detectedObject.transform.position);
             }
 
-			Handles.DrawLine(_npcSenses.transform.position, detectedObject.transform.position);
 		}
     }
 

@@ -5,12 +5,13 @@ public class Highlight : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("Renderers that will be highlighted")]
-    [SerializeField] private List<Renderer> renderers;
+    [SerializeField] private List<Renderer> _renderers;
 
     [Header("Adjustable variables")]
-    [SerializeField] private Color highlightColor = Color.white;
+    [SerializeField] private Color _highlightColor = Color.white;
 
-    private List<Material> materials;
+    private bool _highlightable = true;
+    private List<Material> _materials;
 
     private void Awake()
     {
@@ -22,32 +23,48 @@ public class Highlight : MonoBehaviour
     /// </summary>
     private void SetupMaterials()
     {
-        materials = new List<Material>();
-        foreach (Renderer renderer in renderers)
+        _materials = new List<Material>();
+        foreach (Renderer renderer in _renderers)
         {
-            materials.AddRange(new List<Material>(renderer.materials));
+            _materials.AddRange(new List<Material>(renderer.materials));
         }
     }
 
     /// <summary>
     /// Turn highlight on or off
     /// </summary>
-    public void ToggleHighlight(bool turnOn)
+    public void Highlighted(bool turnOn)
     {
         if (turnOn)
         {
-            foreach (Material material in materials)
+            if (!_highlightable)
+            {
+                return;
+            }
+            foreach (Material material in _materials)
             {
                 material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", highlightColor);
+                material.SetColor("_EmissionColor", _highlightColor);
             }
         }
         else
         {
-            foreach (Material material in materials)
+            foreach (Material material in _materials)
             {
                 material.DisableKeyword("_EMISSION");
             }
+        }
+    }
+
+    /// <summary>
+    /// Enable or disable the ability to highlight.
+    /// </summary>
+    public void Highlightable(bool value)
+    {
+        _highlightable = value;
+        if (!_highlightable)
+        {
+            Highlighted(false);
         }
     }
 }

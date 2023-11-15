@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -8,120 +9,102 @@ namespace StarterAssets
 	public class StarterAssetsInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
-		public Vector2 move;
-		public Vector2 look;
-		public bool jump;
-		public bool sprint;
-		public float fly;
+		public Vector2 Move;
+		public Vector2 Look;
+		public bool Jump;
+		public bool Sprint;
+		public float Fly;
 
 		[Header("Movement Settings")]
-		public bool analogMovement;
+		public bool AnalogMovement;
 
 		[Header("Mouse Cursor Settings")]
-		public bool cursorLocked = true;
-		public bool cursorInputForLook = true;
+		public bool CursorLocked = true;
+		public bool CursorInputForLook = true;
 
-		private AimMode _aimMode;
-		private PossessionController _possessionController;
+		//events
+		[SerializeField] private UnityEvent _onPressAimInput;
+		[SerializeField] private UnityEvent _onCancelAimInput;
+		[SerializeField] private UnityEvent _onConfirmAimInput;
 
-        private void Awake()
-        {
-			_aimMode = gameObject.GetComponent<AimMode>();
-			_possessionController = gameObject.GetComponent<PossessionController>();
-        }
+		public UnityEvent OnPressAimInput { get => _onPressAimInput; set => _onPressAimInput = value; }
+		public UnityEvent OnCancelAimInput { get => _onCancelAimInput; set => _onCancelAimInput = value; }
+		public UnityEvent OnConfirmAimInput { get => _onConfirmAimInput; set => _onConfirmAimInput = value; }
 
 #if ENABLE_INPUT_SYSTEM
-        private void OnMove(InputValue value)
+		private void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
 
-        private void OnFly(InputValue value)
+		private void OnFly(InputValue value)
 		{
 			FlyInput(value.Get<float>());
 		}
 
-        private void OnLook(InputValue value)
+		private void OnLook(InputValue value)
 		{
-			if(cursorInputForLook)
+			if (CursorInputForLook)
 			{
 				LookInput(value.Get<Vector2>());
 			}
 		}
 
-        private void OnJump(InputValue value)
+		private void OnJump(InputValue value)
 		{
 			JumpInput(value.isPressed);
 		}
 
-        private void OnSprint(InputValue value)
+		private void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
 		}
 
 		private void OnAim(InputValue value)
-        {
-			_aimMode.EnterAimMode();
-        }
+		{
+			_onPressAimInput.Invoke();
+		}
 
 		private void OnAimCancel(InputValue value)
-        {
-			if (_possessionController.currentPossessionObject != null && !_aimMode.aimmode)
-            {
-				_possessionController.Unpossess();
-            } else
-            {
-				_aimMode.ExitAimMode();
-			}
-
-        }
+		{
+			_onCancelAimInput.Invoke();
+		}
 
 		private void OnAimConfirm(InputValue value)
-        {
-			if (_possessionController.currentPossessionObject == null)
-			{
-				_possessionController.Possess();
-			}
-			else
-			{
-				if (_possessionController.currentThrowable != null && _aimMode.aimmode)
-				{
-					_possessionController.currentThrowable.Throw();
-				}
-			}
-			_aimMode.ExitAimMode();
+		{
+			_onConfirmAimInput.Invoke();
 		}
 #endif
 
 
 		public void MoveInput(Vector2 newMoveDirection)
 		{
-			move = newMoveDirection;
+			Move = newMoveDirection;
 		}
 
-        public void FlyInput(float newFlyDirection)
+		public void FlyInput(float newFlyDirection)
 		{
-			fly = newFlyDirection;
+			Fly = newFlyDirection;
 		}
 
-        public void LookInput(Vector2 newLookDirection)
+		public void LookInput(Vector2 newLookDirection)
 		{
-			look = newLookDirection;
+			Look = newLookDirection;
 		}
 
-        public void JumpInput(bool newJumpState)
+		public void JumpInput(bool newJumpState)
 		{
-			jump = newJumpState;
+			Jump = newJumpState;
 		}
 
-        public void SprintInput(bool newSprintState)
+		public void SprintInput(bool newSprintState)
 		{
-			sprint = newSprintState;
+			Sprint = newSprintState;
 		}
 
-        private void OnApplicationFocus(bool hasFocus)
+		private void OnApplicationFocus(bool hasFocus)
 		{
-			SetCursorState(cursorLocked);
+			SetCursorState(CursorLocked);
 		}
 
 		private void SetCursorState(bool newState)

@@ -55,25 +55,24 @@ public class NpcSenses : MonoBehaviour, IObserver
         Collider[] targetsInDetectionRadius = Physics.OverlapSphere(transform.position, DetectionRange, _targetMask);
         for (int i = 0; i < targetsInDetectionRadius.Length; i++)
         {
-            Transform target = targetsInDetectionRadius[i].transform;
-            if (target.TryGetComponent<ObservableObject>(out var clutter))
+            Collider target = targetsInDetectionRadius[i];
+            if (target.TryGetComponent<ObservableObject>(out var observableObject))
             {
-                Vector3 dirToTarget = (target.position - transform.position).normalized;
-                float dstToTarget = Vector3.Distance(transform.position, target.position);
+                Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
+                float dstToTarget = Vector3.Distance(transform.position, target.ClosestPoint(transform.position));
                 if (Physics.Raycast(transform.position, dirToTarget, dstToTarget, _obstacleMask))
                 {
-                    return;
+                    continue;
                 }
-                if (Vector3.Angle (transform.forward, dirToTarget) < FieldOfViewAngle / 2) {
-                    clutter.IsVisible = true;
-                    DetectedObjects.Add(clutter);
-                    return;
+                if (Vector3.Angle (transform.forward, dirToTarget) < FieldOfViewAngle / 2 && dstToTarget <= SightRange) {
+                    observableObject.IsVisible = true;
                 }
-                if (!(dstToTarget <= AuditoryRange))
-                    return;
-                clutter.IsAudible = true;
-                DetectedObjects.Add(clutter);
-                clutter.AddObserver(this);
+                if (dstToTarget <= AuditoryRange)
+                {
+                    observableObject.IsAudible = true;
+                }
+                DetectedObjects.Add(observableObject);
+                observableObject.AddObserver(this);
             }
         }
     }
