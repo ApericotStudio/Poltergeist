@@ -62,16 +62,15 @@ public class NpcSenses : MonoBehaviour, IObserver
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (Physics.Raycast(transform.position, dirToTarget, dstToTarget, _obstacleMask))
                 {
-                    return;
+                    continue;
                 }
                 if (Vector3.Angle (transform.forward, dirToTarget) < FieldOfViewAngle / 2) {
                     clutter.IsVisible = true;
-                    DetectedObjects.Add(clutter);
-                    return;
                 }
-                if (!(dstToTarget <= AuditoryRange))
-                    return;
-                clutter.IsAudible = true;
+                if (dstToTarget <= AuditoryRange)
+                {
+                    clutter.IsAudible = true;
+                }
                 DetectedObjects.Add(clutter);
                 clutter.AddObserver(this);
             }
