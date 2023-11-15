@@ -25,6 +25,8 @@ public class NpcSenses : MonoBehaviour, IObserver
     [Header("Reaction Settings")]
     [Tooltip("The delay between the NPC detecting a target and reacting to it."), Range(0f, 5f), SerializeField]
     private float _reactionDelay = 1f;
+    [Tooltip("Amount of time cooldown applies to NPC scare"), Range(0f, 10f), SerializeField]
+    private float _scaredCooldown = 2f;
     [Header("Multiplier")]
     [Tooltip("Multiplier to scare value when NPC hears ghost."), Range(0f, 5f), SerializeField]
     private float _hearingMultiplier = 1f;
@@ -34,6 +36,7 @@ public class NpcSenses : MonoBehaviour, IObserver
     private float _hearSeeMultiplier = 1.5f;
     [Tooltip("Amount object gets less scary after usage"), SerializeField]
     private List<float> _usageMultipliers = new List<float>{1f, 0.5f, 0.25f, 0f};
+
     [HideInInspector]
     public List<ObservableObject> DetectedObjects;
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
@@ -41,7 +44,9 @@ public class NpcSenses : MonoBehaviour, IObserver
     private NpcController _npcController;
     public AudioClip ScaredAudio;
     private bool _hasScreamed;
-    private bool _isScared;
+    private bool _isScared = false;
+
+    private IEnumerator _coroutine;
 
     private void Awake()
     {
@@ -95,34 +100,40 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
-        bool Hearing = observableObject.IsAudible && observableObject.State == ObjectState.Hit;
-        bool Seeing = observableObject.IsVisible && observableObject.State == ObjectState.Moving;
-
-
+        bool Hearing = observableObject.IsAudible;
+        bool Seeing = observableObject.IsVisible;
 
         int amountObject = _npcController._usedObjects.Count(x => x.Equals(observableObject));
 
+
+        if(amountObject >= _usageMultipliers.Count - 1)
+        {
+            amountObject = _usageMultipliers.Count - 1;
+        }
+
+        if(observableObject.State == ObjectState.Idle || _isScared)
+        {
+            return;
+        }
+
         if (Hearing && Seeing)
         {
-            _npcController.FearValue += ((float)observableObject.Type * _hearSeeMultiplier);
-            Debug.Log(_npcController._usedObjects.Count);
+            _npcController.FearValue += ((float)observableObject.Type * _hearSeeMultiplier) * _usageMultipliers[amountObject];
         }
 
         else if (Hearing)
         {
-            _npcController.FearValue += (float)observableObject.Type * _hearingMultiplier;
+            _npcController.FearValue += ((float)observableObject.Type * _hearingMultiplier) * _usageMultipliers[amountObject];
             if (!_hasScreamed)
             {
                 _hasScreamed = true;
                 AudioSource.PlayClipAtPoint(ScaredAudio, transform.position);
             }
-            Debug.Log(_npcController._usedObjects.Count);
         }
 
         else if (Seeing)
         {
-            _npcController.FearValue += (float)observableObject.Type * _seeingMultiplier;
-            Debug.Log(_npcController._usedObjects.Count);
+            _npcController.FearValue += ((float)observableObject.Type * _seeingMultiplier) * _usageMultipliers[amountObject];
         }
 
         else
@@ -130,7 +141,16 @@ public class NpcSenses : MonoBehaviour, IObserver
             return;
         }
 
+        _coroutine = ScaredCooldown();
+        StartCoroutine(_coroutine);
         _npcController._usedObjects.Add(observableObject);
+    }
+
+    private IEnumerator ScaredCooldown()
+    {
+        _isScared = true;
+        yield return new WaitForSeconds(_scaredCooldown);
+        _isScared = false;
     }
 
     /// <summary>
