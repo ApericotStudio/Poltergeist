@@ -10,7 +10,7 @@ public class Highlight : MonoBehaviour
     [Header("Adjustable variables")]
     [SerializeField] private Color _highlightColor = Color.white;
 
-    private bool _highlightable;
+    private bool _highlightable = true;
     private List<Material> _materials;
 
     private void Awake()
@@ -37,7 +37,7 @@ public class Highlight : MonoBehaviour
     {
         if (turnOn)
         {
-            if (_highlightable)
+            if (!_highlightable)
             {
                 return;
             }
