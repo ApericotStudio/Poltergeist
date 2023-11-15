@@ -52,6 +52,7 @@ public class PossessionController : MonoBehaviour, IObserver
         if (CurrentPossession != null)
         {
             CurrentPossession.GetComponent<IPossessable>().Unpossess();
+            _thirdPersonController.toUnpossessLocation();
             CurrentPossession = null;
             CurrentThrowable = null;
             _thirdPersonController.freeze = false;
