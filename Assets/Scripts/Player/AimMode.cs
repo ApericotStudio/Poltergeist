@@ -64,10 +64,10 @@ public class AimMode : MonoBehaviour
 
     public void EnterAimMode()
     {
-        EnterAimModeEvent.Invoke();
         if (_possessionController.CurrentPossession == null)
         {
             aimmode = true;
+            EnterAimModeEvent.Invoke();
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(1);
         }
@@ -78,6 +78,7 @@ public class AimMode : MonoBehaviour
                 if (_possessionController.CurrentThrowable.GetState() is not ObjectState.Idle) { return; }
             }
             aimmode = true;
+            EnterAimModeEvent.Invoke();
             _controller.SetSensitivity(_aimSensitivity);
             switchCamera(3);
         }
@@ -130,10 +131,6 @@ public class AimMode : MonoBehaviour
     public void changeCameraToPossession()
     {
         ExitAimMode();
-        if (_possessionController.CurrentPossession == null)
-        {
-            return;
-        }
         Transform pos = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
         _possessionDefaultCam.LookAt = pos;
         _possessionDefaultCam.Follow = pos;
