@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Throwable : MonoBehaviour, IPossessable
 {
@@ -10,9 +11,11 @@ public class Throwable : MonoBehaviour, IPossessable
     private Vector3 _releasePosition;
 
     [Header("Display Controls")]
-    [SerializeField] [Range(10, 100)] private int _linePoints = 25;
+    [SerializeField] [Range(10, 100)] private int _linePoints = 2;
     [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints = 0.1f;
+    [SerializeField] private Transform _hitPointImage;
     private LayerMask _throwLayerMask;
+
 
     public bool isPossessed;
 
@@ -31,6 +34,16 @@ public class Throwable : MonoBehaviour, IPossessable
         LineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
         _observableObject = this.GetComponent<ObservableObject>();
+
+        int throwLayer = gameObject.layer;
+        for(int i = 0; i < 32; i++)
+        {
+            if (!Physics.GetIgnoreLayerCollision(throwLayer, i))
+            {
+                _throwLayerMask |= 1 << i;
+            }
+        }
+        
     }
 
     // Update is called once per frame
@@ -71,7 +84,7 @@ public class Throwable : MonoBehaviour, IPossessable
         Vector3 startVelocity = _throwForce * _aim / _rb.mass;
         int i = 0;
         LineRenderer.SetPosition(i, startPosition);
-        for (float time = 0; time < _linePoints; time += _timeBetweenPoints)
+        for (float time = 0f; time < _linePoints; time += _timeBetweenPoints)  
         {
             i++;
             Vector3 point = startPosition + time * startVelocity;
@@ -87,6 +100,9 @@ public class Throwable : MonoBehaviour, IPossessable
             {
                 LineRenderer.SetPosition(i, hit.point);
                 LineRenderer.positionCount = i + 1;
+                _hitPointImage.gameObject.SetActive(true);
+                _hitPointImage.position = hit.point + hit.normal * 0.01f;
+                _hitPointImage.transform.up = hit.normal;                
                 return;
             }
         }
