@@ -131,6 +131,10 @@ public class AimMode : MonoBehaviour
     public void changeCameraToPossession()
     {
         ExitAimMode();
+        if (_possessionController.CurrentPossession == null)
+        {
+            return;
+        }
         Transform pos = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
         _possessionDefaultCam.LookAt = pos;
         _possessionDefaultCam.Follow = pos;
