@@ -8,7 +8,7 @@ public class PossessionController : MonoBehaviour, IObserver
 
     public GameObject CurrentPossession;
 
-    public Throwable currentThrowable;
+    public Throwable CurrentThrowable;
     private ThirdPersonController _thirdPersonController;
     private VisionController _visionController;
 
@@ -43,7 +43,7 @@ public class PossessionController : MonoBehaviour, IObserver
         OnCurrentPossessionChange?.Invoke(CurrentPossession);
         if (CurrentPossession.TryGetComponent(out Throwable throwable))
         {
-            currentThrowable = throwable;
+            CurrentThrowable = throwable;
         }
     }
 
@@ -53,7 +53,7 @@ public class PossessionController : MonoBehaviour, IObserver
         {
             CurrentPossession.GetComponent<IPossessable>().Unpossess();
             CurrentPossession = null;
-            currentThrowable = null;
+            CurrentThrowable = null;
             _thirdPersonController.freeze = false;
             OnCurrentPossessionChange?.Invoke(CurrentPossession);
         }

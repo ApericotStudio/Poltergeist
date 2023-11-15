@@ -18,7 +18,7 @@ public class HighlightController : MonoBehaviour
     {
         if (_currentHighlight != null)
         {
-            _currentHighlight.ToggleHighlight(false);
+            _currentHighlight.Highlighted(false);
         }
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView == null)
@@ -31,6 +31,6 @@ public class HighlightController : MonoBehaviour
             return;
         }
         _currentHighlight = highlight;
-        _currentHighlight.ToggleHighlight(true);
+        _currentHighlight.Highlighted(true);
     }
 }

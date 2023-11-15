@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -15,9 +17,9 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
-        [SerializeField] private float MoveSpeed = 2.0f;
-        [SerializeField] private float SprintSpeed = 5.335f;
-        [SerializeField] private float flySpeed = 2.0f;
+        [SerializeField] private float MoveSpeed = 5.0f;
+        [SerializeField] private float flySpeed = 5.0f;
+        [SerializeField] private float _aimSpeed = 2.0f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -95,7 +97,8 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
-
+        private float _targetSpeed;
+        private bool _aim;
         private bool IsCurrentDeviceMouse
         {
             get
@@ -116,6 +119,10 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            int playerLayer = LayerMask.NameToLayer("Player");
+            int observableObjectLayer = LayerMask.NameToLayer("Observable Object");
+
+            Physics.IgnoreLayerCollision(playerLayer, observableObjectLayer);
         }
 
         private void Start()
@@ -179,13 +186,13 @@ namespace StarterAssets
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
-            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            if (_input.Look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * Sensitivity;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * Sensitivity;
+                _cinemachineTargetYaw += _input.Look.x * deltaTimeMultiplier * Sensitivity;
+                _cinemachineTargetPitch += _input.Look.y * deltaTimeMultiplier * Sensitivity;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -205,29 +212,36 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            if (_aim)
+            {
+                _targetSpeed = _aimSpeed;
+            }
+            else
+            {
+                _targetSpeed = MoveSpeed;
+            }
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.Move == Vector2.zero) _targetSpeed = 0.0f;
 
-            float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+            float inputMagnitude = _input.AnalogMovement ? _input.Move.magnitude : 1f;
 
-            _speed = targetSpeed;
+            _speed = _targetSpeed;
 
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+            _animationBlend = Mathf.Lerp(_animationBlend, _targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             
             // normalise input direction
-            Vector3 inputDirection = new Vector3(_input.move.x, _input.fly, _input.move.y).normalized;
+            Vector3 inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
 
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
+            if (_input.Move != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
@@ -241,9 +255,9 @@ namespace StarterAssets
             }
 
             // changes player input based on camera orientation
-            Vector3 targetRight = _input.move.x * _mainCamera.transform.right;
-            Vector3 targetForward = _input.move.y * _mainCamera.transform.forward;
-            Vector3 targetUp = _input.fly * _mainCamera.transform.up;
+            Vector3 targetRight = _input.Move.x * _mainCamera.transform.right;
+            Vector3 targetForward = _input.Move.y * _mainCamera.transform.forward;
+            Vector3 targetUp = _input.Fly * _mainCamera.transform.up;
 
             Vector3 targetDirection = (targetRight + targetForward + targetUp).normalized;
 
@@ -260,25 +274,21 @@ namespace StarterAssets
             }
         }
 
+        public void AimEnter()
+        {
+            _aim = true;
+        }
+
+        public void AimExit()
+        {
+            _aim = false;
+        }
+
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
         {
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-            Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
-
-            if (Grounded) Gizmos.color = transparentGreen;
-            else Gizmos.color = transparentRed;
-
-            // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawSphere(
-                new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
-                GroundedRadius);
         }
 
         private void OnFootstep(AnimationEvent animationEvent)
