@@ -29,9 +29,9 @@ public class NpcSenses : MonoBehaviour, IObserver
     private float _scaredCooldown = 2f;
     [Header("Multiplier")]
     [Tooltip("Multiplier to scare value when NPC hears ghost."), Range(0f, 5f), SerializeField]
-    private float _hearingMultiplier = 1f;
+    private float _visableMultiplier = 1f;
     [Tooltip("Multiplier to scare value when NPC sees ghost."), Range(0f, 5f), SerializeField]
-    private float _seeingMultiplier = 1f;
+    private float _hearableMultiplier = 1f;
     [Tooltip("Multiplier to scare value when NPC sees & hears ghost."), Range(0f, 5f), SerializeField]
     private float _hearSeeMultiplier = 1.5f;
     [Tooltip("Amount object gets less scary after usage"), SerializeField]
@@ -100,8 +100,8 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
-        bool Hearing = observableObject.IsAudible;
-        bool Seeing = observableObject.IsVisible;
+        bool hearable = observableObject.IsAudible;
+        bool visable = observableObject.IsVisible;
 
         int amountObject = _npcController._usedObjects.Count(x => x.Equals(observableObject));
 
@@ -116,14 +116,14 @@ public class NpcSenses : MonoBehaviour, IObserver
             return;
         }
 
-        if (Hearing && Seeing)
+        if (hearable && visable)
         {
             _npcController.FearValue += ((float)observableObject.Type * _hearSeeMultiplier) * _usageMultipliers[amountObject];
         }
 
-        else if (Hearing)
+        else if (hearable)
         {
-            _npcController.FearValue += ((float)observableObject.Type * _hearingMultiplier) * _usageMultipliers[amountObject];
+            _npcController.FearValue += ((float)observableObject.Type * _hearableMultiplier) * _usageMultipliers[amountObject];
             if (!_hasScreamed)
             {
                 _hasScreamed = true;
@@ -131,9 +131,9 @@ public class NpcSenses : MonoBehaviour, IObserver
             }
         }
 
-        else if (Seeing)
+        else if (visable)
         {
-            _npcController.FearValue += ((float)observableObject.Type * _seeingMultiplier) * _usageMultipliers[amountObject];
+            _npcController.FearValue += ((float)observableObject.Type * _visableMultiplier) * _usageMultipliers[amountObject];
         }
 
         else
