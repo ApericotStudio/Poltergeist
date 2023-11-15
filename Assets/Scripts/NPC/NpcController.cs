@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -36,6 +37,8 @@ public class NpcController : MonoBehaviour
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
 
+    [HideInInspector]
+    public List<ObservableObject> _usedObjects;
     private INpcState _currentState;
     
     private int _animIDMotionSpeed;

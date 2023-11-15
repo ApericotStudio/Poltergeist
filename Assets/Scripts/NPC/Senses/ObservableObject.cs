@@ -17,8 +17,9 @@ public enum ObjectState
 /// </summary>
 public enum ObjectType
 {
-    Big = 5,
-    Small = 2
+    Big = 20,
+    Small = 10,
+    Medium = 15
 }
 /// <summary>
 /// The Observable Object class is used to store the state of the object. 
@@ -37,10 +38,6 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public float VisualAnxietyValue = 3f;
     [Tooltip("The type of object.")]
     public ObjectType Type;
-    [Tooltip("The value that gets added to the NPC's anxiety when the object is small.")]
-    public float SmallObjectAnxietyValue = 1f;
-    [Tooltip("The value that gets added to the NPC's anxiety when the object is big.")]
-    public float BigObjectAnxietyValue = 3f;
     private ObjectState _state = ObjectState.Idle;
 
     private readonly List<IObserver> _observers = new();
@@ -53,8 +50,11 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     { 
         get => _state; 
         set {
-            _state = value;
-            NotifyObservers();
+            if(_state != value)
+            {
+                _state = value;
+                NotifyObservers();
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -24,6 +25,15 @@ public class NpcSenses : MonoBehaviour, IObserver
     [Header("Reaction Settings")]
     [Tooltip("The delay between the NPC detecting a target and reacting to it."), Range(0f, 5f), SerializeField]
     private float _reactionDelay = 1f;
+    [Header("Multiplier")]
+    [Tooltip("Multiplier to scare value when NPC hears ghost."), Range(0f, 5f), SerializeField]
+    private float _hearingMultiplier = 1f;
+    [Tooltip("Multiplier to scare value when NPC sees ghost."), Range(0f, 5f), SerializeField]
+    private float _seeingMultiplier = 1f;
+    [Tooltip("Multiplier to scare value when NPC sees & hears ghost."), Range(0f, 5f), SerializeField]
+    private float _hearSeeMultiplier = 1.5f;
+    [Tooltip("Amount object gets less scary after usage"), SerializeField]
+    private List<float> _usageMultipliers = new List<float>{1f, 0.5f, 0.25f, 0f};
     [HideInInspector]
     public List<ObservableObject> DetectedObjects;
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
@@ -31,6 +41,7 @@ public class NpcSenses : MonoBehaviour, IObserver
     private NpcController _npcController;
     public AudioClip ScaredAudio;
     private bool _hasScreamed;
+    private bool _isScared;
 
     private void Awake()
     {
@@ -85,23 +96,42 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
+        bool Hearing = observableObject.IsAudible && observableObject.State == ObjectState.Hit;
+        bool Seeing = observableObject.IsVisible && observableObject.State == ObjectState.Moving;
 
-        if(observableObject.IsAudible && observableObject.State == ObjectState.Hit)
+
+
+        int amountObject = _npcController._usedObjects.Count(x => x.Equals(observableObject));
+
+        if (Hearing && Seeing)
         {
-            _npcController.FearValue += (float)observableObject.Type + 1f;
-            Debug.Log(_npcController.FearValue);
-            Debug.Log("hit");
+            _npcController.FearValue += ((float)observableObject.Type * _hearSeeMultiplier);
+            Debug.Log(_npcController._usedObjects.Count);
+        }
+
+        else if (Hearing)
+        {
+            _npcController.FearValue += (float)observableObject.Type * _hearingMultiplier;
             if (!_hasScreamed)
             {
                 _hasScreamed = true;
                 AudioSource.PlayClipAtPoint(ScaredAudio, transform.position);
             }
+            Debug.Log(_npcController._usedObjects.Count);
         }
-        else if(observableObject.IsVisible && observableObject.State == ObjectState.Moving)
+
+        else if (Seeing)
         {
-            _npcController.FearValue += (float)observableObject.Type + 1f;
-            Debug.Log(_npcController.FearValue);
+            _npcController.FearValue += (float)observableObject.Type * _seeingMultiplier;
+            Debug.Log(_npcController._usedObjects.Count);
         }
+
+        else
+        {
+            return;
+        }
+
+        _npcController._usedObjects.Add(observableObject);
     }
 
     /// <summary>
