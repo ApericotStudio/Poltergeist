@@ -22,6 +22,7 @@ public class AimMode : MonoBehaviour
     private float _aimSpeed;
 
     public bool aimmode;
+    public bool throwmode;
 
     [SerializeField] private UnityEvent _enterAimModeEvent;
     [SerializeField] private UnityEvent _exitAimModeEvent;
@@ -45,7 +46,7 @@ public class AimMode : MonoBehaviour
 
     private void Update()
     {
-        if (_possessionController.CurrentThrowable != null) { _possessionController.CurrentThrowable.LineRenderer.enabled = aimmode; }
+        if (_possessionController.CurrentThrowable != null) { _possessionController.CurrentThrowable.LineRenderer.enabled = throwmode; }
         if (aimmode)
         {
             if (_possessionController.CurrentThrowable == null)
@@ -88,6 +89,7 @@ public class AimMode : MonoBehaviour
     {
         ExitAimModeEvent.Invoke();
         aimmode = false;
+        throwmode = false;
         if (_possessionController.CurrentPossession == null)
         {
             _controller.SetSensitivity(_normalSensitivity);
@@ -102,30 +104,33 @@ public class AimMode : MonoBehaviour
 
     public void CancelAimMode()
     {
-        if (_possessionController.CurrentPossession != null && !aimmode)
-        {
-            _possessionController.Unpossess();
-        }
-        else
-        {
-            ExitAimMode();
-        }
+        ExitAimMode();
     }
 
-    public void ConfirmAimMode()
+    public void ConfirmPossessAimMode()
     {
-        if (_possessionController.CurrentPossession == null && aimmode)
+        if (aimmode)
         {
             _possessionController.Possess();
         }
-        else
-        {
-            if (_possessionController.CurrentThrowable != null && aimmode)
-            {
-                _possessionController.CurrentThrowable.Throw();
-            }
-        }
         ExitAimMode();
+    }
+
+    public void EnterThrowMode()
+    {
+        if (_possessionController.CurrentThrowable != null)
+        {
+            EnterAimMode();
+            throwmode = true;
+        }
+    }
+
+    public void ThrowObject()
+    {
+        if (_possessionController.CurrentThrowable != null && throwmode)
+        {
+            _possessionController.CurrentThrowable.Throw();
+        }
     }
 
     public void changeCameraToPossession()

@@ -2975,6 +2975,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
+  _usedObjects: []
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2997,7 +2998,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   _reactionDelay: 1
+  _scaredCooldown: 2
+  _visableMultiplier: 1
+  _hearableMultiplier: 1
+  _hearSeeMultiplier: 1.5
+  _usageMultipliers:
+  - 1
+  - 0.5
+  - 0.25
+  - 0
   DetectedObjects: []
+  ScaredAudio: {fileID: 8300000, guid: a37bb9386be41b74ea272eb4eeaf3139, type: 3}
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0

@@ -26,10 +26,16 @@ namespace StarterAssets
 		[SerializeField] private UnityEvent _onPressAimInput;
 		[SerializeField] private UnityEvent _onCancelAimInput;
 		[SerializeField] private UnityEvent _onConfirmAimInput;
+		[SerializeField] private UnityEvent _onUnpossessInput;
+		[SerializeField] private UnityEvent _onThrowAimInput;
+		[SerializeField] private UnityEvent _onThrowInput;
 
 		public UnityEvent OnPressAimInput { get => _onPressAimInput; set => _onPressAimInput = value; }
 		public UnityEvent OnCancelAimInput { get => _onCancelAimInput; set => _onCancelAimInput = value; }
 		public UnityEvent OnConfirmAimInput { get => _onConfirmAimInput; set => _onConfirmAimInput = value; }
+		public UnityEvent OnUnpossessInput { get => _onUnpossessInput; set => _onUnpossessInput = value; }
+		public UnityEvent OnThrowAimInput { get => _onThrowAimInput; set => _onThrowAimInput = value; }
+		public UnityEvent OnThrowInput { get => _onThrowInput; set => _onThrowInput = value; }
 
 #if ENABLE_INPUT_SYSTEM
 		private void OnMove(InputValue value)
@@ -60,7 +66,7 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 
-		private void OnAim(InputValue value)
+		private void OnAimPossess(InputValue value)
 		{
 			_onPressAimInput.Invoke();
 		}
@@ -70,9 +76,24 @@ namespace StarterAssets
 			_onCancelAimInput.Invoke();
 		}
 
-		private void OnAimConfirm(InputValue value)
+		private void OnAimPossessConfirm(InputValue value)
 		{
 			_onConfirmAimInput.Invoke();
+		}
+
+		private void OnAimThrow(InputValue value)
+        {
+			_onThrowAimInput.Invoke();
+        }
+
+		private void OnThrow(InputValue value)
+        {
+			_onThrowInput.Invoke();
+        }
+
+		private void OnUnpossess(InputValue value)
+		{
+			_onUnpossessInput.Invoke();
 		}
 #endif
 
