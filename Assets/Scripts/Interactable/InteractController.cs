@@ -2,21 +2,13 @@ using UnityEngine;
 
 public class InteractController : MonoBehaviour
 {
-    [SerializeField, Range(0f, 20f)] private float _interactRange;
-    private Camera _playerCamera;
+    private VisionController _visionController;
+    private PossessionController _possessionController;
 
     private void Start()
     {
-        SetCamera(Camera.main);
-    }
-
-    private void SetCamera(Camera camera)
-    {
-        if (camera == null)
-        {
-            throw new System.Exception("Camera reference may not be null.");
-        }
-        _playerCamera = camera;
+        _visionController = GetComponent<VisionController>();
+        _possessionController = GetComponent<PossessionController>();
     }
 
     private void Update()
@@ -29,32 +21,23 @@ public class InteractController : MonoBehaviour
 
     private void Interact()
     {
-        Interactable interactable = LookForInteractableObject();
-        if (interactable == null)
+        GameObject objectInView = _visionController.LookingAt;
+        if (objectInView != null)
+        {
+            if (objectInView.TryGetComponent(out Interactable interactable))
+            {
+                interactable.Use();
+                return;
+            }
+        }
+        if (_possessionController.CurrentPossession == null)
         {
             return;
         }
-        interactable.Use();
-    }
-
-    /// <summary>
-    /// Checks if the camera is looking at an interactable object
-    /// </summary>
-    /// <returns>Found interactable object or null</returns>
-    private Interactable LookForInteractableObject()
-    {
-        if (_playerCamera == null)
+        if (!_possessionController.CurrentPossession.TryGetComponent(out Interactable possessedInteractable))
         {
-            throw new System.Exception("Missing camera reference.");
+            return;
         }
-        RaycastHit hit;
-        if (Physics.Raycast(_playerCamera.transform.position, _playerCamera.transform.forward, out hit, _interactRange))
-        {
-            if (hit.collider.gameObject.TryGetComponent(out Interactable interactable))
-            {
-                return interactable;
-            }
-        }
-        return null;
+        possessedInteractable.Use();
     }
 }
