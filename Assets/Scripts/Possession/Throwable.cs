@@ -11,8 +11,8 @@ public class Throwable : MonoBehaviour, IPossessable
     private Vector3 _releasePosition;
 
     [Header("Display Controls")]
-    [SerializeField] [Range(10, 100)] private int _linePoints = 2;
-    [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints = 0.1f;
+    [SerializeField] [Range(10, 100)] private int _linePoints;
+    [SerializeField] [Range(0.01f, 0.25f)] private float _timeBetweenPoints;
     [SerializeField] private Transform _hitPointImage;
     private LayerMask _throwLayerMask;
 
@@ -100,7 +100,7 @@ public class Throwable : MonoBehaviour, IPossessable
                 LineRenderer.SetPosition(i, hit.point);
                 LineRenderer.positionCount = i + 1;
                 _hitPointImage.gameObject.SetActive(true);
-                _hitPointImage.position = hit.point + hit.normal * 0.01f;
+                _hitPointImage.position = hit.point + hit.normal.normalized * 0.01f;
                 _hitPointImage.transform.up = hit.normal;                
                 return;
             }

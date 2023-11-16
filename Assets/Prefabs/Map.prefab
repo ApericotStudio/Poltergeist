@@ -377,8 +377,8 @@ MonoBehaviour:
   ySense: 2
   _rotationSpeed: 10
   _destroyMinimumImpulse: 10
-  _linePoints: 25
-  _timeBetweenPoints: 0.1
+  _linePoints: 10
+  _timeBetweenPoints: 0.025
   _hitPointImage: {fileID: 7457741599270854628}
   isPossessed: 0
 --- !u!114 &4055999039646957068
@@ -980,8 +980,8 @@ MonoBehaviour:
   ySense: 2
   _rotationSpeed: 10
   _destroyMinimumImpulse: 10
-  _linePoints: 25
-  _timeBetweenPoints: 0.1
+  _linePoints: 10
+  _timeBetweenPoints: 0.025
   _hitPointImage: {fileID: 7457741599270854628}
   isPossessed: 0
 --- !u!114 &7404128563625226568
@@ -1316,7 +1316,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 25, y: 1, z: 25}
+  m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8820225575128470635}
@@ -1715,8 +1715,8 @@ MonoBehaviour:
   ySense: 2
   _rotationSpeed: 10
   _destroyMinimumImpulse: 10
-  _linePoints: 25
-  _timeBetweenPoints: 0.1
+  _linePoints: 10
+  _timeBetweenPoints: 0.025
   _hitPointImage: {fileID: 7457741599270854628}
   isPossessed: 0
 --- !u!114 &2206231708064101080
@@ -1814,7 +1814,6 @@ GameObject:
   - component: {fileID: 7457741599270854628}
   - component: {fileID: 4473412494438598347}
   - component: {fileID: 8569452145284964372}
-  - component: {fileID: 2837290304082814598}
   - component: {fileID: 6764029719530932939}
   m_Layer: 0
   m_Name: Hitpoint
@@ -1888,28 +1887,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2837290304082814598
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5865243261926460834}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &6764029719530932939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2404,8 +2381,8 @@ MonoBehaviour:
   ySense: 2
   _rotationSpeed: 10
   _destroyMinimumImpulse: 10
-  _linePoints: 25
-  _timeBetweenPoints: 0.1
+  _linePoints: 10
+  _timeBetweenPoints: 0.025
   _hitPointImage: {fileID: 7457741599270854628}
   isPossessed: 0
 --- !u!114 &8059196053838989180
@@ -2995,8 +2972,8 @@ MonoBehaviour:
   ySense: 2
   _rotationSpeed: 10
   _destroyMinimumImpulse: 10
-  _linePoints: 25
-  _timeBetweenPoints: 0.1
+  _linePoints: 10
+  _timeBetweenPoints: 0.025
   _hitPointImage: {fileID: 7457741599270854628}
   isPossessed: 0
 --- !u!114 &4997846614003253982
@@ -3365,8 +3342,8 @@ MonoBehaviour:
   ySense: 2
   _rotationSpeed: 10
   _destroyMinimumImpulse: 10
-  _linePoints: 25
-  _timeBetweenPoints: 0.1
+  _linePoints: 10
+  _timeBetweenPoints: 0.025
   _hitPointImage: {fileID: 7457741599270854628}
   isPossessed: 0
 --- !u!114 &7210731250756573645
@@ -3654,9 +3631,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
+      propertyPath: _linePoints
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
       propertyPath: _hitPointImage
       value: 
       objectReference: {fileID: 7457741599270854628}
+    - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: _timeBetweenPoints
+      value: 0.025
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3733,9 +3720,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
+      propertyPath: _linePoints
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
       propertyPath: _hitPointImage
       value: 
       objectReference: {fileID: 7457741599270854628}
+    - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: _timeBetweenPoints
+      value: 0.025
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3960,9 +3957,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
+      propertyPath: _linePoints
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
       propertyPath: _hitPointImage
       value: 
       objectReference: {fileID: 7457741599270854628}
+    - target: {fileID: 9151074631976099130, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: _timeBetweenPoints
+      value: 0.025
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
