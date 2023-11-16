@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -612,7 +612,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: 6b068d4170b3de74fa223e1751eeee0c,
+      objectReference: {fileID: 23800000, guid: 4c5a7fa8f72b653408761846e9e7f879,
         type: 2}
     - target: {fileID: 551216444086530313, guid: ad5876f2b5325244c84d931149d88cce,
         type: 3}
@@ -1668,7 +1668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf2022beb66c47448a29150e76cd197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightRange: 10
 --- !u!1 &1028513131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2691,8 +2690,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8ab235cca8fb949bf26947807ca037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possessionRange: 20
-  currentThrowable: {fileID: 0}
+  CurrentPossessionChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  CurrentPossession: {fileID: 0}
+  CurrentThrowable: {fileID: 0}
 --- !u!114 &1411555902
 MonoBehaviour:
   m_ObjectHideFlags: 0
