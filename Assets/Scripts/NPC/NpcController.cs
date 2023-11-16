@@ -13,6 +13,8 @@ public class NpcController : MonoBehaviour
     public float RoamRadius = 5f;
     [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
     public float RoamingSpeed = 2f;
+    [Tooltip("The speed the NPC will move when investigating."), Range(1f, 5f)]
+    public float InvestigatingSpeed = 2f;
     [Tooltip("The target location the NPC will run to when frightened.")]
     public Transform FrightenedTargetLocation;
     [Tooltip("The speed the NPC will move when frightened."), Range(2f, 10f)]
@@ -25,9 +27,14 @@ public class NpcController : MonoBehaviour
     public UnityEvent OnStateChange;
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
     public GameEventManager GameEventManager;
+
     [Header("NPC Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC screams.")]
     public AudioClip[] ScreamAudioClips;
+    [Tooltip("The audio clip that will be played when the NPC investigates.")]
+    public AudioClip InvestigateAudioClip;
+    [Tooltip("The audio clip that will be played when the NPC stops investigating.")]
+    public AudioClip InvestigateEndAudioClip;
     [Tooltip("The volume of the scream audio clips.")]
     [Range(0f, 1f)]
     public float ScreamVolume = 1f;
@@ -69,12 +76,21 @@ public class NpcController : MonoBehaviour
     public NavMeshAgent NavMeshAgent { get; private set; }
     public bool RanAway { get; set; }
 
+    public RoamState RoamState { get; private set; }
+    public PanickedState PanickedState { get; private set; }
+    public InvestigateState InvestigateState { get; private set; }
+
+    public Transform InvestigateTarget { get; set; }
+
     private void Awake()
     {
         NavMeshAgent = GetComponent<NavMeshAgent>();
         NpcAudioSource = GetComponent<AudioSource>();
         InitializeAnimator();
         OnStateChange.AddListener(OnStateChanged);
+        RoamState = new RoamState(this);
+        PanickedState = new PanickedState(this);
+        InvestigateState = new InvestigateState(this);
     }
 
     private void Update()
@@ -90,19 +106,14 @@ public class NpcController : MonoBehaviour
 
     private void ChangeBehaviourBasedOnAnxiety()
     {
-        if(FearValue <= 0f)
+        if(FearValue >= 100f && CurrentState is not global::PanickedState)
         {
-            GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerLost);
+            CurrentState = PanickedState;
             return;
         }
-        if(FearValue >= 100f && CurrentState is not PanickedState)
+        if(CurrentState is not global::RoamState and not global::PanickedState and not global::InvestigateState)
         {
-            CurrentState = new PanickedState(this);
-            return;
-        }
-        if(CurrentState is not RoamState && CurrentState is not PanickedState)
-        {
-            CurrentState = new RoamState(this);
+            CurrentState = RoamState;
             return;
         }
     }
