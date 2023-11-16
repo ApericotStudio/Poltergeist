@@ -65,6 +65,7 @@ public class AimMode : MonoBehaviour
 
     public void EnterAimMode()
     {
+        if(throwmode) { return; }
         if (_possessionController.CurrentPossession == null)
         {
             aimmode = true;
@@ -109,6 +110,7 @@ public class AimMode : MonoBehaviour
 
     public void ConfirmPossessAimMode()
     {
+        if (throwmode) { return; }
         if (aimmode)
         {
             _possessionController.Possess();
@@ -130,6 +132,7 @@ public class AimMode : MonoBehaviour
         if (_possessionController.CurrentThrowable != null && throwmode)
         {
             _possessionController.CurrentThrowable.Throw();
+            ExitAimMode();
         }
     }
 
