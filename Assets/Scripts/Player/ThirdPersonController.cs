@@ -3,6 +3,7 @@ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.AI;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -92,7 +93,9 @@ namespace StarterAssets
         private Animator _animator;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
+        private PossessionController _posControl;
         private GameObject _mainCamera;
+        private MeshRenderer[] _meshRs;
 
         private const float _threshold = 0.01f;
 
@@ -135,6 +138,9 @@ namespace StarterAssets
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
+            _posControl = gameObject.GetComponent<PossessionController>();
+            _posControl.CurrentPossessionChanged.AddListener(togglePlayerVisible);
+            _meshRs = gameObject.GetComponentsInChildren<MeshRenderer>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -309,6 +315,17 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+
+        public void toUnpossessLocation()
+        {
+            NavMesh.SamplePosition(_posControl.CurrentPossession.transform.position, out NavMeshHit hit, 3f, 1);
+            _controller.Move(hit.position);
+        }
+
+        public void togglePlayerVisible()
+        {
+            foreach (MeshRenderer mesh in _meshRs) { mesh.enabled = _posControl.CurrentPossession == null; }
         }
     }
 }
