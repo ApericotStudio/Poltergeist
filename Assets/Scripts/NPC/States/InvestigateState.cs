@@ -15,17 +15,31 @@ public class InvestigateState : INpcState
         _npcController.NavMeshAgent.speed = _npcController.InvestigatingSpeed;
         _npcController.NavMeshAgent.stoppingDistance = 2f;
         _npcController.NavMeshAgent.SetDestination(_npcController.InvestigateTarget.position);
-        _npcController.StartCoroutine(ReturnToRoamState());
+        _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClip);
+        _npcController.StartCoroutine(InvestigateCoroutine());
     }
 
-    IEnumerator ReturnToRoamState()
+    /// <summary>
+    /// Moves the NPC to the location of the object that made a sound and then back to the roam location.
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator InvestigateCoroutine()
     {
-        while (_npcController.NavMeshAgent.pathPending == true || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
+        while(_npcController.NavMeshAgent.pathPending || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
+        {
+            _npcController.NavMeshAgent.SetDestination(_npcController.InvestigateTarget.position);
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        while (_npcController.NavMeshAgent.pathPending || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
         {
             yield return null;
         }
-        yield return new WaitForSeconds(3f);
         _npcController.CurrentState = _npcController.RoamState;
+        _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClip);
+        _npcController.NavMeshAgent.SetDestination(_npcController.RoamTargetLocation.position);
+        yield break;
     }
-
 }
