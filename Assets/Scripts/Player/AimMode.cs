@@ -26,9 +26,13 @@ public class AimMode : MonoBehaviour
 
     [SerializeField] private UnityEvent _enterAimModeEvent;
     [SerializeField] private UnityEvent _exitAimModeEvent;
+    [SerializeField] private UnityEvent _enterThrowModeEvent;
+    [SerializeField] private UnityEvent _exitThrowModeEvent;
 
     public UnityEvent EnterAimModeEvent { get => _enterAimModeEvent; set => _enterAimModeEvent = value; }
     public UnityEvent ExitAimModeEvent { get => _exitAimModeEvent; set => _exitAimModeEvent = value; }
+    public UnityEvent EnterThrowModeEvent { get => _enterAimModeEvent; set => _enterAimModeEvent = value; }
+    public UnityEvent ExitThrowModeEvent { get => _exitAimModeEvent; set => _exitAimModeEvent = value; }
 
     private void Awake()
     {
@@ -89,6 +93,7 @@ public class AimMode : MonoBehaviour
     public void ExitAimMode()
     {
         ExitAimModeEvent.Invoke();
+        if (throwmode) { _exitThrowModeEvent.Invoke(); }
         aimmode = false;
         throwmode = false;
         if (_possessionController.CurrentPossession == null)
@@ -123,6 +128,7 @@ public class AimMode : MonoBehaviour
         if (_possessionController.CurrentThrowable != null)
         {
             EnterAimMode();
+            _enterThrowModeEvent.Invoke();
             throwmode = true;
         }
     }
