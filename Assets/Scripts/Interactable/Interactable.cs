@@ -4,6 +4,8 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
     [Header("Adjustable variables")]
+    [Tooltip("Message displayed on hover")]
+    [SerializeField] public string HoverMessage = "Interact";
     [Tooltip("Interactable is reusable")]
     [SerializeField] private bool _singleUse = false;
     private bool _used = false;
