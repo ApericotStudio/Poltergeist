@@ -78,7 +78,7 @@ public class Throwable : MonoBehaviour, IPossessable
     {
         _releasePosition = transform.position;
         LineRenderer.enabled = true;
-        LineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 1;
+        LineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 2;
         Vector3 startPosition = _releasePosition;
         Vector3 startVelocity = _throwForce * _aim / _rb.mass;
         int i = 0;
