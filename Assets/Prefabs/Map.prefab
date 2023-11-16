@@ -256,7 +256,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!120 &3437949689247897991
 LineRenderer:
   serializedVersion: 2
@@ -857,7 +857,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!120 &1489940184222577241
 LineRenderer:
   serializedVersion: 2
@@ -1590,7 +1590,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!120 &4300638650978329540
 LineRenderer:
   serializedVersion: 2
@@ -2254,7 +2254,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!120 &2609129785346351203
 LineRenderer:
   serializedVersion: 2
@@ -2843,7 +2843,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!120 &2134018419101190022
 LineRenderer:
   serializedVersion: 2
@@ -3211,7 +3211,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!120 &1974671221959533163
 LineRenderer:
   serializedVersion: 2
@@ -3562,6 +3562,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6467305685523154465}
     m_Modifications:
+    - target: {fileID: 895507928813340673, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2682899199016417495, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
       propertyPath: m_Name
@@ -3651,6 +3656,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6467305685523154465}
     m_Modifications:
+    - target: {fileID: 895507928813340673, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2682899199016417495, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
       propertyPath: m_Name
@@ -3888,6 +3898,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6467305685523154465}
     m_Modifications:
+    - target: {fileID: 895507928813340673, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2682899199016417495, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
       propertyPath: m_Name
