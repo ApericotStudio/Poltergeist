@@ -100,8 +100,8 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
-        bool hearable = observableObject.IsAudible;
-        bool visable = observableObject.IsVisible;
+        bool audible = observableObject.IsAudible;
+        bool visible = observableObject.IsVisible;
 
         int amountObject = _npcController._usedObjects.Count(x => x.Equals(observableObject));
 
@@ -116,12 +116,12 @@ public class NpcSenses : MonoBehaviour, IObserver
             return;
         }
 
-        if (hearable && visable)
+        if (audible && visible)
         {
             _npcController.FearValue += ((float)observableObject.Type * _hearSeeMultiplier) * _usageMultipliers[amountObject];
         }
 
-        else if (hearable)
+        else if (audible)
         {
             _npcController.FearValue += ((float)observableObject.Type * _hearableMultiplier) * _usageMultipliers[amountObject];
             if (!_hasScreamed)
@@ -131,7 +131,7 @@ public class NpcSenses : MonoBehaviour, IObserver
             }
         }
 
-        else if (visable)
+        else if (visible)
         {
             _npcController.FearValue += ((float)observableObject.Type * _visableMultiplier) * _usageMultipliers[amountObject];
         }
