@@ -25,6 +25,9 @@ public class InvestigateState : INpcState
     /// <returns></returns>
     IEnumerator InvestigateCoroutine()
     {
+        // This while loop continues as long as the NPC's navigation path is still being calculated (pathPending) 
+        // or the remaining distance to the target is greater than the stopping distance. 
+        // This ensures the NPC continues moving until it has reached its destination.
         while(_npcController.NavMeshAgent.pathPending || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
         {
             _npcController.NavMeshAgent.SetDestination(_npcController.InvestigateTarget.position);
