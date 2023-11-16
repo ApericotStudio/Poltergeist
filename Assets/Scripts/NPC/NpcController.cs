@@ -27,10 +27,14 @@ public class NpcController : MonoBehaviour
     public UnityEvent OnStateChange;
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
     public GameEventManager GameEventManager;
-    
+
     [Header("NPC Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC screams.")]
     public AudioClip[] ScreamAudioClips;
+    [Tooltip("The audio clip that will be played when the NPC investigates.")]
+    public AudioClip InvestigateAudioClip;
+    [Tooltip("The audio clip that will be played when the NPC stops investigating.")]
+    public AudioClip InvestigateEndAudioClip;
     [Tooltip("The volume of the scream audio clips.")]
     [Range(0f, 1f)]
     public float ScreamVolume = 1f;

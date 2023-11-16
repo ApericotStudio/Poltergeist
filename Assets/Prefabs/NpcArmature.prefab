@@ -2964,6 +2964,10 @@ MonoBehaviour:
   ScreamAudioClips:
   - {fileID: 8300000, guid: ca54368baa460454f8b5de91a7b7f825, type: 3}
   - {fileID: 8300000, guid: 1aa179d29c47b5d42b219c270858871a, type: 3}
+  InvestigateAudioClip: {fileID: 8300000, guid: c18bb3e0ff624c04eb24f5370d6e7d34,
+    type: 3}
+  InvestigateEndAudioClip: {fileID: 8300000, guid: ae42da83d904f0b4fba0964d7fa56f0a,
+    type: 3}
   ScreamVolume: 1
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
@@ -3001,9 +3005,9 @@ MonoBehaviour:
     m_Bits: 1
   _reactionDelay: 1
   _scaredCooldown: 2
-  _visableMultiplier: 1
-  _hearableMultiplier: 1
-  _hearSeeMultiplier: 1.5
+  _visibleMultiplier: 1
+  _audibleMultiplier: 1
+  _AudibleAndVisibleMultiplier: 1.5
   _usageMultipliers:
   - 1
   - 0.5
