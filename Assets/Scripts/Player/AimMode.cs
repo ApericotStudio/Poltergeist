@@ -56,7 +56,7 @@ public class AimMode : MonoBehaviour
                 Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
                 transform.forward = aimDirection;
             }
-            else
+            else if (throwmode)
             {
                 _possessionController.CurrentThrowable.DrawProjection();
             }
