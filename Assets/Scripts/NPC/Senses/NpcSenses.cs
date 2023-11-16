@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -24,12 +25,32 @@ public class NpcSenses : MonoBehaviour, IObserver
     [Header("Reaction Settings")]
     [Tooltip("The delay between the NPC detecting a target and reacting to it."), Range(0f, 5f), SerializeField]
     private float _reactionDelay = 1f;
+    [Tooltip("Amount of time cooldown applies to NPC scare"), Range(0f, 10f), SerializeField]
+    private float _scaredCooldown = 2f;
+    [Header("Multiplier")]
+    [Tooltip("Multiplier to scare value when NPC hears ghost."), Range(0f, 5f), SerializeField]
+    private float _visableMultiplier = 1f;
+    [Tooltip("Multiplier to scare value when NPC sees ghost."), Range(0f, 5f), SerializeField]
+    private float _hearableMultiplier = 1f;
+    [Tooltip("Multiplier to scare value when NPC sees & hears ghost."), Range(0f, 5f), SerializeField]
+    private float _hearSeeMultiplier = 1.5f;
+    [Tooltip("Amount object gets less scary after usage"), SerializeField]
+    private List<float> _usageMultipliers = new List<float>{1f, 0.5f, 0.25f, 0f};
+
     [HideInInspector]
     public List<ObservableObject> DetectedObjects;
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
+    private NpcController _npcController;
+    public AudioClip ScaredAudio;
+    private bool _hasScreamed;
+    private bool _isScared = false;
+
+    private IEnumerator _coroutine;
+
     private void Awake()
     {
+        _npcController = GetComponent<NpcController>();
         StartCoroutine (DetectTargetsWithDelay(.2f));
     }
 
@@ -79,9 +100,59 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
+        bool audible = observableObject.IsAudible;
+        bool visible = observableObject.IsVisible;
 
+        int amountObject = _npcController._usedObjects.Count(x => x.Equals(observableObject));
+
+
+        if(amountObject >= _usageMultipliers.Count - 1)
+        {
+            amountObject = _usageMultipliers.Count - 1;
+        }
+
+        if(observableObject.State == ObjectState.Idle || _isScared)
+        {
+            return;
+        }
+
+        if (audible && visible)
+        {
+            _npcController.FearValue += ((float)observableObject.Type * _hearSeeMultiplier) * _usageMultipliers[amountObject];
+        }
+
+        else if (audible)
+        {
+            _npcController.FearValue += ((float)observableObject.Type * _hearableMultiplier) * _usageMultipliers[amountObject];
+            if (!_hasScreamed)
+            {
+                _hasScreamed = true;
+                AudioSource.PlayClipAtPoint(ScaredAudio, transform.position);
+            }
+        }
+
+        else if (visible)
+        {
+            _npcController.FearValue += ((float)observableObject.Type * _visableMultiplier) * _usageMultipliers[amountObject];
+        }
+
+        else
+        {
+            return;
+        }
+
+        _coroutine = ScaredCooldown();
+        StartCoroutine(_coroutine);
+        _npcController._usedObjects.Add(observableObject);
     }
-    
+
+    private IEnumerator ScaredCooldown()
+    {
+        _isScared = true;
+        yield return new WaitForSeconds(_scaredCooldown);
+        _isScared = false;
+    }
+
     /// <summary>
     /// Clears the detected clutter, also setting their visibility and audibility to false.
     /// </summary>
