@@ -120,7 +120,11 @@ public class NpcSenses : MonoBehaviour, IObserver
         {
             Investigate();
         }
-        if(observableObject.State == ObjectState.Idle || _isScared)
+        if (observableObject.State == ObjectState.Interacted)
+        {
+            Investigate();
+        }
+        if (observableObject.State == ObjectState.Idle || _isScared)
         {
             return;
         }

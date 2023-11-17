@@ -8,9 +8,16 @@ public class Interactable : MonoBehaviour
     [SerializeField] public string HoverMessage = "Interact";
     [Tooltip("Interactable is reusable")]
     [SerializeField] private bool _singleUse = false;
-    private bool _used = false;
 
     public UnityEvent InteractEvent;
+
+    private ObservableObject _observableObject;
+    private bool _used = false;
+
+    private void Awake()
+    {
+        _observableObject = GetComponent<ObservableObject>();
+    }
 
     public void Use()
     {
@@ -18,7 +25,10 @@ public class Interactable : MonoBehaviour
         {
             return;
         }
-        InteractEvent?.Invoke();
+        InteractEvent.Invoke();
+        ObjectState originalState = _observableObject.State;
+        _observableObject.State = ObjectState.Interacted;
+        _observableObject.State = originalState;
         _used = true;
         if (_singleUse)
         {
