@@ -81,25 +81,39 @@ public class NpcSenses : MonoBehaviour, IObserver
         for (int i = 0; i < targetsInDetectionRadius.Length; i++)
         {
             Collider target = targetsInDetectionRadius[i];
-            if (target.TryGetComponent<ObservableObject>(out var observableObject))
+            bool IsObservableObject = target.TryGetComponent<ObservableObject>(out var observableObject);
+
+            if (!IsObservableObject)
+                continue;
+
+            Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+            float distanceToTarget = Vector3.Distance(transform.position, target.ClosestPoint(transform.position));
+
+            if (Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleMask))
+                continue;
+
+            if (TargetInSightRadius(directionToTarget, distanceToTarget))
             {
-                Vector3 dirToTarget = (target.transform.position - transform.position).normalized;
-                float dstToTarget = Vector3.Distance(transform.position, target.ClosestPoint(transform.position));
-                if (Physics.Raycast(transform.position, dirToTarget, dstToTarget, _obstacleMask))
-                {
-                    continue;
-                }
-                if (Vector3.Angle (transform.forward, dirToTarget) < FieldOfViewAngle / 2 && dstToTarget <= SightRange) {
-                    observableObject.IsVisible = true;
-                }
-                if (dstToTarget <= AuditoryRange)
-                {
-                    observableObject.IsAudible = true;
-                }
-                DetectedObjects.Add(observableObject);
-                observableObject.AddObserver(this);
+                observableObject.IsVisible = true;
             }
+
+            if (distanceToTarget <= AuditoryRange)
+            {
+                observableObject.IsAudible = true;
+            }
+
+            DetectedObjects.Add(observableObject);
+            observableObject.AddObserver(this);
         }
+    }
+
+    private bool TargetInSightRadius(Vector3 directionToTarget, float distanceToTarget)
+    {
+        if (Vector3.Angle(transform.forward, directionToTarget) < FieldOfViewAngle / 2 && distanceToTarget <= SightRange) 
+        {
+            return true;
+        }
+        return false;
     }
 
     public void OnNotify(ObservableObject observableObject)
@@ -149,7 +163,6 @@ public class NpcSenses : MonoBehaviour, IObserver
         {
             return;
         }
-
         _coroutine = ScaredCooldown();
         StartCoroutine(_coroutine);
         _npcController._usedObjects.Add(observableObject);
@@ -188,7 +201,7 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     private void Investigate()
     {
-        if(_npcController.CurrentState != _npcController.InvestigateState)
+        if(_npcController.CurrentState != _npcController.InvestigateState && _npcController.CurrentState != _npcController.PanickedState)
         {
             _npcController.CurrentState = _npcController.InvestigateState;
         }
