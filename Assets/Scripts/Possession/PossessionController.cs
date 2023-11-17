@@ -34,7 +34,7 @@ public class PossessionController : MonoBehaviour, IObserver
         }
         if (CurrentPossession != null)
         {
-            CurrentPossession.GetComponent<IPossessable>().Unpossess();
+            RemovePossession();
         }
         CurrentPossession = objectInView;
         possessable.Possess();
@@ -51,13 +51,19 @@ public class PossessionController : MonoBehaviour, IObserver
     {
         if (CurrentPossession != null)
         {
-            CurrentPossession.GetComponent<IPossessable>().Unpossess();
             _thirdPersonController.toUnpossessLocation();
-            CurrentPossession = null;
-            CurrentThrowable = null;
+            RemovePossession();
             _thirdPersonController.freeze = false;
             CurrentPossessionChanged?.Invoke();
         }
+    }
+
+    private void RemovePossession()
+    {
+        CurrentPossession.GetComponent<IPossessable>().Unpossess();
+        CurrentPossession.GetComponent<ObservableObject>().RemoveObserver(this);
+        CurrentPossession = null;
+        CurrentThrowable = null;
     }
 
     public void OnNotify(ObservableObject observableObject)
