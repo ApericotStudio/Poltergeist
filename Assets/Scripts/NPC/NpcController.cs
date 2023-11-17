@@ -129,7 +129,7 @@ public class NpcController : MonoBehaviour
     {
         while(true)
         {
-            if(CurrentState is PanickedState)
+            if(CurrentState is PanickedState || FearValue <= 0f)
             {
                 yield break;
             }
@@ -146,11 +146,6 @@ public class NpcController : MonoBehaviour
                 }  
             }
         }
-    }
-
-    public void StopFearReductionCoroutine()
-    {
-        StopCoroutine(FearReductionCoroutine());
     }
 
     private void InitializeAnimator()
