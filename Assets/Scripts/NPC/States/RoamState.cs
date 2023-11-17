@@ -22,6 +22,9 @@ public class RoamState : INpcState
         _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
         while (true)
         {
+            if(_npcController.CurrentState is not RoamState)
+                yield break;
+        
             if (_npcController.NavMeshAgent.remainingDistance < 0.5f)
             {
                 Vector3 newRoamLocation = GetRoamLocation();

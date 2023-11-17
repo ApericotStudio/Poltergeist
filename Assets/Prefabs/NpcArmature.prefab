@@ -2869,7 +2869,7 @@ GameObject:
   - component: {fileID: 8360858964001498300}
   m_Layer: 8
   m_Name: NpcArmature
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2964,6 +2964,7 @@ MonoBehaviour:
   ScreamAudioClips:
   - {fileID: 8300000, guid: ca54368baa460454f8b5de91a7b7f825, type: 3}
   - {fileID: 8300000, guid: 1aa179d29c47b5d42b219c270858871a, type: 3}
+  - {fileID: 8300000, guid: 94ba3878deacca042863cb024799765c, type: 3}
   InvestigateAudioClip: {fileID: 8300000, guid: c18bb3e0ff624c04eb24f5370d6e7d34,
     type: 3}
   InvestigateEndAudioClip: {fileID: 8300000, guid: ae42da83d904f0b4fba0964d7fa56f0a,
@@ -2981,7 +2982,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
+  ReductionValue: 0.1
+  ReductionSpeed: 0.05
   _usedObjects: []
+  InvestigateTarget: {fileID: 0}
+  FearReductionHasCooldown: 0
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3014,7 +3019,7 @@ MonoBehaviour:
   - 0.25
   - 0
   DetectedObjects: []
-  ScaredAudio: {fileID: 8300000, guid: 1aa179d29c47b5d42b219c270858871a, type: 3}
+  ScaredAudio: {fileID: 8300000, guid: a37bb9386be41b74ea272eb4eeaf3139, type: 3}
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0
