@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// The Reaction Module is responsible for displaying the correct reaction sprite above the NPC's head based on the fear value of the NPC.
+/// The Reaction Controller is responsible for displaying the correct reaction sprite above the NPC's head based on the fear value of the NPC.
 /// </summary>
 public class ReactionController : MonoBehaviour
 {
@@ -35,10 +35,6 @@ public class ReactionController : MonoBehaviour
         _reactionCanvas.transform.LookAt(Camera.main.transform);
     }
 
-    /// <summary>
-    /// Sets the correct reaction sprite based on the fear value of the NPC.
-    /// </summary>
-    /// <param name="fear">The current fear value of the NPC.</param>
     private void SetNpcReactionBasedOnFear(float fear)
     {
         if(_npcController.CurrentState is InvestigateState)
