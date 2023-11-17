@@ -50,7 +50,10 @@ public class AimMode : MonoBehaviour
 
     private void Update()
     {
-        if (_possessionController.CurrentThrowable != null) { _possessionController.CurrentThrowable.LineRenderer.enabled = throwmode; }
+        if (_possessionController.CurrentThrowable != null) 
+        {
+            _possessionController.CurrentThrowable.UpdateTrajectory();
+        }
         if (aimmode)
         {
             if (_possessionController.CurrentThrowable == null)

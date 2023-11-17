@@ -17,7 +17,8 @@ public class Throwable : MonoBehaviour, IPossessable
     private LayerMask _throwLayerMask;
 
 
-    public bool isPossessed;
+    public bool IsPossessed;
+    private bool _enableLine = false;
 
     private Camera _cam;
     private Rigidbody _rb;
@@ -54,15 +55,32 @@ public class Throwable : MonoBehaviour, IPossessable
         _aim.Normalize();
     }
 
+    public void UpdateTrajectory()
+    {
+        if (_observableObject.State == ObjectState.Idle && IsPossessed)
+        {
+            _lineRenderer.enabled = true;
+            _enableLine = true;
+            _hitPointImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            _lineRenderer.enabled = false;
+            _enableLine = false;
+            _hitPointImage.gameObject.SetActive(false);
+        }       
+    }
+
     public void Possess()
     {
-        isPossessed = true;
+        IsPossessed = true;
     }
 
     public void Unpossess()
     {
         _lineRenderer.enabled = false;
-        isPossessed = false;
+        _enableLine = false;
+        IsPossessed = false;
     }
 
     public void Throw()
@@ -76,35 +94,38 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void DrawProjection()
     {
-        _releasePosition = transform.position;
-        LineRenderer.enabled = true;
-        LineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 2;
-        Vector3 startPosition = _releasePosition;
-        Vector3 startVelocity = _throwForce * _aim / _rb.mass;
-        int i = 0;
-        LineRenderer.SetPosition(i, startPosition);
-        for (float time = 0f; time < _linePoints; time += _timeBetweenPoints)  
+        if (_enableLine)
         {
-            i++;
-            Vector3 point = startPosition + time * startVelocity;
-
-            //Trajectory formula here
-            point.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2f * time * time);
-
-            LineRenderer.SetPosition(i, point);
-
-            Vector3 lastPosition = LineRenderer.GetPosition(i - 1);
-
-            if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, (point - lastPosition).magnitude, _throwLayerMask))
+            _releasePosition = transform.position;
+            LineRenderer.enabled = true;
+            LineRenderer.positionCount = Mathf.CeilToInt(_linePoints / _timeBetweenPoints) + 2;
+            Vector3 startPosition = _releasePosition;
+            Vector3 startVelocity = _throwForce * _aim / _rb.mass;
+            int i = 0;
+            LineRenderer.SetPosition(i, startPosition);
+            for (float time = 0f; time < _linePoints; time += _timeBetweenPoints)
             {
-                LineRenderer.SetPosition(i, hit.point);
-                LineRenderer.positionCount = i + 1;
-                _hitPointImage.position = hit.point + hit.normal * 0.01f;
-                _hitPointImage.transform.up = hit.normal;                
-                return;
+                i++;
+                Vector3 point = startPosition + time * startVelocity;
+
+                //Trajectory formula here
+                point.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2f * time * time);
+
+                LineRenderer.SetPosition(i, point);
+
+                Vector3 lastPosition = LineRenderer.GetPosition(i - 1);
+
+                if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, (point - lastPosition).magnitude, _throwLayerMask))
+                {
+                    LineRenderer.SetPosition(i, hit.point);
+                    LineRenderer.positionCount = i + 1;
+                    _hitPointImage.position = hit.point + hit.normal * 0.01f;
+                    _hitPointImage.transform.up = hit.normal;
+                    return;
+                }
             }
-        }
-        _hitPointImage.position = LineRenderer.GetPosition(i);
+            _hitPointImage.position = LineRenderer.GetPosition(i);
+        }        
     }
 
     public ObjectState GetState()
