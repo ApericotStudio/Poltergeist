@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class NpcController : MonoBehaviour
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
     public UnityEvent<float> OnFearValueChange;
+    [Tooltip("The cooldown on the fear reduction that gets enabled right after an NPC gets scared."), Range(0f, 10f)]
+    public float FearReducerCooldown = 5f;
     [Tooltip("The event that will be invoked when the npc changes state.")]
     public UnityEvent OnStateChange;
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
@@ -72,6 +75,8 @@ public class NpcController : MonoBehaviour
         }  
     }
 
+    public bool FearReducerHasCooldown{ get; set; }
+
     public AudioSource NpcAudioSource { get; private set; }
     public NavMeshAgent NavMeshAgent { get; private set; }
     public bool RanAway { get; set; }
@@ -91,12 +96,12 @@ public class NpcController : MonoBehaviour
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
         InvestigateState = new InvestigateState(this);
+        StartCoroutine(FearReducerCoroutine());
     }
 
     private void Update()
     {
         Animate();
-        SlowlyDecreaseAnxiety();
     }
 
     private void FixedUpdate()
@@ -123,11 +128,23 @@ public class NpcController : MonoBehaviour
         _currentState.Handle();
     }
 
-    private void SlowlyDecreaseAnxiety()
+    IEnumerator FearReducerCoroutine()
     {
-        if(FearValue > 0f)
+        while(true)
         {
-            FearValue -= Time.deltaTime * 1f;
+            if(FearReducerHasCooldown)
+            {
+                yield return new WaitForSeconds(FearReducerCooldown);
+            }        
+            else
+            {
+                if(FearValue > 0f)
+                {
+                    FearValue -= 0.15f;
+                    yield return new WaitForSeconds(0.05f);
+
+                }
+            }    
         }
     }
 
