@@ -104,6 +104,7 @@ public class Throwable : MonoBehaviour, IPossessable
                 return;
             }
         }
+        _hitPointImage.position = LineRenderer.GetPosition(i);
     }
 
     public ObjectState GetState()
