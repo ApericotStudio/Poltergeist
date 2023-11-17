@@ -133,11 +133,6 @@ public class NpcSenses : MonoBehaviour, IObserver
         else if (audible)
         {
             _npcController.FearValue += (float)observableObject.Type * _audibleMultiplier * _usageMultipliers[amountObject];
-            if (!_hasScreamed)
-            {
-                _hasScreamed = true;
-                AudioSource.PlayClipAtPoint(ScaredAudio, transform.position);
-            }
         }
 
         else if (visible)
