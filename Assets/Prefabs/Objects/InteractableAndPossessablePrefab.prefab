@@ -296,6 +296,7 @@ MonoBehaviour:
   _destroyMinimumImpulse: 10
   _linePoints: 25
   _timeBetweenPoints: 0.1
+  _hitPointImage: {fileID: 0}
   isPossessed: 0
 --- !u!114 &3318731597490974148
 MonoBehaviour:
@@ -328,9 +329,7 @@ MonoBehaviour:
   DestroyAnxietyValue: 10
   AuditoryAnxietyValue: 1
   VisualAnxietyValue: 3
-  Type: 0
-  SmallObjectAnxietyValue: 1
-  BigObjectAnxietyValue: 3
+  Type: 10
   IsVisible: 0
   IsAudible: 0
 --- !u!114 &2898757200844559070
@@ -393,6 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efed3e6099c6324c89a0ce10b2bf6e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HoverMessage: Interact
   _singleUse: 0
   InteractEvent:
     m_PersistentCalls:
