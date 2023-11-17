@@ -46,8 +46,6 @@ public class NpcSenses : MonoBehaviour, IObserver
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
     private NpcController _npcController;
-    public AudioClip ScaredAudio;
-    private bool _hasScreamed;
     private bool _isScared = false;
 
     private IEnumerator _coroutine;
@@ -147,11 +145,6 @@ public class NpcSenses : MonoBehaviour, IObserver
         else if (audible)
         {
             _npcController.FearValue += (float)observableObject.Type * _audibleMultiplier * _usageMultipliers[amountObject];
-            if (!_hasScreamed)
-            {
-                _hasScreamed = true;
-                AudioSource.PlayClipAtPoint(ScaredAudio, transform.position);
-            }
         }
 
         else if (visible)
