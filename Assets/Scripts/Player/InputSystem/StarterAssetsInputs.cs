@@ -29,6 +29,7 @@ namespace StarterAssets
 		[SerializeField] private UnityEvent _onUnpossessInput;
 		[SerializeField] private UnityEvent _onThrowAimInput;
 		[SerializeField] private UnityEvent _onThrowInput;
+		[SerializeField] private UnityEvent _onInteractInput;
 
 		public UnityEvent OnPressAimInput { get => _onPressAimInput; set => _onPressAimInput = value; }
 		public UnityEvent OnCancelAimInput { get => _onCancelAimInput; set => _onCancelAimInput = value; }
@@ -36,9 +37,10 @@ namespace StarterAssets
 		public UnityEvent OnUnpossessInput { get => _onUnpossessInput; set => _onUnpossessInput = value; }
 		public UnityEvent OnThrowAimInput { get => _onThrowAimInput; set => _onThrowAimInput = value; }
 		public UnityEvent OnThrowInput { get => _onThrowInput; set => _onThrowInput = value; }
+        public UnityEvent OnInteractInput { get => _onInteractInput; set => _onInteractInput = value; }
 
 #if ENABLE_INPUT_SYSTEM
-		private void OnMove(InputValue value)
+        private void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
@@ -95,6 +97,12 @@ namespace StarterAssets
 		{
 			_onUnpossessInput.Invoke();
 		}
+
+		private void OnInteract(InputValue value)
+		{
+			_onInteractInput.Invoke();
+
+        }
 #endif
 
 

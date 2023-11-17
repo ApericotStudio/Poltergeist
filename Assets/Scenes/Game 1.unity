@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef48c4276a43d5468a681fead96a50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _light: {fileID: 943623502}
+  _light: {fileID: 0}
 --- !u!1 &256011239
 GameObject:
   m_ObjectHideFlags: 3
@@ -1685,12 +1685,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!108 &943623502 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 6205077438648358036, guid: ad5876f2b5325244c84d931149d88cce,
-    type: 3}
-  m_PrefabInstance: {fileID: 464328737}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1026742296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,6 +2308,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 135756642000475821, guid: 64dce48905ffd9b4293e595fa6941544,
+        type: 3}
+      propertyPath: _onInteractInput.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2704442144830045259, guid: 64dce48905ffd9b4293e595fa6941544,
         type: 3}
       propertyPath: text

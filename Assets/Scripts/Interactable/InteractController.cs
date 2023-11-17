@@ -1,30 +1,23 @@
+using StarterAssets;
 using TMPro;
 using UnityEngine;
 
 public class InteractController : MonoBehaviour
 {
-    private VisionController _visionController;
     private PossessionController _possessionController;
+    private VisionController _visionController;
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _hoverMessage;
 
     private void Start()
     {
-        _visionController = GetComponent<VisionController>();
         _possessionController = GetComponent<PossessionController>();
+        _visionController = GetComponent<VisionController>();
         _visionController.LookingAtChanged.AddListener(HandleDisplayingInteractPrompt);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Interact();
-        }
-    }
-
-    private void Interact()
+    public void Interact()
     {
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView != null)
