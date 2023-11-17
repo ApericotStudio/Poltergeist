@@ -2964,6 +2964,7 @@ MonoBehaviour:
   ScreamAudioClips:
   - {fileID: 8300000, guid: ca54368baa460454f8b5de91a7b7f825, type: 3}
   - {fileID: 8300000, guid: 1aa179d29c47b5d42b219c270858871a, type: 3}
+  - {fileID: 8300000, guid: 94ba3878deacca042863cb024799765c, type: 3}
   InvestigateAudioClip: {fileID: 8300000, guid: c18bb3e0ff624c04eb24f5370d6e7d34,
     type: 3}
   InvestigateEndAudioClip: {fileID: 8300000, guid: ae42da83d904f0b4fba0964d7fa56f0a,
@@ -2981,7 +2982,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
+  ReductionValue: 0.1
+  ReductionSpeed: 0.05
   _usedObjects: []
+  InvestigateTarget: {fileID: 0}
+  FearReductionHasCooldown: 0
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0
