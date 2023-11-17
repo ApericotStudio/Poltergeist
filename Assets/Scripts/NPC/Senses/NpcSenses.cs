@@ -46,8 +46,6 @@ public class NpcSenses : MonoBehaviour, IObserver
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
     private NpcController _npcController;
-    public AudioClip ScaredAudio;
-    private bool _hasScreamed;
     private bool _isScared = false;
 
     private IEnumerator _coroutine;
