@@ -319,7 +319,9 @@ namespace StarterAssets
 
         public void toUnpossessLocation()
         {
-            NavMesh.SamplePosition(_posControl.CurrentPossession.transform.position, out NavMeshHit hit, 3f, 1);
+            Ray ray = new Ray(_posControl.CurrentPossession.transform.position, Vector3.down);
+            Physics.Raycast(ray, out RaycastHit hitInfo);
+            NavMesh.SamplePosition(hitInfo.point, out NavMeshHit hit, 3f, 1);
             _controller.Move(hit.position);
         }
 
