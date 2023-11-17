@@ -8,7 +8,9 @@ public class AimMode : MonoBehaviour
     private CinemachineVirtualCamera _aimCam;
     private CinemachineVirtualCamera _defaultCam;
     private CinemachineVirtualCamera _possessionAimCam;
+    private CinemachineVirtualCamera _possessionAimCam1;
     private CinemachineVirtualCamera _possessionDefaultCam;
+    private CinemachineVirtualCamera _possessionDefaultCam1;
     private CinemachineVirtualCamera[] _cameras;
 
     private ThirdPersonController _controller;
@@ -43,8 +45,9 @@ public class AimMode : MonoBehaviour
         _aimCam = GameObject.Find("PlayerAimCamera").GetComponent<CinemachineVirtualCamera>();
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         _possessionAimCam = GameObject.Find("PossessionAimCamera").GetComponent<CinemachineVirtualCamera>();
+        _possessionAimCam1 = GameObject.Find("PossessionAimCamera1").GetComponent<CinemachineVirtualCamera>();
         _possessionDefaultCam = GameObject.Find("PossessionFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        _cameras = new CinemachineVirtualCamera[] { _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
+        _possessionDefaultCam1 = GameObject.Find("PossessionFollowCamera1").GetComponent<CinemachineVirtualCamera>();
         _cameras = new CinemachineVirtualCamera[] { _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
     }
 
@@ -144,16 +147,33 @@ public class AimMode : MonoBehaviour
 
     public void changeCameraToPossession()
     {
-        ExitAimMode();
         if (_possessionController.CurrentPossession == null)
         {
+            ExitAimMode();
             return;
         }
         Transform pos = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
-        _possessionDefaultCam.LookAt = pos;
-        _possessionDefaultCam.Follow = pos;
-        _possessionAimCam.LookAt = pos;
-        _possessionAimCam.Follow = pos;
+        CinemachineVirtualCamera newDefaultCamera;
+        CinemachineVirtualCamera newAimCamera;
+        if (_possessionDefaultCam == _cameras[2])
+        {
+            newDefaultCamera = _possessionDefaultCam1;
+            newAimCamera = _possessionAimCam1;
+
+        } else
+        {
+            newDefaultCamera = _possessionDefaultCam;
+            newAimCamera = _possessionAimCam;
+        }
+        newDefaultCamera.LookAt = pos;
+        newDefaultCamera.Follow = pos;
+        newAimCamera.LookAt = pos;
+        newAimCamera.Follow = pos;
+        _cameras[2].Priority = 0;
+        _cameras[3].Priority = 0;
+        _cameras[2] = newDefaultCamera;
+        _cameras[3] = newAimCamera;
+        ExitAimMode();
     }
 
     private void switchCamera(int index)
