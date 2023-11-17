@@ -12,21 +12,21 @@ public class PanickedState : INpcState
 
     public void Handle()
     {
-        _npcController.StartCoroutine(RunAway());
+        _npcController.StartCoroutine(PanickedCoroutine());
     }
 
-    IEnumerator RunAway()
+    IEnumerator PanickedCoroutine()
     {
         _npcController.NavMeshAgent.speed = _npcController.FrightenedSpeed;
+        _npcController.NavMeshAgent.stoppingDistance = 0f;
         _npcController.NavMeshAgent.SetDestination(_npcController.FrightenedTargetLocation.position);
         PlayRandomScreamClip();
         while (true)
         {
-            if (_npcController.NavMeshAgent.velocity.magnitude > 0 && _npcController.NavMeshAgent.remainingDistance < 0.5f)
+            if (_npcController.NavMeshAgent.pathPending && _npcController.NavMeshAgent.velocity.magnitude > 0 && _npcController.NavMeshAgent.remainingDistance < 0.5f)
             {
                 _npcController.RanAway = true;
-                _npcController.GameEventManager.OnGameEvent.Invoke(GameEvents.PlayerWon);
-                _npcController.StopCoroutine(RunAway());
+                yield break;
             }
             yield return new WaitForSeconds(0.5f);
         }
