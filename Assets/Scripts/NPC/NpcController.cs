@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -44,15 +44,26 @@ public class NpcController : MonoBehaviour
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
 
+    [Header("Fear Reduction Settings")]
+    [Tooltip("The value that will be subtracted from the fear value."), Range(0.1f, 1f)]
+    public float ReductionValue = 0.1f;
+    [Tooltip("The speed at which the fear value will be reduced."), Range(0.01f, 1f)]
+    public float ReductionSpeed = 0.05f;
+
     [HideInInspector]
     public List<ObservableObject> _usedObjects;
+    [HideInInspector]
+    public Transform InvestigateTarget;
+    [HideInInspector]
+    public bool FearReductionHasCooldown;
+
     private INpcState _currentState;
     
     private int _animIDMotionSpeed;
     private int _animIDSpeed;
     private float _animationBlend;
     private Animator _animator;
-
+    
     public INpcState CurrentState
     {
         get => _currentState;
@@ -71,7 +82,6 @@ public class NpcController : MonoBehaviour
             OnFearValueChange.Invoke(_fearValue);
         }  
     }
-
     public AudioSource NpcAudioSource { get; private set; }
     public NavMeshAgent NavMeshAgent { get; private set; }
     public bool RanAway { get; set; }
@@ -79,8 +89,6 @@ public class NpcController : MonoBehaviour
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
     public InvestigateState InvestigateState { get; private set; }
-
-    public Transform InvestigateTarget { get; set; }
 
     private void Awake()
     {
@@ -91,12 +99,12 @@ public class NpcController : MonoBehaviour
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
         InvestigateState = new InvestigateState(this);
+        StartCoroutine(FearReductionCoroutine());
     }
 
     private void Update()
     {
         Animate();
-        SlowlyDecreaseAnxiety();
     }
 
     private void FixedUpdate()
@@ -123,11 +131,26 @@ public class NpcController : MonoBehaviour
         _currentState.Handle();
     }
 
-    private void SlowlyDecreaseAnxiety()
+    IEnumerator FearReductionCoroutine()
     {
-        if(FearValue > 0f)
+        while(true)
         {
-            FearValue -= Time.deltaTime * 1f;
+            if(CurrentState is PanickedState || FearValue <= 0f)
+            {
+                yield break;
+            }
+            if(FearReductionHasCooldown)
+            {
+                yield return null;
+            } 
+            else 
+            {
+                if(FearValue > 0f)
+                {
+                    FearValue -= ReductionValue;
+                    yield return new WaitForSeconds(ReductionSpeed);
+                }  
+            }
         }
     }
 

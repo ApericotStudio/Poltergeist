@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -325,18 +325,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40241991}
   m_CullTransparentMesh: 1
---- !u!114 &81075276 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4380823125018660199, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3304735460641448256}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 994b0866e8352cb44b324360349957d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &256011239
 GameObject:
   m_ObjectHideFlags: 3
@@ -3748,99 +3736,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 156817121651832606, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 156817121651832606, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 156817121651832606, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 547857193874197474, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 547857193874197474, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 547857193874197474, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2359349553276917627, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2359349553276917627, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3195623418430001718, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3195623418430001718, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3195623418430001718, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3864756172958031144, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_Value
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3864756172958031144, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_MaxValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4303705221648512197, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319638194840886321, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319638194840886321, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: GameEventManager
-      value: 
-      objectReference: {fileID: 1358441371}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: TargetDestination
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _gameEventManager
       value: 
       objectReference: {fileID: 1358441371}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
@@ -3850,249 +3748,14 @@ PrefabInstance:
       objectReference: {fileID: 530267189}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
-      propertyPath: _roamTargetLocation
-      value: 
-      objectReference: {fileID: 530267189}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
       propertyPath: FrightenedTargetLocation
       value: 
       objectReference: {fileID: 1573081431}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _frightenedTargetLocation
-      value: 
-      objectReference: {fileID: 1573081431}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: NpcPanickedEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcNewStateEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onFearValueChange.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onAnxietyValueChange.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcEnterPanickedState.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: NpcPanickedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: NpcPanickedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcNewStateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onFearValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 81075276}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: NpcPanickedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: NpcPanickedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Scream
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcEnterPanickedState.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcNewStateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcNewStateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onAnxietyValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onFearValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcEnterPanickedState.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onFearValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnFearChange
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onAnxietyValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcEnterPanickedState.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onAnxietyValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnValueUpdate
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcEnterPanickedState.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Scream
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: NpcPanickedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AudioPlayer, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcNewStateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onFearValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FearBarController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onAnxietyValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnxietyProgressBar, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcEnterPanickedState.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AudioPlayer, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: NpcPanickedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcNewStateEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onFearValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _onAnxietyValueChange.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: _npcEnterPanickedState.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5718519151503470349, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5718519151503470349, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5737734881069940793, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1026742298}
-    - target: {fileID: 5784745015361786104, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5784745015361786104, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5817040127617753787, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5901584937621724479, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5901584937621724479, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5902665782269746554, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5902665782269746554, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5902665782269746554, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043631569711349946, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043631569711349946, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6043631569711349946, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7660481155509779078, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -4158,20 +3821,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8582058891734120070, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8969111268812583773, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: m_Name
       value: NpcArmature
-      objectReference: {fileID: 0}
-    - target: {fileID: 8969111268812583773, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
