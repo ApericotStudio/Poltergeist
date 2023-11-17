@@ -16,8 +16,10 @@ public class HighlightController : MonoBehaviour
     /// </summary>
     private void HandleHighlighting()
     {
+
         if(_currentHighlight != null && _currentHighlight.GetComponent<Throwable>().isPossessed)
         {
+            _currentHighlight.Highlighted(false);
             return;
         }
 
