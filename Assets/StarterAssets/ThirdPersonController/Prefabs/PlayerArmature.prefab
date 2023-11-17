@@ -1242,6 +1242,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onUnpossessInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5445371141340826037}
+        m_TargetAssemblyTypeName: PossessionController, Assembly-CSharp
+        m_MethodName: Unpossess
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onThrowAimInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8989607049146698354}
+        m_TargetAssemblyTypeName: AimMode, Assembly-CSharp
+        m_MethodName: EnterThrowMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onThrowInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8989607049146698354}
+        m_TargetAssemblyTypeName: AimMode, Assembly-CSharp
+        m_MethodName: ThrowObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4416926081852918493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1357,6 +1402,7 @@ MonoBehaviour:
   _aimSensitivity: 1
   _aimSpeed: 0
   aimmode: 0
+  throwmode: 0
   _enterAimModeEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1387,6 +1433,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _enterThrowModeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _exitThrowModeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5578882816562514761
 MonoBehaviour:
   m_ObjectHideFlags: 0

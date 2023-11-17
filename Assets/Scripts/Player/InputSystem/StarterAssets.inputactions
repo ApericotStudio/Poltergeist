@@ -42,7 +42,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Aim",
+                    "name": "AimPossess",
                     "type": "Button",
                     "id": "67482f90-11ee-42a1-b768-42bf4a50a9c9",
                     "expectedControlType": "Button",
@@ -60,13 +60,40 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "AimConfirm",
+                    "name": "AimPossessConfirm",
                     "type": "Button",
                     "id": "62471306-ecc7-4313-8228-5ebce33f91ba",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Unpossess",
+                    "type": "Button",
+                    "id": "5f6ffa3f-76c8-45d6-95f6-0ffb57643682",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AimThrow",
+                    "type": "Button",
+                    "id": "ea506377-60a7-40cf-b619-056208622953",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Throw",
+                    "type": "Button",
+                    "id": "566d37d5-18c7-496f-8200-233833759f34",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -253,14 +280,14 @@
                     "interactions": "Press",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Aim",
+                    "action": "AimPossess",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "1b973940-1b70-4d6a-8c7c-4b6b71799bc2",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/c",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "KeyboardMouse",
@@ -275,7 +302,40 @@
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "AimConfirm",
+                    "action": "AimPossessConfirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b32d21d3-1027-4d28-847b-6091ee71e942",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Unpossess",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18abc3dc-2c23-45a2-a95c-183470d5bc09",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "AimThrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aacf7c53-e340-4c73-9a11-861237906f79",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
