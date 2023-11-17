@@ -8,6 +8,7 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 2;
     [SerializeField] private float _rotationSpeed = 10;
     [SerializeField] [Tooltip("Minimum Impulse needed to destroy the object")] private float _destroyMinimumImpulse = 1;
+    [SerializeField] [Tooltip("Aim offset")] private float _aimOffset = 0.5f;
     private Vector3 _releasePosition;
 
     [Header("Display Controls")]
@@ -50,7 +51,7 @@ public class Throwable : MonoBehaviour, IPossessable
     private void Update()
     {
         _aim = _cam.transform.forward;
-        _aim.y = _aim.y * ySense;
+        _aim.y = _aim.y * ySense + _aimOffset;
         _aim.Normalize();
     }
 
@@ -104,6 +105,7 @@ public class Throwable : MonoBehaviour, IPossessable
                 return;
             }
         }
+        _hitPointImage.position = LineRenderer.GetPosition(i);
     }
 
     public ObjectState GetState()
