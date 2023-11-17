@@ -44,15 +44,26 @@ public class NpcController : MonoBehaviour
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
 
+    [Header("Fear Reduction Settings")]
+    [Tooltip("The value that will be subtracted from the fear value."), Range(0.1f, 1f)]
+    public float ReductionValue = 0.1f;
+    [Tooltip("The speed at which the fear value will be reduced."), Range(0.01f, 1f)]
+    public float ReductionSpeed = 0.05f;
+
     [HideInInspector]
     public List<ObservableObject> _usedObjects;
+    [HideInInspector]
+    public Transform InvestigateTarget;
+    [HideInInspector]
+    public bool FearReductionHasCooldown;
+
     private INpcState _currentState;
     
     private int _animIDMotionSpeed;
     private int _animIDSpeed;
     private float _animationBlend;
     private Animator _animator;
-
+    
     public INpcState CurrentState
     {
         get => _currentState;
@@ -71,9 +82,6 @@ public class NpcController : MonoBehaviour
             OnFearValueChange.Invoke(_fearValue);
         }  
     }
-
-    public bool FearReductionHasCooldown{ get; set; }
-
     public AudioSource NpcAudioSource { get; private set; }
     public NavMeshAgent NavMeshAgent { get; private set; }
     public bool RanAway { get; set; }
@@ -81,8 +89,6 @@ public class NpcController : MonoBehaviour
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
     public InvestigateState InvestigateState { get; private set; }
-
-    public Transform InvestigateTarget { get; set; }
 
     private void Awake()
     {
@@ -141,8 +147,8 @@ public class NpcController : MonoBehaviour
             {
                 if(FearValue > 0f)
                 {
-                    FearValue -= 0.1f;
-                    yield return new WaitForSeconds(0.05f);
+                    FearValue -= ReductionValue;
+                    yield return new WaitForSeconds(ReductionSpeed);
                 }  
             }
         }
