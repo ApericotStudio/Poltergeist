@@ -22,12 +22,17 @@ public class AimMode : MonoBehaviour
     private float _aimSpeed;
 
     public bool aimmode;
+    public bool throwmode;
 
     [SerializeField] private UnityEvent _enterAimModeEvent;
     [SerializeField] private UnityEvent _exitAimModeEvent;
+    [SerializeField] private UnityEvent _enterThrowModeEvent;
+    [SerializeField] private UnityEvent _exitThrowModeEvent;
 
     public UnityEvent EnterAimModeEvent { get => _enterAimModeEvent; set => _enterAimModeEvent = value; }
     public UnityEvent ExitAimModeEvent { get => _exitAimModeEvent; set => _exitAimModeEvent = value; }
+    public UnityEvent EnterThrowModeEvent { get => _enterAimModeEvent; set => _enterAimModeEvent = value; }
+    public UnityEvent ExitThrowModeEvent { get => _exitAimModeEvent; set => _exitAimModeEvent = value; }
 
     private void Awake()
     {
@@ -45,7 +50,7 @@ public class AimMode : MonoBehaviour
 
     private void Update()
     {
-        if (_possessionController.CurrentThrowable != null) { _possessionController.CurrentThrowable.LineRenderer.enabled = aimmode; }
+        if (_possessionController.CurrentThrowable != null) { _possessionController.CurrentThrowable.LineRenderer.enabled = throwmode; }
         if (aimmode)
         {
             if (_possessionController.CurrentThrowable == null)
@@ -55,7 +60,7 @@ public class AimMode : MonoBehaviour
                 Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
                 transform.forward = aimDirection;
             }
-            else
+            else if (throwmode)
             {
                 _possessionController.CurrentThrowable.DrawProjection();
             }
@@ -64,6 +69,7 @@ public class AimMode : MonoBehaviour
 
     public void EnterAimMode()
     {
+        if(throwmode) { return; }
         if (_possessionController.CurrentPossession == null)
         {
             aimmode = true;
@@ -87,7 +93,9 @@ public class AimMode : MonoBehaviour
     public void ExitAimMode()
     {
         ExitAimModeEvent.Invoke();
+        if (throwmode) { _exitThrowModeEvent.Invoke(); }
         aimmode = false;
+        throwmode = false;
         if (_possessionController.CurrentPossession == null)
         {
             _controller.SetSensitivity(_normalSensitivity);
@@ -102,30 +110,36 @@ public class AimMode : MonoBehaviour
 
     public void CancelAimMode()
     {
-        if (_possessionController.CurrentPossession != null && !aimmode)
-        {
-            _possessionController.Unpossess();
-        }
-        else
-        {
-            ExitAimMode();
-        }
+        ExitAimMode();
     }
 
-    public void ConfirmAimMode()
+    public void ConfirmPossessAimMode()
     {
-        if (_possessionController.CurrentPossession == null && aimmode)
+        if (throwmode) { return; }
+        if (aimmode)
         {
             _possessionController.Possess();
         }
-        else
-        {
-            if (_possessionController.CurrentThrowable != null && aimmode)
-            {
-                _possessionController.CurrentThrowable.Throw();
-            }
-        }
         ExitAimMode();
+    }
+
+    public void EnterThrowMode()
+    {
+        if (_possessionController.CurrentThrowable != null)
+        {
+            EnterAimMode();
+            _enterThrowModeEvent.Invoke();
+            throwmode = true;
+        }
+    }
+
+    public void ThrowObject()
+    {
+        if (_possessionController.CurrentThrowable != null && throwmode)
+        {
+            _possessionController.CurrentThrowable.Throw();
+            ExitAimMode();
+        }
     }
 
     public void changeCameraToPossession()

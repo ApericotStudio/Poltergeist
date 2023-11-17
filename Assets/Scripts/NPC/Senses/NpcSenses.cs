@@ -14,29 +14,33 @@ public class NpcSenses : MonoBehaviour, IObserver
     public float FieldOfViewAngle = 110f;
     [Tooltip("The distance that the NPC can see."), Range(0, 10)]
     public float SightRange = 10f;
+
     [Header("Auditory Settings")]
     [Tooltip("The distance that the NPC can hear."), Range(0, 20)]
     public float AuditoryRange = 10f;
+
     [Header("Senses Layers")]
     [Tooltip("The target layers that the NPC can see and hear."), SerializeField]
     private LayerMask _targetMask;
     [Tooltip("The obstacle layers that block the NPC's vision."), SerializeField]
     private LayerMask _obstacleMask;
+
     [Header("Reaction Settings")]
     [Tooltip("The delay between the NPC detecting a target and reacting to it."), Range(0f, 5f), SerializeField]
     private float _reactionDelay = 1f;
     [Tooltip("Amount of time cooldown applies to NPC scare"), Range(0f, 10f), SerializeField]
     private float _scaredCooldown = 2f;
-    [Header("Multiplier")]
-    [Tooltip("Multiplier to scare value when NPC hears ghost."), Range(0f, 5f), SerializeField]
-    private float _visableMultiplier = 1f;
-    [Tooltip("Multiplier to scare value when NPC sees ghost."), Range(0f, 5f), SerializeField]
-    private float _hearableMultiplier = 1f;
-    [Tooltip("Multiplier to scare value when NPC sees & hears ghost."), Range(0f, 5f), SerializeField]
-    private float _hearSeeMultiplier = 1.5f;
-    [Tooltip("Amount object gets less scary after usage"), SerializeField]
-    private List<float> _usageMultipliers = new List<float>{1f, 0.5f, 0.25f, 0f};
 
+    [Header("Multipliers")]
+    [Tooltip("Multiplier to scare value when an NPC hears a ghost."), Range(0f, 5f), SerializeField]
+    private float _visibleMultiplier = 1f;
+    [Tooltip("Multiplier to scare value when an NPC sees a ghost."), Range(0f, 5f), SerializeField]
+    private float _audibleMultiplier = 1f;
+    [Tooltip("Multiplier to scare value when an NPC sees and hears a ghost."), Range(0f, 5f), SerializeField]
+    private float _AudibleAndVisibleMultiplier = 1.5f;
+    [Tooltip("Amount object gets less scary after usage"), SerializeField]
+
+    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0f};
     [HideInInspector]
     public List<ObservableObject> DetectedObjects;
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
@@ -100,6 +104,8 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
+        _npcController.InvestigateTarget = observableObject.transform;
+
         bool audible = observableObject.IsAudible;
         bool visible = observableObject.IsVisible;
 
@@ -110,7 +116,10 @@ public class NpcSenses : MonoBehaviour, IObserver
         {
             amountObject = _usageMultipliers.Count - 1;
         }
-
+        if(observableObject.State == ObjectState.Hit)
+        {
+            Investigate();
+        }
         if(observableObject.State == ObjectState.Idle || _isScared)
         {
             return;
@@ -118,12 +127,12 @@ public class NpcSenses : MonoBehaviour, IObserver
 
         if (audible && visible)
         {
-            _npcController.FearValue += ((float)observableObject.Type * _hearSeeMultiplier) * _usageMultipliers[amountObject];
+            _npcController.FearValue += (float)observableObject.Type * _AudibleAndVisibleMultiplier * _usageMultipliers[amountObject];
         }
 
         else if (audible)
         {
-            _npcController.FearValue += ((float)observableObject.Type * _hearableMultiplier) * _usageMultipliers[amountObject];
+            _npcController.FearValue += (float)observableObject.Type * _audibleMultiplier * _usageMultipliers[amountObject];
             if (!_hasScreamed)
             {
                 _hasScreamed = true;
@@ -133,7 +142,7 @@ public class NpcSenses : MonoBehaviour, IObserver
 
         else if (visible)
         {
-            _npcController.FearValue += ((float)observableObject.Type * _visableMultiplier) * _usageMultipliers[amountObject];
+            _npcController.FearValue += (float)observableObject.Type * _visibleMultiplier * _usageMultipliers[amountObject];
         }
 
         else
@@ -176,4 +185,12 @@ public class NpcSenses : MonoBehaviour, IObserver
 		}
 		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),0,Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 	}
+
+    private void Investigate()
+    {
+        if(_npcController.CurrentState != _npcController.InvestigateState)
+        {
+            _npcController.CurrentState = _npcController.InvestigateState;
+        }
+    }
 }

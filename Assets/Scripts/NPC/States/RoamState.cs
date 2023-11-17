@@ -18,6 +18,7 @@ public class RoamState : INpcState
 
     private IEnumerator RoamCoroutine()
     {
+        _npcController.NavMeshAgent.stoppingDistance = 0f;
         _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
         while (true)
         {
