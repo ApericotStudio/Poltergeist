@@ -25,7 +25,8 @@ public class ReactionController : MonoBehaviour
     {
         _reactionCanvas = GetComponentInParent<Canvas>();
         _npcController = GetComponentInParent<NpcController>();
-        _npcController.OnFearValueChange.AddListener(SetNpcReaction);
+        _npcController.OnFearValueChange.AddListener(SetNpcReactionBasedOnFear);
+        _npcController.OnStateChange.AddListener(SetNpcReactionBasedOnState);
         _reactionImage = GetComponent<Image>();
     }
 
@@ -38,13 +39,13 @@ public class ReactionController : MonoBehaviour
     /// Sets the correct reaction sprite based on the fear value of the NPC.
     /// </summary>
     /// <param name="fear">The current fear value of the NPC.</param>
-    private void SetNpcReaction(float fear)
+    private void SetNpcReactionBasedOnFear(float fear)
     {
-        if(_npcController.CurrentState == _npcController.InvestigateState && fear <= 75f)
+        if(_npcController.CurrentState is InvestigateState)
         {
-            _reactionImage.sprite = _investigateSprite;
             return;
         }
+
         if(fear <= 25f)
         {
             _reactionImage.sprite = _lowFearSprite;
@@ -56,6 +57,14 @@ public class ReactionController : MonoBehaviour
         else
         {
             _reactionImage.sprite = _mediumFearSprite;
+        }
+    }
+
+    private void SetNpcReactionBasedOnState()
+    {
+        if(_npcController.CurrentState == _npcController.InvestigateState)
+        {
+            _reactionImage.sprite = _investigateSprite;
         }
     }
 }
