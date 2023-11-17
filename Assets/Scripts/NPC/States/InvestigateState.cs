@@ -12,9 +12,6 @@ public class InvestigateState : INpcState
 
     public void Handle()
     {
-        _npcController.NavMeshAgent.speed = _npcController.InvestigatingSpeed;
-        _npcController.NavMeshAgent.stoppingDistance = 2f;
-        _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClip);
         _npcController.StartCoroutine(InvestigateCoroutine());
     }
 
@@ -24,10 +21,15 @@ public class InvestigateState : INpcState
     /// <returns></returns>
     IEnumerator InvestigateCoroutine()
     {
+        _npcController.NavMeshAgent.speed = _npcController.InvestigatingSpeed;
+        _npcController.NavMeshAgent.stoppingDistance = 2f;
+        _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClip);
+        _npcController.NavMeshAgent.SetDestination(_npcController.InvestigateTarget.position);
+        _npcController.FearReductionHasCooldown = true;
         // This while loop continues as long as the NPC's navigation path is still being calculated (pathPending) 
         // or the remaining distance to the target is greater than the stopping distance. 
         // This ensures the NPC continues moving until it has reached its destination.
-        _npcController.FearReductionHasCooldown = true;
+
         while(_npcController.NavMeshAgent.pathPending || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
         {
             _npcController.NavMeshAgent.SetDestination(_npcController.InvestigateTarget.position);
@@ -37,11 +39,6 @@ public class InvestigateState : INpcState
         yield return new WaitForSeconds(3f);
 
         _npcController.FearReductionHasCooldown = false;
-
-        while (_npcController.NavMeshAgent.pathPending || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
-        {
-            yield return null;
-        }
         _npcController.CurrentState = _npcController.RoamState;
         _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClip);
         _npcController.NavMeshAgent.SetDestination(_npcController.RoamTargetLocation.position);
