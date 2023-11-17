@@ -40,7 +40,7 @@ public class AimMode : MonoBehaviour
     {
         _controller = this.gameObject.GetComponent<ThirdPersonController>();
         _possessionController = this.gameObject.GetComponent<PossessionController>();
-        _possessionController.CurrentPossessionChanged.AddListener(changeCameraToPossession);
+        _possessionController.CurrentPossessionChanged.AddListener(ChangeCameraToPossession);
 
         _aimCam = GameObject.Find("PlayerAimCamera").GetComponent<CinemachineVirtualCamera>();
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
@@ -78,7 +78,7 @@ public class AimMode : MonoBehaviour
             aimmode = true;
             EnterAimModeEvent.Invoke();
             _controller.SetSensitivity(_aimSensitivity);
-            switchCamera(1);
+            SwitchCamera(1);
         }
         else
         {
@@ -89,7 +89,7 @@ public class AimMode : MonoBehaviour
             aimmode = true;
             EnterAimModeEvent.Invoke();
             _controller.SetSensitivity(_aimSensitivity);
-            switchCamera(3);
+            SwitchCamera(3);
         }
     }
 
@@ -102,12 +102,12 @@ public class AimMode : MonoBehaviour
         if (_possessionController.CurrentPossession == null)
         {
             _controller.SetSensitivity(_normalSensitivity);
-            switchCamera(0);
+            SwitchCamera(0);
         }
         else
         {
             _controller.SetSensitivity(_normalSensitivity);
-            switchCamera(2);
+            SwitchCamera(2);
         }
     }
 
@@ -145,14 +145,19 @@ public class AimMode : MonoBehaviour
         }
     }
 
-    public void changeCameraToPossession()
+    /// <summary>
+    /// When not possessing only does exitaimmode. When possessing, sets new follow camera and aim camera to the other object, then
+    /// swaps the possession cameras in the camera array with the new cameras. ExitAimMode then raises the priority of the new cameras.
+    /// Raising priority now causes a transition from old possession camera to new possession camera, which is a smooth transition.
+    /// </summary>
+    public void ChangeCameraToPossession()
     {
         if (_possessionController.CurrentPossession == null)
         {
             ExitAimMode();
             return;
         }
-        Transform pos = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
+        Transform newCameraPosition = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
         CinemachineVirtualCamera newDefaultCamera;
         CinemachineVirtualCamera newAimCamera;
         if (_possessionDefaultCam == _cameras[2])
@@ -165,10 +170,10 @@ public class AimMode : MonoBehaviour
             newDefaultCamera = _possessionDefaultCam;
             newAimCamera = _possessionAimCam;
         }
-        newDefaultCamera.LookAt = pos;
-        newDefaultCamera.Follow = pos;
-        newAimCamera.LookAt = pos;
-        newAimCamera.Follow = pos;
+        newDefaultCamera.LookAt = newCameraPosition;
+        newDefaultCamera.Follow = newCameraPosition;
+        newAimCamera.LookAt = newCameraPosition;
+        newAimCamera.Follow = newCameraPosition;
         _cameras[2].Priority = 0;
         _cameras[3].Priority = 0;
         _cameras[2] = newDefaultCamera;
@@ -176,7 +181,7 @@ public class AimMode : MonoBehaviour
         ExitAimMode();
     }
 
-    private void switchCamera(int index)
+    private void SwitchCamera(int index)
     {
         for (int i = 0; i < _cameras.Length; i++)
         {
