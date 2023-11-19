@@ -62,6 +62,10 @@ public class ReactionController : MonoBehaviour
         {
             _reactionImage.sprite = _investigateSprite;
         }
+        else
+        {
+            SetNpcReactionBasedOnFear(_npcController.FearValue);
+        }
     }
 
     private void FacePlayer()
