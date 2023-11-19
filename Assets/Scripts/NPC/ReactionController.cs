@@ -32,7 +32,7 @@ public class ReactionController : MonoBehaviour
 
     private void Update()
     {
-        _reactionCanvas.transform.LookAt(Camera.main.transform);
+        FacePlayer();
     }
 
     private void SetNpcReactionBasedOnFear(float fear)
@@ -62,5 +62,11 @@ public class ReactionController : MonoBehaviour
         {
             _reactionImage.sprite = _investigateSprite;
         }
+    }
+
+    private void FacePlayer()
+    {
+        Vector3 directionToCamera = Camera.main.transform.position - _reactionCanvas.transform.position;
+        _reactionCanvas.transform.rotation = Quaternion.LookRotation(-directionToCamera);
     }
 }
