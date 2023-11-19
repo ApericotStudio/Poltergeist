@@ -5,6 +5,15 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>
+/// These properties are used to determine if the detected object is visible and/or audible.
+/// </summary>
+public class DetectedProperties
+{
+    public bool IsAudible = false;
+    public bool IsVisible = false;
+}
+
+/// <summary>
 /// The NPC's senses. Handles the NPC's field of view, hearing radius, and detection radius.
 /// </summary>
 public class NpcSenses : MonoBehaviour, IObserver
@@ -42,7 +51,7 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0f};
     [HideInInspector]
-    public List<ObservableObject> DetectedObjects;
+    public Dictionary<ObservableObject, DetectedProperties> DetectedObjects = new();
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
     private NpcController _npcController;
@@ -50,10 +59,12 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     private IEnumerator _coroutine;
 
+    private const float DetectionDelay = .2f;
+
     private void Awake()
     {
         _npcController = GetComponent<NpcController>();
-        StartCoroutine (DetectTargetsWithDelay(.2f));
+        StartCoroutine (DetectTargetsWithDelay(DetectionDelay));
     }
 
     /// <summary>
@@ -83,6 +94,8 @@ public class NpcSenses : MonoBehaviour, IObserver
 
             if (!IsObservableObject)
                 continue;
+            
+            DetectedProperties detectedProperties = new();
 
             Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
             float distanceToTarget = Vector3.Distance(transform.position, target.ClosestPoint(transform.position));
@@ -92,15 +105,14 @@ public class NpcSenses : MonoBehaviour, IObserver
 
             if (TargetInSightRadius(directionToTarget, distanceToTarget))
             {
-                observableObject.IsVisible = true;
+                detectedProperties.IsVisible = true;
             }
 
             if (distanceToTarget <= AuditoryRange)
             {
-                observableObject.IsAudible = true;
+                detectedProperties.IsAudible = true;
             }
-
-            DetectedObjects.Add(observableObject);
+            DetectedObjects.Add(observableObject, detectedProperties);
             observableObject.AddObserver(this);
         }
     }
@@ -116,10 +128,13 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
+        if (!DetectedObjects.TryGetValue(observableObject, out var detectedProperties))
+            return;
+
         _npcController.InvestigateTarget = observableObject.transform;
 
-        bool audible = observableObject.IsAudible;
-        bool visible = observableObject.IsVisible;
+        bool audible = detectedProperties.IsAudible;
+        bool visible = detectedProperties.IsVisible;
 
         int amountObject = _npcController._usedObjects.Count(x => x.Equals(observableObject));
 
@@ -173,11 +188,9 @@ public class NpcSenses : MonoBehaviour, IObserver
     /// </summary>
     private void ClearDetectedObjects()
     {
-        foreach (ObservableObject observableObject in DetectedObjects)
+        foreach (ObservableObject detectedObject in DetectedObjects.Keys)
         {
-            observableObject.IsVisible = false;
-            observableObject.IsAudible = false;
-            observableObject.RemoveObserver(this);
+            detectedObject.RemoveObserver(this);
         }
         DetectedObjects.Clear();
     }

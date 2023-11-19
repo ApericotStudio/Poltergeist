@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class NpcSensesEditor : Editor
         DrawFieldOfView();
         DrawDetectionLine();
 	}
+    
     /// <summary>
     /// Draws the NPC's hearing radius on screen, which is the NPC's auditory range.
     /// </summary>
@@ -22,6 +24,7 @@ public class NpcSensesEditor : Editor
         Handles.color = new Color(1, 1, 0, 0.1f); // Yellow color with 50% transparency
         Handles.DrawSolidArc(_npcSenses.transform.position, Vector3.up, Vector3.forward, 360, _npcSenses.AuditoryRange);
     }
+
     /// <summary>
     /// Draws the NPC's field of view on screen, which is the NPC's sight range and field of view angle.
     /// </summary>
@@ -32,23 +35,23 @@ public class NpcSensesEditor : Editor
         Handles.color = new Color(0, 0, 1, 0.2f); // Blue color with 50% transparency
         Handles.DrawSolidArc(_npcSenses.transform.position, Vector3.up, viewAngle, _npcSenses.FieldOfViewAngle, _npcSenses.SightRange);
     }
+
     /// <summary>
     /// Draws a line from the NPC to the detected clutter. The line is red if the clutter is visible, and yellow if the clutter is audible.
     /// </summary>
     private void DrawDetectionLine()
     {
-		foreach (ObservableObject detectedObject in _npcSenses.DetectedObjects) {
-            if(detectedObject.IsVisible)
+        foreach (var (observableObject, detectedProperties) in _npcSenses.DetectedObjects) {
+            if(detectedProperties.IsVisible)
             {
                 Handles.color = Color.blue;
-                Handles.DrawLine(_npcSenses.transform.position, detectedObject.transform.position);
+                Handles.DrawLine(_npcSenses.transform.position, observableObject.transform.position);
             }
-            else if(detectedObject.IsAudible && !detectedObject.IsVisible)
+            else if(detectedProperties.IsAudible)
             {
                 Handles.color = Color.yellow;
-                Handles.DrawLine(_npcSenses.transform.position, detectedObject.transform.position);
+                Handles.DrawLine(_npcSenses.transform.position, observableObject.transform.position);
             }
-
 		}
     }
 
