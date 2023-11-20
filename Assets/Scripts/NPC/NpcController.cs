@@ -23,16 +23,16 @@ public class NpcController : MonoBehaviour
     public GameEventManager GameEventManager;
 
     [Header("Roaming Settings")]
-    [Tooltip("The current target location the NPC will roam around.")]
-    public Transform CurrentRoamTargetLocation;
-    [Tooltip("The target locations the NPC will roam around.")]
-    public Transform[] RoamTargetLocations;
+    [Tooltip("The current roam origin of the NPC. This is the location the NPC will roam around.")]
+    public Transform CurrentRoamOrigin;
+    [Tooltip("The available roam origins of the NPC. The NPC will loop through these locations when roaming.")]
+    public Transform[] AvailableRoamOrigins;
     [Tooltip("The radius around the Roam Target Location the NPC will in."), Range(0f, 10f)]
     public float RoamRadius = 5f;
     [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
     public float RoamingSpeed = 2f;
-    [Tooltip("The amount of time the NPC will stay in one roam location."), Range(0f, 100f)]
-    public float TimeSpentInOneRoamLocation = 50f;
+    [Tooltip("The amount of time the NPC will stay around one roam origin"), Range(0f, 100f)]
+    public float RoamOriginTimeSpent = 50f;
     [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC screams.")]
     public AudioClip[] ScreamAudioClips;

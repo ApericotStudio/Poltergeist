@@ -16,18 +16,16 @@ public class RoamState : INpcState
     public void Handle()
     {
         _npcController.StartCoroutine(RoamCoroutine());
-        _npcController.StartCoroutine(ChooseRoamTargetLocationCoroutine());
+        _npcController.StartCoroutine(PeriodicallySetRoamOriginCoroutine());
     }
 
     private IEnumerator RoamCoroutine()
     {
         _npcController.NavMeshAgent.stoppingDistance = 0f;
         _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
-        while (true)
+
+        while (IsRoaming())
         {
-            if(_npcController.CurrentState is not RoamState)
-                yield break;
-        
             if (_npcController.NavMeshAgent.remainingDistance < 0.5f)
             {
                 Vector3 newRoamLocation = GetRoamLocation();
@@ -36,38 +34,43 @@ public class RoamState : INpcState
             yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
     }
-
-    private IEnumerator ChooseRoamTargetLocationCoroutine()
+    
+    /// <summary>
+    /// Sets the roam origin location every x seconds.
+    /// </summary>
+    private IEnumerator PeriodicallySetRoamOriginCoroutine()
     {
-        while (true)
+        while (IsRoaming())
         {
-            if(_npcController.CurrentState is not RoamState)
-                yield break;
-                
-            _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamTargetLocation.position);
+            _npcController.NavMeshAgent.SetDestination(GetRoamLocation());
             yield return new WaitUntil(() => _npcController.NavMeshAgent.remainingDistance < 0.5f && !_npcController.NavMeshAgent.pathPending);
-            yield return new WaitForSeconds(_npcController.TimeSpentInOneRoamLocation);
-            ChooseRoamTargetLocation();
+            yield return new WaitForSeconds(_npcController.RoamOriginTimeSpent);
+            SetRoamOrigin();
         }
     }
 
+    private bool IsRoaming()
+    {
+        return _npcController.CurrentState is RoamState;
+    }
+
+    /// <summary>
+    /// Returns a random location within the roam radius around the roam origin.
+    /// </summary>
     private Vector3 GetRoamLocation()
     {
         Vector3 randomDirection = Random.insideUnitSphere * _npcController.RoamRadius;
-        randomDirection += _npcController.CurrentRoamTargetLocation.position;
+        randomDirection += _npcController.CurrentRoamOrigin.position;
         NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _npcController.RoamRadius, 1);
         return hit.position;
     }
 
-    private void ChooseRoamTargetLocation()
+    /// <summary>
+    /// Sets the next roam origin. Will loop back to the first origin if the last origin is reached.
+    /// </summary>
+    private void SetRoamOrigin()
     {
-        currentRoamIndex++;
-        
-        if (currentRoamIndex == _npcController.RoamTargetLocations.Length)
-        {
-            currentRoamIndex = 0;
-        }
-
-        _npcController.CurrentRoamTargetLocation = _npcController.RoamTargetLocations[currentRoamIndex];
+        currentRoamIndex = (currentRoamIndex + 1) % _npcController.AvailableRoamOrigins.Length;
+        _npcController.CurrentRoamOrigin = _npcController.AvailableRoamOrigins[currentRoamIndex];
     }
 }

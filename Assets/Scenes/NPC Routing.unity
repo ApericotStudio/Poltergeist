@@ -325,6 +325,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40241991}
   m_CullTransparentMesh: 1
+--- !u!4 &139968730 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1745642994455549664, guid: e34c78252842bad47ab450e158f18a16,
+    type: 3}
+  m_PrefabInstance: {fileID: 2023189369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &256011239
 GameObject:
   m_ObjectHideFlags: 3
@@ -3151,7 +3157,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6722509064802257502, guid: e34c78252842bad47ab450e158f18a16, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e34c78252842bad47ab450e158f18a16, type: 3}
@@ -3748,6 +3755,11 @@ PrefabInstance:
       objectReference: {fileID: 1358441371}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
+      propertyPath: CurrentRoamOrigin
+      value: 
+      objectReference: {fileID: 2023189373}
+    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
+        type: 3}
       propertyPath: RoamTargetLocation
       value: 
       objectReference: {fileID: 0}
@@ -3755,7 +3767,7 @@ PrefabInstance:
         type: 3}
       propertyPath: FrightenedTargetLocation
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 139968730}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: CurrentRoamTargetLocation
@@ -3764,6 +3776,11 @@ PrefabInstance:
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: RoamTargetLocations.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
@@ -3784,6 +3801,26 @@ PrefabInstance:
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: RoamTargetLocations.Array.data[3]
+      value: 
+      objectReference: {fileID: 2023189370}
+    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.data[0]
+      value: 
+      objectReference: {fileID: 2023189373}
+    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.data[1]
+      value: 
+      objectReference: {fileID: 2023189372}
+    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.data[2]
+      value: 
+      objectReference: {fileID: 2023189371}
+    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.data[3]
       value: 
       objectReference: {fileID: 2023189370}
     - target: {fileID: 5737734881069940793, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
