@@ -5,6 +5,7 @@ public class HighlightController : MonoBehaviour
     private VisionController _visionController;
     private Highlight _currentHighlight;
 
+    private bool _lookingAtPossesion;
     private void Start()
     {
         _visionController = GetComponent<VisionController>();
@@ -16,15 +17,6 @@ public class HighlightController : MonoBehaviour
     /// </summary>
     private void HandleHighlighting()
     {
-        if (_currentHighlight != null && _currentHighlight.GetComponent<Throwable>())
-        {
-            if (_currentHighlight.GetComponent<Throwable>().isPossessed)
-            {
-                _currentHighlight.Highlighted(false);
-                return;
-            }
-        }
-
         if (_currentHighlight != null)
         {
             _currentHighlight.Highlighted(false);
@@ -39,7 +31,30 @@ public class HighlightController : MonoBehaviour
             _currentHighlight = null;
             return;
         }
+
         _currentHighlight = highlight;
+
+        CheckHighlight();
+
+        if (_lookingAtPossesion)
+        {
+            return;
+        }
+
         _currentHighlight.Highlighted(true);
+    }
+
+    public void CheckHighlight()
+    {
+        if (_currentHighlight != null && _currentHighlight.GetComponent<Throwable>())
+        {
+            if (_currentHighlight.GetComponent<Throwable>().isPossessed)
+            {
+                _currentHighlight.Highlighted(false);
+                _lookingAtPossesion = true;
+                return;
+            }
+        }
+        _lookingAtPossesion = false;
     }
 }
