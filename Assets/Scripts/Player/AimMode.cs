@@ -42,10 +42,7 @@ public class AimMode : MonoBehaviour
 
         _aimCam = GameObject.Find("PlayerAimCamera").GetComponent<CinemachineVirtualCamera>();
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        _possessionAimCam = GameObject.Find("PossessionAimCamera").GetComponent<CinemachineVirtualCamera>();
-        _possessionDefaultCam = GameObject.Find("PossessionFollowCamera").GetComponent<CinemachineVirtualCamera>();
-        _cameras = new CinemachineVirtualCamera[] { _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
-        _cameras = new CinemachineVirtualCamera[] { _defaultCam, _aimCam, _possessionDefaultCam, _possessionAimCam };
+        _cameras = new CinemachineVirtualCamera[] { _defaultCam, _aimCam, null, null };
     }
 
     private void Update()
@@ -144,22 +141,28 @@ public class AimMode : MonoBehaviour
 
     public void changeCameraToPossession()
     {
-        ExitAimMode();
         if (_possessionController.CurrentPossession == null)
         {
+            ExitAimMode();
             return;
         }
-        Transform pos = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().CinemachineCameraTarget.transform;
-        _possessionDefaultCam.LookAt = pos;
-        _possessionDefaultCam.Follow = pos;
-        _possessionAimCam.LookAt = pos;
-        _possessionAimCam.Follow = pos;
+        if (_possessionDefaultCam != null)
+        {
+            _possessionDefaultCam.Priority = 0;
+            _possessionAimCam.Priority = 0;
+        }
+        _possessionDefaultCam = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().FollowCam;
+        _possessionAimCam = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().AimCam;
+        _cameras[2] = _possessionDefaultCam;
+        _cameras[3] = _possessionAimCam;
+        ExitAimMode();
     }
 
     private void switchCamera(int index)
     {
         for (int i = 0; i < _cameras.Length; i++)
         {
+            if (_cameras[i] == null) { continue; }
             if (i == index)
             {
                 _cameras[i].Priority = 1;

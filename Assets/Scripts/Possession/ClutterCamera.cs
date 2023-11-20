@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class ClutterCamera : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class ClutterCamera : MonoBehaviour
     [SerializeField] private float _bottomClamp = -30.0f;
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField] private float _cameraAngleOverride = 0.0f;
+
+    public CinemachineVirtualCamera FollowCam;
+    public CinemachineVirtualCamera AimCam;
+
+
     private PlayerInput _playerInput;
     private StarterAssetsInputs _input;
     private const float _threshold = 0.01f;
