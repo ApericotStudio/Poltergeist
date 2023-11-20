@@ -60,9 +60,9 @@ public class ObservableObject : MonoBehaviour, IObservableObject
 
     public void NotifyObservers()
     {
-        foreach (IObserver observer in _observers)
+        for (int i = 0; i < _observers.Count; i++)
         {
-            observer.OnNotify(this);
+            _observers[i]?.OnNotify(this);
         }
     }
 

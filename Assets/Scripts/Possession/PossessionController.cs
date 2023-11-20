@@ -61,7 +61,7 @@ public class PossessionController : MonoBehaviour, IObserver
     private void RemovePossession()
     {
         CurrentPossession.GetComponent<IPossessable>().Unpossess();
-        //CurrentPossession.GetComponent<ObservableObject>().RemoveObserver(this);
+        CurrentPossession.GetComponent<ObservableObject>().RemoveObserver(this);
         CurrentPossession = null;
         CurrentThrowable = null;
     }
