@@ -6,8 +6,6 @@ public class Throwable : MonoBehaviour, IPossessable
     [Header("Throw Controls")]
     [SerializeField] private float _throwForce = 15;
     [SerializeField] [Tooltip("Extra sensitivity on y-axis for easier throwing")] private float ySense = 2;
-    [SerializeField] private float _rotationSpeed = 10;
-    [SerializeField] [Tooltip("Minimum Impulse needed to destroy the object")] private float _destroyMinimumImpulse = 1;
     [SerializeField] [Tooltip("Aim offset")] private float _aimOffset = 0.5f;
     private Vector3 _releasePosition;
 
