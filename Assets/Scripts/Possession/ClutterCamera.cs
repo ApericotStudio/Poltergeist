@@ -70,6 +70,14 @@ public class ClutterCamera : MonoBehaviour
         CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride,
             _cinemachineTargetYaw, 0.0f);
     }
+
+    public IEnumerator ResetCamera()
+    {
+        yield return new WaitForSeconds(1.6f);
+        _cinemachineTargetYaw = 0;
+        _cinemachineTargetPitch = 0;
+    }
+
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
         if (lfAngle < -360f) lfAngle += 360f;

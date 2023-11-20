@@ -65,6 +65,7 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Unpossess()
     {
+        StartCoroutine(_cameraScript.ResetCamera());
         _cameraScript.LockCameraPosition = true;
         _lineRenderer.enabled = false;
         _possessed = false;
