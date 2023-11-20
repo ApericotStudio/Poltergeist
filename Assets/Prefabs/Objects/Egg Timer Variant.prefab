@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2790817923947433075
+--- !u!1001 &2247362985827203893
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,19 +10,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
-      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
-        type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7532764212868738548}
-    - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
-        type: 3}
-      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Activate
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8959597326931054358}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -46,7 +36,7 @@ PrefabInstance:
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.51
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -56,7 +46,7 @@ PrefabInstance:
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.71
+      value: 8.710002
       objectReference: {fileID: 0}
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -101,7 +91,7 @@ PrefabInstance:
     - target: {fileID: 8440278783580584740, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Name
-      value: Microwave Variant 1
+      value: Egg Timer Variant
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4306626876402358202, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
@@ -111,46 +101,46 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8440278783580584740, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7532764212868738548}
+      addedObject: {fileID: 8959597326931054358}
     - targetCorrespondingSourceObject: {fileID: 8440278783580584740, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3711722346501675995}
+      addedObject: {fileID: 5550314050379833571}
   m_SourcePrefab: {fileID: 100100000, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
---- !u!1 &6024442771974666071 stripped
+--- !u!1 &7643128015202893841 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8440278783580584740, guid: 550731f42b320314ba8cc42ee41050e6,
     type: 3}
-  m_PrefabInstance: {fileID: 2790817923947433075}
+  m_PrefabInstance: {fileID: 2247362985827203893}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7532764212868738548
+--- !u!114 &8959597326931054358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6024442771974666071}
+  m_GameObject: {fileID: 7643128015202893841}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cff3ab323593cd6438f6a806916e4d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _amountInitialTime: 0
-  _amountDelayedTime: 30
-  _delayedSound: {fileID: 8300000, guid: d16144ff0b621a24a88aa7302774f2b5, type: 3}
-  _audioSource: {fileID: 3711722346501675995}
---- !u!82 &3711722346501675995
+  _amountDelayedTime: 0
+  _delayedSound: {fileID: 0}
+  _audioSource: {fileID: 5550314050379833571}
+--- !u!82 &5550314050379833571
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6024442771974666071}
+  m_GameObject: {fileID: 7643128015202893841}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4e7a04fd909e58640ad5461da993c3c8, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
