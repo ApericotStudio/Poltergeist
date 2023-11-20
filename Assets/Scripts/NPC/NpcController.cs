@@ -7,12 +7,6 @@ using UnityEngine.Events;
 public class NpcController : MonoBehaviour
 {
     [Header("NPC Settings")]
-    [Tooltip("The target location the NPC will roam around.")]
-    public Transform RoamTargetLocation;
-    [Tooltip("The radius around the Roam Target Location the NPC will in."), Range(0f, 10f)]
-    public float RoamRadius = 5f;
-    [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
-    public float RoamingSpeed = 2f;
     [Tooltip("The speed the NPC will move when investigating."), Range(1f, 5f)]
     public float InvestigatingSpeed = 2f;
     [Tooltip("The target location the NPC will run to when frightened.")]
@@ -28,7 +22,18 @@ public class NpcController : MonoBehaviour
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
     public GameEventManager GameEventManager;
 
-    [Header("NPC Audio Settings")]
+    [Header("Roaming Settings")]
+    [Tooltip("The current target location the NPC will roam around.")]
+    public Transform CurrentRoamTargetLocation;
+    [Tooltip("The target locations the NPC will roam around.")]
+    public Transform[] RoamTargetLocations;
+    [Tooltip("The radius around the Roam Target Location the NPC will in."), Range(0f, 10f)]
+    public float RoamRadius = 5f;
+    [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
+    public float RoamingSpeed = 2f;
+    [Tooltip("The amount of time the NPC will stay in one roam location."), Range(0f, 100f)]
+    public float TimeSpentInOneRoamLocation = 50f;
+    [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC screams.")]
     public AudioClip[] ScreamAudioClips;
     [Tooltip("The audio clip that will be played when the NPC investigates.")]

@@ -45,7 +45,7 @@ public class InvestigateState : INpcState
         _npcController.FearReductionHasCooldown = false;
         _npcController.CurrentState = _npcController.RoamState;
         _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClip);
-        _npcController.NavMeshAgent.SetDestination(_npcController.RoamTargetLocation.position);
+        _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamTargetLocation.position);
         yield break;
     }
 

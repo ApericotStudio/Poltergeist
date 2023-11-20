@@ -6,6 +6,8 @@ public class RoamState : INpcState
 {
     private readonly NpcController _npcController;
 
+    private int currentRoamIndex = 0;
+
     public RoamState(NpcController npcController)
     {
         _npcController = npcController;
@@ -34,11 +36,35 @@ public class RoamState : INpcState
         }
     }
 
+    private IEnumerator ChooseRoamTargetLocationCoroutine()
+    {
+        while (true)
+        {
+            if(_npcController.CurrentState is not RoamState)
+                yield break;
+        
+            ChooseRoamTargetLocation();
+            yield return new WaitForSeconds(_npcController.TimeSpentInOneRoamLocation);
+        }
+    }
+
     private Vector3 GetRoamLocation()
     {
         Vector3 randomDirection = Random.insideUnitSphere * _npcController.RoamRadius;
-        randomDirection += _npcController.RoamTargetLocation.position;
+        randomDirection += _npcController.CurrentRoamTargetLocation.position;
         NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _npcController.RoamRadius, 1);
         return hit.position;
+    }
+
+    private void ChooseRoamTargetLocation()
+    {
+        currentRoamIndex++;
+        
+        if (currentRoamIndex == _npcController.RoamTargetLocations.Length)
+        {
+            currentRoamIndex = 0;
+        }
+
+        _npcController.CurrentRoamTargetLocation = _npcController.RoamTargetLocations[currentRoamIndex];
     }
 }
