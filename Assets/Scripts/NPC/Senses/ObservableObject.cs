@@ -41,10 +41,6 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     private ObjectState _state = ObjectState.Idle;
 
     private readonly List<IObserver> _observers = new();
-    [HideInInspector]
-    public bool IsVisible;
-    [HideInInspector]
-    public bool IsAudible;
 
     public ObjectState State 
     { 
