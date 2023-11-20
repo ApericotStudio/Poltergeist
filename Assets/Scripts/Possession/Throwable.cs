@@ -18,7 +18,7 @@ public class Throwable : MonoBehaviour, IPossessable
     private LayerMask _throwLayerMask;
 
 
-    public bool _possessed;
+    public bool Possessed;
 
     private Camera _cam;
     private Rigidbody _rb;
@@ -60,7 +60,7 @@ public class Throwable : MonoBehaviour, IPossessable
     public void Possess()
     {
         _cameraScript.LockCameraPosition = false;
-        _possessed = true;
+        Possessed = true;
     }
 
     public void Unpossess()
@@ -68,7 +68,7 @@ public class Throwable : MonoBehaviour, IPossessable
         StartCoroutine(_cameraScript.ResetCamera());
         _cameraScript.LockCameraPosition = true;
         _lineRenderer.enabled = false;
-        _possessed = false;
+        Possessed = false;
     }
 
     public void Throw()
@@ -115,7 +115,7 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public bool isPossessed()
     {
-        return this._possessed;
+        return this.Possessed;
     }
 
     public ObjectState GetState()
