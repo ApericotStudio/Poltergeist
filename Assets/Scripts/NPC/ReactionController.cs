@@ -32,7 +32,7 @@ public class ReactionController : MonoBehaviour
 
     private void Update()
     {
-        FacePlayer();
+        RotateCanvasTowardsPlayer();
     }
 
     private void SetNpcReactionBasedOnFear(float fear)
@@ -68,7 +68,10 @@ public class ReactionController : MonoBehaviour
         }
     }
 
-    private void FacePlayer()
+    /// <summary>
+    /// Rotates the canvas towards the player.
+    /// </summary>
+    private void RotateCanvasTowardsPlayer()
     {
         Vector3 directionToCamera = Camera.main.transform.position - _reactionCanvas.transform.position;
         _reactionCanvas.transform.rotation = Quaternion.LookRotation(-directionToCamera);
