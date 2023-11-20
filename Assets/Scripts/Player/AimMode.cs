@@ -122,7 +122,7 @@ public class AimMode : MonoBehaviour
 
     public void EnterThrowMode()
     {
-        if (_possessionController.CurrentThrowable != null)
+        if (_possessionController.CurrentThrowable != null && !aimmode)
         {
             EnterAimMode();
             _enterThrowModeEvent.Invoke();
