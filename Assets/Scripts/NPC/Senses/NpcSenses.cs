@@ -35,8 +35,6 @@ public class NpcSenses : MonoBehaviour, IObserver
     private LayerMask _obstacleMask;
 
     [Header("Reaction Settings")]
-    [Tooltip("The delay between the NPC detecting a target and reacting to it."), Range(0f, 5f), SerializeField]
-    private float _reactionDelay = 1f;
     [Tooltip("Amount of time cooldown applies to NPC scare"), Range(0f, 10f), SerializeField]
     private float _scaredCooldown = 2f;
 
