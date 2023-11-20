@@ -18,7 +18,7 @@ public class Throwable : MonoBehaviour, IPossessable
     private LayerMask _throwLayerMask;
 
 
-    public bool isPossessed;
+    public bool _possessed;
 
     private Camera _cam;
     private Rigidbody _rb;
@@ -57,13 +57,13 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Possess()
     {
-        isPossessed = true;
+        _possessed = true;
     }
 
     public void Unpossess()
     {
         _lineRenderer.enabled = false;
-        isPossessed = false;
+        _possessed = false;
     }
 
     public void Throw()
@@ -106,6 +106,11 @@ public class Throwable : MonoBehaviour, IPossessable
             }
         }
         _hitPointImage.position = LineRenderer.GetPosition(i);
+    }
+
+    public bool isPossessed()
+    {
+        return this._possessed;
     }
 
     public ObjectState GetState()

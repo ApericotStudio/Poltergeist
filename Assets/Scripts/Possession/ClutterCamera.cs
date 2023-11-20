@@ -7,7 +7,7 @@ using Cinemachine;
 
 public class ClutterCamera : MonoBehaviour
 {
-    [SerializeField] public bool LockCameraPosition = false;
+    [SerializeField] public bool LockCameraPosition = true;
     [SerializeField] public GameObject CinemachineCameraTarget;
     [SerializeField] private float _sensitivity = 1f;
     [Tooltip("How far in degrees can you move the camera up")]
@@ -19,6 +19,8 @@ public class ClutterCamera : MonoBehaviour
 
     public CinemachineVirtualCamera FollowCam;
     public CinemachineVirtualCamera AimCam;
+
+    IPossessable MyPossessable;
 
 
     private PlayerInput _playerInput;
@@ -43,11 +45,13 @@ public class ClutterCamera : MonoBehaviour
         _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
         _playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
         _input = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssetsInputs>();
+        MyPossessable = this.GetComponent<IPossessable>();
     }
 
     // Update is called once per frame
     private void LateUpdate()
     {
+        LockCamera();
         CameraRotation();
     }
     private void CameraRotation()
@@ -75,5 +79,10 @@ public class ClutterCamera : MonoBehaviour
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+    private void LockCamera()
+    {
+        LockCameraPosition = !MyPossessable.isPossessed();
     }
 }

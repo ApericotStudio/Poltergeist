@@ -151,8 +151,9 @@ public class AimMode : MonoBehaviour
             _possessionDefaultCam.Priority = 0;
             _possessionAimCam.Priority = 0;
         }
-        _possessionDefaultCam = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().FollowCam;
-        _possessionAimCam = _possessionController.CurrentPossession.GetComponent<ClutterCamera>().AimCam;
+        ClutterCamera possessionCamScript = _possessionController.CurrentPossession.GetComponent<ClutterCamera>();
+        _possessionDefaultCam = possessionCamScript.FollowCam;
+        _possessionAimCam = possessionCamScript.AimCam;
         _cameras[2] = _possessionDefaultCam;
         _cameras[3] = _possessionAimCam;
         ExitAimMode();
