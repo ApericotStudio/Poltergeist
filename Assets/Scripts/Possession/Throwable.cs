@@ -16,13 +16,14 @@ public class Throwable : MonoBehaviour, IPossessable
     private LayerMask _throwLayerMask;
 
 
-    public bool isPossessed;
+    public bool Possessed;
 
     private Camera _cam;
     private Rigidbody _rb;
     private Vector3 _aim;
     private LineRenderer _lineRenderer { get; set; }
     private ObservableObject _observableObject;
+    private ClutterCamera _cameraScript;
 
     public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
 
@@ -33,6 +34,7 @@ public class Throwable : MonoBehaviour, IPossessable
         LineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
         _observableObject = this.GetComponent<ObservableObject>();
+        _cameraScript = this.GetComponent<ClutterCamera>();
 
         int throwLayer = gameObject.layer;
         for(int i = 0; i < 32; i++)
@@ -55,13 +57,16 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Possess()
     {
-        isPossessed = true;
+        _cameraScript.LockCameraPosition = false;
+        Possessed = true;
     }
 
     public void Unpossess()
     {
+        StartCoroutine(_cameraScript.ResetCamera());
+        _cameraScript.LockCameraPosition = true;
         _lineRenderer.enabled = false;
-        isPossessed = false;
+        Possessed = false;
     }
 
     public void Throw()
@@ -104,6 +109,11 @@ public class Throwable : MonoBehaviour, IPossessable
             }
         }
         _hitPointImage.position = LineRenderer.GetPosition(i);
+    }
+
+    public bool isPossessed()
+    {
+        return this.Possessed;
     }
 
     public ObjectState GetState()
