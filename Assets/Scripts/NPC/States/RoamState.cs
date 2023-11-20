@@ -16,6 +16,7 @@ public class RoamState : INpcState
     public void Handle()
     {
         _npcController.StartCoroutine(RoamCoroutine());
+        _npcController.StartCoroutine(ChooseRoamTargetLocationCoroutine());
     }
 
     private IEnumerator RoamCoroutine()
@@ -42,9 +43,11 @@ public class RoamState : INpcState
         {
             if(_npcController.CurrentState is not RoamState)
                 yield break;
-        
-            ChooseRoamTargetLocation();
+                
+            _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamTargetLocation.position);
+            yield return new WaitUntil(() => _npcController.NavMeshAgent.remainingDistance < 0.5f && !_npcController.NavMeshAgent.pathPending);
             yield return new WaitForSeconds(_npcController.TimeSpentInOneRoamLocation);
+            ChooseRoamTargetLocation();
         }
     }
 

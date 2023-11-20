@@ -2947,9 +2947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1aed4cef7e38f4397ef21d9db3efbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoamTargetLocation: {fileID: 0}
-  RoamRadius: 5
-  RoamingSpeed: 2
   InvestigatingSpeed: 1.7
   FrightenedTargetLocation: {fileID: 0}
   FrightenedSpeed: 5.335
@@ -2961,6 +2958,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   GameEventManager: {fileID: 0}
+  CurrentRoamTargetLocation: {fileID: 0}
+  RoamTargetLocations: []
+  RoamRadius: 5
+  RoamingSpeed: 2
+  TimeSpentInOneRoamLocation: 50
   ScreamAudioClips:
   - {fileID: 8300000, guid: ca54368baa460454f8b5de91a7b7f825, type: 3}
   - {fileID: 8300000, guid: 1aa179d29c47b5d42b219c270858871a, type: 3}
@@ -3018,7 +3020,6 @@ MonoBehaviour:
   - 0.5
   - 0.25
   - 0
-  DetectedObjects: []
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0
