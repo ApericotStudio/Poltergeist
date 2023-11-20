@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// The Reaction Module is responsible for displaying the correct reaction sprite above the NPC's head based on the fear value of the NPC.
+/// The Reaction Controller is responsible for displaying the correct reaction sprite above the NPC's head based on the fear value of the NPC.
 /// </summary>
 public class ReactionController : MonoBehaviour
 {
@@ -25,26 +25,23 @@ public class ReactionController : MonoBehaviour
     {
         _reactionCanvas = GetComponentInParent<Canvas>();
         _npcController = GetComponentInParent<NpcController>();
-        _npcController.OnFearValueChange.AddListener(SetNpcReaction);
+        _npcController.OnFearValueChange.AddListener(SetNpcReactionBasedOnFear);
+        _npcController.OnStateChange.AddListener(SetNpcReactionBasedOnState);
         _reactionImage = GetComponent<Image>();
     }
 
     private void Update()
     {
-        _reactionCanvas.transform.LookAt(Camera.main.transform);
+        RotateCanvasTowardsPlayer();
     }
 
-    /// <summary>
-    /// Sets the correct reaction sprite based on the fear value of the NPC.
-    /// </summary>
-    /// <param name="fear">The current fear value of the NPC.</param>
-    private void SetNpcReaction(float fear)
+    private void SetNpcReactionBasedOnFear(float fear)
     {
-        if(_npcController.CurrentState == _npcController.InvestigateState && fear <= 75f)
+        if(_npcController.CurrentState is InvestigateState)
         {
-            _reactionImage.sprite = _investigateSprite;
             return;
         }
+
         if(fear <= 25f)
         {
             _reactionImage.sprite = _lowFearSprite;
@@ -57,5 +54,26 @@ public class ReactionController : MonoBehaviour
         {
             _reactionImage.sprite = _mediumFearSprite;
         }
+    }
+
+    private void SetNpcReactionBasedOnState()
+    {
+        if(_npcController.CurrentState == _npcController.InvestigateState)
+        {
+            _reactionImage.sprite = _investigateSprite;
+        }
+        else
+        {
+            SetNpcReactionBasedOnFear(_npcController.FearValue);
+        }
+    }
+
+    /// <summary>
+    /// Rotates the canvas towards the player.
+    /// </summary>
+    private void RotateCanvasTowardsPlayer()
+    {
+        Vector3 directionToCamera = Camera.main.transform.position - _reactionCanvas.transform.position;
+        _reactionCanvas.transform.rotation = Quaternion.LookRotation(-directionToCamera);
     }
 }

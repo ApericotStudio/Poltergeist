@@ -16,7 +16,7 @@ public class ScaredState : INpcState
 
             if(_npcController.NavMeshAgent.remainingDistance < 0.5f)
             {
-                _npcController.RoamTargetLocation = _npcController.FrightenedTargetLocation;
+                _npcController.CurrentRoamOrigin = _npcController.FrightenedTargetLocation;
                 _npcController.CurrentState = new RoamState(_npcController);
             }
         }

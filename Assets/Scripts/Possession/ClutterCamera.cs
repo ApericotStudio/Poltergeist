@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class ClutterCamera : MonoBehaviour
 {
-    [SerializeField] public bool LockCameraPosition = false;
+    [SerializeField] public bool LockCameraPosition = true;
     [SerializeField] public GameObject CinemachineCameraTarget;
     [SerializeField] private float _sensitivity = 1f;
     [Tooltip("How far in degrees can you move the camera up")]
@@ -15,6 +16,11 @@ public class ClutterCamera : MonoBehaviour
     [SerializeField] private float _bottomClamp = -30.0f;
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField] private float _cameraAngleOverride = 0.0f;
+
+    public CinemachineVirtualCamera FollowCam;
+    public CinemachineVirtualCamera AimCam;
+
+
     private PlayerInput _playerInput;
     private StarterAssetsInputs _input;
     private const float _threshold = 0.01f;
@@ -64,6 +70,14 @@ public class ClutterCamera : MonoBehaviour
         CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + _cameraAngleOverride,
             _cinemachineTargetYaw, 0.0f);
     }
+
+    public IEnumerator ResetCamera()
+    {
+        yield return new WaitForSeconds(1.6f);
+        _cinemachineTargetYaw = 0;
+        _cinemachineTargetPitch = 0;
+    }
+
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
         if (lfAngle < -360f) lfAngle += 360f;
