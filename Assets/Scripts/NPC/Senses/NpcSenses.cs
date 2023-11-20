@@ -12,12 +12,12 @@ public class NpcSenses : MonoBehaviour, IObserver
     [Header("Sight Settings")]
     [Tooltip("The angle of the NPC's field of view."), Range(0, 360)]
     public float FieldOfViewAngle = 110f;
-    [Tooltip("The distance that the NPC can see."), Range(0, 10)]
-    public float SightRange = 10f;
+    [Tooltip("The distance that the NPC can see."), Range(0, 50)]
+    public float SightRange = 20f;
 
     [Header("Auditory Settings")]
-    [Tooltip("The distance that the NPC can hear."), Range(0, 20)]
-    public float AuditoryRange = 10f;
+    [Tooltip("The distance that the NPC can hear."), Range(0, 50)]
+    public float AuditoryRange = 15f;
 
     [Header("Senses Layers")]
     [Tooltip("The target layers that the NPC can see and hear."), SerializeField]
@@ -194,7 +194,7 @@ public class NpcSenses : MonoBehaviour, IObserver
 
     private void Investigate()
     {
-        if(_npcController.CurrentState != _npcController.InvestigateState && _npcController.CurrentState != _npcController.PanickedState)
+        if(_npcController.CurrentState is not InvestigateState and not PanickedState && _npcController.FearValue < 100f)
         {
             _npcController.CurrentState = _npcController.InvestigateState;
         }

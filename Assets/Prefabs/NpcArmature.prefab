@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 7660481155509779078}
-  m_Direction: 1
+  m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
@@ -3000,8 +3000,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FieldOfViewAngle: 110
-  SightRange: 10
-  AuditoryRange: 10
+  SightRange: 20
+  AuditoryRange: 15
   _targetMask:
     serializedVersion: 2
     m_Bits: 8
@@ -3019,7 +3019,6 @@ MonoBehaviour:
   - 0.25
   - 0
   DetectedObjects: []
-  ScaredAudio: {fileID: 8300000, guid: a37bb9386be41b74ea272eb4eeaf3139, type: 3}
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0
