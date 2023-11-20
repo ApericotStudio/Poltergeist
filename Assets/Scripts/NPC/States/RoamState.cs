@@ -6,7 +6,7 @@ public class RoamState : INpcState
 {
     private readonly NpcController _npcController;
 
-    private int currentRoamIndex = 0;
+    private int _currentRoamIndex = 0;
 
     public RoamState(NpcController npcController)
     {
@@ -70,7 +70,7 @@ public class RoamState : INpcState
     /// </summary>
     private void SetRoamOrigin()
     {
-        currentRoamIndex = (currentRoamIndex + 1) % _npcController.AvailableRoamOrigins.Length;
-        _npcController.CurrentRoamOrigin = _npcController.AvailableRoamOrigins[currentRoamIndex];
+        _currentRoamIndex = (_currentRoamIndex + 1) % _npcController.AvailableRoamOrigins.Length;
+        _npcController.CurrentRoamOrigin = _npcController.AvailableRoamOrigins[_currentRoamIndex];
     }
 }

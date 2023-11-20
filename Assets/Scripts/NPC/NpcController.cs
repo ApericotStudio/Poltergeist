@@ -27,7 +27,7 @@ public class NpcController : MonoBehaviour
     public Transform CurrentRoamOrigin;
     [Tooltip("The available roam origins of the NPC. The NPC will loop through these locations when roaming.")]
     public Transform[] AvailableRoamOrigins;
-    [Tooltip("The radius around the Roam Target Location the NPC will in."), Range(0f, 10f)]
+    [Tooltip("The radius around the origin the NPC will roam around in."), Range(1f, 10f)]
     public float RoamRadius = 5f;
     [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
     public float RoamingSpeed = 2f;
