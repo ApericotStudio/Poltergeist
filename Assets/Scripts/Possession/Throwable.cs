@@ -25,6 +25,7 @@ public class Throwable : MonoBehaviour, IPossessable
     private Vector3 _aim;
     private LineRenderer _lineRenderer { get; set; }
     private ObservableObject _observableObject;
+    private ClutterCamera _cameraScript;
 
     public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
 
@@ -35,6 +36,7 @@ public class Throwable : MonoBehaviour, IPossessable
         LineRenderer = this.GetComponent<LineRenderer>();
         _cam = Camera.main;
         _observableObject = this.GetComponent<ObservableObject>();
+        _cameraScript = this.GetComponent<ClutterCamera>();
 
         int throwLayer = gameObject.layer;
         for(int i = 0; i < 32; i++)
@@ -57,11 +59,13 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Possess()
     {
+        _cameraScript.LockCameraPosition = false;
         _possessed = true;
     }
 
     public void Unpossess()
     {
+        _cameraScript.LockCameraPosition = true;
         _lineRenderer.enabled = false;
         _possessed = false;
     }
