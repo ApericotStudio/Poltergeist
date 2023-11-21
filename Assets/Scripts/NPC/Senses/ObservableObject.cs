@@ -10,7 +10,8 @@ public enum ObjectState
     Idle,
     Moving,
     Hit,
-    Broken
+    Broken,
+    Interacted
 }
 /// <summary>
 /// The various types of objects that can be in the game.
