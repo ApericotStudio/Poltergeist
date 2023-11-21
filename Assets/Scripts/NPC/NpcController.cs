@@ -61,6 +61,8 @@ public class NpcController : MonoBehaviour
     public Transform InvestigateTarget;
     [HideInInspector]
     public bool FearReductionHasCooldown;
+    [HideInInspector]
+    public bool RanAway;
 
     private INpcState _currentState;
     
@@ -68,6 +70,7 @@ public class NpcController : MonoBehaviour
     private int _animIDSpeed;
     private float _animationBlend;
     private Animator _animator;
+    private int _currentRoamIndex = 0;
     
     public INpcState CurrentState
     {
@@ -89,11 +92,10 @@ public class NpcController : MonoBehaviour
     }
     public AudioSource NpcAudioSource { get; private set; }
     public NavMeshAgent NavMeshAgent { get; private set; }
-    public bool RanAway { get; set; }
-
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
     public InvestigateState InvestigateState { get; private set; }
+    public ScaredState ScaredState { get; private set; }
 
     private void Awake()
     {
@@ -104,6 +106,7 @@ public class NpcController : MonoBehaviour
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
         InvestigateState = new InvestigateState(this);
+        ScaredState = new ScaredState(this);
         StartCoroutine(FearReductionCoroutine());
     }
 
@@ -124,7 +127,7 @@ public class NpcController : MonoBehaviour
             CurrentState = PanickedState;
             return;
         }
-        if(CurrentState is not global::RoamState and not global::PanickedState and not global::InvestigateState)
+        if(CurrentState is not global::RoamState and not global::PanickedState and not global::InvestigateState and not global::ScaredState)
         {
             CurrentState = RoamState;
             return;
@@ -173,6 +176,15 @@ public class NpcController : MonoBehaviour
 
         _animator.SetFloat(_animIDSpeed, _animationBlend);
         _animator.SetFloat(_animIDMotionSpeed, 1f);
+    }
+
+     /// <summary>
+    /// Sets the next roam origin. Will loop back to the first origin if the last origin is reached.
+    /// </summary>
+    public void SetRoamOrigin()
+    {
+        _currentRoamIndex = (_currentRoamIndex + 1) % AvailableRoamOrigins.Length;
+        CurrentRoamOrigin = AvailableRoamOrigins[_currentRoamIndex];
     }
 
     private void OnFootstep(AnimationEvent animationEvent)

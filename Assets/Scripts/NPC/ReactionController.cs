@@ -16,6 +16,8 @@ public class ReactionController : MonoBehaviour
     private Sprite _highFearSprite;
     [Tooltip("The sprite that will be displayed when the NPC is investigating."), SerializeField]
     private Sprite _investigateSprite;
+    [Tooltip("The sprite that will be displayed when the NPC is scared."), SerializeField]
+    private Sprite _scaredSprite;
 
     private NpcController _npcController;
     private Canvas _reactionCanvas;
@@ -41,6 +43,10 @@ public class ReactionController : MonoBehaviour
         {
             return;
         }
+        if(_npcController.CurrentState is ScaredState)
+        {
+            return;
+        }
 
         if(fear <= 25f)
         {
@@ -61,6 +67,10 @@ public class ReactionController : MonoBehaviour
         if(_npcController.CurrentState == _npcController.InvestigateState)
         {
             _reactionImage.sprite = _investigateSprite;
+        }
+        else if(_npcController.CurrentState == _npcController.ScaredState)
+        {
+            _reactionImage.sprite = _scaredSprite;
         }
         else
         {
