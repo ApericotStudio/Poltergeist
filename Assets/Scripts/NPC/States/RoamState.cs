@@ -5,9 +5,7 @@ using UnityEngine.AI;
 public class RoamState : INpcState
 {
     private readonly NpcController _npcController;
-
-    private int _currentRoamIndex = 0;
-
+    
     public RoamState(NpcController npcController)
     {
         _npcController = npcController;
@@ -45,7 +43,7 @@ public class RoamState : INpcState
             _npcController.NavMeshAgent.SetDestination(GetRoamLocation());
             yield return new WaitUntil(() => _npcController.NavMeshAgent.remainingDistance < 0.5f && !_npcController.NavMeshAgent.pathPending);
             yield return new WaitForSeconds(_npcController.RoamOriginTimeSpent);
-            SetRoamOrigin();
+            _npcController.SetRoamOrigin();
         }
     }
 
@@ -63,14 +61,5 @@ public class RoamState : INpcState
         randomDirection += _npcController.CurrentRoamOrigin.position;
         NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _npcController.RoamRadius, 1);
         return hit.position;
-    }
-
-    /// <summary>
-    /// Sets the next roam origin. Will loop back to the first origin if the last origin is reached.
-    /// </summary>
-    private void SetRoamOrigin()
-    {
-        _currentRoamIndex = (_currentRoamIndex + 1) % _npcController.AvailableRoamOrigins.Length;
-        _npcController.CurrentRoamOrigin = _npcController.AvailableRoamOrigins[_currentRoamIndex];
     }
 }
