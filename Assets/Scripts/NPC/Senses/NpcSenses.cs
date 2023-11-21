@@ -143,7 +143,14 @@ public class NpcSenses : MonoBehaviour, IObserver
         }
         if(observableObject.State == ObjectState.Hit)
         {
-            Investigate();
+            if(observableObject.Type == ObjectType.Small)
+            {
+                Investigate();
+            }
+            else
+            {
+                GetScared();
+            }
         }
         if (observableObject.State == ObjectState.Interacted)
         {
@@ -212,6 +219,14 @@ public class NpcSenses : MonoBehaviour, IObserver
         if(_npcController.CurrentState is not InvestigateState and not PanickedState && _npcController.FearValue < 100f)
         {
             _npcController.CurrentState = _npcController.InvestigateState;
+        }
+    }
+
+    private void GetScared()
+    {
+        if(_npcController.CurrentState is not ScaredState and not PanickedState && _npcController.FearValue < 100f)
+        {
+            _npcController.CurrentState = _npcController.ScaredState;
         }
     }
 }
