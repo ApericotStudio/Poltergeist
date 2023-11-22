@@ -13,27 +13,26 @@ public class Sound : MonoBehaviour
 
     private bool _activated = false;
 
+    private IEnumerator _playSoundFunction;
+
     // Start is called before the first frame update
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Activate()
     {
         if (_activated)
         {
+            if (_playSoundFunction != null) StopCoroutine(_playSoundFunction);
+            _audioSource.Stop();
+            _activated = false;
             return;
         }
         _activated = true;
-
-        StartCoroutine(PlaySound());
+        _playSoundFunction = PlaySound();
+        StartCoroutine(_playSoundFunction);
     }
 
     IEnumerator PlaySound()
@@ -42,7 +41,7 @@ public class Sound : MonoBehaviour
         {
             _audioSource.clip = _initialSound;
             _audioSource.Play(0);
-            yield return new WaitForSeconds(_initialSound.length);
+            yield return new WaitForSeconds(5f);
             _audioSource.Stop();
         }
 

@@ -10,8 +10,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
+      propertyPath: HoverMessage
+      value: micro wave
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -28,11 +33,6 @@ PrefabInstance:
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7532764212868738548}
-    - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
-        type: 3}
-      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 7822702304617008467}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -151,10 +151,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3711722346501675995}
-    - targetCorrespondingSourceObject: {fileID: 8440278783580584740, guid: 550731f42b320314ba8cc42ee41050e6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7822702304617008467}
   m_SourcePrefab: {fileID: 100100000, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
 --- !u!1 &6024442771974666071 stripped
 GameObject:
@@ -272,17 +268,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7822702304617008467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6024442771974666071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 936a93d0681e71b4ebdf9e4e353ef1ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _keepProgress: 0
-  DevNote: Other adjustable variables can be found in the audio source component.
