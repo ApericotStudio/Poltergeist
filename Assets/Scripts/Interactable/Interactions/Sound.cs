@@ -41,7 +41,7 @@ public class Sound : MonoBehaviour
         {
             _audioSource.clip = _initialSound;
             _audioSource.Play(0);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(_initialSound.length);
             _audioSource.Stop();
         }
 
