@@ -54,9 +54,6 @@ public class NpcController : MonoBehaviour
     public float ReductionValue = 0.1f;
     [Tooltip("The speed at which the fear value will be reduced."), Range(0.01f, 1f)]
     public float ReductionSpeed = 0.05f;
-
-    [HideInInspector]
-    public List<ObservableObject> _usedObjects;
     [HideInInspector]
     public Transform InvestigateTarget;
     [HideInInspector]
@@ -185,6 +182,22 @@ public class NpcController : MonoBehaviour
     {
         _currentRoamIndex = (_currentRoamIndex + 1) % AvailableRoamOrigins.Length;
         CurrentRoamOrigin = AvailableRoamOrigins[_currentRoamIndex];
+    }
+
+    public void Investigate()
+    {
+        if(CurrentState is not global::InvestigateState and not global::PanickedState && FearValue < 100f)
+        {
+            CurrentState = InvestigateState;
+        }
+    }
+
+    public void GetScared()
+    {
+        if(CurrentState is not global::ScaredState and not global::PanickedState && FearValue < 100f)
+        {
+            CurrentState = ScaredState;
+        }
     }
 
     private void OnFootstep(AnimationEvent animationEvent)

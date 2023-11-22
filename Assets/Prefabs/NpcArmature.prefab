@@ -2867,6 +2867,7 @@ GameObject:
   - component: {fileID: 6070195381934028526}
   - component: {fileID: 4531111113754646614}
   - component: {fileID: 1306518244182312063}
+  - component: {fileID: 8534830403552682731}
   - component: {fileID: 8360858964001498300}
   m_Layer: 8
   m_Name: NpcArmature
@@ -2987,7 +2988,6 @@ MonoBehaviour:
   FootstepVolume: 0.5
   ReductionValue: 0.1
   ReductionSpeed: 0.05
-  _usedObjects: []
   InvestigateTarget: {fileID: 0}
   FearReductionHasCooldown: 0
   RanAway: 0
@@ -3012,11 +3012,28 @@ MonoBehaviour:
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1
+--- !u!114 &8534830403552682731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969111268812583773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9db171df00213b49bbdb9414affdcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _scaredCooldown: 2
   _visibleMultiplier: 1
   _audibleMultiplier: 1
-  _AudibleAndVisibleMultiplier: 1.5
+  _audibleAndVisibleMultiplier: 1.5
   _usageMultipliers:
+  - 1
+  - 0.5
+  - 0.25
+  - 0
+  UsageMultipliers:
   - 1
   - 0.5
   - 0.25

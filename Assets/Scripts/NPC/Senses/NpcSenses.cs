@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -34,34 +33,16 @@ public class NpcSenses : MonoBehaviour, IObserver
     [Tooltip("The obstacle layers that block the NPC's vision."), SerializeField]
     private LayerMask _obstacleMask;
 
-    [Header("Reaction Settings")]
-    [Tooltip("Amount of time cooldown applies to NPC scare"), Range(0f, 10f), SerializeField]
-    private float _scaredCooldown = 2f;
-
-    [Header("Multipliers")]
-    [Tooltip("Multiplier to scare value when an NPC hears a ghost."), Range(0f, 5f), SerializeField]
-    private float _visibleMultiplier = 1f;
-    [Tooltip("Multiplier to scare value when an NPC sees a ghost."), Range(0f, 5f), SerializeField]
-    private float _audibleMultiplier = 1f;
-    [Tooltip("Multiplier to scare value when an NPC sees and hears a ghost."), Range(0f, 5f), SerializeField]
-    private float _AudibleAndVisibleMultiplier = 1.5f;
-    [Tooltip("Amount object gets less scary after usage"), SerializeField]
-
-    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0f};
     [HideInInspector]
     public Dictionary<ObservableObject, DetectedProperties> DetectedObjects = new();
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
-    private NpcController _npcController;
-    private bool _isScared = false;
-
-    private IEnumerator _coroutine;
-
+    private FearHandler _fearHandler;
     private const float DetectionDelay = .2f;
 
     private void Awake()
     {
-        _npcController = GetComponent<NpcController>();
+        _fearHandler = GetComponent<FearHandler>();
         StartCoroutine (DetectTargetsWithDelay(DetectionDelay));
     }
 
@@ -129,67 +110,7 @@ public class NpcSenses : MonoBehaviour, IObserver
         if (!DetectedObjects.TryGetValue(observableObject, out var detectedProperties))
             return;
 
-        _npcController.InvestigateTarget = observableObject.transform;
-
-        bool audible = detectedProperties.IsAudible;
-        bool visible = detectedProperties.IsVisible;
-
-        int amountObject = _npcController._usedObjects.Count(x => x.Equals(observableObject));
-
-
-        if(amountObject >= _usageMultipliers.Count - 1)
-        {
-            amountObject = _usageMultipliers.Count - 1;
-        }
-        if(observableObject.State == ObjectState.Hit)
-        {
-            if(observableObject.Type == ObjectType.Small)
-            {
-                Investigate();
-            }
-            else
-            {
-                GetScared();
-            }
-        }
-        if (observableObject.State == ObjectState.Interacted)
-        {
-            Investigate();
-        }
-        if (observableObject.State == ObjectState.Idle || _isScared)
-        {
-            return;
-        }
-
-        if (audible && visible)
-        {
-            _npcController.FearValue += (float)observableObject.Type * _AudibleAndVisibleMultiplier * _usageMultipliers[amountObject];
-        }
-
-        else if (audible)
-        {
-            _npcController.FearValue += (float)observableObject.Type * _audibleMultiplier * _usageMultipliers[amountObject];
-        }
-
-        else if (visible)
-        {
-            _npcController.FearValue += (float)observableObject.Type * _visibleMultiplier * _usageMultipliers[amountObject];
-        }
-
-        else
-        {
-            return;
-        }
-        _coroutine = ScaredCooldown();
-        StartCoroutine(_coroutine);
-        _npcController._usedObjects.Add(observableObject);
-    }
-
-    private IEnumerator ScaredCooldown()
-    {
-        _isScared = true;
-        yield return new WaitForSeconds(_scaredCooldown);
-        _isScared = false;
+        _fearHandler.Handle(observableObject, detectedProperties);
     }
 
     /// <summary>
@@ -213,20 +134,4 @@ public class NpcSenses : MonoBehaviour, IObserver
 		}
 		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),0,Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 	}
-
-    private void Investigate()
-    {
-        if(_npcController.CurrentState is not InvestigateState and not PanickedState && _npcController.FearValue < 100f)
-        {
-            _npcController.CurrentState = _npcController.InvestigateState;
-        }
-    }
-
-    private void GetScared()
-    {
-        if(_npcController.CurrentState is not ScaredState and not PanickedState && _npcController.FearValue < 100f)
-        {
-            _npcController.CurrentState = _npcController.ScaredState;
-        }
-    }
 }
