@@ -5,12 +5,10 @@ using UnityEngine;
 public class Sound : MonoBehaviour
 {
     [SerializeField]
-    private float _amountInitialTime;
-    [SerializeField]
-    private float _amountDelayedTime;
-    [SerializeField]
     private AudioClip _delayedSound;
     [SerializeField]
+    private AudioClip _initialSound;
+
     private AudioSource _audioSource;
 
     private bool _activated = false;
@@ -18,6 +16,7 @@ public class Sound : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,27 +31,29 @@ public class Sound : MonoBehaviour
         {
             return;
         }
-
         _activated = true;
 
         StartCoroutine(PlaySound());
-
-        _activated = false;
     }
 
     IEnumerator PlaySound()
     {
-        if (_audioSource.clip)
+        if (_initialSound)
         {
+            _audioSource.clip = _initialSound;
             _audioSource.Play(0);
-            yield return new WaitForSeconds(_audioSource.clip.length);
+            yield return new WaitForSeconds(_initialSound.length);
             _audioSource.Stop();
         }
 
         if (_delayedSound)
         {
-            _audioSource.PlayOneShot(_delayedSound);
+            _audioSource.clip = _delayedSound;
+            _audioSource.Play();
+            yield return new WaitForSeconds(_delayedSound.length);
+            _audioSource.Stop();
         }
 
+        _activated = false;
     }
 }
