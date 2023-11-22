@@ -5,9 +5,7 @@ using UnityEngine.Events;
 
 public class AimMode : MonoBehaviour
 {
-    private CinemachineVirtualCamera _aimCam;
     private CinemachineVirtualCamera _defaultCam;
-    private CinemachineVirtualCamera _possessionAimCam;
     private CinemachineVirtualCamera _possessionDefaultCam;
     private CinemachineVirtualCamera[] _cameras;
 
