@@ -44,8 +44,7 @@ public class AimMode : MonoBehaviour
     }
     public void CancelThrow()
     {
-        _exitThrowModeEvent.Invoke();
-        throwmode = false;
+        ExitThrowMode();
     }
 
     public void PossessConfirm()
@@ -69,7 +68,14 @@ public class AimMode : MonoBehaviour
         if (_possessionController.CurrentThrowable != null && throwmode)
         {
             _possessionController.CurrentThrowable.Throw();
+            ExitThrowMode();
         }
+    }
+
+    private void ExitThrowMode()
+    {
+        throwmode = false;
+        ExitThrowModeEvent.Invoke();
     }
 
     public void changeCameraToPossession()
@@ -77,6 +83,7 @@ public class AimMode : MonoBehaviour
         if (_possessionController.CurrentPossession == null)
         {
             switchCamera(0);
+            ExitThrowMode();
             return;
         }
         if (_possessionDefaultCam != null)

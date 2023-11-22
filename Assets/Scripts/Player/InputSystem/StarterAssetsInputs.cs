@@ -28,10 +28,9 @@ namespace StarterAssets
 		[SerializeField] private UnityEvent _onUnpossessInput;
 		[SerializeField] private UnityEvent _onAimThrowInput;
 		[SerializeField] private UnityEvent _onThrowInput;
-		[SerializeField] private UnityEvent _onInteractInput;
 
 		public UnityEvent OnCancelInput { get => _onCancelInput; set => _onCancelInput = value; }
-		public UnityEvent OnInteractPossess { get => _onInteractPossessInput; set => _onInteractPossessInput = value; }
+		public UnityEvent OnInteractPossessInput { get => _onInteractPossessInput; set => _onInteractPossessInput = value; }
 		public UnityEvent OnUnpossessInput { get => _onUnpossessInput; set => _onUnpossessInput = value; }
 		public UnityEvent OnAimThrowInput { get => _onAimThrowInput; set => _onAimThrowInput = value; }
 		public UnityEvent OnThrowInput { get => _onThrowInput; set => _onThrowInput = value; }
