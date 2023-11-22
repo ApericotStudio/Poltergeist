@@ -321,8 +321,10 @@ namespace StarterAssets
         {
             Ray ray = new Ray(_posControl.CurrentPossession.transform.position, Vector3.down);
             Physics.Raycast(ray, out RaycastHit hitInfo);
-            NavMesh.SamplePosition(hitInfo.point, out NavMeshHit hit, 2f, 1);
-            _controller.Move(hit.position - transform.position);
+            if (NavMesh.SamplePosition(hitInfo.point, out NavMeshHit hit, 2f, 1))
+            { _controller.Move(hit.position - transform.position); }
+            else if (NavMesh.SamplePosition(hitInfo.point, out hit, 5f, 1))
+            { _controller.Move(hit.position - transform.position); }
         }
 
         public void togglePlayerVisible()
