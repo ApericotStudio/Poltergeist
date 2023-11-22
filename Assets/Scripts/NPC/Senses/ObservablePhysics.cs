@@ -1,3 +1,4 @@
+using System;
 using UnityEditor.EditorTools;
 using UnityEngine;
 
@@ -43,6 +44,13 @@ public class ObservablePhysics : MonoBehaviour
             if(collision.impulse.magnitude > _destroyMinimumImpulse)
             {
                 _observableObject.State = ObjectState.Broken;
+                bool isHighlightable = _observableObject.TryGetComponent(out Highlight highlight);
+                
+                if(isHighlightable)
+                {
+                    highlight.Highlightable(false);
+                }
+                
                 _observableObject.ClearObservers();
             }
         }
