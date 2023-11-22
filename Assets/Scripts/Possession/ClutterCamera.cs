@@ -18,7 +18,6 @@ public class ClutterCamera : MonoBehaviour
     [SerializeField] private float _cameraAngleOverride = 0.0f;
 
     public CinemachineVirtualCamera FollowCam;
-    public CinemachineVirtualCamera AimCam;
 
 
     private PlayerInput _playerInput;
