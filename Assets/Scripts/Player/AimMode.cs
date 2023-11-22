@@ -26,7 +26,7 @@ public class AimMode : MonoBehaviour
     {
         _controller = this.gameObject.GetComponent<ThirdPersonController>();
         _possessionController = this.gameObject.GetComponent<PossessionController>();
-        _possessionController.CurrentPossessionChanged.AddListener(changeCameraToPossession);
+        _possessionController.CurrentPossessionChanged.AddListener(ChangeCameraToPossession);
 
         _defaultCam = GameObject.Find("PlayerFollowCamera").GetComponent<CinemachineVirtualCamera>();
         _cameras = new CinemachineVirtualCamera[] { _defaultCam, _possessionDefaultCam };
@@ -76,11 +76,11 @@ public class AimMode : MonoBehaviour
         ExitThrowModeEvent.Invoke();
     }
 
-    public void changeCameraToPossession()
+    public void ChangeCameraToPossession()
     {
         if (_possessionController.CurrentPossession == null)
         {
-            switchCamera(0);
+            SwitchCamera(0);
             ExitThrowMode();
             return;
         }
@@ -91,10 +91,10 @@ public class AimMode : MonoBehaviour
         ClutterCamera possessionCamScript = _possessionController.CurrentPossession.GetComponent<ClutterCamera>();
         _possessionDefaultCam = possessionCamScript.FollowCam;
         _cameras[1] = _possessionDefaultCam;
-        switchCamera(1);
+        SwitchCamera(1);
     }
 
-    private void switchCamera(int index)
+    private void SwitchCamera(int index)
     {
         for (int i = 0; i < _cameras.Length; i++)
         {
