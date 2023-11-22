@@ -7,12 +7,6 @@ using UnityEngine.Events;
 public class NpcController : MonoBehaviour
 {
     [Header("NPC Settings")]
-    [Tooltip("The target location the NPC will roam around.")]
-    public Transform RoamTargetLocation;
-    [Tooltip("The radius around the Roam Target Location the NPC will in."), Range(0f, 10f)]
-    public float RoamRadius = 5f;
-    [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
-    public float RoamingSpeed = 2f;
     [Tooltip("The speed the NPC will move when investigating."), Range(1f, 5f)]
     public float InvestigatingSpeed = 2f;
     [Tooltip("The target location the NPC will run to when frightened.")]
@@ -28,7 +22,18 @@ public class NpcController : MonoBehaviour
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
     public GameEventManager GameEventManager;
 
-    [Header("NPC Audio Settings")]
+    [Header("Roaming Settings")]
+    [Tooltip("The current roam origin of the NPC. This is the location the NPC will roam around.")]
+    public Transform CurrentRoamOrigin;
+    [Tooltip("The available roam origins of the NPC. The NPC will loop through these locations when roaming.")]
+    public Transform[] AvailableRoamOrigins;
+    [Tooltip("The radius around the origin the NPC will roam around in."), Range(1f, 10f)]
+    public float RoamRadius = 5f;
+    [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
+    public float RoamingSpeed = 2f;
+    [Tooltip("The amount of time the NPC will stay around one roam origin"), Range(0f, 100f)]
+    public float RoamOriginTimeSpent = 50f;
+    [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC screams.")]
     public AudioClip[] ScreamAudioClips;
     [Tooltip("The audio clip that will be played when the NPC investigates.")]
@@ -56,6 +61,8 @@ public class NpcController : MonoBehaviour
     public Transform InvestigateTarget;
     [HideInInspector]
     public bool FearReductionHasCooldown;
+    [HideInInspector]
+    public bool RanAway;
 
     private INpcState _currentState;
     
@@ -63,6 +70,7 @@ public class NpcController : MonoBehaviour
     private int _animIDSpeed;
     private float _animationBlend;
     private Animator _animator;
+    private int _currentRoamIndex = 0;
     
     public INpcState CurrentState
     {
@@ -84,11 +92,10 @@ public class NpcController : MonoBehaviour
     }
     public AudioSource NpcAudioSource { get; private set; }
     public NavMeshAgent NavMeshAgent { get; private set; }
-    public bool RanAway { get; set; }
-
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
     public InvestigateState InvestigateState { get; private set; }
+    public ScaredState ScaredState { get; private set; }
 
     private void Awake()
     {
@@ -99,6 +106,7 @@ public class NpcController : MonoBehaviour
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
         InvestigateState = new InvestigateState(this);
+        ScaredState = new ScaredState(this);
         StartCoroutine(FearReductionCoroutine());
     }
 
@@ -119,7 +127,7 @@ public class NpcController : MonoBehaviour
             CurrentState = PanickedState;
             return;
         }
-        if(CurrentState is not global::RoamState and not global::PanickedState and not global::InvestigateState)
+        if(CurrentState is not global::RoamState and not global::PanickedState and not global::InvestigateState and not global::ScaredState)
         {
             CurrentState = RoamState;
             return;
@@ -168,6 +176,15 @@ public class NpcController : MonoBehaviour
 
         _animator.SetFloat(_animIDSpeed, _animationBlend);
         _animator.SetFloat(_animIDMotionSpeed, 1f);
+    }
+
+     /// <summary>
+    /// Sets the next roam origin. Will loop back to the first origin if the last origin is reached.
+    /// </summary>
+    public void SetRoamOrigin()
+    {
+        _currentRoamIndex = (_currentRoamIndex + 1) % AvailableRoamOrigins.Length;
+        CurrentRoamOrigin = AvailableRoamOrigins[_currentRoamIndex];
     }
 
     private void OnFootstep(AnimationEvent animationEvent)

@@ -124,6 +124,7 @@ MonoBehaviour:
   _mediumFearSprite: {fileID: 21300000, guid: 27b00f840479f2f4db9f1f964020f7f4, type: 3}
   _highFearSprite: {fileID: 21300000, guid: cc75a99b8a1b37e44ba6d250681673dd, type: 3}
   _investigateSprite: {fileID: 21300000, guid: c3db8735f78f90644ad4811e7cf497f4, type: 3}
+  _scaredSprite: {fileID: 21300000, guid: e34e31e81e6592c479882407e5ce825f, type: 3}
 --- !u!1 &287491677359048772
 GameObject:
   m_ObjectHideFlags: 0
@@ -2947,9 +2948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1aed4cef7e38f4397ef21d9db3efbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoamTargetLocation: {fileID: 0}
-  RoamRadius: 5
-  RoamingSpeed: 2
   InvestigatingSpeed: 1.7
   FrightenedTargetLocation: {fileID: 0}
   FrightenedSpeed: 5.335
@@ -2961,6 +2959,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   GameEventManager: {fileID: 0}
+  CurrentRoamOrigin: {fileID: 0}
+  AvailableRoamOrigins: []
+  RoamRadius: 5
+  RoamingSpeed: 2
+  RoamOriginTimeSpent: 50
   ScreamAudioClips:
   - {fileID: 8300000, guid: ca54368baa460454f8b5de91a7b7f825, type: 3}
   - {fileID: 8300000, guid: 1aa179d29c47b5d42b219c270858871a, type: 3}
@@ -2987,6 +2990,7 @@ MonoBehaviour:
   _usedObjects: []
   InvestigateTarget: {fileID: 0}
   FearReductionHasCooldown: 0
+  RanAway: 0
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3008,7 +3012,6 @@ MonoBehaviour:
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1
-  _reactionDelay: 1
   _scaredCooldown: 2
   _visibleMultiplier: 1
   _audibleMultiplier: 1
@@ -3018,7 +3021,6 @@ MonoBehaviour:
   - 0.5
   - 0.25
   - 0
-  DetectedObjects: []
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0

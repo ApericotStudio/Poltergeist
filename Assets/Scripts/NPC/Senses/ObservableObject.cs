@@ -10,7 +10,8 @@ public enum ObjectState
     Idle,
     Moving,
     Hit,
-    Broken
+    Broken,
+    Interacted
 }
 /// <summary>
 /// The various types of objects that can be in the game.
@@ -28,14 +29,6 @@ public enum ObjectType
 public class ObservableObject : MonoBehaviour, IObservableObject
 {
     [Header("Observable Object Settings")]
-    [Tooltip("This value gets added to the NPC's anxiety when the object moves.")]
-    public float MoveAnxietyValue = 2f;
-    [Tooltip("This value gets added to the NPC's anxiety when the object is destroyed.")]
-    public float DestroyAnxietyValue = 10f;
-    [Tooltip("The value that gets applied to the NPC's anxiety when the object is audible."), Range(1f, 10f)]
-    public float AuditoryAnxietyValue = 1f;
-    [Tooltip("The value that gets applied to the NPC's anxiety when the object is visible."), Range(1f, 10f)]
-    public float VisualAnxietyValue = 3f;
     [Tooltip("The type of object.")]
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
@@ -56,9 +49,9 @@ public class ObservableObject : MonoBehaviour, IObservableObject
 
     public void NotifyObservers()
     {
-        foreach (IObserver observer in _observers)
+        for (int i = 0; i < _observers.Count; i++)
         {
-            observer.OnNotify(this);
+            _observers[i].OnNotify(this);
         }
     }
 

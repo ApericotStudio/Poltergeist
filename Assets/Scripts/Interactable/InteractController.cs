@@ -1,25 +1,22 @@
+using TMPro;
 using UnityEngine;
 
 public class InteractController : MonoBehaviour
 {
-    private VisionController _visionController;
     private PossessionController _possessionController;
+    private VisionController _visionController;
+
+    [Header("References")]
+    [SerializeField] private TextMeshProUGUI _hoverMessage;
 
     private void Start()
     {
-        _visionController = GetComponent<VisionController>();
         _possessionController = GetComponent<PossessionController>();
+        _visionController = GetComponent<VisionController>();
+        _visionController.LookingAtChanged.AddListener(HandleDisplayingInteractPrompt);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Interact();
-        }
-    }
-
-    private void Interact()
+    public void Interact()
     {
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView != null)
@@ -39,5 +36,20 @@ public class InteractController : MonoBehaviour
             return;
         }
         possessedInteractable.Use();
+    }
+
+    private void HandleDisplayingInteractPrompt()
+    {
+        _hoverMessage.enabled = false;
+        GameObject objectInView = _visionController.LookingAt;
+        if (objectInView != null)
+        {
+            if (objectInView.TryGetComponent(out Interactable interactable))
+            {
+                _hoverMessage.enabled = true;
+                _hoverMessage.text = "Press [F] to " + interactable.HoverMessage;
+                return;
+            }
+        }
     }
 }

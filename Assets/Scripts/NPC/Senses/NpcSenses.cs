@@ -35,8 +35,6 @@ public class NpcSenses : MonoBehaviour, IObserver
     private LayerMask _obstacleMask;
 
     [Header("Reaction Settings")]
-    [Tooltip("The delay between the NPC detecting a target and reacting to it."), Range(0f, 5f), SerializeField]
-    private float _reactionDelay = 1f;
     [Tooltip("Amount of time cooldown applies to NPC scare"), Range(0f, 10f), SerializeField]
     private float _scaredCooldown = 2f;
 
@@ -145,9 +143,20 @@ public class NpcSenses : MonoBehaviour, IObserver
         }
         if(observableObject.State == ObjectState.Hit)
         {
+            if(observableObject.Type == ObjectType.Small)
+            {
+                Investigate();
+            }
+            else
+            {
+                GetScared();
+            }
+        }
+        if (observableObject.State == ObjectState.Interacted)
+        {
             Investigate();
         }
-        if(observableObject.State == ObjectState.Idle || _isScared)
+        if (observableObject.State == ObjectState.Idle || _isScared)
         {
             return;
         }
@@ -210,6 +219,14 @@ public class NpcSenses : MonoBehaviour, IObserver
         if(_npcController.CurrentState is not InvestigateState and not PanickedState && _npcController.FearValue < 100f)
         {
             _npcController.CurrentState = _npcController.InvestigateState;
+        }
+    }
+
+    private void GetScared()
+    {
+        if(_npcController.CurrentState is not ScaredState and not PanickedState && _npcController.FearValue < 100f)
+        {
+            _npcController.CurrentState = _npcController.ScaredState;
         }
     }
 }

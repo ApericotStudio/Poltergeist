@@ -1,3 +1,6 @@
+using System.Collections;
+using UnityEngine;
+
 public class ScaredState : INpcState
 {
     private readonly NpcController _npcController;
@@ -9,16 +12,21 @@ public class ScaredState : INpcState
 
     public void Handle()
     {
-        if (!_npcController.RanAway)
-        {
-            _npcController.NavMeshAgent.speed = _npcController.FrightenedSpeed;
-            _npcController.NavMeshAgent.SetDestination(_npcController.FrightenedTargetLocation.position);
+        _npcController.StartCoroutine(ScaredCoroutine());
+    }
 
-            if(_npcController.NavMeshAgent.remainingDistance < 0.5f)
-            {
-                _npcController.RoamTargetLocation = _npcController.FrightenedTargetLocation;
-                _npcController.CurrentState = new RoamState(_npcController);
-            }
-        }
+    private IEnumerator ScaredCoroutine()
+    {
+        _npcController.NavMeshAgent.speed = _npcController.FrightenedSpeed;
+        _npcController.SetRoamOrigin();
+        _npcController.NavMeshAgent.stoppingDistance = 0f;
+        PlayRandomScreamClip();
+        _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamOrigin.position);
+        yield return new WaitUntil(() => _npcController.NavMeshAgent.remainingDistance < 0.5f && !_npcController.NavMeshAgent.pathPending);
+        _npcController.CurrentState = _npcController.RoamState;
+    }
+    private void PlayRandomScreamClip()
+    {
+        _npcController.NpcAudioSource.PlayOneShot(_npcController.ScreamAudioClips[Random.Range(0, _npcController.ScreamAudioClips.Length)]);
     }
 }
