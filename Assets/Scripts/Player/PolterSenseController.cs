@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class PolterSenseController : MonoBehaviour
 {
-    [SerializeField] private List<Outline> outlines = new List<Outline>();
+    [SerializeField] private List<Outline> outlinesInRange = new List<Outline>();
     private bool isOn = false;
-    private float range = 5;
 
     private void Update()
     {
@@ -19,29 +18,34 @@ public class PolterSenseController : MonoBehaviour
     {
         if (!isOn)
         {
-            foreach (Outline outline in outlines)
+            foreach (Outline outline in outlinesInRange)
             {
-                outline.enabled = false;
+                outline.enabled = true;
             }
             isOn = !isOn;
             return;
         }
-        foreach (Outline outline in outlines)
+        foreach (Outline outline in outlinesInRange)
         {
-            if (InRange(outline.gameObject))
-            {
-                outline.enabled = true;
-            }
+            outline.enabled = false;
         }
         isOn = !isOn;
     }
 
-    private bool InRange(GameObject other)
+    public void AddOutline(Outline outline)
     {
-        if (Vector3.Distance(transform.position, other.transform.position) < range)
+        print("added");
+        outlinesInRange.Add(outline);
+        if (isOn)
         {
-            return true;
+            outline.enabled = true;
         }
-        return false;
+    }
+
+    public void RemoveOutline(Outline outline)
+    {
+        print("removed");
+        outlinesInRange.Remove(outline);
+        outline.enabled = false;
     }
 }
