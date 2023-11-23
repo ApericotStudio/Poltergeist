@@ -28,8 +28,10 @@ namespace StarterAssets
 		[SerializeField] private UnityEvent _onUnpossessInput;
 		[SerializeField] private UnityEvent _onAimThrowInput;
 		[SerializeField] private UnityEvent _onThrowInput;
+        [SerializeField] private UnityEvent _onPolterSenseEnterInput;
+        [SerializeField] private UnityEvent _onPolterSenseLeaveInput;
 
-		public UnityEvent OnCancelInput { get => _onCancelInput; set => _onCancelInput = value; }
+        public UnityEvent OnCancelInput { get => _onCancelInput; set => _onCancelInput = value; }
 		public UnityEvent OnInteractPossessInput { get => _onInteractPossessInput; set => _onInteractPossessInput = value; }
 		public UnityEvent OnUnpossessInput { get => _onUnpossessInput; set => _onUnpossessInput = value; }
 		public UnityEvent OnAimThrowInput { get => _onAimThrowInput; set => _onAimThrowInput = value; }
@@ -87,6 +89,16 @@ namespace StarterAssets
 		private void OnUnpossess(InputValue value)
 		{
 			_onUnpossessInput.Invoke();
+		}
+
+		private void OnPolterSenseEnter(InputValue value)
+		{
+			_onPolterSenseEnterInput.Invoke();
+		}
+
+		private void OnPolterSenseLeave(InputValue value)
+		{
+			_onPolterSenseLeaveInput.Invoke();
 		}
 #endif
 

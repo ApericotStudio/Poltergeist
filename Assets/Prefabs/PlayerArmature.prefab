@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 6830640758896829547}
   - component: {fileID: 1146560187542654903}
   - component: {fileID: 8117343942080926157}
+  - component: {fileID: 4757033475567488308}
   m_Layer: 6
   m_Name: PlayerArmature
   m_TagString: Player
@@ -119,19 +120,6 @@ MonoBehaviour:
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   Sensitivity: 1
-  LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
-  FootstepAudioClips:
-  - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
-  - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
-  - {fileID: 8300000, guid: 186de84b3207156479abe98f4958fed0, type: 3}
-  - {fileID: 8300000, guid: 1a91fcd19acf1e54bba0945d9f390849, type: 3}
-  - {fileID: 8300000, guid: 14e8a8d2158bec840b56c54f5266e692, type: 3}
-  - {fileID: 8300000, guid: 29841e7d5bbfb5b419c9ad16ca8bc4c1, type: 3}
-  - {fileID: 8300000, guid: dd1af302b8902684d9381de1f2d3a5af, type: 3}
-  - {fileID: 8300000, guid: 67c8b33e424ccdc4486edf538ab91c5a, type: 3}
-  - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
-  - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
-  FootstepAudioVolume: 0.3
   Grounded: 1
   GroundedOffset: -0.14
   GroundedRadius: 0.28
@@ -251,6 +239,36 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: AimMode, Assembly-CSharp
         m_MethodName: ThrowObject
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onPolterSenseEnterInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4757033475567488308}
+        m_TargetAssemblyTypeName: PolterSenseController, Assembly-CSharp
+        m_MethodName: SetState
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  _onPolterSenseLeaveInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4757033475567488308}
+        m_TargetAssemblyTypeName: PolterSenseController, Assembly-CSharp
+        m_MethodName: SetState
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -465,6 +483,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoverMessage: {fileID: 0}
+--- !u!114 &4757033475567488308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645433121092831902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d5e12c036810b42a19eda8a6c9068d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _outlinesInRange: []
+  _isOn: 0
 --- !u!1 &4476425463170777075
 GameObject:
   m_ObjectHideFlags: 0
