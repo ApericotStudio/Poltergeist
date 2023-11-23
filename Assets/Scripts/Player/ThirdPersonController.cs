@@ -296,10 +296,12 @@ namespace StarterAssets
         {
             Ray ray = new Ray(_posControl.CurrentPossession.transform.position, Vector3.down);
             Physics.Raycast(ray, out RaycastHit hitInfo);
+            _controller.enabled = false;
             if (NavMesh.SamplePosition(hitInfo.point, out NavMeshHit hit, 2f, 1))
-            { _controller.Move(hit.position - transform.position); }
+            { this.gameObject.transform.position = hit.position; }
             else if (NavMesh.SamplePosition(hitInfo.point, out hit, 5f, 1))
-            { _controller.Move(hit.position - transform.position); }
+            { this.gameObject.transform.position = hit.position; }
+            _controller.enabled = true;
         }
 
         public void togglePlayerVisible()
