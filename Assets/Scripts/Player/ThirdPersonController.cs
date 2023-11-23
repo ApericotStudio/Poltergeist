@@ -30,11 +30,6 @@ namespace StarterAssets
         [SerializeField] private float SpeedChangeRate = 10.0f;
         [SerializeField] private float Sensitivity = 1f;
 
-        [SerializeField] private AudioClip LandingAudioClip;
-        [SerializeField] private AudioClip[] FootstepAudioClips;
-        [SerializeField] [Range(0, 1)] private float FootstepAudioVolume = 0.5f;
-
-
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
@@ -297,32 +292,16 @@ namespace StarterAssets
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
-        private void OnFootstep(AnimationEvent animationEvent)
-        {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                if (FootstepAudioClips.Length > 0)
-                {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-                }
-            }
-        }
-
-        private void OnLand(AnimationEvent animationEvent)
-        {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
-            {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
-            }
-        }
-
         public void toUnpossessLocation()
         {
             Ray ray = new Ray(_posControl.CurrentPossession.transform.position, Vector3.down);
             Physics.Raycast(ray, out RaycastHit hitInfo);
-            NavMesh.SamplePosition(hitInfo.point, out NavMeshHit hit, 2f, 1);
-            _controller.Move(hit.position - transform.position);
+            _controller.enabled = false;
+            if (NavMesh.SamplePosition(hitInfo.point, out NavMeshHit hit, 2f, 1))
+            { this.gameObject.transform.position = hit.position; }
+            else if (NavMesh.SamplePosition(hitInfo.point, out hit, 5f, 1))
+            { this.gameObject.transform.position = hit.position; }
+            _controller.enabled = true;
         }
 
         public void togglePlayerVisible()
