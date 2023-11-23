@@ -34,8 +34,12 @@ public class InvestigateState : INpcState
         // or the remaining distance to the target is greater than the stopping distance. 
         // This ensures the NPC continues moving until it has reached its destination.
 
-        while(_npcController.NavMeshAgent.pathPending || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
+        while (_npcController.NavMeshAgent.pathPending || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
         {
+            if (_npcController.CurrentState is not InvestigateState)
+            {
+                yield break;
+            }
             _npcController.NavMeshAgent.SetDestination(NearestPointOnTargetFromPlayer());
             yield return new WaitForSeconds(0.2f);
         }
@@ -43,10 +47,17 @@ public class InvestigateState : INpcState
         yield return new WaitForSeconds(3f);
 
         _npcController.FearReductionHasCooldown = false;
-        _npcController.CurrentState = _npcController.RoamState;
-        _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClip);
-        _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamOrigin.position);
-        yield break;
+
+        if (_npcController.CurrentState is InvestigateState)
+        {
+            _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClip);
+            _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamOrigin.position);
+            _npcController.CurrentState = _npcController.RoamState;
+        }
+        else
+        {
+            yield break;
+        }
     }
 
     /// <summary>
