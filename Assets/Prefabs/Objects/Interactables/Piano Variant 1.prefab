@@ -151,6 +151,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 803f1e6261484d640955d74456e4b310, type: 2}
     m_RemovedComponents:
     - {fileID: 2427988599872222569, guid: 881ac8b5f8c889c44a44dedcab0a50b0, type: 3}
+    - {fileID: 2209465366657276273, guid: 881ac8b5f8c889c44a44dedcab0a50b0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -158,6 +159,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4721046606626833887}
+    - targetCorrespondingSourceObject: {fileID: 4087510885104812059, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5200579447965382030}
   m_SourcePrefab: {fileID: 100100000, guid: 881ac8b5f8c889c44a44dedcab0a50b0, type: 3}
 --- !u!1 &2702946726899883192 stripped
 GameObject:
@@ -180,3 +185,25 @@ MonoBehaviour:
   _keepProgress: 0
   _TurnOff: 0
   DevNote: Other adjustable variables can be found in the audio source component.
+--- !u!64 &5200579447965382030
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702946726899883192}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3985615260038707078, guid: 510f667686f389f42aa957d23365fa19, type: 3}
