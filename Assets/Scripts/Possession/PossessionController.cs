@@ -36,6 +36,10 @@ public class PossessionController : MonoBehaviour, IObserver
         {
             RemovePossessionObjects();
         }
+        if (objectInView.GetComponent<ObservableObject>().State == ObjectState.Broken)
+        {
+            return;
+        }
         CurrentPossession = objectInView;
         possessable.Possess();
         CurrentPossession.GetComponent<ObservableObject>().AddObserver(this);
