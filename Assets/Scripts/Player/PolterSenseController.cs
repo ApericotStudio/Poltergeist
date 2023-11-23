@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PolterSenseController : MonoBehaviour
 {
-    [SerializeField] private List<Outline> outlinesInRange = new List<Outline>();
+    private List<Outline> outlinesInRange = new List<Outline>();
     private bool isOn = false;
 
     private void Update()
@@ -34,7 +34,6 @@ public class PolterSenseController : MonoBehaviour
 
     public void AddOutline(Outline outline)
     {
-        print("added");
         outlinesInRange.Add(outline);
         if (isOn)
         {
@@ -44,7 +43,6 @@ public class PolterSenseController : MonoBehaviour
 
     public void RemoveOutline(Outline outline)
     {
-        print("removed");
         outlinesInRange.Remove(outline);
         outline.enabled = false;
     }
