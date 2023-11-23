@@ -10,11 +10,13 @@ public class BookCase : MonoBehaviour
     private int bookCounter = 0;
     [SerializeField] private GameObject spawnLocation;
     [SerializeField] private float throwForce = 500;
-    [SerializeField] private Vector3 direction;
+    private Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
-
+        direction = spawnLocation.transform.position - transform.position;
+        direction.y = 0;
+        direction.Normalize();
     }
 
     // Update is called once per frame
