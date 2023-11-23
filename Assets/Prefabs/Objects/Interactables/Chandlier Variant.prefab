@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.31
+      value: 1.449
       objectReference: {fileID: 0}
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -36,7 +36,7 @@ PrefabInstance:
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.67
+      value: 0.536
       objectReference: {fileID: 0}
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e879c57aa3a2e449fc3514ee5e9b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swingDirection: {x: 2, y: 0, z: 0}
+  _swingDirection: {x: 1, y: 0, z: 0}
 --- !u!145 &1529193942846913110
 SpringJoint:
   m_ObjectHideFlags: 0
@@ -122,13 +122,13 @@ SpringJoint:
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0.5, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -8.690001, y: 5.67, z: -9.33}
+  m_ConnectedAnchor: {x: 0.09000301, y: -3.6999989, z: -0.039997697}
   serializedVersion: 2
-  m_Spring: 10
-  m_Damper: 5
+  m_Spring: 1000
+  m_Damper: 100
   m_MinDistance: 0
   m_MaxDistance: 0
-  m_Tolerance: 0.025
+  m_Tolerance: 0.25
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
