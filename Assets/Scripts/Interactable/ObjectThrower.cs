@@ -5,9 +5,6 @@ using UnityEngine;
 public class ObjectThrower : MonoBehaviour
 {
     public GameObject spawnedObject;
-
-    [SerializeField] private int nrOfSpawns;
-    private int spawnCounter = 0;
     [SerializeField] private GameObject spawnLocation;
     [SerializeField] private float throwForce = 500;
     private Vector3 direction;
@@ -27,12 +24,8 @@ public class ObjectThrower : MonoBehaviour
 
     public void throwBook()
     {
-        if (spawnCounter < nrOfSpawns)
-        {
-            GameObject mySpawn = Instantiate(spawnedObject, spawnLocation.transform.position, Quaternion.identity);
-            Rigidbody rb = mySpawn.GetComponent<Rigidbody>();
-            rb.AddForce(direction * throwForce);
-            spawnCounter++;
-        }
+        GameObject mySpawn = Instantiate(spawnedObject, spawnLocation.transform.position, Quaternion.identity);
+        Rigidbody rb = mySpawn.GetComponent<Rigidbody>();
+        rb.AddForce(direction * throwForce);
     }
 }
