@@ -85,6 +85,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PolterSenseEnter",
+                    "type": "Button",
+                    "id": "7c2cd20b-5973-4f82-a344-4d037f3bc576",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PolterSenseLeave",
+                    "type": "Button",
+                    "id": "8cb9a763-8863-4c24-b5f9-91e117145af3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -316,6 +334,28 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "InteractPossess",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75ddb2a7-f2b8-4e16-bc22-703d77da63e1",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "PolterSenseEnter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8228ac9-4a45-43e3-b42e-ac51de42882d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "PolterSenseLeave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
