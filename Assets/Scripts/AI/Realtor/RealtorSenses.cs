@@ -32,18 +32,16 @@ public class RealtorSenses : MonoBehaviour
 
     private void DetectNpcs()
     {
-        DetectedNpcs.Clear();
+        ClearDetectedNpcs();
 
         Collider[] targetsInDetectionRadius = Physics.OverlapSphere(transform.position, DetectionRange, _targetMask);
         for (int i = 0; i < targetsInDetectionRadius.Length; i++)
         {
             Collider target = targetsInDetectionRadius[i];
-            Debug.Log("Target detected");
             bool IsNpc = target.TryGetComponent<NpcController>(out var npc);
 
             if (!IsNpc)
                 continue;
-                Debug.Log("Npc detected");
             Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
             float distanceToTarget = Vector3.Distance(transform.position, target.ClosestPoint(transform.position));
 
@@ -51,6 +49,24 @@ public class RealtorSenses : MonoBehaviour
                 continue;
 
             DetectedNpcs.Add(npc);
+            ReduceNpcFear();
+        }
+    }
+
+    private void ClearDetectedNpcs()
+    {
+        foreach (NpcController npc in DetectedNpcs)
+        {
+            npc.gameObject.GetComponent<FearHandler>().FearReductionEnabled = false;
+        }
+        DetectedNpcs.Clear();
+    }
+
+    private void ReduceNpcFear()
+    {
+        foreach (NpcController npc in DetectedNpcs)
+        {
+            npc.gameObject.GetComponent<FearHandler>().FearReductionEnabled = true;
         }
     }
 }

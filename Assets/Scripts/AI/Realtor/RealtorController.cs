@@ -12,18 +12,21 @@ public class RealtorController : MonoBehaviour
     private List<Transform> _npcs;
     [Tooltip("The amount of time the NPC will stay around one npc origin"), Range(0f, 100f), SerializeField]
     private float _npcOriginTimeSpent = 30f;
+    [Tooltip("The radius around the NPC the realtor will roam around in."), Range(1f, 10f), SerializeField]
+    private float _npcOriginRadius = 5f;
     [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC moves.")]
     public AudioClip[] FootstepAudioClips;
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
-    private float _npcOriginRadius = 5f;
+
     private Transform _currentNpcOrigin;
     private float _animationBlend;
     private readonly int _animIDSpeed = Animator.StringToHash("Speed");
     private readonly int _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
     private Animator _animator;
+    private int _currentNpcIndex = 0;
 
 
     private NavMeshAgent _navMeshAgent;
@@ -32,8 +35,7 @@ public class RealtorController : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _currentNpcOrigin = GetNewNpcOrigin();
-        _navMeshAgent.SetDestination(_currentNpcOrigin.position);
+        _currentNpcOrigin = _npcs[_currentNpcIndex];
         StartCoroutine(PeriodicallySetNpcOriginCoroutine());
         StartCoroutine(RoamAroundNpc());
     }
@@ -45,10 +47,14 @@ public class RealtorController : MonoBehaviour
 
     private IEnumerator PeriodicallySetNpcOriginCoroutine()
     {
-        _navMeshAgent.SetDestination(_currentNpcOrigin.position);
-        yield return new WaitUntil(() => _navMeshAgent.remainingDistance < 0.5f && !_navMeshAgent.pathPending);
-        yield return new WaitForSeconds(_npcOriginTimeSpent);
-        _currentNpcOrigin = GetNewNpcOrigin();
+        while(true)
+        {
+            _navMeshAgent.SetDestination(GetRoamLocation());
+            yield return new WaitUntil(() => _navMeshAgent.remainingDistance < 1f && !_navMeshAgent.pathPending);
+            yield return new WaitForSeconds(_npcOriginTimeSpent);
+            _navMeshAgent.SetDestination(_currentNpcOrigin.position);
+            _currentNpcOrigin = GetNewNpcOrigin();
+        }
     }
 
     private IEnumerator RoamAroundNpc()
@@ -76,9 +82,8 @@ public class RealtorController : MonoBehaviour
 
     private Transform GetNewNpcOrigin()
     {
-        List<Transform> npcsCopy = new(_npcs);
-        npcsCopy.Remove(_currentNpcOrigin);
-        return npcsCopy[Random.Range(0, npcsCopy.Count)];
+        _currentNpcIndex = (_currentNpcIndex + 1) % _npcs.Count;
+        return _npcs[_currentNpcIndex];
     }
     
     private void Animate()

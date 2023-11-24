@@ -48,18 +48,12 @@ public class NpcController : MonoBehaviour
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
-
-    [Header("Fear Reduction Settings")]
-    [Tooltip("The value that will be subtracted from the fear value."), Range(0.1f, 1f)]
-    public float ReductionValue = 0.1f;
-    [Tooltip("The speed at which the fear value will be reduced."), Range(0.01f, 1f)]
-    public float ReductionSpeed = 0.05f;
     [HideInInspector]
     public Transform InvestigateTarget;
     [HideInInspector]
-    public bool FearReductionHasCooldown;
-    [HideInInspector]
     public bool RanAway;
+    [HideInInspector]
+    public bool FearReductionHasCooldown = false;
 
     private INpcState _currentState;
     
@@ -104,7 +98,6 @@ public class NpcController : MonoBehaviour
         PanickedState = new PanickedState(this);
         InvestigateState = new InvestigateState(this);
         ScaredState = new ScaredState(this);
-        StartCoroutine(FearReductionCoroutine());
     }
 
     private void Update()
@@ -134,29 +127,6 @@ public class NpcController : MonoBehaviour
     private void OnStateChanged()
     {
         _currentState.Handle();
-    }
-
-    IEnumerator FearReductionCoroutine()
-    {
-        while(true)
-        {
-            if(CurrentState is PanickedState || FearValue <= 0f)
-            {
-                yield break;
-            }
-            if(FearReductionHasCooldown)
-            {
-                yield return null;
-            } 
-            else 
-            {
-                if(FearValue > 0f)
-                {
-                    FearValue -= ReductionValue;
-                    yield return new WaitForSeconds(ReductionSpeed);
-                }  
-            }
-        }
     }
 
     private void InitializeAnimator()

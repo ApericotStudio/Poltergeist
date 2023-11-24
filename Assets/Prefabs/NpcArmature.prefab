@@ -2987,10 +2987,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
-  ReductionValue: 0.1
-  ReductionSpeed: 0.05
   InvestigateTarget: {fileID: 0}
-  FearReductionHasCooldown: 0
   RanAway: 0
 --- !u!114 &1306518244182312063
 MonoBehaviour:
@@ -3034,6 +3031,9 @@ MonoBehaviour:
   - 0.5
   - 0.25
   - 0
+  ReductionValue: 0.1
+  ReductionSpeed: 0.05
+  FearReductionEnabled: 1
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0
