@@ -48,6 +48,10 @@ public class ObservablePhysics : MonoBehaviour
             {
                 _observableObject.State = ObjectState.Broken;
                 _objectBreakEvent.Invoke();
+                if(TryGetComponent(out MeshRenderer meshRenderer))
+                {
+                    meshRenderer.enabled = false;
+                }
                 bool isHighlightable = _observableObject.TryGetComponent(out Highlight highlight);
                 
                 if(isHighlightable)

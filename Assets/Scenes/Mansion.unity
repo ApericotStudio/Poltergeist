@@ -2262,12 +2262,18 @@ Transform:
   m_GameObject: {fileID: 402846811}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 11.79, y: 0, z: -2.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1761795297}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &411326710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2702946726899883192, guid: 3dc8058fd5ea27f4892923a0fc502a16,
+    type: 3}
+  m_PrefabInstance: {fileID: 690747382}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &414463076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2398,6 +2404,11 @@ PrefabInstance:
       propertyPath: CurrentRoamOrigin
       value: 
       objectReference: {fileID: 1390620586}
+    - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
+        type: 3}
+      propertyPath: FrightenedTargetLocation
+      value: 
+      objectReference: {fileID: 54661846}
     - target: {fileID: 4531111113754646614, guid: dc23a5ff50e8e0347acd5b9ec5ab818c,
         type: 3}
       propertyPath: AvailableRoamOrigins.Array.size
@@ -3186,6 +3197,21 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1184562164461996505, guid: 3dc8058fd5ea27f4892923a0fc502a16,
+        type: 3}
+      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 690747396}
+    - target: {fileID: 1184562164461996505, guid: 3dc8058fd5ea27f4892923a0fc502a16,
+        type: 3}
+      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 1184562164461996505, guid: 3dc8058fd5ea27f4892923a0fc502a16,
+        type: 3}
+      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RepeatedAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1414852731181707899, guid: 3dc8058fd5ea27f4892923a0fc502a16,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -3263,14 +3289,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6870801617734907794, guid: 3dc8058fd5ea27f4892923a0fc502a16,
         type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6870801617734907794, guid: 3dc8058fd5ea27f4892923a0fc502a16,
+        type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8545041416234012268, guid: 3dc8058fd5ea27f4892923a0fc502a16,
+        type: 3}
+      propertyPath: Type
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 257430646228092370, guid: 3dc8058fd5ea27f4892923a0fc502a16, type: 3}
+    - {fileID: 4721046606626833887, guid: 3dc8058fd5ea27f4892923a0fc502a16, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2702946726899883192, guid: 3dc8058fd5ea27f4892923a0fc502a16,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 690747396}
   m_SourcePrefab: {fileID: 100100000, guid: 3dc8058fd5ea27f4892923a0fc502a16, type: 3}
 --- !u!4 &690747383 stripped
 Transform:
@@ -3278,6 +3319,19 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 690747382}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &690747396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411326710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d3adc6e8f8e873438ba94faebc802da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundEffect: {fileID: 8300000, guid: c8ebc1c7a929ed6428957b6e819611ac, type: 3}
 --- !u!1 &698875564
 GameObject:
   m_ObjectHideFlags: 0
@@ -3460,6 +3514,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TV Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867682228454523778, guid: 1d708daec4d704141bb9e3be1a22eaae,
+        type: 3}
+      propertyPath: Type
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1741513609532868668, guid: 1d708daec4d704141bb9e3be1a22eaae, type: 3}
@@ -6502,6 +6561,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsKinematic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6091558953151354935, guid: a708de79bb64ead4690de2f398ae8780,
+        type: 3}
+      propertyPath: Type
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2417613572113126281, guid: a708de79bb64ead4690de2f398ae8780, type: 3}
