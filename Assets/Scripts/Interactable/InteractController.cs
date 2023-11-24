@@ -47,7 +47,7 @@ public class InteractController : MonoBehaviour
             if (objectInView.TryGetComponent(out Interactable interactable))
             {
                 _hoverMessage.enabled = true;
-                _hoverMessage.text = "Press [F] to " + interactable.HoverMessage;
+                _hoverMessage.text = "Press [E] to " + interactable.HoverMessage;
                 return;
             }
         }
