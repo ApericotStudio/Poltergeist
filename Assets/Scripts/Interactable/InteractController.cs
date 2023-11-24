@@ -7,13 +7,15 @@ public class InteractController : MonoBehaviour
     private VisionController _visionController;
 
     [Header("References")]
-    [SerializeField] private TextMeshProUGUI _hoverMessage;
+    [SerializeField] public TextMeshProUGUI _hoverMessage;
 
     private void Start()
     {
         _possessionController = GetComponent<PossessionController>();
         _visionController = GetComponent<VisionController>();
+
         _visionController.LookingAtChanged.AddListener(HandleDisplayingInteractPrompt);
+
     }
 
     public void Interact()
@@ -35,7 +37,13 @@ public class InteractController : MonoBehaviour
         {
             return;
         }
+
         possessedInteractable.Use();
+    }
+
+    public void DisableMessage()
+    {
+        _hoverMessage.enabled = false;
     }
 
     private void HandleDisplayingInteractPrompt()
@@ -44,7 +52,7 @@ public class InteractController : MonoBehaviour
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView != null)
         {
-            if (objectInView.TryGetComponent(out Interactable interactable))
+            if (objectInView.TryGetComponent(out Interactable interactable) && !interactable.InteractDepleted)
             {
                 _hoverMessage.enabled = true;
                 _hoverMessage.text = "Press [F] to " + interactable.HoverMessage;
