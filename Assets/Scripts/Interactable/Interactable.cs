@@ -7,7 +7,7 @@ public class Interactable : MonoBehaviour
     [Tooltip("Message displayed on hover")]
     [SerializeField] public string HoverMessage = "Interact";
     [Tooltip("Interactable is reusable")]
-    [SerializeField] private bool _hasMax = true;
+    [SerializeField] private bool _hasMax = false;
     [SerializeField] private int _maxUses = 10;
 
     public UnityEvent InteractEvent;
