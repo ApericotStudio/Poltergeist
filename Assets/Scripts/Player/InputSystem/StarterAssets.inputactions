@@ -42,31 +42,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "AimPossess",
-                    "type": "Button",
-                    "id": "67482f90-11ee-42a1-b768-42bf4a50a9c9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "AimCancel",
+                    "name": "Cancel",
                     "type": "Button",
                     "id": "67517238-3414-41f3-9303-ae1b0841d298",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "AimPossessConfirm",
-                    "type": "Button",
-                    "id": "62471306-ecc7-4313-8228-5ebce33f91ba",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 },
                 {
                     "name": "Unpossess",
@@ -96,12 +78,30 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "InteractPossess",
                     "type": "Button",
                     "id": "e52198c8-76a1-4da4-a7d7-ab4d7e8e28d0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PolterSenseEnter",
+                    "type": "Button",
+                    "id": "7c2cd20b-5973-4f82-a344-4d037f3bc576",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PolterSenseLeave",
+                    "type": "Button",
+                    "id": "8cb9a763-8863-4c24-b5f9-91e117145af3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
                 }
             ],
@@ -284,34 +284,12 @@
                 },
                 {
                     "name": "",
-                    "id": "874da260-ea24-4290-a5f6-ec0de3e80c09",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "AimPossess",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1b973940-1b70-4d6a-8c7c-4b6b71799bc2",
                     "path": "<Keyboard>/c",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "AimCancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "82178a7b-47ae-4bf2-907d-4b0b35b9cdc6",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Press(behavior=1)",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "AimPossessConfirm",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -329,7 +307,7 @@
                 {
                     "name": "",
                     "id": "18abc3dc-2c23-45a2-a95c-183470d5bc09",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "KeyboardMouse",
@@ -340,7 +318,7 @@
                 {
                     "name": "",
                     "id": "aacf7c53-e340-4c73-9a11-861237906f79",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "KeyboardMouse",
@@ -355,7 +333,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Interact",
+                    "action": "InteractPossess",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75ddb2a7-f2b8-4e16-bc22-703d77da63e1",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "PolterSenseEnter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8228ac9-4a45-43e3-b42e-ac51de42882d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "PolterSenseLeave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

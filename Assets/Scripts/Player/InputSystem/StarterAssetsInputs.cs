@@ -23,21 +23,19 @@ namespace StarterAssets
 		public bool CursorInputForLook = true;
 
 		//events
-		[SerializeField] private UnityEvent _onPressAimInput;
-		[SerializeField] private UnityEvent _onCancelAimInput;
-		[SerializeField] private UnityEvent _onConfirmAimInput;
+		[SerializeField] private UnityEvent _onCancelInput;
+		[SerializeField] private UnityEvent _onInteractPossessInput;
 		[SerializeField] private UnityEvent _onUnpossessInput;
-		[SerializeField] private UnityEvent _onThrowAimInput;
+		[SerializeField] private UnityEvent _onAimThrowInput;
 		[SerializeField] private UnityEvent _onThrowInput;
-		[SerializeField] private UnityEvent _onInteractInput;
+        [SerializeField] private UnityEvent _onPolterSenseEnterInput;
+        [SerializeField] private UnityEvent _onPolterSenseLeaveInput;
 
-		public UnityEvent OnPressAimInput { get => _onPressAimInput; set => _onPressAimInput = value; }
-		public UnityEvent OnCancelAimInput { get => _onCancelAimInput; set => _onCancelAimInput = value; }
-		public UnityEvent OnConfirmAimInput { get => _onConfirmAimInput; set => _onConfirmAimInput = value; }
+        public UnityEvent OnCancelInput { get => _onCancelInput; set => _onCancelInput = value; }
+		public UnityEvent OnInteractPossessInput { get => _onInteractPossessInput; set => _onInteractPossessInput = value; }
 		public UnityEvent OnUnpossessInput { get => _onUnpossessInput; set => _onUnpossessInput = value; }
-		public UnityEvent OnThrowAimInput { get => _onThrowAimInput; set => _onThrowAimInput = value; }
+		public UnityEvent OnAimThrowInput { get => _onAimThrowInput; set => _onAimThrowInput = value; }
 		public UnityEvent OnThrowInput { get => _onThrowInput; set => _onThrowInput = value; }
-        public UnityEvent OnInteractInput { get => _onInteractInput; set => _onInteractInput = value; }
 
 #if ENABLE_INPUT_SYSTEM
         private void OnMove(InputValue value)
@@ -68,24 +66,19 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 
-		private void OnAimPossess(InputValue value)
+		private void OnCancel(InputValue value)
 		{
-			_onPressAimInput.Invoke();
+			_onCancelInput.Invoke();
 		}
 
-		private void OnAimCancel(InputValue value)
+		private void OnInteractPossess(InputValue value)
 		{
-			_onCancelAimInput.Invoke();
-		}
-
-		private void OnAimPossessConfirm(InputValue value)
-		{
-			_onConfirmAimInput.Invoke();
+			_onInteractPossessInput.Invoke();
 		}
 
 		private void OnAimThrow(InputValue value)
         {
-			_onThrowAimInput.Invoke();
+			_onAimThrowInput.Invoke();
         }
 
 		private void OnThrow(InputValue value)
@@ -98,11 +91,15 @@ namespace StarterAssets
 			_onUnpossessInput.Invoke();
 		}
 
-		private void OnInteract(InputValue value)
+		private void OnPolterSenseEnter(InputValue value)
 		{
-			_onInteractInput.Invoke();
+			_onPolterSenseEnterInput.Invoke();
+		}
 
-        }
+		private void OnPolterSenseLeave(InputValue value)
+		{
+			_onPolterSenseLeaveInput.Invoke();
+		}
 #endif
 
 

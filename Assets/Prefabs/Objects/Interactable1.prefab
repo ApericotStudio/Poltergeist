@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 5967700316553098386}
   - component: {fileID: 4671154671675125317}
   - component: {fileID: 4306626876402358202}
+  - component: {fileID: 5965797065065475788}
   m_Layer: 3
   m_Name: Interactable1
   m_TagString: Untagged
@@ -166,13 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de1a478009c8414e9303b12dd63f349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveAnxietyValue: 4
-  DestroyAnxietyValue: 10
-  AuditoryAnxietyValue: 1
-  VisualAnxietyValue: 3
   Type: 10
-  IsVisible: 0
-  IsAudible: 0
 --- !u!114 &5030223199616537604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,3 +239,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9001b9b6de6095147b3a44f5cde590a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5965797065065475788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440278783580584740}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

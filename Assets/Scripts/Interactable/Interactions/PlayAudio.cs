@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent (typeof(AudioSource))]
 public class PlayAudio : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayAudio : MonoBehaviour
     [Header("Adjustable variables")]
     [Tooltip("Pause sound instead of stopping it")]
     [SerializeField] private bool _keepProgress = false;
+    [Tooltip("Check if item can be turned off or not")]
+    [SerializeField] private bool _TurnOff = true;
     [TextArea]
     public string DevNote = "Other adjustable variables can be found in the audio source component.";
 
@@ -25,6 +28,12 @@ public class PlayAudio : MonoBehaviour
             {
                 _audioSource.Pause();
             }
+
+            if (!_TurnOff)
+            {
+                return;
+            }
+
             else
             {
                 _audioSource.Stop();
