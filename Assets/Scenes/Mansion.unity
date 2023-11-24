@@ -2381,6 +2381,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414463076}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &521310899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d19f02ba5d1cba546a0fd53a216ed97a,
+    type: 3}
+  m_PrefabInstance: {fileID: 954531113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &567061326
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2620,7 +2626,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1487674363}
     m_Modifications:
     - target: {fileID: 109762025904817702, guid: cf4391359e8dde74cb072b174da80ba4,
         type: 3}
@@ -2665,12 +2671,12 @@ PrefabInstance:
     - target: {fileID: 109762025904817702, guid: cf4391359e8dde74cb072b174da80ba4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 109762025904817702, guid: cf4391359e8dde74cb072b174da80ba4,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 109762025904817702, guid: cf4391359e8dde74cb072b174da80ba4,
         type: 3}
@@ -4600,11 +4606,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.715, y: 1, z: 0.695}
+  m_Extents: {x: 0.75, y: 1, z: 0.75}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 1.04, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &854781138
 GameObject:
@@ -4746,7 +4752,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d19f02ba5d1cba546a0fd53a216ed97a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 954531117}
   m_SourcePrefab: {fileID: 100100000, guid: d19f02ba5d1cba546a0fd53a216ed97a, type: 3}
 --- !u!4 &954531114 stripped
 Transform:
@@ -4754,6 +4764,22 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 954531113}
   m_PrefabAsset: {fileID: 0}
+--- !u!208 &954531117
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521310899}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.007, y: 0.011000001, z: 0.011000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0.011000001}
+  m_TimeToStationary: 0.5
 --- !u!1001 &955478091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4919,9 +4945,9 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.68, y: 1, z: 0.705}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.04, z: -0.25}
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: -0.05, y: 1, z: -0.07}
   m_TimeToStationary: 0.5
 --- !u!1 &964442772
 GameObject:
@@ -6236,9 +6262,9 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
-  m_GenerateLinks: 0
+  m_GenerateLinks: 1
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
@@ -6798,7 +6824,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1487674363}
     m_Modifications:
     - target: {fileID: 2264977163292157146, guid: 18a2cb2ffc0e946eb8cf692b71d4008c,
         type: 3}
@@ -6813,7 +6839,7 @@ PrefabInstance:
     - target: {fileID: 2976468209195616793, guid: 18a2cb2ffc0e946eb8cf692b71d4008c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.33569875
+      value: 0.33569872
       objectReference: {fileID: 0}
     - target: {fileID: 2976468209195616793, guid: 18a2cb2ffc0e946eb8cf692b71d4008c,
         type: 3}
@@ -6848,12 +6874,12 @@ PrefabInstance:
     - target: {fileID: 2976468209195616793, guid: 18a2cb2ffc0e946eb8cf692b71d4008c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2976468209195616793, guid: 18a2cb2ffc0e946eb8cf692b71d4008c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2976468209195616793, guid: 18a2cb2ffc0e946eb8cf692b71d4008c,
         type: 3}
@@ -6988,6 +7014,12 @@ MeshFilter:
 --- !u!1 &1457752587 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2041738704570044242, guid: cf4391359e8dde74cb072b174da80ba4,
+    type: 3}
+  m_PrefabInstance: {fileID: 577845931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1457752599 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 109762025904817702, guid: cf4391359e8dde74cb072b174da80ba4,
     type: 3}
   m_PrefabInstance: {fileID: 577845931}
   m_PrefabAsset: {fileID: 0}
@@ -7342,6 +7374,8 @@ Transform:
   - {fileID: 690747383}
   - {fileID: 302218988}
   - {fileID: 1363286972}
+  - {fileID: 2028715634}
+  - {fileID: 1457752599}
   - {fileID: 1711981082}
   - {fileID: 2030037273}
   m_Father: {fileID: 2143024158}
@@ -7839,7 +7873,7 @@ NavMeshObstacle:
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: -2, z: 0}
+  m_Center: {x: 0, y: -2.96, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &1717570230
 GameObject:
@@ -8393,6 +8427,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008355460}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2028715634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2976468209195616793, guid: 18a2cb2ffc0e946eb8cf692b71d4008c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1436592201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2030037272
 GameObject:
   m_ObjectHideFlags: 0
@@ -9190,5 +9230,3 @@ SceneRoots:
   - {fileID: 1313445292}
   - {fileID: 1303982236}
   - {fileID: 567061326}
-  - {fileID: 1436592201}
-  - {fileID: 577845931}
