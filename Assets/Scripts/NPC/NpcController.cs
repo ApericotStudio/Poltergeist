@@ -107,7 +107,7 @@ public class NpcController : MonoBehaviour
         PanickedState = new PanickedState(this);
         InvestigateState = new InvestigateState(this);
         ScaredState = new ScaredState(this);
-        StartCoroutine(FearReductionCoroutine());
+        // StartCoroutine(FearReductionCoroutine());
     }
 
     private void Update()
@@ -122,7 +122,7 @@ public class NpcController : MonoBehaviour
 
     private void ChangeBehaviourBasedOnAnxiety()
     {
-        if(FearValue >= 100f && CurrentState is not global::PanickedState)
+        if(FearValue >= 90f && CurrentState is not global::PanickedState)
         {
             CurrentState = PanickedState;
             return;
