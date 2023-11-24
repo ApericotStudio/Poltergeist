@@ -35,6 +35,7 @@ public class Highlight : MonoBehaviour
     /// </summary>
     public void Highlighted(bool turnOn)
     {
+        SetupMaterials();
         if (turnOn)
         {
             if (!_highlightable)

@@ -1,6 +1,7 @@
 using System;
 using UnityEditor.EditorTools;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ObservablePhysics : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ObservablePhysics : MonoBehaviour
     private bool _isBreakable = false;
     [Tooltip("Minimum Impulse needed to destroy the object"), SerializeField] 
     private float _destroyMinimumImpulse = 10;
+    [SerializeField]
+    private UnityEvent _objectBreakEvent;
 
     private bool _firstHit = true;
 
@@ -44,6 +47,7 @@ public class ObservablePhysics : MonoBehaviour
             if(collision.impulse.magnitude > _destroyMinimumImpulse)
             {
                 _observableObject.State = ObjectState.Broken;
+                _objectBreakEvent.Invoke();
                 bool isHighlightable = _observableObject.TryGetComponent(out Highlight highlight);
                 
                 if(isHighlightable)
