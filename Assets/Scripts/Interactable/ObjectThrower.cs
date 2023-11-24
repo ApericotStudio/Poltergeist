@@ -4,28 +4,22 @@ using UnityEngine;
 
 public class ObjectThrower : MonoBehaviour
 {
-    public GameObject spawnedObject;
-    [SerializeField] private GameObject spawnLocation;
-    [SerializeField] private float throwForce = 500;
-    private Vector3 direction;
+    public GameObject SpawnedObject;
+    [SerializeField] private GameObject _spawnLocation;
+    [SerializeField] private float _throwForce = 500;
+    private Vector3 _direction;
     // Start is called before the first frame update
     void Start()
     {
-        direction = spawnLocation.transform.position - transform.position;
-        direction.y = 0;
-        direction.Normalize();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _direction = _spawnLocation.transform.position - transform.position;
+        _direction.y = 0;
+        _direction.Normalize();
     }
 
     public void throwBook()
     {
-        GameObject mySpawn = Instantiate(spawnedObject, spawnLocation.transform.position, Quaternion.identity);
+        GameObject mySpawn = Instantiate(SpawnedObject, _spawnLocation.transform.position, Quaternion.identity);
         Rigidbody rb = mySpawn.GetComponent<Rigidbody>();
-        rb.AddForce(direction * throwForce);
+        rb.AddForce(_direction * _throwForce);
     }
 }
