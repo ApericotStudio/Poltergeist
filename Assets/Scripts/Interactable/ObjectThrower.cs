@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookCase : MonoBehaviour
+public class ObjectThrower : MonoBehaviour
 {
-    public GameObject book;
+    public GameObject spawnedObject;
 
-    [SerializeField] private int nrOfBooks;
-    private int bookCounter = 0;
+    [SerializeField] private int nrOfSpawns;
+    private int spawnCounter = 0;
     [SerializeField] private GameObject spawnLocation;
     [SerializeField] private float throwForce = 500;
     private Vector3 direction;
@@ -27,12 +27,12 @@ public class BookCase : MonoBehaviour
 
     public void throwBook()
     {
-        if (bookCounter < nrOfBooks)
+        if (spawnCounter < nrOfSpawns)
         {
-            GameObject myBook = Instantiate(book, spawnLocation.transform.position, Quaternion.identity);
-            Rigidbody rb = myBook.GetComponent<Rigidbody>();
+            GameObject mySpawn = Instantiate(spawnedObject, spawnLocation.transform.position, Quaternion.identity);
+            Rigidbody rb = mySpawn.GetComponent<Rigidbody>();
             rb.AddForce(direction * throwForce);
-            bookCounter++;
+            spawnCounter++;
         }
     }
 }
