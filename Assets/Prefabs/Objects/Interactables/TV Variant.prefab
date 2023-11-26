@@ -133,6 +133,16 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5341852094705022397, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341852094705022397, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5967700316553098386, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Extents.x
@@ -165,7 +175,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184490156097573802, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184490156097573802, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 11c0ebb7ad2f7af4aae235bb865e990b, type: 2}
+    - target: {fileID: 8184490156097573802, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 79ec405f4feff1e41be6507852e73df4, type: 2}
     - target: {fileID: 8433999143914360746, guid: 550731f42b320314ba8cc42ee41050e6,
