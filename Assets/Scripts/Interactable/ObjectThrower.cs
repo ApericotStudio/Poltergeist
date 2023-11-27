@@ -30,6 +30,7 @@ public class ObjectThrower : MonoBehaviour
 
     public void SpewObjects()
     {
+        //Need the coroutine to wait between spawns.
         StartCoroutine(spawnMultiple());
     }
 
@@ -40,6 +41,8 @@ public class ObjectThrower : MonoBehaviour
             GameObject mySpawn = Instantiate(SpawnedObject, _spawnLocation.transform.position, Quaternion.identity);
             mySpawn.transform.forward = _direction;
             Rigidbody rb = mySpawn.GetComponent<Rigidbody>();
+
+            //Take a random location in a circle and set the circle at some distance forward from the spawn point. Throw the object to that point.
             Vector2 circle = Random.insideUnitCircle * _coneRadius;
             Vector3 target = _spawnLocation.transform.position + _spawnLocation.transform.forward * 5 + _spawnLocation.transform.rotation * new Vector3(circle.x, circle.y);
             rb.AddForce(target.normalized* _throwForce);
