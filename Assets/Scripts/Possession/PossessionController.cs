@@ -11,11 +11,17 @@ public class PossessionController : MonoBehaviour, IObserver
     public Throwable CurrentThrowable;
     private ThirdPersonController _thirdPersonController;
     private VisionController _visionController;
+    private AudioSource _audioSource;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip _possessSound;
+    [SerializeField] private AudioClip _unpossessSound;
 
     private void Awake()
     {
         _thirdPersonController = GetComponent<ThirdPersonController>();
         _visionController = GetComponent<VisionController>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -44,6 +50,7 @@ public class PossessionController : MonoBehaviour, IObserver
         possessable.Possess();
         CurrentPossession.GetComponent<ObservableObject>().AddObserver(this);
         _thirdPersonController.freeze = true;
+        _audioSource.PlayOneShot(_possessSound);
         CurrentPossessionChanged?.Invoke();
         if (CurrentPossession.TryGetComponent(out Throwable throwable))
         {
@@ -58,6 +65,7 @@ public class PossessionController : MonoBehaviour, IObserver
             _thirdPersonController.toUnpossessLocation();
             RemovePossessionObjects();
             _thirdPersonController.freeze = false;
+            _audioSource.PlayOneShot(_unpossessSound);
             CurrentPossessionChanged?.Invoke();
         }
     }
