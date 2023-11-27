@@ -7,7 +7,7 @@ public class InteractController : MonoBehaviour
     private VisionController _visionController;
 
     [Header("References")]
-    [SerializeField] public TextMeshProUGUI _hoverMessage;
+    [SerializeField] public TextMeshProUGUI HoverMessage;
 
     private void Start()
     {
@@ -42,21 +42,16 @@ public class InteractController : MonoBehaviour
         possessedInteractable.Use();
     }
 
-    public void DisableMessage()
-    {
-        _hoverMessage.enabled = false;
-    }
-
     private void HandleDisplayingInteractPrompt()
     {
-        _hoverMessage.enabled = false;
+        HoverMessage.enabled = false;
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView != null)
         {
             if (objectInView.TryGetComponent(out Interactable interactable) && !interactable.InteractDepleted)
             {
-                _hoverMessage.enabled = true;
-                _hoverMessage.text = "Press [F] to " + interactable.HoverMessage;
+                HoverMessage.enabled = true;
+                HoverMessage.text = "Press [F] to " + interactable.HoverMessage;
                 return;
             }
         }
