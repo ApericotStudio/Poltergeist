@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent (typeof(AudioSource))]
 public class PlayAudio : MonoBehaviour
@@ -8,6 +6,8 @@ public class PlayAudio : MonoBehaviour
     private AudioSource _audioSource;
 
     [Header("Adjustable variables")]
+    [Tooltip("Restart sound instead of stopping it")]
+    [SerializeField] bool _onlyActivatable = false;
     [Tooltip("Pause sound instead of stopping it")]
     [SerializeField] private bool _keepProgress = false;
     [Tooltip("Check if item can be turned off or not")]
@@ -22,6 +22,12 @@ public class PlayAudio : MonoBehaviour
 
     public void Toggle()
     {
+        if (_onlyActivatable)
+        {
+            _audioSource.Play();
+            return;
+        }
+
         if (_audioSource.isPlaying)
         {
             if (_keepProgress)
