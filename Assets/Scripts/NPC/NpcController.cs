@@ -122,7 +122,7 @@ public class NpcController : MonoBehaviour
 
     private void ChangeBehaviourBasedOnAnxiety()
     {
-        if(FearValue >= 90f && CurrentState is not global::PanickedState)
+        if(FearValue >= 100f && CurrentState is not global::PanickedState)
         {
             CurrentState = PanickedState;
             return;
