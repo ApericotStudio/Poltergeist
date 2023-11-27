@@ -2384,12 +2384,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1761795297}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &411326710 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2702946726899883192, guid: 3dc8058fd5ea27f4892923a0fc502a16,
-    type: 3}
-  m_PrefabInstance: {fileID: 690747382}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &414463076
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,7 +3696,7 @@ PrefabInstance:
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 690747396}
+      objectReference: {fileID: 0}
     - target: {fileID: 1184562164461996505, guid: 3dc8058fd5ea27f4892923a0fc502a16,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -3834,11 +3828,7 @@ PrefabInstance:
     - {fileID: 4721046606626833887, guid: 3dc8058fd5ea27f4892923a0fc502a16, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2702946726899883192, guid: 3dc8058fd5ea27f4892923a0fc502a16,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 690747396}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dc8058fd5ea27f4892923a0fc502a16, type: 3}
 --- !u!4 &690747383 stripped
 Transform:
@@ -3846,19 +3836,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 690747382}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &690747396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 411326710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d3adc6e8f8e873438ba94faebc802da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _soundEffect: {fileID: 8300000, guid: c8ebc1c7a929ed6428957b6e819611ac, type: 3}
 --- !u!1 &698875564
 GameObject:
   m_ObjectHideFlags: 0
