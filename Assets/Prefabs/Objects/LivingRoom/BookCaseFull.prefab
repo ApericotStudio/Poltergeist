@@ -67,12 +67,12 @@ PrefabInstance:
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: throwBook
+      value: SpewObjects
       objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BookCase, Assembly-CSharp
+      value: ObjectThrower, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -276,6 +276,7 @@ MonoBehaviour:
     type: 3}
   _spawnLocation: {fileID: 6730366209636791206}
   _throwForce: 500
+  nrPerActivation: 20
 --- !u!4 &2976468209195616793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
