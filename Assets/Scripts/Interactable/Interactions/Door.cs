@@ -12,45 +12,64 @@ public class Door : MonoBehaviour
     [SerializeField] private float _rotationAmount = 90f;
     [SerializeField] private float _forwardDirection = 0;
 
-    private Vector3 StartRotation;
-    private Vector3 Forward;
+    private Vector3 _awakeRotation;
+    private Vector3 _forward;
+    private Transform _pivot;
 
-    private Coroutine AnimationCoroutine;
+    private Coroutine _animationCoroutine;
+
+    //remove this, npcs should also interact
+    private GameObject _player;
 
     private void Awake()
     {
-        StartRotation = transform.rotation.eulerAngles;
+        _pivot = transform.parent;
+        _awakeRotation = _pivot.rotation.eulerAngles;
 
-        Forward = transform.right;
+        _forward = _pivot.right;
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Start is called before the first frame update
-    public void Open(Vector3 UserPosition)
+    public void Use()
     {
+        if (IsOpen)
+        {
+            Close();
+        } else
+        {
+            Open();
+        }
+    }
+
+
+    public void Open()
+    {
+        Vector3 UserPosition = _player.transform.position;
         if (!IsOpen)
         {
-            if (AnimationCoroutine != null)
+            if (_animationCoroutine != null)
             {
-                StopCoroutine(AnimationCoroutine);
+                StopCoroutine(_animationCoroutine);
             }
 
             if (_isRotatingDoor)
             {
-                float dot = Vector3.Dot(Forward, (UserPosition - transform.position).normalized);
+                float dot = Vector3.Dot(_forward, (UserPosition - _pivot.position).normalized);
+                _animationCoroutine = StartCoroutine(DoRotationOpen(dot));
             }
         }
     }
 
     private IEnumerator DoRotationOpen(float ForwardAmount)
     {
-        Quaternion startRotation = transform.rotation;
+        Quaternion startRotation = _pivot.rotation;
         Quaternion endRotation;
         if (ForwardAmount >= _forwardDirection)
         {
-            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y - _rotationAmount, 0));
+            endRotation = Quaternion.Euler(new Vector3(0, _awakeRotation.y - _rotationAmount, 0));
         } else
         {
-            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y + _rotationAmount, 0));
+            endRotation = Quaternion.Euler(new Vector3(0, _awakeRotation.y + _rotationAmount, 0));
         }
 
         IsOpen = true;
@@ -58,7 +77,7 @@ public class Door : MonoBehaviour
         float time = 0;
         while (time < 1)
         {
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            _pivot.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
             time += Time.deltaTime * _speed;
         }
@@ -68,29 +87,29 @@ public class Door : MonoBehaviour
     {
         if (IsOpen)
         {
-            if (AnimationCoroutine != null)
+            if (_animationCoroutine != null)
             {
-                StopCoroutine(AnimationCoroutine);
+                StopCoroutine(_animationCoroutine);
             }
 
             if (_isRotatingDoor)
             {
-                AnimationCoroutine = StartCoroutine(DoRotationClose());
+                _animationCoroutine = StartCoroutine(DoRotationClose());
             }
         }
     }
 
     private IEnumerator DoRotationClose()
     {
-        Quaternion startRotation = transform.rotation;
-        Quaternion endRotation = Quaternion.Euler(StartRotation);
+        Quaternion startRotation = _pivot.rotation;
+        Quaternion endRotation = Quaternion.Euler(_awakeRotation);
 
         IsOpen = false;
 
         float time = 0;
         while (time < 1)
         {
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            _pivot.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
             time += Time.deltaTime * _speed;
         }
