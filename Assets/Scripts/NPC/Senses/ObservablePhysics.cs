@@ -12,6 +12,8 @@ public class ObservablePhysics : MonoBehaviour
     private bool _isBreakable = false;
     [Tooltip("Minimum Impulse needed to destroy the object"), SerializeField] 
     private float _destroyMinimumImpulse = 10;
+    [Tooltip("Minimum Impulse needed for hitting ground sound"), SerializeField]
+    private float _hitGroundSoundMinimumImpulse = 3;
 
     private bool _firstHit = true;
 
@@ -60,7 +62,7 @@ public class ObservablePhysics : MonoBehaviour
                 
                 _observableObject.ClearObservers();
             }
-            else
+            else if(collision.impulse.magnitude > _hitGroundSoundMinimumImpulse)
             {
                 PlayHittingGroundSound();
             }

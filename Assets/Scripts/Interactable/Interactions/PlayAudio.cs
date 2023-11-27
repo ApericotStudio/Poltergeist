@@ -7,7 +7,7 @@ public class PlayAudio : MonoBehaviour
 
     [Header("Adjustable variables")]
     [Tooltip("Restart sound instead of stopping it")]
-    [SerializeField] bool _onlyActivatable = false;
+    [SerializeField] private bool _onlyActivatable = false;
     [Tooltip("Pause sound instead of stopping it")]
     [SerializeField] private bool _keepProgress = false;
     [Tooltip("Check if item can be turned off or not")]
