@@ -148,6 +148,31 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineWidth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.4811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0.20705064
+      objectReference: {fileID: 0}
     - target: {fileID: 5967700316553098386, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Extents.x
@@ -358,6 +383,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offMaterial: {fileID: 2100000, guid: 11c0ebb7ad2f7af4aae235bb865e990b, type: 2}
   _onMaterial: {fileID: 2100000, guid: 201127d5c92623d4d9272a58e5bb0692, type: 2}
+  _materialChangedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5469582404641021174}
+        m_TargetAssemblyTypeName: Highlight, Assembly-CSharp
+        m_MethodName: MaterialChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!64 &5196413935109976951
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -380,3 +420,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3728233485632807860, guid: f03ca0689dd5b1d40af174c8233daa0e, type: 3}
+--- !u!114 &5469582404641021174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 5411820173373254258}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4484249406029336918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d80b70c10f243949b95eeee594cac8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
