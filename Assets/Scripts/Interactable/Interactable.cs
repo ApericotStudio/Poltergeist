@@ -11,9 +11,13 @@ public class Interactable : MonoBehaviour
     [SerializeField] private int _maxUses = 10;
 
     public UnityEvent InteractEvent;
+    private bool _interactDepleted;
+
+    
 
     private ObservableObject _observableObject;
     private int _uses = 0;
+    public bool InteractDepleted { get => _interactDepleted; set => _interactDepleted = value; }
 
     private void Awake()
     {
@@ -36,6 +40,8 @@ public class Interactable : MonoBehaviour
             if (gameObject.TryGetComponent(out Highlight highlight)){
                 highlight.Highlightable(false);
             }
+
+            _interactDepleted = true;
         }
     }
 }
