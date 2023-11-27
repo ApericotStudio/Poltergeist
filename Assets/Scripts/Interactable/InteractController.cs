@@ -25,6 +25,7 @@ public class InteractController : MonoBehaviour
         {
             if (objectInView.TryGetComponent(out Interactable interactable))
             {
+                HandleDisplayingInteractPrompt();
                 interactable.Use();
                 return;
             }

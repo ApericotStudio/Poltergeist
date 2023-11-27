@@ -11,7 +11,6 @@ public class Interactable : MonoBehaviour
     [SerializeField] private int _maxUses = 10;
 
     public UnityEvent InteractEvent;
-    public UnityEvent InteractDepletedEvent;
     private bool _interactDepleted;
 
     
@@ -43,7 +42,6 @@ public class Interactable : MonoBehaviour
             }
 
             _interactDepleted = true;
-            InteractDepletedEvent.Invoke();
         }
     }
 }
