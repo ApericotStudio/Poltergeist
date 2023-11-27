@@ -43,6 +43,9 @@ public class ObjectThrower : MonoBehaviour
             Vector2 circle = Random.insideUnitCircle * _coneRadius;
             Vector3 target = _spawnLocation.transform.position + _spawnLocation.transform.forward * 5 + _spawnLocation.transform.rotation * new Vector3(circle.x, circle.y);
             rb.AddForce(target.normalized* _throwForce);
+
+            //Wait for fixedupdate, otherwise all objects spawn at the exact same moment at the exact same location and add more force
+            //upward / downward than you add to the rigidbody, causing them to spawn in a tower.
             yield return new WaitForFixedUpdate();
         }
     }
