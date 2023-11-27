@@ -21,7 +21,7 @@ public class ObjectThrower : MonoBehaviour
         _spawnLocation.transform.forward = _direction;
     }
 
-    public void throwBook()
+    public void throwObject()
     {
         GameObject mySpawn = Instantiate(SpawnedObject, _spawnLocation.transform.position, Quaternion.identity);
         Rigidbody rb = mySpawn.GetComponent<Rigidbody>();
