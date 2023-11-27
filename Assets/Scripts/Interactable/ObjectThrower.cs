@@ -31,10 +31,10 @@ public class ObjectThrower : MonoBehaviour
     public void SpewObjects()
     {
         //Need the coroutine to wait between spawns.
-        StartCoroutine(spawnMultiple());
+        StartCoroutine(SpawnMultiple());
     }
 
-    public IEnumerator spawnMultiple()
+    private IEnumerator SpawnMultiple()
     {
         for (int i = 0; i<_nrPerActivation; i++)
         {
