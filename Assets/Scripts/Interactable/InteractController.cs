@@ -13,7 +13,9 @@ public class InteractController : MonoBehaviour
     {
         _possessionController = GetComponent<PossessionController>();
         _visionController = GetComponent<VisionController>();
+
         _visionController.LookingAtChanged.AddListener(HandleDisplayingInteractPrompt);
+
     }
 
     public void Interact()
@@ -23,6 +25,7 @@ public class InteractController : MonoBehaviour
         {
             if (objectInView.TryGetComponent(out Interactable interactable))
             {
+                HandleDisplayingInteractPrompt();
                 interactable.Use();
                 return;
             }
@@ -35,6 +38,7 @@ public class InteractController : MonoBehaviour
         {
             return;
         }
+
         possessedInteractable.Use();
     }
 
@@ -44,10 +48,10 @@ public class InteractController : MonoBehaviour
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView != null)
         {
-            if (objectInView.TryGetComponent(out Interactable interactable))
+            if (objectInView.TryGetComponent(out Interactable interactable) && !interactable.InteractDepleted)
             {
                 _hoverMessage.enabled = true;
-                _hoverMessage.text = "Press [F] to " + interactable.HoverMessage;
+                _hoverMessage.text = "Press [E] to " + interactable.HoverMessage;
                 return;
             }
         }
