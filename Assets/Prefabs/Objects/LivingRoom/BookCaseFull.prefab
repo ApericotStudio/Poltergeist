@@ -46,6 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
+      propertyPath: _maxUses
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -67,12 +72,12 @@ PrefabInstance:
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: throwBook
+      value: SpewObjects
       objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BookCase, Assembly-CSharp
+      value: ObjectThrower, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -153,26 +158,6 @@ PrefabInstance:
         type: 3}
       propertyPath: _isBreakable
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
-        type: 3}
-      propertyPath: outlineWidth
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
-        type: 3}
-      propertyPath: outlineColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
-        type: 3}
-      propertyPath: outlineColor.g
-      value: 0.48235294
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
-        type: 3}
-      propertyPath: outlineColor.r
-      value: 0.20784314
       objectReference: {fileID: 0}
     - target: {fileID: 5967700316553098386, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -296,6 +281,8 @@ MonoBehaviour:
     type: 3}
   _spawnLocation: {fileID: 6730366209636791206}
   _throwForce: 500
+  _nrPerActivation: 20
+  _coneRadius: 50
 --- !u!4 &2976468209195616793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
