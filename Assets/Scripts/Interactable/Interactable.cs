@@ -7,12 +7,17 @@ public class Interactable : MonoBehaviour
     [Tooltip("Message displayed on hover")]
     [SerializeField] public string HoverMessage = "Interact";
     [Tooltip("Interactable is reusable")]
-    [SerializeField] private bool _singleUse = false;
+    [SerializeField] private bool _hasMax = false;
+    [SerializeField] private int _maxUses = 10;
 
     public UnityEvent InteractEvent;
+    private bool _interactDepleted;
+
+    
 
     private ObservableObject _observableObject;
-    private bool _used = false;
+    private int _uses = 0;
+    public bool InteractDepleted { get => _interactDepleted; set => _interactDepleted = value; }
 
     private void Awake()
     {
@@ -21,7 +26,7 @@ public class Interactable : MonoBehaviour
 
     public void Use()
     {
-        if (_singleUse && _used)
+        if (_uses >= _maxUses && _hasMax)
         {
             return;
         }
@@ -29,12 +34,14 @@ public class Interactable : MonoBehaviour
         ObjectState originalState = _observableObject.State;
         _observableObject.State = ObjectState.Interacted;
         _observableObject.State = originalState;
-        _used = true;
-        if (_singleUse)
+        _uses++;
+        if (_uses >= _maxUses && _hasMax)
         {
             if (gameObject.TryGetComponent(out Highlight highlight)){
                 highlight.Highlightable(false);
             }
+
+            _interactDepleted = true;
         }
     }
 }
