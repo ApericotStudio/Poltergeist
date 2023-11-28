@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// The state in which the realtor checks up on the NPCs.
+/// </summary>
 public class CheckUpState : IState
 {
     private readonly RealtorController _realtorController;
@@ -43,7 +46,7 @@ public class CheckUpState : IState
             _realtorController.Agent.SetDestination(GetRoamLocation());
             yield return new WaitUntil(() => _realtorController.Agent.remainingDistance < 0.5f && !_realtorController.Agent.pathPending);
             yield return new WaitForSeconds(_realtorController.CheckUpTimeSpent);
-            _realtorController.SetCheckUpOrigin();
+            _realtorController.GetNextCheckupOrigin();
         }
     }
 

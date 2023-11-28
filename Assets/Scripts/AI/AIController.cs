@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public abstract class AIController : MonoBehaviour
 {
-    [Tooltip("The event that will be invoked when the npc changes state.")]
+    [Tooltip("The event that will be invoked when the ai changes state.")]
     public UnityEvent OnStateChange;
 
     public NavMeshAgent Agent { get; set; }
@@ -12,6 +12,8 @@ public abstract class AIController : MonoBehaviour
 
     public int AnimIDMotionSpeed { get; private set; }
     public int AnimIDSpeed { get; private set; }
+
+    public float AnimationBlend;
 
     private IState _currentState;
     
@@ -29,7 +31,6 @@ public abstract class AIController : MonoBehaviour
     {
         CurrentState.Handle();
     }
-
 
     public void InitializeController()
     {

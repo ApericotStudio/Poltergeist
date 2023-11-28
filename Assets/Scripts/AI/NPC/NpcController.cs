@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -53,9 +51,6 @@ public class NpcController : AIController
     [HideInInspector]
     public bool FearReductionHasCooldown = false;
 
-
-    
-    private float _animationBlend;
     private int _currentRoamIndex = 0;
 
     public float FearValue
@@ -109,10 +104,10 @@ public class NpcController : AIController
 
     private void Animate()
     {
-        _animationBlend = Mathf.Lerp(_animationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
+        AnimationBlend = Mathf.Lerp(AnimationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
+        if (AnimationBlend < 0.01f) AnimationBlend = 0f;
 
-        Animator.SetFloat(AnimIDSpeed, _animationBlend);
+        Animator.SetFloat(AnimIDSpeed, AnimationBlend);
         Animator.SetFloat(AnimIDMotionSpeed, 1f);
     }
 

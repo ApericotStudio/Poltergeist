@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class RealtorController : AIController
 {
@@ -22,7 +19,6 @@ public class RealtorController : AIController
     public float FootstepVolume = 0.5f;
     [Tooltip("The current check up origin of the realtor. This is the location the realtor will roam around.")]
     public Transform CurrentCheckUpOrigin;
-    private float _animationBlend;
     private int _currentNpcIndex = 0;
 
     private CheckUpState _checkUpState;
@@ -43,7 +39,10 @@ public class RealtorController : AIController
         Animate();
     }
 
-    public Transform SetCheckUpOrigin()
+    /// <summary>
+    /// Sets the check up origin to the next NPC in the NPC collection.
+    /// </summary>
+    public Transform GetNextCheckupOrigin()
     {
 
         _currentNpcIndex = (_currentNpcIndex + 1) % _npcCollection.transform.childCount;
@@ -52,10 +51,10 @@ public class RealtorController : AIController
     
     private void Animate()
     {
-        _animationBlend = Mathf.Lerp(_animationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
-        if (_animationBlend < 0.01f) _animationBlend = 0f;
+        AnimationBlend = Mathf.Lerp(AnimationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
+        if (AnimationBlend < 0.01f) AnimationBlend = 0f;
 
-        Animator.SetFloat(AnimIDSpeed, _animationBlend);
+        Animator.SetFloat(AnimIDSpeed, AnimationBlend);
         Animator.SetFloat(AnimIDMotionSpeed, 1f);
     }
     
