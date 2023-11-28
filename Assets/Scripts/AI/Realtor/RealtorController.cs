@@ -46,11 +46,10 @@ public class RealtorController : AIController
     /// <summary>
     /// Sets the check up origin to the next NPC in the NPC collection.
     /// </summary>
-    public Transform GetNextCheckupOrigin()
+    public void SetNextCheckupOrigin()
     {
-
         _currentNpcIndex = (_currentNpcIndex + 1) % _npcCollection.transform.childCount;
-        return _npcCollection.transform.GetChild(_currentNpcIndex);
+        CurrentCheckUpOrigin = _npcCollection.transform.GetChild(_currentNpcIndex);
     }
     
     private void Animate()

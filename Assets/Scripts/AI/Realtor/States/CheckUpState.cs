@@ -46,7 +46,7 @@ public class CheckUpState : IState
             _realtorController.Agent.SetDestination(GetRoamLocation());
             yield return new WaitUntil(() => _realtorController.Agent.remainingDistance < 0.5f && !_realtorController.Agent.pathPending);
             yield return new WaitForSeconds(_realtorController.CheckUpTimeSpent);
-            _realtorController.GetNextCheckupOrigin();
+            _realtorController.SetNextCheckupOrigin();
         }
     }
 
