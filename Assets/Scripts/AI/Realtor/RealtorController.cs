@@ -5,12 +5,15 @@ public class RealtorController : AIController
     [Header("Realtor Settings")]
     [Tooltip("The speed the realtor will move when roaming."), Range(1f, 5f)]
     public float RoamingSpeed = 2f;
+
+    [Header("Check Up Settings")]
     [Tooltip("The GameObject that contains all the NPC's"), SerializeField]
     private GameObject _npcCollection;
     [Tooltip("The amount of time the realtor will check up on an NPC."), Range(0f, 100f)]
     public float CheckUpTimeSpent = 30f;
-    [Tooltip("The radius around the NPC the realtor will roam around in."), Range(1f, 10f), SerializeField]
+    [Tooltip("The radius around the NPC the realtor will roam around in."), Range(1f, 10f)]
     public float CheckUpRadius = 5f;
+    
     [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC moves.")]
     public AudioClip[] FootstepAudioClips;

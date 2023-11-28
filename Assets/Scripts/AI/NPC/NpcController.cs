@@ -29,6 +29,7 @@ public class NpcController : AIController
     public float RoamingSpeed = 2f;
     [Tooltip("The amount of time the NPC will stay around one roam origin"), Range(0f, 100f)]
     public float RoamOriginTimeSpent = 50f;
+
     [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC screams.")]
     public AudioClip[] ScreamAudioClips;
@@ -44,6 +45,7 @@ public class NpcController : AIController
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
+    
     [HideInInspector]
     public Transform InvestigateTarget;
     [HideInInspector]
