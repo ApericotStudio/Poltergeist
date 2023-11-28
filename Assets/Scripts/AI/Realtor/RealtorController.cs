@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class RealtorController : AIController
@@ -13,7 +14,7 @@ public class RealtorController : AIController
     public float CheckUpTimeSpent = 30f;
     [Tooltip("The radius around the NPC the realtor will roam around in."), Range(1f, 10f)]
     public float CheckUpRadius = 5f;
-    
+
     [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC moves.")]
     public AudioClip[] FootstepAudioClips;

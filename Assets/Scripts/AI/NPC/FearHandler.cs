@@ -21,14 +21,6 @@ public class FearHandler : MonoBehaviour
     private float _visibleAndAudibleMultiplier = 1.5f;
     [Tooltip("These multipliers are used to decrease the fear value as an object is used more frequently."), SerializeField]
     private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0f};
-    [Header("Fear Reduction Settings")]
-    [Tooltip("The value that will be subtracted from the fear value."), Range(0f, 1f)]
-    public float ReductionValue = 0.1f;
-    [Tooltip("The speed at which the fear value will be reduced."), Range(0f, 1f)]
-    public float ReductionSpeed = 0.05f;
-
-    [HideInInspector]
-    public bool FearReductionEnabled = true;
 
     private NpcController _npcController;
     private bool _isScared = false;
@@ -39,7 +31,6 @@ public class FearHandler : MonoBehaviour
     private void Awake()
     {
         _npcController = GetComponent<NpcController>();
-        StartCoroutine(DecreaseFearValue());
     }
     
     /// <summary>
@@ -108,28 +99,5 @@ public class FearHandler : MonoBehaviour
         _isScared = true;
         yield return new WaitForSeconds(_scaredCooldown);
         _isScared = false;
-    }
-
-    private IEnumerator DecreaseFearValue()
-    {
-        while(true)
-        {
-            if(_npcController.CurrentState is PanickedState || _npcController.FearValue <= 0f)
-            {
-                yield break;
-            }
-            if(!FearReductionEnabled || _npcController.FearReductionHasCooldown)
-            {
-                yield return null;
-            } 
-            else 
-            {
-                if(_npcController.FearValue > 0f)
-                {
-                    _npcController.FearValue -= ReductionValue;
-                    yield return new WaitForSeconds(ReductionSpeed);
-                }  
-            }
-        }
     }
 }

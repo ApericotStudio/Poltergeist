@@ -11,6 +11,12 @@ public class RealtorSenses : MonoBehaviour
     private LayerMask _obstacleMask;
     [Tooltip("The distance that the realtor can detect."), Range(0, 50)]
     public float DetectionRange = 10f;
+    [Header("Fear Reduction Settings")]
+    [Tooltip("The value that will be subtracted from the fear value of npc's close to the realtor."), Range(0f, 1f), SerializeField]
+    private float _reductionValue = 0.1f;
+    [Tooltip("The speed at which the fear value will be reduced."), Range(0f, 1f), SerializeField]
+    private float _reductionSpeed = 0.05f;
+    
     private const float DetectionDelay = .2f;
 
     [HideInInspector]
@@ -19,6 +25,7 @@ public class RealtorSenses : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(DetectNpcsWithDelay(DetectionDelay));
+        StartCoroutine(DecreaseNpcFear());
     }
 
     private IEnumerator DetectNpcsWithDelay(float delay)
@@ -49,24 +56,28 @@ public class RealtorSenses : MonoBehaviour
                 continue;
 
             DetectedNpcs.Add(npc);
-            ReduceNpcFear();
         }
     }
 
     private void ClearDetectedNpcs()
     {
-        foreach (NpcController npc in DetectedNpcs)
-        {
-            npc.gameObject.GetComponent<FearHandler>().FearReductionEnabled = false;
-        }
         DetectedNpcs.Clear();
     }
 
-    private void ReduceNpcFear()
+    IEnumerator DecreaseNpcFear()
     {
-        foreach (NpcController npc in DetectedNpcs)
+        while (true)
         {
-            npc.gameObject.GetComponent<FearHandler>().FearReductionEnabled = true;
+            if(DetectedNpcs.Count == 0)
+            {
+                yield return new WaitForSeconds(_reductionSpeed);
+                continue;
+            }
+            foreach (NpcController npc in DetectedNpcs)
+            {
+                npc.FearValue -= _reductionValue;
+            }
+            yield return new WaitForSeconds(_reductionSpeed);
         }
     }
 }
