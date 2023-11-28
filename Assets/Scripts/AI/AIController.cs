@@ -12,7 +12,8 @@ public abstract class AIController : MonoBehaviour
 
     public int AnimIDMotionSpeed { get; private set; }
     public int AnimIDSpeed { get; private set; }
-
+    
+    [HideInInspector]
     public float AnimationBlend;
 
     private IState _currentState;
