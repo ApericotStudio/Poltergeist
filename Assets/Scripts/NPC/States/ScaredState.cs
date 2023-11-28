@@ -20,13 +20,9 @@ public class ScaredState : INpcState
         _npcController.NavMeshAgent.speed = _npcController.FrightenedSpeed;
         _npcController.SetRoamOrigin();
         _npcController.NavMeshAgent.stoppingDistance = 0f;
-        PlayRandomScreamClip();
+        _npcController.NpcAudioSource.PlayOneShot(_npcController.SmallScreamAudioClips.GetRandom());
         _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamOrigin.position);
         yield return new WaitUntil(() => _npcController.NavMeshAgent.remainingDistance < 0.5f && !_npcController.NavMeshAgent.pathPending);
         _npcController.CurrentState = _npcController.RoamState;
-    }
-    private void PlayRandomScreamClip()
-    {
-        _npcController.NpcAudioSource.PlayOneShot(_npcController.ScreamAudioClips[Random.Range(0, _npcController.ScreamAudioClips.Length)]);
     }
 }

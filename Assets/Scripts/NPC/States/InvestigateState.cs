@@ -26,7 +26,7 @@ public class InvestigateState : INpcState
     {
         _npcController.NavMeshAgent.speed = _npcController.InvestigatingSpeed;
         _npcController.NavMeshAgent.stoppingDistance = 2f;
-        _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClip);
+        _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClips.GetRandom());
         _npcController.NavMeshAgent.SetDestination(NearestPointOnTargetFromPlayer());
         _npcController.FearReductionHasCooldown = true;
 
@@ -50,7 +50,7 @@ public class InvestigateState : INpcState
 
         if (_npcController.CurrentState is InvestigateState)
         {
-            _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClip);
+            _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClips.GetRandom());
             _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamOrigin.position);
             _npcController.CurrentState = _npcController.RoamState;
         }
