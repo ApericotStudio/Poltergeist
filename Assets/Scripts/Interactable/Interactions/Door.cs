@@ -11,6 +11,7 @@ public class Door : MonoBehaviour
     [Header("Rotation Configs")]
     [SerializeField] private float _rotationAmount = 90f;
     [SerializeField] private float _forwardDirection = 0;
+    [SerializeField] private RotationDirection _rotationDirection = RotationDirection.LeftOutward;
 
     private Vector3 _awakeRotation;
     private Vector3 _forward;
@@ -18,16 +19,12 @@ public class Door : MonoBehaviour
 
     private Coroutine _animationCoroutine;
 
-    //remove this, npcs should also interact
-    private GameObject _player;
-
     private void Awake()
     {
         _pivot = transform.parent;
         _awakeRotation = _pivot.rotation.eulerAngles;
 
         _forward = _pivot.right;
-        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void Use()
@@ -54,13 +51,22 @@ public class Door : MonoBehaviour
 
             if (_isRotatingDoor)
             {
-                float dot = Vector3.Dot(_forward, (UserPosition - _pivot.position).normalized);
-                _animationCoroutine = StartCoroutine(DoRotationOpen(dot));
+                //This commented line is for the dynamic door
+                //float dot = Vector3.Dot(_forward, (UserPosition - _pivot.position).normalized);
+
+                if (_rotationDirection == RotationDirection.LeftInward)
+                {
+                    _animationCoroutine = StartCoroutine(DoRotationLeftInward());
+                } else
+                {
+                    _animationCoroutine = StartCoroutine(DoRotationLeftOutward());
+                }
             }
         }
     }
 
-    private IEnumerator DoRotationOpen(float ForwardAmount)
+    //The dynamic door always opens away from the user position
+    private IEnumerator DoRotationDynamic(float ForwardAmount)
     {
         Quaternion startRotation = _pivot.rotation;
         Quaternion endRotation;
@@ -71,6 +77,45 @@ public class Door : MonoBehaviour
         {
             endRotation = Quaternion.Euler(new Vector3(0, _awakeRotation.y + _rotationAmount, 0));
         }
+
+        IsOpen = true;
+
+        float time = 0;
+        while (time < 1)
+        {
+            _pivot.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            yield return null;
+            time += Time.deltaTime * _speed;
+        }
+    }
+
+    //Opens inwards if the doorhandle is on the left
+    private IEnumerator DoRotationLeftInward()
+    {
+        Quaternion startRotation = _pivot.rotation;
+        Quaternion endRotation;
+
+        endRotation = Quaternion.Euler(new Vector3(0, _awakeRotation.y - _rotationAmount, 0));
+
+        IsOpen = true;
+
+        float time = 0;
+        while (time < 1)
+        {
+            _pivot.rotation = Quaternion.Slerp(startRotation, endRotation, time);
+            yield return null;
+            time += Time.deltaTime * _speed;
+        }
+    }
+
+    //Opens outwards if the doorhandle is on the left
+    private IEnumerator DoRotationLeftOutward()
+    {
+        Quaternion startRotation = _pivot.rotation;
+        Quaternion endRotation;
+
+        endRotation = Quaternion.Euler(new Vector3(0, _awakeRotation.y + _rotationAmount, 0));
+
 
         IsOpen = true;
 
@@ -113,5 +158,11 @@ public class Door : MonoBehaviour
             yield return null;
             time += Time.deltaTime * _speed;
         }
+    }
+
+    private enum RotationDirection
+    {
+        LeftOutward,
+        LeftInward
     }
 }
