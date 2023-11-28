@@ -987,7 +987,7 @@ GameObject:
   m_Component:
   - component: {fileID: 681764034}
   m_Layer: 0
-  m_Name: NPC's
+  m_Name: NPC Collection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4011,6 +4011,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 685281948183461682, guid: 4abd3ac1cc6c471488a29603e7373e25,
+        type: 3}
+      propertyPath: _npcCollection
+      value: 
+      objectReference: {fileID: 681764033}
     - target: {fileID: 685281948183461682, guid: 4abd3ac1cc6c471488a29603e7373e25,
         type: 3}
       propertyPath: _npcs.Array.size

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PanickedState : INpcState
+public class PanickedState : IState
 {
     private readonly NpcController _npcController;
 
@@ -17,13 +17,13 @@ public class PanickedState : INpcState
 
     IEnumerator PanickedCoroutine()
     {
-        _npcController.NavMeshAgent.speed = _npcController.FrightenedSpeed;
-        _npcController.NavMeshAgent.stoppingDistance = 0f;
-        _npcController.NavMeshAgent.SetDestination(_npcController.FrightenedTargetLocation.position);
+        _npcController.Agent.speed = _npcController.FrightenedSpeed;
+        _npcController.Agent.stoppingDistance = 0f;
+        _npcController.Agent.SetDestination(_npcController.FrightenedTargetLocation.position);
         PlayRandomScreamClip();
         while (true)
         {
-            if (_npcController.NavMeshAgent.pathPending && _npcController.NavMeshAgent.velocity.magnitude > 0 && _npcController.NavMeshAgent.remainingDistance < 0.5f)
+            if (_npcController.Agent.pathPending && _npcController.Agent.velocity.magnitude > 0 && _npcController.Agent.remainingDistance < 0.5f)
             {
                 _npcController.RanAway = true;
                 yield break;

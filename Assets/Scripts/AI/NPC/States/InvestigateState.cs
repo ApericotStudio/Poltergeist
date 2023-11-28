@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InvestigateState : INpcState
+public class InvestigateState : IState
 {
     private readonly NpcController _npcController;
 
@@ -25,23 +25,23 @@ public class InvestigateState : INpcState
     /// <returns></returns>
     IEnumerator InvestigateCoroutine()
     {
-        _npcController.NavMeshAgent.speed = _npcController.InvestigatingSpeed;
-        _npcController.NavMeshAgent.stoppingDistance = 2f;
+        _npcController.Agent.speed = _npcController.InvestigatingSpeed;
+        _npcController.Agent.stoppingDistance = 2f;
         _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClip);
-        _npcController.NavMeshAgent.SetDestination(NearestPointOnTargetFromPlayer());
+        _npcController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
         _npcController.FearReductionHasCooldown = true;
 
         // This while loop continues as long as the NPC's navigation path is still being calculated (pathPending) 
         // or the remaining distance to the target is greater than the stopping distance. 
         // This ensures the NPC continues moving until it has reached its destination.
 
-        while (_npcController.NavMeshAgent.pathPending || _npcController.NavMeshAgent.remainingDistance > _npcController.NavMeshAgent.stoppingDistance)
+        while (_npcController.Agent.pathPending || _npcController.Agent.remainingDistance > _npcController.Agent.stoppingDistance)
         {
             if (_npcController.CurrentState is not InvestigateState)
             {
                 yield break;
             }
-            _npcController.NavMeshAgent.SetDestination(NearestPointOnTargetFromPlayer());
+            _npcController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
             yield return new WaitForSeconds(0.2f);
         }
 
@@ -52,7 +52,7 @@ public class InvestigateState : INpcState
         if (_npcController.CurrentState is InvestigateState)
         {
             _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClip);
-            _npcController.NavMeshAgent.SetDestination(_npcController.CurrentRoamOrigin.position);
+            _npcController.Agent.SetDestination(_npcController.CurrentRoamOrigin.position);
             _npcController.CurrentState = _npcController.RoamState;
         }
         else

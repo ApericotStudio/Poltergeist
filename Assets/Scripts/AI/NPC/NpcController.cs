@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class NpcController : MonoBehaviour
+public class NpcController : AIController
 {
     [Header("NPC Settings")]
     [Tooltip("The speed the NPC will move when investigating."), Range(1f, 5f)]
@@ -17,8 +17,6 @@ public class NpcController : MonoBehaviour
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
     public UnityEvent<float> OnFearValueChange;
-    [Tooltip("The event that will be invoked when the npc changes state.")]
-    public UnityEvent OnStateChange;
     [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
     public GameEventManager GameEventManager;
 
@@ -55,23 +53,10 @@ public class NpcController : MonoBehaviour
     [HideInInspector]
     public bool FearReductionHasCooldown = false;
 
-    private INpcState _currentState;
+
     
-    private int _animIDMotionSpeed;
-    private int _animIDSpeed;
     private float _animationBlend;
-    private Animator _animator;
     private int _currentRoamIndex = 0;
-    
-    public INpcState CurrentState
-    {
-        get => _currentState;
-        set
-        {
-            _currentState = value;
-            OnStateChange.Invoke();
-        }
-    }
 
     public float FearValue
     { 
@@ -82,7 +67,6 @@ public class NpcController : MonoBehaviour
         }  
     }
     public AudioSource NpcAudioSource { get; private set; }
-    public NavMeshAgent NavMeshAgent { get; private set; }
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
     public InvestigateState InvestigateState { get; private set; }
@@ -90,10 +74,9 @@ public class NpcController : MonoBehaviour
 
     private void Awake()
     {
-        NavMeshAgent = GetComponent<NavMeshAgent>();
+        Agent = GetComponent<NavMeshAgent>();
         NpcAudioSource = GetComponent<AudioSource>();
-        InitializeAnimator();
-        OnStateChange.AddListener(OnStateChanged);
+        InitializeController();
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
         InvestigateState = new InvestigateState(this);
@@ -124,25 +107,13 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    private void OnStateChanged()
-    {
-        _currentState.Handle();
-    }
-
-    private void InitializeAnimator()
-    {
-        _animator = GetComponent<Animator>();
-        _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-        _animIDSpeed = Animator.StringToHash("Speed");
-    }
-
     private void Animate()
     {
-        _animationBlend = Mathf.Lerp(_animationBlend, NavMeshAgent.velocity.magnitude, Time.deltaTime * NavMeshAgent.acceleration);
+        _animationBlend = Mathf.Lerp(_animationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-        _animator.SetFloat(_animIDSpeed, _animationBlend);
-        _animator.SetFloat(_animIDMotionSpeed, 1f);
+        Animator.SetFloat(AnimIDSpeed, _animationBlend);
+        Animator.SetFloat(AnimIDMotionSpeed, 1f);
     }
 
      /// <summary>
