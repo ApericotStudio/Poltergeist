@@ -20,7 +20,7 @@ public class PanickedState : IState
         _npcController.Agent.speed = _npcController.FrightenedSpeed;
         _npcController.Agent.stoppingDistance = 0f;
         _npcController.Agent.SetDestination(_npcController.FrightenedTargetLocation.position);
-        PlayRandomScreamClip();
+        _npcController.NpcAudioSource.PlayOneShot(_npcController.ScreamAudioClips.GetRandom());
         while (true)
         {
             if (_npcController.Agent.pathPending && _npcController.Agent.velocity.magnitude > 0 && _npcController.Agent.remainingDistance < 0.5f)
@@ -30,11 +30,6 @@ public class PanickedState : IState
             }
             yield return new WaitForSeconds(0.5f);
         }
-    }
-
-    private void PlayRandomScreamClip()
-    {
-        _npcController.NpcAudioSource.PlayOneShot(_npcController.ScreamAudioClips[Random.Range(0, _npcController.ScreamAudioClips.Length)]);
     }
 }
 
