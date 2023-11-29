@@ -463,6 +463,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 0
   _destroyMinimumImpulse: 10
+  _hitGroundSoundMinimumImpulse: 3
+  _hittingGroundSounds: []
+  _breakingSounds: []
 --- !u!208 &989617444190475002
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1331,6 +1334,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 1
   _destroyMinimumImpulse: 10
+  _hitGroundSoundMinimumImpulse: 3
+  _hittingGroundSounds: []
+  _breakingSounds: []
 --- !u!208 &3598330550776943959
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1986,7 +1992,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 55
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -1997,7 +2003,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 1
   m_VoxelSize: 0.0625
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 9a22feb77e1390e4c9b7c7bab9d75377, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 4c5a7fa8f72b653408761846e9e7f879, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &5413089473915767154
 GameObject:
@@ -2389,6 +2395,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 1
   _destroyMinimumImpulse: 10
+  _hitGroundSoundMinimumImpulse: 3
+  _hittingGroundSounds: []
+  _breakingSounds: []
 --- !u!208 &1084302726069252488
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -3489,6 +3498,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 0
   _destroyMinimumImpulse: 10
+  _hitGroundSoundMinimumImpulse: 3
+  _hittingGroundSounds: []
+  _breakingSounds: []
 --- !u!208 &4613927122223762428
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -4316,6 +4328,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 0
   _destroyMinimumImpulse: 10
+  _hitGroundSoundMinimumImpulse: 3
+  _hittingGroundSounds: []
+  _breakingSounds: []
 --- !u!208 &5620130060407782464
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -4658,6 +4673,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 1
   _destroyMinimumImpulse: 10
+  _hitGroundSoundMinimumImpulse: 3
+  _hittingGroundSounds: []
+  _breakingSounds: []
 --- !u!208 &8055946151449971860
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -5850,6 +5868,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8216719182338230840, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: Type
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8919853584233089721, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5968,6 +5991,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216719182338230840, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: Type
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8919853584233089721, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
@@ -6520,6 +6548,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216719182338230840, guid: 320725a931a35194cad6174ff0c5925d,
+        type: 3}
+      propertyPath: Type
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8919853584233089721, guid: 320725a931a35194cad6174ff0c5925d,
         type: 3}
