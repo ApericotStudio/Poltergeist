@@ -2867,7 +2867,9 @@ GameObject:
   - component: {fileID: 6070195381934028526}
   - component: {fileID: 4531111113754646614}
   - component: {fileID: 1306518244182312063}
+  - component: {fileID: 8534830403552682731}
   - component: {fileID: 8360858964001498300}
+  - component: {fileID: 5514684316761317188}
   m_Layer: 8
   m_Name: NpcArmature
   m_TagString: Untagged
@@ -2964,14 +2966,13 @@ MonoBehaviour:
   RoamRadius: 5
   RoamingSpeed: 2
   RoamOriginTimeSpent: 50
-  ScreamAudioClips:
-  - {fileID: 8300000, guid: ca54368baa460454f8b5de91a7b7f825, type: 3}
-  - {fileID: 8300000, guid: 1aa179d29c47b5d42b219c270858871a, type: 3}
-  - {fileID: 8300000, guid: 94ba3878deacca042863cb024799765c, type: 3}
-  InvestigateAudioClip: {fileID: 8300000, guid: c18bb3e0ff624c04eb24f5370d6e7d34,
-    type: 3}
-  InvestigateEndAudioClip: {fileID: 8300000, guid: ae42da83d904f0b4fba0964d7fa56f0a,
-    type: 3}
+  SmallScreamAudioClips: {fileID: 11400000, guid: 37d356dc4f37e6d46ac34a2b8efb0646,
+    type: 2}
+  ScreamAudioClips: {fileID: 11400000, guid: 2e1b475a3d91ed741acdf4a523a7f5ac, type: 2}
+  InvestigateAudioClips: {fileID: 11400000, guid: a28ee843ac8472f469fd2a2763ff13fe,
+    type: 2}
+  InvestigateEndAudioClips: {fileID: 11400000, guid: 7621a33fe985ffa4c84784c10cd9c783,
+    type: 2}
   ScreamVolume: 1
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
@@ -2985,11 +2986,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
-  ReductionValue: 0.1
-  ReductionSpeed: 0.05
-  _usedObjects: []
   InvestigateTarget: {fileID: 0}
-  FearReductionHasCooldown: 0
   RanAway: 0
 --- !u!114 &1306518244182312063
 MonoBehaviour:
@@ -3012,15 +3009,30 @@ MonoBehaviour:
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1
+--- !u!114 &8534830403552682731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969111268812583773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9db171df00213b49bbdb9414affdcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _scaredCooldown: 2
   _visibleMultiplier: 1
   _audibleMultiplier: 1
-  _AudibleAndVisibleMultiplier: 1.5
+  _visibleAndAudibleMultiplier: 1.5
   _usageMultipliers:
   - 1
   - 0.5
   - 0.25
   - 0
+  ReductionValue: 0.1
+  ReductionSpeed: 0.05
+  FearReductionEnabled: 1
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3117,6 +3129,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &5514684316761317188
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969111268812583773}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 1.86
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.83, z: 0}
 --- !u!1 &9034284117161447404
 GameObject:
   m_ObjectHideFlags: 0
