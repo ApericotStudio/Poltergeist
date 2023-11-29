@@ -41,7 +41,7 @@ public class Door : MonoBehaviour
 
     public void Open()
     {
-        Vector3 UserPosition = _player.transform.position;
+        //Vector3 UserPosition = _player.transform.position;
         if (!IsOpen)
         {
             if (_animationCoroutine != null)
