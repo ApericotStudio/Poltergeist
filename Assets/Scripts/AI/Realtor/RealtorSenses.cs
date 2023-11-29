@@ -2,53 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RealtorSenses : MonoBehaviour
+public class RealtorSenses : AiDetection
 {
-    [Header("Detection Settings")]
-    [Tooltip("The target layer the realtor detects."), SerializeField]
-    private LayerMask _targetMask;
-    [Tooltip("The obstacle layers that block the realtor's vision."), SerializeField]
-    private LayerMask _obstacleMask;
     [Tooltip("The distance that the realtor can detect."), Range(0, 50)]
     public float DetectionRange = 10f;
+    
     [Header("Fear Reduction Settings")]
     [Tooltip("The value that will be subtracted from the fear value of npc's close to the realtor."), Range(0f, 1f), SerializeField]
     private float _reductionValue = 0.1f;
     [Tooltip("The speed at which the fear value will be reduced."), Range(0f, 1f), SerializeField]
     private float _reductionSpeed = 0.05f;
     
-    private const float _detectionDelay = .2f;
-
     [HideInInspector]
     public List<NpcController> DetectedNpcs = new();
 
-    private void Awake()
+    protected override void Awake()
     {
-        StartCoroutine(DetectNpcsWithDelay(_detectionDelay));
+        base.Awake();
         StartCoroutine(DecreaseNpcFear());
     }
 
-    private IEnumerator DetectNpcsWithDelay(float delay)
+    protected override void DetectTargets()
     {
-        while (true)
-        {
-            DetectNpcs();
-            yield return new WaitForSeconds(delay);
-        }
-    }
-
-    private void DetectNpcs()
-    {
-        ClearDetectedNpcs();
+        ClearDetectedObjects();
 
         Collider[] targetsInDetectionRadius = Physics.OverlapSphere(transform.position, DetectionRange, _targetMask);
         for (int i = 0; i < targetsInDetectionRadius.Length; i++)
         {
             Collider target = targetsInDetectionRadius[i];
-            bool IsNpc = target.TryGetComponent<NpcController>(out var npc);
+            bool isNpc = target.TryGetComponent<NpcController>(out var npc);
 
-            if (!IsNpc)
+            if (!isNpc)
                 continue;
+
             Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
             float distanceToTarget = Vector3.Distance(transform.position, target.ClosestPoint(transform.position));
 
@@ -58,17 +44,17 @@ public class RealtorSenses : MonoBehaviour
             DetectedNpcs.Add(npc);
         }
     }
-
-    private void ClearDetectedNpcs()
+    
+    protected override void ClearDetectedObjects()
     {
         DetectedNpcs.Clear();
     }
 
-    IEnumerator DecreaseNpcFear()
+    private IEnumerator DecreaseNpcFear()
     {
         while (true)
         {
-            if(DetectedNpcs.Count == 0)
+            if (DetectedNpcs.Count == 0)
             {
                 yield return new WaitForSeconds(_reductionSpeed);
                 continue;

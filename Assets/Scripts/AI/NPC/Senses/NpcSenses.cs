@@ -15,7 +15,7 @@ public class DetectedProperties
 /// <summary>
 /// The NPC's senses. Handles the NPC's field of view, hearing radius, and detection radius.
 /// </summary>
-public class NpcSenses : MonoBehaviour, IObserver
+public class NpcSenses : AiDetection, IObserver
 {
     [Header("Sight Settings")]
     [Tooltip("The angle of the NPC's field of view."), Range(0, 360)]
@@ -27,41 +27,18 @@ public class NpcSenses : MonoBehaviour, IObserver
     [Tooltip("The distance that the NPC can hear."), Range(0, 50)]
     public float AuditoryRange = 15f;
 
-    [Header("Senses Layers")]
-    [Tooltip("The target layers that the NPC can see and hear."), SerializeField]
-    private LayerMask _targetMask;
-    [Tooltip("The obstacle layers that block the NPC's vision."), SerializeField]
-    private LayerMask _obstacleMask;
-
-    [HideInInspector]
-    public Dictionary<ObservableObject, DetectedProperties> DetectedObjects = new();
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
     private FearHandler _fearHandler;
-    private const float DetectionDelay = .2f;
+    public Dictionary<ObservableObject, DetectedProperties> DetectedObjects = new();
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _fearHandler = GetComponent<FearHandler>();
-        StartCoroutine (DetectTargetsWithDelay(DetectionDelay));
     }
 
-    /// <summary>
-    /// Detects targets in the NPC's detection radius with a delay.
-    /// </summary>
-    /// <param name="delay">The delay between detecting.</param>
-    /// <returns></returns>
-	private IEnumerator DetectTargetsWithDelay(float delay) {
-		while (true) {
-			yield return new WaitForSeconds (delay);
-            DetectTargets();
-		}
-	}
-
-    /// <summary>
-    /// Detects all targets in the NPC's detection radius.
-    /// </summary>
-    private void DetectTargets()
+    protected override void DetectTargets()
     {
         ClearDetectedObjects();
 
@@ -69,11 +46,11 @@ public class NpcSenses : MonoBehaviour, IObserver
         for (int i = 0; i < targetsInDetectionRadius.Length; i++)
         {
             Collider target = targetsInDetectionRadius[i];
-            bool IsObservableObject = target.TryGetComponent<ObservableObject>(out var observableObject);
+            bool isObservableObject = target.TryGetComponent<ObservableObject>(out var observableObject);
 
-            if (!IsObservableObject)
+            if (!isObservableObject)
                 continue;
-            
+
             DetectedProperties detectedProperties = new();
 
             Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
@@ -95,34 +72,28 @@ public class NpcSenses : MonoBehaviour, IObserver
             observableObject.AddObserver(this);
         }
     }
-
-    private bool TargetInSightRadius(Vector3 directionToTarget, float distanceToTarget)
-    {
-        if (Vector3.Angle(transform.forward, directionToTarget) < FieldOfViewAngle / 2 && distanceToTarget <= SightRange) 
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public void OnNotify(ObservableObject observableObject)
-    {
-        if (!DetectedObjects.TryGetValue(observableObject, out var detectedProperties))
-            return;
-
-        _fearHandler.Handle(observableObject, detectedProperties);
-    }
-
-    /// <summary>
-    /// Clears the detected clutter, also setting their visibility and audibility to false.
-    /// </summary>
-    private void ClearDetectedObjects()
+    
+    protected override void ClearDetectedObjects()
     {
         foreach (ObservableObject detectedObject in DetectedObjects.Keys)
         {
             detectedObject.RemoveObserver(this);
         }
         DetectedObjects.Clear();
+    }
+
+
+    public void OnNotify(ObservableObject observableObject)
+    {
+        if (!DetectedObjects.TryGetValue(observableObject, out var detectedProperties))
+            return;
+        
+        _fearHandler.Handle(observableObject, detectedProperties);
+    }
+
+    private bool TargetInSightRadius(Vector3 directionToTarget, float distanceToTarget)
+    {
+        return Vector3.Angle(transform.forward, directionToTarget) < FieldOfViewAngle / 2 && distanceToTarget <= SightRange;
     }
 
     /// <summary>

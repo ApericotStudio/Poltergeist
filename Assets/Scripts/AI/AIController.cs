@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public abstract class AIController : MonoBehaviour
+public abstract class AiController : MonoBehaviour
 {
     [Tooltip("The event that will be invoked when the ai changes state.")]
     public UnityEvent OnStateChange;

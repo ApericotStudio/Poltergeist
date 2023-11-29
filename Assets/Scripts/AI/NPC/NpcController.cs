@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class NpcController : AIController
+public class NpcController : AiController
 {
     [Header("NPC Settings")]
     [Tooltip("The speed the NPC will move when investigating."), Range(1f, 5f)]
