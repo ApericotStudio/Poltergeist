@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RoamState : INpcState
+public class RoamState : IState
 {
     private readonly NpcController _npcController;
     
@@ -19,15 +19,15 @@ public class RoamState : INpcState
 
     private IEnumerator RoamCoroutine()
     {
-        _npcController.NavMeshAgent.stoppingDistance = 0f;
-        _npcController.NavMeshAgent.speed = _npcController.RoamingSpeed;
+        _npcController.Agent.stoppingDistance = 0f;
+        _npcController.Agent.speed = _npcController.RoamingSpeed;
 
         while (IsRoaming())
         {
-            if (_npcController.NavMeshAgent.remainingDistance < 0.5f)
+            if (_npcController.Agent.remainingDistance < 0.5f)
             {
                 Vector3 newRoamLocation = GetRoamLocation();
-                _npcController.NavMeshAgent.SetDestination(newRoamLocation);
+                _npcController.Agent.SetDestination(newRoamLocation);
             }
             yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
@@ -40,8 +40,8 @@ public class RoamState : INpcState
     {
         while (IsRoaming())
         {
-            _npcController.NavMeshAgent.SetDestination(GetRoamLocation());
-            yield return new WaitUntil(() => _npcController.NavMeshAgent.remainingDistance < 0.5f && !_npcController.NavMeshAgent.pathPending);
+            _npcController.Agent.SetDestination(GetRoamLocation());
+            yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
             yield return new WaitForSeconds(_npcController.RoamOriginTimeSpent);
             _npcController.SetRoamOrigin();
         }
