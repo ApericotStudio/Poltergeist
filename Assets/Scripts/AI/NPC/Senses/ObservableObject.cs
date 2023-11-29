@@ -32,6 +32,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     [Tooltip("The type of object.")]
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
+    public Interactable InteractableComponent => GetComponent<Interactable>();
 
     private readonly List<IObserver> _observers = new();
 
@@ -45,6 +46,12 @@ public class ObservableObject : MonoBehaviour, IObservableObject
                 NotifyObservers();
             }
         }
+    }
+
+    public bool IsInteractable(out Interactable interactable)
+    {
+        interactable = GetComponent<Interactable>();
+        return interactable != null;
     }
 
     public void NotifyObservers()

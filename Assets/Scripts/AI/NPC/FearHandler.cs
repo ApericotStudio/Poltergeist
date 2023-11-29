@@ -40,7 +40,7 @@ public class FearHandler : MonoBehaviour
     /// <param name="detectedProperties">The object's detected properties</param>
     public void Handle(ObservableObject observableObject, DetectedProperties detectedProperties)
     {
-        _npcController.InvestigateTarget = observableObject.transform;
+        _npcController.InvestigateTarget = observableObject;
 
         int objectUsageCount = _usedObjects.Count(x => x.Equals(observableObject));
 

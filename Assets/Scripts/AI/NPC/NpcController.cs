@@ -49,7 +49,7 @@ public class NpcController : AiController
     public float FootstepVolume = 0.5f;
     
     [HideInInspector]
-    public Transform InvestigateTarget;
+    public ObservableObject InvestigateTarget;
     [HideInInspector]
     public bool RanAway;
     [HideInInspector]

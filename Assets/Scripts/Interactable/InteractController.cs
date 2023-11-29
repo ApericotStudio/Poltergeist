@@ -26,7 +26,7 @@ public class InteractController : MonoBehaviour
             if (objectInView.TryGetComponent(out Interactable interactable))
             {
                 HandleDisplayingInteractPrompt();
-                interactable.Use();
+                interactable.Use(Interacter.Player);
                 return;
             }
         }
@@ -39,7 +39,7 @@ public class InteractController : MonoBehaviour
             return;
         }
 
-        possessedInteractable.Use();
+        possessedInteractable.Use(Interacter.Player);
     }
 
     private void HandleDisplayingInteractPrompt()

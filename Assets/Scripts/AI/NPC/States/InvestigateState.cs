@@ -43,8 +43,17 @@ public class InvestigateState : IState
             _npcController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
             yield return new WaitForSeconds(0.2f);
         }
+        
+        if(_npcController.InvestigateTarget.IsInteractable(out var interactable))
+        {
+            if(_npcController.InvestigateTarget.State == ObjectState.Interacted)
+            {
+                interactable.Use(Interacter.Npc);
+            }
+        }
 
         yield return new WaitForSeconds(3f);
+
 
         _npcController.FearReductionHasCooldown = false;
 

@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum Interacter 
+{ 
+    Player,
+    Npc 
+}
 public class Interactable : MonoBehaviour
 {
     [Header("Adjustable variables")]
@@ -10,7 +15,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private bool _hasMax = false;
     [SerializeField] private int _maxUses = 10;
 
-    public UnityEvent InteractEvent;
+    public UnityEvent<Interacter> InteractEvent;
     private bool _interactDepleted;
 
     
@@ -24,24 +29,31 @@ public class Interactable : MonoBehaviour
         _observableObject = GetComponent<ObservableObject>();
     }
 
-    public void Use()
+    public void Use(Interacter interacter)
     {
         if (_uses >= _maxUses && _hasMax)
         {
             return;
         }
-        InteractEvent.Invoke();
-        ObjectState originalState = _observableObject.State;
-        _observableObject.State = ObjectState.Interacted;
-        _observableObject.State = originalState;
-        _uses++;
-        if (_uses >= _maxUses && _hasMax)
-        {
-            if (gameObject.TryGetComponent(out Highlight highlight)){
-                highlight.Highlightable(false);
-            }
+        InteractEvent.Invoke(interacter);
 
-            _interactDepleted = true;
+        if(interacter == Interacter.Player)
+        {
+            _observableObject.State = ObjectState.Interacted;
+            _uses++;
+
+            if (_uses >= _maxUses && _hasMax)
+            {
+                if (gameObject.TryGetComponent(out Highlight highlight)){
+                    highlight.Highlightable(false);
+                }
+
+                _interactDepleted = true;
+            }
+        }
+        else
+        {
+            _observableObject.State = ObjectState.Idle;
         }
     }
 }
