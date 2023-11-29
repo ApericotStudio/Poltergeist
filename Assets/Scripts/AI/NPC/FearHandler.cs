@@ -49,25 +49,28 @@ public class FearHandler : MonoBehaviour
             objectUsageCount = _usageMultipliers.Count - 1;
         }
 
-        if(observableObject.State == ObjectState.Hit)
-        {
-            if(observableObject.Type == ObjectType.Small)
-            {
-                _npcController.Investigate();
-            }
-            else
-            {
-                _npcController.GetScared();
-            }
-        }
-        if (observableObject.State == ObjectState.Interacted)
-        {
-            _npcController.Investigate();
-        }
-
-        if (observableObject.State == ObjectState.Idle || _isScared)
+        if(_isScared)
         {
             return;
+        }
+
+        switch (observableObject.State)
+        {
+            case ObjectState.Interacted:
+                _npcController.Investigate();
+                break;
+            case ObjectState.Hit:
+                if (observableObject.Type == ObjectType.Small)
+                {
+                    _npcController.Investigate();
+                }
+                else
+                {
+                    _npcController.GetScared();
+                }
+                break;
+            default:
+                return;
         }
 
        _npcController.FearValue += CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
