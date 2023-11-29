@@ -258,15 +258,18 @@ namespace StarterAssets
             // changes player input based on camera orientation
             Vector3 targetRight = _input.Move.x * _mainCamera.transform.right;
             Vector3 targetForward = _input.Move.y * _mainCamera.transform.forward;
-            Vector3 targetUp = _input.Fly * _mainCamera.transform.up;
 
-            Vector3 targetDirection = (targetRight + targetForward + targetUp).normalized;
+            Vector3 targetDirection = (targetRight + targetForward).normalized;
 
             targetDirection *= _speed * Time.deltaTime;
 
+            if (inputDirection.y != 0.0f)
+            {
+                targetDirection.y = 0.0f;
+            }
 
             // move the player
-            _controller.Move(targetDirection + new Vector3(0.0f, inputDirection.y * flySpeed, 0.0f) * Time.deltaTime);
+            _controller.Move(targetDirection + (new Vector3(0.0f, inputDirection.y * flySpeed, 0.0f) * Time.deltaTime));
             // update animator if using character
             if (_hasAnimator)
             {
