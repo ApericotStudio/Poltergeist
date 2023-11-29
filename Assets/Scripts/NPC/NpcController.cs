@@ -19,8 +19,6 @@ public class NpcController : MonoBehaviour
     public UnityEvent<float> OnFearValueChange;
     [Tooltip("The event that will be invoked when the npc changes state.")]
     public UnityEvent OnStateChange;
-    [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
-    public GameEventManager GameEventManager;
 
     [Header("Roaming Settings")]
     [Tooltip("The current roam origin of the NPC. This is the location the NPC will roam around.")]
