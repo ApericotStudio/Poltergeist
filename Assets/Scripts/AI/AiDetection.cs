@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// The base class for AI detection.
+/// The base abstract class for AI detection.
 /// </summary>
-public class AiDetection : MonoBehaviour
+public abstract class AiDetection : MonoBehaviour
 {
     [Header("AI Detection Settings")]
     [Tooltip("The target layers that the entity detects."), SerializeField]
@@ -29,7 +28,7 @@ public class AiDetection : MonoBehaviour
         }
     }
 
-    protected virtual void DetectTargets() { }
+    protected abstract void DetectTargets();
 
-    protected virtual void ClearDetectedObjects() { }
+    protected abstract void ClearDetectedObjects();
 }
