@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     {
         OnEndGame.Invoke();
         Cursor.lockState = CursorLockMode.Confined;
+        StopCoroutine(ManageTimeRemaining());
     }
 
     IEnumerator ManageTimeRemaining()
