@@ -8,5 +8,6 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         OnEndGame.Invoke();
+        Cursor.lockState = CursorLockMode.Confined;
     }
 }
