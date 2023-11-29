@@ -26,14 +26,11 @@ public class NpcManager : MonoBehaviour
 
     private void OnNpcStateChanged()
     {
-        Debug.Log("npc state changed");
         int scaredNpcCounter = 0;
         foreach(NpcController npcController in _npcs)
         {
-            Debug.Log(npcController.CurrentState.GetType().Name);
-            if (npcController.CurrentState is ScaredState)
+            if (npcController.CurrentState is PanickedState)
             {
-                Debug.Log("scared npc");
                 scaredNpcCounter++;
             }
         }
