@@ -664,6 +664,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndGameScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 8058595717969212086, guid: 12d75ff8a54bcb342a9f46e076afd6e0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2639,6 +2644,7 @@ GameObject:
   - component: {fileID: 1358441373}
   - component: {fileID: 1358441372}
   - component: {fileID: 1358441374}
+  - component: {fileID: 1358441375}
   m_Layer: 0
   m_Name: Game Managers
   m_TagString: Untagged
@@ -2690,6 +2696,21 @@ MonoBehaviour:
   OnEndGame:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1358441375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358441370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d0e9a0480843c744a04e50e41eeb71e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _npcCollection: {fileID: 681764033}
+  _gameData: {fileID: 11400000, guid: 0c7b994db405a7244b28adcb3b89d6c8, type: 2}
+  _gameManager: {fileID: 1358441374}
 --- !u!4 &1361296284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1252957051986507604, guid: 147c253e91b1049439af1f98c4371693,
