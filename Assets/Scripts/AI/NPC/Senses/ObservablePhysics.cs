@@ -15,7 +15,8 @@ public class ObservablePhysics : MonoBehaviour
     [Tooltip("Minimum Impulse needed for hitting ground sound"), SerializeField]
     private float _hitGroundSoundMinimumImpulse = 3;
 
-    private bool _firstHit = true;
+    [HideInInspector]
+    public bool FirstHit = true;
 
     [Header("Sound clips")]
     [SerializeField] private List<AudioClip> _hittingGroundSounds = new List<AudioClip>();
@@ -35,7 +36,7 @@ public class ObservablePhysics : MonoBehaviour
         {
             return;
         }
-        if (!_firstHit)
+        if (!FirstHit)
         {
             if (collision.gameObject.layer == _obstacleMask)
             {
@@ -44,7 +45,7 @@ public class ObservablePhysics : MonoBehaviour
         }
         else
         {
-            _firstHit = false;
+            FirstHit = false;
         }
         if(_isBreakable)
         {

@@ -9,8 +9,12 @@ public class Drop : MonoBehaviour
 
     private SpringJoint _springJoint;
     private Rigidbody _rigidBody;
+    private ObservablePhysics observablePhysics;
+
     private void Awake()
     {
+        observablePhysics = GetComponent<ObservablePhysics>();
+        observablePhysics.FirstHit = false;
         _springJoint = GetComponent<SpringJoint>();
         _rigidBody = GetComponent<Rigidbody>();
     }
