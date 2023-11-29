@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 /// <summary>
@@ -19,8 +20,15 @@ public enum ObjectState
 public enum ObjectType
 {
     Big = 20,
-    Small = 10,
-    Medium = 15
+    Medium = 15,
+    Small = 10
+}
+
+public enum MinimumImpulse
+{
+    Big = 70,
+    Medium = 70,
+    Small = 3
 }
 /// <summary>
 /// The Observable Object class is used to store the state of the object. 
@@ -32,6 +40,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     [Tooltip("The type of object.")]
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
+    public MinimumImpulse _minimumImpulse;
 
     private readonly List<IObserver> _observers = new();
 
@@ -45,6 +54,30 @@ public class ObservableObject : MonoBehaviour, IObservableObject
                 NotifyObservers();
             }
         }
+    }
+
+    public MinimumImpulse MinimumImpulse
+    {
+        get => _minimumImpulse;
+    }
+
+    private void Awake()
+    {
+        Debug.Log("grgergregre");
+        switch (Type)
+        {
+            case ObjectType.Big:
+                _minimumImpulse = MinimumImpulse.Big;
+                break;
+            case ObjectType.Medium:
+                _minimumImpulse = MinimumImpulse.Medium;
+                break;
+            case ObjectType.Small:
+                _minimumImpulse = MinimumImpulse.Small;
+                break;
+        }
+
+        NotifyObservers();
     }
 
     public void NotifyObservers()

@@ -12,10 +12,6 @@ public class ObservablePhysics : MonoBehaviour
     private bool _isBreakable = false;
     [Tooltip("Minimum Impulse needed to destroy the object"), SerializeField] 
     private float _destroyMinimumImpulse = 10;
-    [Tooltip("Minimum Impulse needed for hitting ground sound"), SerializeField]
-    private float _hitGroundSoundMinimumImpulse = 3;
-
-    private bool _firstHit = true;
 
     [Header("Sound clips")]
     [SerializeField] private List<AudioClip> _hittingGroundSounds = new List<AudioClip>();
@@ -31,21 +27,21 @@ public class ObservablePhysics : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(_observableObject.State == ObjectState.Broken)
+        if (_observableObject.State == ObjectState.Broken)
         {
             return;
         }
-        if (!_firstHit)
+
+        if (collision.impulse.magnitude > (float)_observableObject.MinimumImpulse)
         {
+            PlayHittingGroundSound();
+
             if (collision.gameObject.layer == _obstacleMask)
             {
                 _observableObject.State = ObjectState.Hit;
             }
         }
-        else
-        {
-            _firstHit = false;
-        }
+
         if(_isBreakable)
         {
             if(collision.impulse.magnitude > _destroyMinimumImpulse)
@@ -61,10 +57,6 @@ public class ObservablePhysics : MonoBehaviour
                 }
                 
                 _observableObject.ClearObservers();
-            }
-            else if(collision.impulse.magnitude > _hitGroundSoundMinimumImpulse)
-            {
-                PlayHittingGroundSound();
             }
         }
     }
