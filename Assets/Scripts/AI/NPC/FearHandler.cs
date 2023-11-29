@@ -10,7 +10,7 @@ public class FearHandler : MonoBehaviour
 {
     [Header("Fear Handler Settings")]
     [Tooltip("The cooldown between each scare."), Range(0f, 10f), SerializeField]
-    public float _scaredCooldown = 2f;
+    private float _scaredCooldown = 2f;
 
     [Header("Multipliers")]
     [Tooltip("Multiplier to scare value when an object is visible to an NPC."), Range(0f, 5f), SerializeField]

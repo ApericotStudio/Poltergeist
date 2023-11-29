@@ -17,14 +17,14 @@ public class RealtorSenses : MonoBehaviour
     [Tooltip("The speed at which the fear value will be reduced."), Range(0f, 1f), SerializeField]
     private float _reductionSpeed = 0.05f;
     
-    private const float DetectionDelay = .2f;
+    private const float _detectionDelay = .2f;
 
     [HideInInspector]
     public List<NpcController> DetectedNpcs = new();
 
     private void Awake()
     {
-        StartCoroutine(DetectNpcsWithDelay(DetectionDelay));
+        StartCoroutine(DetectNpcsWithDelay(_detectionDelay));
         StartCoroutine(DecreaseNpcFear());
     }
 
