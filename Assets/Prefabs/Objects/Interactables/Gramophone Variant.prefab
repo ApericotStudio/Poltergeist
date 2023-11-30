@@ -8,6 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _highlightColor.b
+      value: 0.09411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _highlightColor.g
+      value: 0.05490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _highlightColor.r
+      value: 0.07450981
+      objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: HoverMessage
@@ -307,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936a93d0681e71b4ebdf9e4e353ef1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onlyActivatable: 0
   _keepProgress: 0
   _TurnOff: 1
   DevNote: Other adjustable variables can be found in the audio source component.
