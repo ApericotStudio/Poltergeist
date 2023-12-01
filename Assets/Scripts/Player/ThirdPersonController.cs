@@ -102,8 +102,6 @@ namespace StarterAssets
         private float _targetSpeed;
         private bool _aim;
         private Vector3 _previousMovement;
-        private Vector3 _previousFly;
-        Vector3 inputDirection;
 
         private bool IsCurrentDeviceMouse
         {
@@ -245,7 +243,7 @@ namespace StarterAssets
 
             //_currentMovement = inputDirection;
             // normalise input direction
-            inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
+            Vector3 inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
 
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
