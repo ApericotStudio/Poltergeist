@@ -241,7 +241,6 @@ namespace StarterAssets
             _animationBlend = Mathf.Lerp(_animationBlend, _targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-            //_currentMovement = inputDirection;
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
 
