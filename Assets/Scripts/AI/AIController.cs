@@ -36,7 +36,7 @@ public class AiController : MonoBehaviour
     public void InitializeController()
     {
         Agent = GetComponent<NavMeshAgent>();
-        Animator = GetComponentInChildren<Animator>();
+        Animator = GetComponent<Animator>();
 
         AnimIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         AnimIDSpeed = Animator.StringToHash("Speed");

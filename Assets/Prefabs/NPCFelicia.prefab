@@ -539,6 +539,7 @@ GameObject:
   - component: {fileID: 8534830403552682731}
   - component: {fileID: 8360858964001498300}
   - component: {fileID: 5514684316761317188}
+  - component: {fileID: 684203926785422902}
   m_Layer: 8
   m_Name: NPCFelicia
   m_TagString: Untagged
@@ -604,7 +605,7 @@ MonoBehaviour:
   InvestigatingSpeed: 1.7
   FrightenedTargetLocation: {fileID: 0}
   FrightenedSpeed: 5.335
-  _fearValue: 50
+  _fearValue: 0
   OnFearValueChange:
     m_PersistentCalls:
       m_Calls: []
@@ -798,6 +799,27 @@ CapsuleCollider:
   m_Height: 1.86
   m_Direction: 1
   m_Center: {x: 0, y: 0.83, z: 0}
+--- !u!95 &684203926785422902
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969111268812583773}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 4f3dd998a8c424a27b77d64a34ea1b3a, type: 3}
+  m_Controller: {fileID: 9100000, guid: 5bd63a150b4bb48539f989647dae61ac, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2159566562997942658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -863,6 +885,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4f3dd998a8c424a27b77d64a34ea1b3a,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 4f3dd998a8c424a27b77d64a34ea1b3a,
+        type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 5bd63a150b4bb48539f989647dae61ac, type: 2}
@@ -871,7 +898,8 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 4f3dd998a8c424a27b77d64a34ea1b3a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
