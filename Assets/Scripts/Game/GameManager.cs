@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         OnEndGame.Invoke();
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         StopCoroutine(ManageTimeRemaining());
     }
