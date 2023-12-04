@@ -27,6 +27,6 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnReplayButtonClicked()
     {
-        SceneManager.LoadScene("game");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
