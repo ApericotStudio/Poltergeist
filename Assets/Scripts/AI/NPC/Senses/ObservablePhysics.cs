@@ -24,6 +24,10 @@ public class ObservablePhysics : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         _audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
         _minimumImpulse = _rigidbody.mass * ((float)_observableObject.MinimumImpulse / 10);
     }
 
