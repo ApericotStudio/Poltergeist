@@ -39,6 +39,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _highlightColor.b
+      value: 0.09411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _highlightColor.g
+      value: 0.05490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _highlightColor.r
+      value: 0.07450981
+      objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: _hasMax
@@ -159,6 +174,21 @@ PrefabInstance:
       propertyPath: _isBreakable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0.48235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0.20784314
+      objectReference: {fileID: 0}
     - target: {fileID: 5967700316553098386, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Center.x
@@ -247,6 +277,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4306626876402358202, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
+    - {fileID: 5341852094705022397, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
+    - {fileID: 5030223199616537604, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
@@ -281,7 +313,7 @@ MonoBehaviour:
     type: 3}
   _spawnLocation: {fileID: 6730366209636791206}
   _throwForce: 500
-  _nrPerActivation: 20
+  _nrPerActivation: 10
   _coneRadius: 50
 --- !u!4 &2976468209195616793 stripped
 Transform:
