@@ -10,6 +10,9 @@ public class VisionController : MonoBehaviour
     [Tooltip("Maximum distance from camera for an object to be visible")]
     [SerializeField, Range(0f, 30f)] private float _visionRange;
 
+    [SerializeField]
+    private LayerMask _collideLayers;
+
     private Camera _mainCamera;
 
     private void Start()
@@ -43,7 +46,7 @@ public class VisionController : MonoBehaviour
     private GameObject CheckForObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, _visionRange))
+        if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, _visionRange, _collideLayers))
         {
             return hit.collider.gameObject;
         }
