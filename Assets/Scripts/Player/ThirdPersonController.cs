@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM 
+using UnityEditor.SceneManagement;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.AI;
@@ -18,9 +19,17 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
-        [SerializeField] private float MoveSpeed = 5.0f;
-        [SerializeField] private float flySpeed = 5.0f;
+        [SerializeField] private float _moveSpeed = 5.0f;
+        [SerializeField] private float _flySpeed = 5.0f;
         [SerializeField] private float _aimSpeed = 2.0f;
+
+        [Tooltip("How fast the player goes from moving to stopping, lower values are faster")]
+        [Range(0.0f, 0.2f)]
+        [SerializeField] private float _stoppingSpeed = 0.047f;
+
+        [Tooltip("How fast the player goes from not moving to moving, lower values are faster")]
+        [Range(0.0f, 0.2f)]
+        [SerializeField] private float _movingSpeed = 0.038f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -97,6 +106,8 @@ namespace StarterAssets
         private bool _hasAnimator;
         private float _targetSpeed;
         private bool _aim;
+        private Vector3 _previousMovement;
+        private Vector3 _newMovement;
         private bool IsCurrentDeviceMouse
         {
             get
@@ -219,7 +230,7 @@ namespace StarterAssets
             }
             else
             {
-                _targetSpeed = MoveSpeed;
+                _targetSpeed = _moveSpeed;
             }
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
@@ -230,12 +241,13 @@ namespace StarterAssets
 
             float inputMagnitude = _input.AnalogMovement ? _input.Move.magnitude : 1f;
 
-            _speed = _targetSpeed;
+
+
+            _speed = Mathf.Lerp(_speed, _targetSpeed, _movingSpeed);
 
             _animationBlend = Mathf.Lerp(_animationBlend, _targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-            
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
 
@@ -261,15 +273,33 @@ namespace StarterAssets
 
             Vector3 targetDirection = (targetRight + targetForward).normalized;
 
-            targetDirection *= _speed * Time.deltaTime;
-
             if (inputDirection.y != 0.0f)
             {
                 targetDirection.y = 0.0f;
             }
 
+
             // move the player
-            _controller.Move(targetDirection + (new Vector3(0.0f, inputDirection.y * flySpeed, 0.0f) * Time.deltaTime));
+            _newMovement = (targetDirection * _speed + new Vector3(0.0f, inputDirection.y, 0.0f) * _flySpeed) * Time.deltaTime;
+
+            if (_input.Move == Vector2.zero)
+            {
+                // after stopping with flying lerp in y direction
+                if (_input.Fly == 0)
+                {
+                    _newMovement = Vector3.Lerp(_previousMovement, Vector3.zero, _stoppingSpeed);
+                } 
+                // after stopping with walking lerp in x, y direction
+                else
+                {
+                    _newMovement = Vector3.Lerp(new Vector3(_previousMovement.x, _newMovement.y, _previousMovement.z), new Vector3(0, _newMovement.y, 0), _stoppingSpeed);
+                }
+                
+            }
+
+            _previousMovement = _newMovement;
+
+            _controller.Move(_newMovement);
             // update animator if using character
             if (_hasAnimator)
             {
