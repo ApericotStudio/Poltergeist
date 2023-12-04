@@ -25,11 +25,11 @@ namespace StarterAssets
 
         [Tooltip("How fast the player goes from moving to stopping")]
         [Range(0.0f, 0.2f)]
-        [SerializeField] private float _stoppingSpeed = 0.1f;
+        [SerializeField] private float _stoppingSpeed = 0.047f;
 
         [Tooltip("How fast the player goes from not moving to moving")]
         [Range(0.0f, 0.2f)]
-        [SerializeField] private float _movingSpeed = 0.1f;
+        [SerializeField] private float _movingSpeed = 0.038f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
