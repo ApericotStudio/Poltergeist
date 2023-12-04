@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObservablePhysics : MonoBehaviour
@@ -15,8 +14,8 @@ public class ObservablePhysics : MonoBehaviour
     private float _minimumImpulse;
 
     [Header("Sound clips")]
-    [SerializeField] private List<AudioClip> _hittingGroundSounds = new List<AudioClip>();
-    [SerializeField] private List<AudioClip> _breakingSounds = new List<AudioClip>();
+    [SerializeField] private AudioClipList _hittingGroundClips;
+    [SerializeField] private AudioClipList _breakingClips;
 
     private void Awake()
     {
@@ -110,23 +109,13 @@ public class ObservablePhysics : MonoBehaviour
     
     private void PlayHittingGroundSound()
     {
-        if (!(_hittingGroundSounds.Count > 0))
-        {
-            return;
-        }
-        int indexToPlay = Random.Range(0, _hittingGroundSounds.Count);
-        _audioSource.clip = _hittingGroundSounds[indexToPlay];
+        _audioSource.clip = _hittingGroundClips.GetRandom();
         _audioSource.Play();
     }
 
     private void PlayBreakingSound()
     {
-        if (!(_breakingSounds.Count > 0))
-        {
-            return;
-        }
-        int indexToPlay = Random.Range(0, _breakingSounds.Count);
-        _audioSource.clip = _breakingSounds[indexToPlay];
+        _audioSource.clip = _breakingClips.GetRandom();
         _audioSource.Play();
     }
 }
