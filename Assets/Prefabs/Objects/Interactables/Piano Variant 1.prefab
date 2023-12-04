@@ -20,11 +20,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 957969053416887674, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
         type: 3}
-      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 7949792289887854384}
-    - target: {fileID: 957969053416887674, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
-        type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Play
       objectReference: {fileID: 0}
@@ -168,6 +163,17 @@ PrefabInstance:
       propertyPath: outlineColor.r
       value: 0.20784314
       objectReference: {fileID: 0}
+    - target: {fileID: 2427988599872222569, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
+        type: 3}
+      propertyPath: _audioClips
+      value: 
+      objectReference: {fileID: 11400000, guid: 2088771d53714ed4a8091a9802991552,
+        type: 2}
+    - target: {fileID: 2427988599872222569, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
+        type: 3}
+      propertyPath: _onlyActivatable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4076795751506113685, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
         type: 3}
       propertyPath: m_Mesh
@@ -200,7 +206,6 @@ PrefabInstance:
       value: 0.07450981
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2427988599872222569, guid: 881ac8b5f8c889c44a44dedcab0a50b0, type: 3}
     - {fileID: 2209465366657276273, guid: 881ac8b5f8c889c44a44dedcab0a50b0, type: 3}
     - {fileID: 556818553088544386, guid: 881ac8b5f8c889c44a44dedcab0a50b0, type: 3}
     m_RemovedGameObjects: []
@@ -210,10 +215,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5200579447965382030}
-    - targetCorrespondingSourceObject: {fileID: 4087510885104812059, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7949792289887854384}
   m_SourcePrefab: {fileID: 100100000, guid: 881ac8b5f8c889c44a44dedcab0a50b0, type: 3}
 --- !u!1 &2702946726899883192 stripped
 GameObject:
@@ -243,16 +244,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3985615260038707078, guid: 510f667686f389f42aa957d23365fa19, type: 3}
---- !u!114 &7949792289887854384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2702946726899883192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d3adc6e8f8e873438ba94faebc802da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _soundEffect: {fileID: 8300000, guid: c8ebc1c7a929ed6428957b6e819611ac, type: 3}
