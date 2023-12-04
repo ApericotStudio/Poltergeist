@@ -62,7 +62,7 @@ public class PossessionController : MonoBehaviour, IObserver
     {
         if (CurrentPossession != null)
         {
-            _thirdPersonController.toUnpossessLocation();
+            _thirdPersonController.ToUnpossessLocation();
             RemovePossessionObjects();
             _thirdPersonController.freeze = false;
             _audioSource.PlayOneShot(_unpossessSound);
