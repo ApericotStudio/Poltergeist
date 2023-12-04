@@ -12,7 +12,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: c8ebc1c7a929ed6428957b6e819611ac, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 600901739716259643, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
         type: 3}
       propertyPath: _isBreakable
@@ -20,13 +20,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 957969053416887674, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
         type: 3}
+      propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4362571868005198282}
+    - target: {fileID: 957969053416887674, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
+        type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Play
+      value: Toggle
       objectReference: {fileID: 0}
     - target: {fileID: 957969053416887674, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: RepeatedAudio, Assembly-CSharp
+      value: PlayAudio, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1052043324649156312, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
         type: 3}
@@ -244,3 +249,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3985615260038707078, guid: 510f667686f389f42aa957d23365fa19, type: 3}
+--- !u!114 &4362571868005198282 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2427988599872222569, guid: 881ac8b5f8c889c44a44dedcab0a50b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2106289089763024035}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2702946726899883192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936a93d0681e71b4ebdf9e4e353ef1ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
