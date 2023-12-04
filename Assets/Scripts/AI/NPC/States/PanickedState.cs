@@ -15,7 +15,7 @@ public class PanickedState : IState
         _npcController.StartCoroutine(PanickedCoroutine());
     }
 
-    IEnumerator PanickedCoroutine()
+    private IEnumerator PanickedCoroutine()
     {
         _npcController.Agent.speed = _npcController.FrightenedSpeed;
         _npcController.Agent.stoppingDistance = 0f;
