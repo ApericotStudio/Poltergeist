@@ -63,7 +63,6 @@ public class ObservableObject : MonoBehaviour, IObservableObject
 
     private void Awake()
     {
-        Debug.Log("grgergregre");
         switch (Type)
         {
             case ObjectType.Big:
