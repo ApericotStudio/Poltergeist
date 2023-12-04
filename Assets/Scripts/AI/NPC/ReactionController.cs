@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// The Reaction Controller is responsible for displaying the correct reaction sprite above the NPC's head based on the fear value of the NPC.
-/// </summary>
 public class ReactionController : MonoBehaviour
 {
+    [Tooltip("The image that will be used to display the reaction sprite."), SerializeField]
+    private Image _reactionImage;
     [Tooltip("The sprite that will be displayed when the fear value is low."), SerializeField]
     private Sprite _lowFearSprite;
     [Tooltip("The sprite that will be displayed when the fear value is medium."), SerializeField]
@@ -20,24 +17,66 @@ public class ReactionController : MonoBehaviour
     private Sprite _scaredSprite;
 
     private NpcController _npcController;
-    private Canvas _reactionCanvas;
-    private Image _reactionImage;
+    private IState _previousState;
 
     private void Awake()
     {
-        _reactionCanvas = GetComponentInParent<Canvas>();
-        _npcController = GetComponentInParent<NpcController>();
-        _npcController.OnFearValueChange.AddListener(SetNpcReactionBasedOnFear);
-        _npcController.OnStateChange.AddListener(SetNpcReactionBasedOnState);
-        _reactionImage = GetComponent<Image>();
+        _npcController = GetComponent<NpcController>();
+        _npcController.OnStateChange.AddListener(OnStateChange);
+        _npcController.OnFearValueChange.AddListener(OnFearValueChange);
+        _previousState = _npcController.CurrentState;
     }
 
-    private void Update()
+    private void OnStateChange()
     {
-        RotateCanvasTowardsPlayer();
+        PlayReactionSound();
+        SetReactionSpriteBasedOnState();
+        _previousState = _npcController.CurrentState;
     }
 
-    private void SetNpcReactionBasedOnFear(float fear)
+
+    private void OnFearValueChange(float fear)
+    {
+        SetReactionSpriteBasedOnFear(fear);
+    }
+
+    private void PlayReactionSound()
+    {
+        if(_previousState is RoamState && _npcController.CurrentState is InvestigateState)
+        {
+            _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClips.GetRandom());
+        }
+        else if(_previousState is InvestigateState && _npcController.CurrentState is RoamState)
+        {
+            _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClips.GetRandom());
+        }
+        else if(_previousState is not PanickedState && _npcController.CurrentState is PanickedState)
+        {
+            _npcController.NpcAudioSource.PlayOneShot(_npcController.ScreamAudioClips.GetRandom());
+        }
+        else if(_previousState is not ScaredState && _npcController.CurrentState is ScaredState)
+        {
+            _npcController.NpcAudioSource.PlayOneShot(_npcController.SmallScreamAudioClips.GetRandom());
+        }
+    }
+
+    private void SetReactionSpriteBasedOnState()
+    {
+        if(_npcController.CurrentState == _npcController.InvestigateState)
+        {
+            _reactionImage.sprite = _investigateSprite;
+        }
+        else if(_npcController.CurrentState == _npcController.ScaredState)
+        {
+            _reactionImage.sprite = _scaredSprite;
+        }
+        else
+        {
+            SetReactionSpriteBasedOnFear(_npcController.FearValue);
+        }
+    }
+
+    private void SetReactionSpriteBasedOnFear(float fear)
     {
         if(_npcController.CurrentState is InvestigateState)
         {
@@ -60,30 +99,5 @@ public class ReactionController : MonoBehaviour
         {
             _reactionImage.sprite = _mediumFearSprite;
         }
-    }
-
-    private void SetNpcReactionBasedOnState()
-    {
-        if(_npcController.CurrentState == _npcController.InvestigateState)
-        {
-            _reactionImage.sprite = _investigateSprite;
-        }
-        else if(_npcController.CurrentState == _npcController.ScaredState)
-        {
-            _reactionImage.sprite = _scaredSprite;
-        }
-        else
-        {
-            SetNpcReactionBasedOnFear(_npcController.FearValue);
-        }
-    }
-
-    /// <summary>
-    /// Rotates the canvas towards the player.
-    /// </summary>
-    private void RotateCanvasTowardsPlayer()
-    {
-        Vector3 directionToCamera = Camera.main.transform.position - _reactionCanvas.transform.position;
-        _reactionCanvas.transform.rotation = Quaternion.LookRotation(-directionToCamera);
     }
 }
