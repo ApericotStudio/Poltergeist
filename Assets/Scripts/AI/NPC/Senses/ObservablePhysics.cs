@@ -64,13 +64,6 @@ public class ObservablePhysics : MonoBehaviour
                 _observableObject.ClearObservers();
             }
         }
-        else
-        {
-            if (collision.impulse.magnitude > _hitGroundSoundMinimumImpulse)
-            {
-                PlayHittingGroundSound();
-            }
-        }
     }
         
     private void OnCollisionExit(Collision collision)
