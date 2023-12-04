@@ -7,7 +7,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class Drop : MonoBehaviour
 {
 
-    private SpringJoint _springJoint;
+    private HingeJoint _hingeJoint;
     private Rigidbody _rigidBody;
     private ObservablePhysics observablePhysics;
 
@@ -15,13 +15,12 @@ public class Drop : MonoBehaviour
     {
         observablePhysics = GetComponent<ObservablePhysics>();
         observablePhysics.FirstHit = false;
-        _springJoint = GetComponent<SpringJoint>();
+        _hingeJoint = GetComponent<HingeJoint>();
         _rigidBody = GetComponent<Rigidbody>();
     }
     public void Activate()
     {
-        _springJoint.spring = 0;
-        _rigidBody.AddForce(new Vector3(0, -1, 0));
-        _springJoint.connectedBody.gameObject.SetActive(false);
+        //_rigidBody.AddForce(new Vector3(0, -1, 0));
+        _hingeJoint.connectedBody.gameObject.SetActive(false);
     }
 }
