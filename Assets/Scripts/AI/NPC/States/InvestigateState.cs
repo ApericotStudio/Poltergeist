@@ -26,7 +26,6 @@ public class InvestigateState : IState
     {
         _npcController.Agent.speed = _npcController.InvestigatingSpeed;
         _npcController.Agent.stoppingDistance = 2f;
-        _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClips.GetRandom());
         _npcController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
         _npcController.FearReductionHasCooldown = true;
 
@@ -47,17 +46,8 @@ public class InvestigateState : IState
         yield return new WaitForSeconds(3f);
 
         _npcController.FearReductionHasCooldown = false;
-
-        if (_npcController.CurrentState is InvestigateState)
-        {
-            _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClips.GetRandom());
-            _npcController.Agent.SetDestination(_npcController.CurrentRoamOrigin.position);
-            _npcController.CurrentState = _npcController.RoamState;
-        }
-        else
-        {
-            yield break;
-        }
+        _npcController.Agent.SetDestination(_npcController.CurrentRoamOrigin.position);
+        _npcController.CurrentState = _npcController.RoamState;
     }
 
     /// <summary>
