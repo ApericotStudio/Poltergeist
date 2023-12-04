@@ -147,10 +147,8 @@ public class NpcController : AiController
     {
         if (_lookAt)
         {
-            Debug.Log("on");
             if (lookAtTarget != null)
             {
-                Debug.Log("Im looking at you");
                 Animator.SetLookAtWeight(1);
                 Animator.SetLookAtPosition(lookAtTarget.position);
             }
