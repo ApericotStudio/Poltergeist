@@ -34,7 +34,7 @@ public class NpcController : AiController
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
-    
+
     [HideInInspector]
     public Transform InvestigateTarget;
     [HideInInspector]
@@ -137,5 +137,25 @@ public class NpcController : AiController
                 AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepVolume);
             }
         }
+    }
+
+    private void OnAnimatorIK()
+    {
+        if (this.CurrentState is global::InvestigateState)
+        {
+            if (InvestigateTarget != null)
+            {
+                Animator.SetLookAtWeight(1);
+                Animator.SetLookAtPosition(InvestigateTarget.position);
+            }
+            else
+            {
+                Animator.SetLookAtWeight(0);
+            }
+        } else
+        {
+            Animator.SetLookAtWeight(0);
+        }
+
     }
 }
