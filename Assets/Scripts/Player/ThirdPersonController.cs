@@ -25,7 +25,11 @@ namespace StarterAssets
 
         [Tooltip("How fast the player goes from moving to stopping")]
         [Range(0.0f, 0.2f)]
-        [SerializeField] private float _lerpSpeed = 0.1f;
+        [SerializeField] private float _stoppingSpeed = 0.1f;
+
+        [Tooltip("How fast the player goes from not moving to moving")]
+        [Range(0.0f, 0.2f)]
+        [SerializeField] private float _movingSpeed = 0.1f;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -241,15 +245,7 @@ namespace StarterAssets
 
             Debug.Log(_speed);
 
-            if (_newMovement == Vector3.zero)
-            {
-
-
-            }
-
-            _speed = Mathf.Lerp(_speed, _targetSpeed, 0.1f);
-            _speed = Mathf.Clamp(_speed, 0, _targetSpeed);
-
+            _speed = Mathf.Lerp(_speed, _targetSpeed, _movingSpeed);
 
             _animationBlend = Mathf.Lerp(_animationBlend, _targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
@@ -293,12 +289,12 @@ namespace StarterAssets
                 // after stopping with flying lerp in y direction
                 if (_input.Fly == 0)
                 {
-                    _newMovement = Vector3.Lerp(_previousMovement, Vector3.zero, _lerpSpeed);
+                    _newMovement = Vector3.Lerp(_previousMovement, Vector3.zero, _stoppingSpeed);
                 } 
                 // after stopping with walking lerp in x, y direction
                 else
                 {
-                    _newMovement = Vector3.Lerp(new Vector3(_previousMovement.x, _newMovement.y, _previousMovement.z), new Vector3(0, _newMovement.y, 0), _lerpSpeed);
+                    _newMovement = Vector3.Lerp(new Vector3(_previousMovement.x, _newMovement.y, _previousMovement.z), new Vector3(0, _newMovement.y, 0), _stoppingSpeed);
                 }
                 
             }
