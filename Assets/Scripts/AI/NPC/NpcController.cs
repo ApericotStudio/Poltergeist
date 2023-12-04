@@ -34,7 +34,8 @@ public class NpcController : AiController
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
-    
+
+    [HideInInspector]
     public Transform InvestigateTarget;
     [HideInInspector]
     public bool RanAway;
