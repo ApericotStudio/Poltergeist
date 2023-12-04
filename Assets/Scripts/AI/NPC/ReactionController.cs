@@ -3,6 +3,19 @@ using UnityEngine.UI;
 
 public class ReactionController : MonoBehaviour
 {
+    [Header("Reaction Audio Settings")]
+    [Tooltip("The audio clips that will be played when the NPC gets scared into a new room.")]
+    public AudioClipList SmallScreamAudioClips;
+    [Tooltip("The audio clips that will be played when the NPC screams.")]
+    public AudioClipList ScreamAudioClips;
+    [Tooltip("The audio clip that will be played when the NPC investigates.")]
+    public AudioClipList InvestigateAudioClips;
+    [Tooltip("The audio clip that will be played when the NPC stops investigating.")]
+    public AudioClipList InvestigateEndAudioClips;
+    [Tooltip("The volume of the scream audio clips.")]
+    [Range(0f, 1f)]
+    public float ScreamVolume = 1f;
+    [Header("Reaction Image Settings")]
     [Tooltip("The image that will be used to display the reaction sprite."), SerializeField]
     private Image _reactionImage;
     [Tooltip("The sprite that will be displayed when the fear value is low."), SerializeField]
@@ -42,21 +55,27 @@ public class ReactionController : MonoBehaviour
 
     private void PlayReactionSound()
     {
-        if(_previousState is RoamState && _npcController.CurrentState is InvestigateState)
+        AudioClip clip = null;
+
+        switch (_npcController.CurrentState)
         {
-            _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateAudioClips.GetRandom());
+            case InvestigateState when _previousState is RoamState:
+                clip = InvestigateAudioClips.GetRandom();
+                break;
+            case RoamState when _previousState is InvestigateState:
+                clip = InvestigateEndAudioClips.GetRandom();
+                break;
+            case PanickedState when _previousState is RoamState || _previousState is InvestigateState:
+                clip = ScreamAudioClips.GetRandom();
+                break;
+            case ScaredState when _previousState is RoamState || _previousState is InvestigateState:
+                clip = SmallScreamAudioClips.GetRandom();
+                break;
         }
-        else if(_previousState is InvestigateState && _npcController.CurrentState is RoamState)
+
+        if (clip != null)
         {
-            _npcController.NpcAudioSource.PlayOneShot(_npcController.InvestigateEndAudioClips.GetRandom());
-        }
-        else if(_previousState is not PanickedState && _npcController.CurrentState is PanickedState)
-        {
-            _npcController.NpcAudioSource.PlayOneShot(_npcController.ScreamAudioClips.GetRandom());
-        }
-        else if(_previousState is not ScaredState && _npcController.CurrentState is ScaredState)
-        {
-            _npcController.NpcAudioSource.PlayOneShot(_npcController.SmallScreamAudioClips.GetRandom());
+            _npcController.NpcAudioSource.PlayOneShot(clip);
         }
     }
 
