@@ -47,11 +47,6 @@ public class RoamState : IState
         }
     }
 
-    private bool IsRoaming()
-    {
-        return _npcController.CurrentState is RoamState;
-    }
-
     /// <summary>
     /// Returns a random location within the roam radius around the roam origin.
     /// </summary>
@@ -61,5 +56,10 @@ public class RoamState : IState
         randomDirection += _npcController.CurrentRoamOrigin.position;
         NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _npcController.RoamRadius, 1);
         return hit.position;
+    }
+
+    private bool IsRoaming()
+    {
+        return _npcController.CurrentState is RoamState;
     }
 }

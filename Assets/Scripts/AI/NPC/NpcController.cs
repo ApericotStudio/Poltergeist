@@ -15,8 +15,6 @@ public class NpcController : AiController
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
     public UnityEvent<float> OnFearValueChange;
-    [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
-    public GameEventManager GameEventManager;
 
     [Header("Roaming Settings")]
     [Tooltip("The current roam origin of the NPC. This is the location the NPC will roam around.")]
@@ -31,17 +29,6 @@ public class NpcController : AiController
     public float RoamOriginTimeSpent = 50f;
 
     [Header("Audio Settings")]
-    [Tooltip("The audio clips that will be played when the NPC gets scared into a new room.")]
-    public AudioClipList SmallScreamAudioClips;
-    [Tooltip("The audio clips that will be played when the NPC screams.")]
-    public AudioClipList ScreamAudioClips;
-    [Tooltip("The audio clip that will be played when the NPC investigates.")]
-    public AudioClipList InvestigateAudioClips;
-    [Tooltip("The audio clip that will be played when the NPC stops investigating.")]
-    public AudioClipList InvestigateEndAudioClips;
-    [Tooltip("The volume of the scream audio clips.")]
-    [Range(0f, 1f)]
-    public float ScreamVolume = 1f;
     [Tooltip("The audio clips that will be played when the NPC moves.")]
     public AudioClip[] FootstepAudioClips;
     [Tooltip("The volume of the footstep audio clips.")]
