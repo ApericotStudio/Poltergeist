@@ -34,12 +34,7 @@ public class NpcController : AiController
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
-
-    [Header("Head Turning Settings")]
-    public Transform lookAtTarget;
-    public bool _lookAt;
     
-    [HideInInspector]
     public Transform InvestigateTarget;
     [HideInInspector]
     public bool RanAway;
@@ -145,12 +140,16 @@ public class NpcController : AiController
 
     private void OnAnimatorIK()
     {
-        if (_lookAt)
+        if (this.CurrentState is global::InvestigateState)
         {
-            if (lookAtTarget != null)
+            if (InvestigateTarget != null)
             {
                 Animator.SetLookAtWeight(1);
-                Animator.SetLookAtPosition(lookAtTarget.position);
+                Animator.SetLookAtPosition(InvestigateTarget.position);
+            }
+            else
+            {
+                Animator.SetLookAtWeight(0);
             }
         } else
         {
