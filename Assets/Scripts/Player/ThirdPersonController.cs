@@ -24,7 +24,7 @@ namespace StarterAssets
         [SerializeField] private float _aimSpeed = 2.0f;
 
         [Tooltip("How fast the player goes from moving to stopping, lower values are faster")]
-        [Range(0.0f, 0.2f)]
+        [Range(0.0f, 10f)]
         [SerializeField] private float _stoppingSpeed = 0.047f;
 
         [Tooltip("How fast the player goes from not moving to moving, lower values are faster")]
@@ -287,12 +287,12 @@ namespace StarterAssets
                 // after stopping with flying lerp in y direction
                 if (_input.Fly == 0)
                 {
-                    _newMovement = Vector3.Lerp(_previousMovement, Vector3.zero, _stoppingSpeed);
+                    _newMovement = Vector3.Lerp(_previousMovement, Vector3.zero, _stoppingSpeed * Time.deltaTime);
                 } 
                 // after stopping with walking lerp in x, y direction
                 else
                 {
-                    _newMovement = Vector3.Lerp(new Vector3(_previousMovement.x, _newMovement.y, _previousMovement.z), new Vector3(0, _newMovement.y, 0), _stoppingSpeed);
+                    _newMovement = Vector3.Lerp(new Vector3(_previousMovement.x, _newMovement.y, _previousMovement.z), new Vector3(0, _newMovement.y, 0), _stoppingSpeed * Time.deltaTime);
                 }
                 
             }
