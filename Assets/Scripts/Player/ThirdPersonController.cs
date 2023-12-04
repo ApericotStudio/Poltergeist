@@ -1,9 +1,6 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
-using UnityEditor.SceneManagement;
+﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 using UnityEngine.AI;
 #endif
 
@@ -87,8 +84,6 @@ namespace StarterAssets
         // animation IDs
         private int _animIDSpeed;
         private int _animIDGrounded;
-        private int _animIDJump;
-        private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
 #if ENABLE_INPUT_SYSTEM 
@@ -145,7 +140,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
             _posControl = gameObject.GetComponent<PossessionController>();
-            _posControl.CurrentPossessionChanged.AddListener(togglePlayerVisible);
+            _posControl.CurrentPossessionChanged.AddListener(TogglePlayerVisible);
             _meshRs = gameObject.GetComponentsInChildren<MeshRenderer>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
@@ -175,8 +170,6 @@ namespace StarterAssets
         {
             _animIDSpeed = Animator.StringToHash("Speed");
             _animIDGrounded = Animator.StringToHash("Grounded");
-            _animIDJump = Animator.StringToHash("Jump");
-            _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
 
@@ -325,19 +318,19 @@ namespace StarterAssets
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
-        public void toUnpossessLocation()
+        public void ToUnpossessLocation()
         {
-            Ray ray = new Ray(_posControl.CurrentPossession.transform.position, Vector3.down);
+            Ray ray = new(_posControl.CurrentPossession.transform.position, Vector3.down);
             Physics.Raycast(ray, out RaycastHit hitInfo);
             _controller.enabled = false;
             if (NavMesh.SamplePosition(hitInfo.point, out NavMeshHit hit, 2f, 1))
-            { this.gameObject.transform.position = hit.position; }
+            { gameObject.transform.position = hit.position; }
             else if (NavMesh.SamplePosition(hitInfo.point, out hit, 5f, 1))
-            { this.gameObject.transform.position = hit.position; }
+            { gameObject.transform.position = hit.position; }
             _controller.enabled = true;
         }
 
-        public void togglePlayerVisible()
+        public void TogglePlayerVisible()
         {
             foreach (MeshRenderer mesh in _meshRs) { mesh.enabled = _posControl.CurrentPossession == null; }
         }
