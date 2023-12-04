@@ -111,7 +111,7 @@ public class ObservablePhysics : MonoBehaviour
     
     private void PlayHittingGroundSound()
     {
-        _audioSource.clip = _hittingGroundClips.GetRandom(); ;
+        _audioSource.clip = _hittingGroundClips.GetRandom();
         _audioSource.Play();
     }
 
