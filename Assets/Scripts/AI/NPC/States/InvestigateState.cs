@@ -22,7 +22,7 @@ public class InvestigateState : IState
     /// Moves the NPC to the location of the object that made a sound and then back to the roam location.
     /// </summary>
     /// <returns></returns>
-    IEnumerator InvestigateCoroutine()
+    private IEnumerator InvestigateCoroutine()
     {
         _npcController.Agent.speed = _npcController.InvestigatingSpeed;
         _npcController.Agent.stoppingDistance = 2f;
@@ -47,7 +47,11 @@ public class InvestigateState : IState
 
         _npcController.FearReductionHasCooldown = false;
         _npcController.Agent.SetDestination(_npcController.CurrentRoamOrigin.position);
-        _npcController.CurrentState = _npcController.RoamState;
+
+        if(IsInvestigating())
+        {
+            _npcController.CurrentState = _npcController.RoamState;
+        }
     }
 
     /// <summary>
@@ -56,5 +60,10 @@ public class InvestigateState : IState
     private Vector3 NearestPointOnTargetFromPlayer()
     {
         return _investigateTargetCollider.ClosestPoint(_npcController.transform.position);
+    }
+
+    private bool IsInvestigating()
+    {
+        return _npcController.CurrentState is InvestigateState;
     }
 }
