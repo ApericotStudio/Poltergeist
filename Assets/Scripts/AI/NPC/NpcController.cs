@@ -45,6 +45,10 @@ public class NpcController : AiController
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
+
+    [Header("Head Turning Settings")]
+    public Transform lookAtTarget;
+    public bool _lookAt;
     
     [HideInInspector]
     public Transform InvestigateTarget;
@@ -148,5 +152,23 @@ public class NpcController : AiController
                 AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepVolume);
             }
         }
+    }
+
+    private void OnAnimatorIK()
+    {
+        if (_lookAt)
+        {
+            Debug.Log("on");
+            if (lookAtTarget != null)
+            {
+                Debug.Log("Im looking at you");
+                Animator.SetLookAtWeight(1);
+                Animator.SetLookAtPosition(lookAtTarget.position);
+            }
+        } else
+        {
+            Animator.SetLookAtWeight(0);
+        }
+
     }
 }
