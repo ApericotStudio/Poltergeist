@@ -12,6 +12,7 @@ public class ObservablePhysics : MonoBehaviour
     private bool _isBreakable = false;
     [Tooltip("Minimum Impulse needed to destroy the object"), SerializeField] 
     private float _destroyMinimumImpulse = 10;
+    private float _minimumImpulse;
 
     [Header("Sound clips")]
     [SerializeField] private List<AudioClip> _hittingGroundSounds = new List<AudioClip>();
@@ -23,6 +24,7 @@ public class ObservablePhysics : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         _audioSource = GetComponent<AudioSource>();
+        _minimumImpulse = _rigidbody.mass * ((float)_observableObject.MinimumImpulse / 10);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -32,7 +34,7 @@ public class ObservablePhysics : MonoBehaviour
             return;
         }
 
-        if (collision.impulse.magnitude > (float)_observableObject.MinimumImpulse)
+        if (collision.impulse.magnitude > _minimumImpulse)
         {
             PlayHittingGroundSound();
 

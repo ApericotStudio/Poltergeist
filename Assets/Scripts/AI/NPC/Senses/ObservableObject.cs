@@ -26,10 +26,11 @@ public enum ObjectType
 
 public enum MinimumImpulse
 {
-    Big = 70,
-    Medium = 70,
-    Small = 3
+    Big = 14,
+    Medium = 14,
+    Small = 30
 }
+
 /// <summary>
 /// The Observable Object class is used to store the state of the object. 
 /// It also contains the anxiety values that will be added to the NPC's anxiety when the object has entered certain states.
@@ -40,7 +41,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     [Tooltip("The type of object.")]
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
-    public MinimumImpulse _minimumImpulse;
+    private MinimumImpulse _minimumImpulse;
 
     private readonly List<IObserver> _observers = new();
 
@@ -75,10 +76,8 @@ public class ObservableObject : MonoBehaviour, IObservableObject
                 _minimumImpulse = MinimumImpulse.Small;
                 break;
         }
-
         NotifyObservers();
     }
-
     public void NotifyObservers()
     {
         for (int i = 0; i < _observers.Count; i++)
