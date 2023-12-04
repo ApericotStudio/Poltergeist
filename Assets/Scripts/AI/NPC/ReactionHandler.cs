@@ -5,9 +5,9 @@ public class ReactionHandler : MonoBehaviour
 {
     [Header("Reaction Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC gets scared into a new room."), SerializeField]
-    private AudioClipList _smallScreamAudioClips;
+    private AudioClipList _bigScreamAudioClips;
     [Tooltip("The audio clips that will be played when the NPC screams."), SerializeField]
-    private AudioClipList _screamAudioClips;
+    private AudioClipList _terrifiedAudioClips;
     [Tooltip("The audio clip that will be played when the NPC investigates."), SerializeField]
     private AudioClipList _investigateAudioClips;
     [Tooltip("The audio clip that will be played when the NPC stops investigating."), SerializeField]
@@ -64,10 +64,10 @@ public class ReactionHandler : MonoBehaviour
                 clip = _investigateEndAudioClips.GetRandom();
                 break;
             case PanickedState when _previousState is RoamState || _previousState is InvestigateState:
-                clip = _screamAudioClips.GetRandom();
+                clip = _terrifiedAudioClips.GetRandom();
                 break;
             case ScaredState when _previousState is RoamState || _previousState is InvestigateState:
-                clip = _smallScreamAudioClips.GetRandom();
+                clip = _bigScreamAudioClips.GetRandom();
                 break;
         }
 
