@@ -243,8 +243,6 @@ namespace StarterAssets
 
 
 
-            Debug.Log(_speed);
-
             _speed = Mathf.Lerp(_speed, _targetSpeed, _movingSpeed);
 
             _animationBlend = Mathf.Lerp(_animationBlend, _targetSpeed, Time.deltaTime * SpeedChangeRate);
