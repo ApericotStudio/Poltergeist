@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ReactionController : MonoBehaviour
+public class ReactionHandler : MonoBehaviour
 {
     [Header("Reaction Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC gets scared into a new room.")]
