@@ -9,24 +9,24 @@ public class ChangeMaterial : MonoBehaviour
     [SerializeField]
     private Material _onMaterial;
 
-    private Material _currentMaterial;
+    private MeshRenderer _renderer;
     private bool _turnedOn = false;
     private void Awake()
     {
-        _currentMaterial = GetComponent<Material>();
+        _renderer = GetComponent<MeshRenderer>();
     }
 
     public void Change()
     {
         if (!_turnedOn)
         {
-            _currentMaterial = _onMaterial;
+            _renderer.material = _onMaterial;
             _turnedOn = true;
         }
 
         else
         {
-            _currentMaterial = _offMaterial;
+            _renderer.material = _offMaterial;
             _turnedOn = false;
         }
     }
