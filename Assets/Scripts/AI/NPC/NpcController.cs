@@ -29,23 +29,12 @@ public class NpcController : AiController
     public float RoamOriginTimeSpent = 50f;
 
     [Header("Audio Settings")]
-    [Tooltip("The audio clips that will be played when the NPC gets scared into a new room.")]
-    public AudioClipList SmallScreamAudioClips;
-    [Tooltip("The audio clips that will be played when the NPC screams.")]
-    public AudioClipList ScreamAudioClips;
-    [Tooltip("The audio clip that will be played when the NPC investigates.")]
-    public AudioClipList InvestigateAudioClips;
-    [Tooltip("The audio clip that will be played when the NPC stops investigating.")]
-    public AudioClipList InvestigateEndAudioClips;
-    [Tooltip("The volume of the scream audio clips.")]
-    [Range(0f, 1f)]
-    public float ScreamVolume = 1f;
     [Tooltip("The audio clips that will be played when the NPC moves.")]
     public AudioClip[] FootstepAudioClips;
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
-    
+
     [HideInInspector]
     public Transform InvestigateTarget;
     [HideInInspector]
@@ -148,5 +137,25 @@ public class NpcController : AiController
                 AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepVolume);
             }
         }
+    }
+
+    private void OnAnimatorIK()
+    {
+        if (this.CurrentState is global::InvestigateState)
+        {
+            if (InvestigateTarget != null)
+            {
+                Animator.SetLookAtWeight(1);
+                Animator.SetLookAtPosition(InvestigateTarget.position);
+            }
+            else
+            {
+                Animator.SetLookAtWeight(0);
+            }
+        } else
+        {
+            Animator.SetLookAtWeight(0);
+        }
+
     }
 }

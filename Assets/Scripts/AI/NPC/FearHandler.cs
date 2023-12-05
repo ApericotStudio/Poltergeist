@@ -54,6 +54,10 @@ public class FearHandler : MonoBehaviour
             return;
         }
 
+       float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
+       
+       if(_npcController.FearValue + fearToAdd < 100f)
+       {
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
@@ -61,23 +65,19 @@ public class FearHandler : MonoBehaviour
                 break;
             case ObjectState.Hit:
                 if (observableObject.Type == ObjectType.Small)
-                {
                     _npcController.Investigate();
-                }
                 else
-                {
                     _npcController.GetScared();
-                }
                 break;
             default:
                 return;
-        }
+            }
+       }
 
-       _npcController.FearValue += CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
-
-        _coroutine = ScaredCooldown();
-        StartCoroutine(_coroutine);
-        _usedObjects.Add(observableObject);
+       _npcController.FearValue += fearToAdd;
+       _coroutine = ScaredCooldown();
+       StartCoroutine(_coroutine);
+       _usedObjects.Add(observableObject);
     }
 
     /// <summary>
