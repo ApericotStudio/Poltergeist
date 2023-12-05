@@ -13,14 +13,15 @@ public class Drop : MonoBehaviour
 
     private void Awake()
     {
-        observablePhysics = GetComponent<ObservablePhysics>();
+/*        observablePhysics = GetComponent<ObservablePhysics>();
         observablePhysics.FirstHit = false;
         _hingeJoint = GetComponent<HingeJoint>();
-        _rigidBody = GetComponent<Rigidbody>();
+        _rigidBody = GetComponent<Rigidbody>();*/
     }
     public void Activate()
     {
         //_rigidBody.AddForce(new Vector3(0, -1, 0));
-        _hingeJoint.connectedBody = null;
+        //_hingeJoint.connectedBody.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
