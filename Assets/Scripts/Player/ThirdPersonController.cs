@@ -133,8 +133,9 @@ namespace StarterAssets
         {
             CurrentHeight = transform.position.y;
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
-            _hasAnimator = TryGetComponent(out _animator);
+
+            _animator = GetComponentInChildren<Animator>();
+            _hasAnimator = _animator != null;
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
@@ -152,7 +153,6 @@ namespace StarterAssets
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
 
             GroundedCheck();
             if (!freeze)
@@ -169,7 +169,6 @@ namespace StarterAssets
         private void AssignAnimationIDs()
         {
             _animIDSpeed = Animator.StringToHash("Speed");
-            _animIDGrounded = Animator.StringToHash("Grounded");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
 
