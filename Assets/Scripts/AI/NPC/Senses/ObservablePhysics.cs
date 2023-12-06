@@ -37,6 +37,7 @@ public class ObservablePhysics : MonoBehaviour
             return;
         }
 
+
         if (collision.impulse.magnitude > _minimumImpulse)
         {
             PlayHittingGroundSound();

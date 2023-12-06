@@ -14,7 +14,6 @@ public class Interactable : MonoBehaviour
     public UnityEvent InteractEvent;
     private bool _interactDepleted;
 
-    
 
     private ObservableObject _observableObject;
     private int _uses = 0;
