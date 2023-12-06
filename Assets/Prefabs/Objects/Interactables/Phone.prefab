@@ -187,6 +187,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 1
   _destroyMinimumImpulse: 10
+  _hitGroundSoundMinimumImpulse: 3
+  _hittingGroundSounds: []
+  _breakingSounds: []
 --- !u!208 &3794431788514203341
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -216,7 +219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoverMessage: ring / stop
-  _singleUse: 0
+  _hasMax: 0
+  _maxUses: 10
   InteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -244,7 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936a93d0681e71b4ebdf9e4e353ef1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioClips: {fileID: 0}
+  _onlyActivatable: 0
   _keepProgress: 0
+  _TurnOff: 1
   DevNote: Other adjustable variables such as audio clip and loop can be found in
     the audio source component.
 --- !u!82 &2045532392527393637
@@ -257,7 +264,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8e6fc797c1ac88b42a309a6d2496d646, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8a77031342ecc5e468d10506775fa821, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.15
   m_Pitch: 0.5

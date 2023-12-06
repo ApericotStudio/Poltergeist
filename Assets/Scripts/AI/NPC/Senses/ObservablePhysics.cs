@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObservablePhysics : MonoBehaviour
@@ -12,15 +11,11 @@ public class ObservablePhysics : MonoBehaviour
     private bool _isBreakable = false;
     [Tooltip("Minimum Impulse needed to destroy the object"), SerializeField] 
     private float _destroyMinimumImpulse = 10;
-    [Tooltip("Minimum Impulse needed for hitting ground sound"), SerializeField]
-    private float _hitGroundSoundMinimumImpulse = 3;
-
-    [HideInInspector]
-    public bool FirstHit = true;
+    private float _minimumImpulse;
 
     [Header("Sound clips")]
-    [SerializeField] private List<AudioClip> _hittingGroundSounds = new List<AudioClip>();
-    [SerializeField] private List<AudioClip> _breakingSounds = new List<AudioClip>();
+    [SerializeField] private AudioClipList _hittingGroundClips;
+    [SerializeField] private AudioClipList _breakingClips;
 
     private void Awake()
     {
@@ -30,23 +25,28 @@ public class ObservablePhysics : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+        _minimumImpulse = _rigidbody.mass * ((float)_observableObject.MinimumImpulse / 10);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(_observableObject.State == ObjectState.Broken)
+        if (_observableObject.State == ObjectState.Broken)
         {
             return;
         }
-        if (!FirstHit)
+
+        if (collision.impulse.magnitude > _minimumImpulse)
         {
+            PlayHittingGroundSound();
+
             if (collision.gameObject.layer == _obstacleMask)
             {
                 _observableObject.State = ObjectState.Hit;
             }
         }
-        else
-        {
-            FirstHit = false;
-        }
+        
         if(_isBreakable)
         {
             if(collision.impulse.magnitude > _destroyMinimumImpulse)
@@ -62,10 +62,6 @@ public class ObservablePhysics : MonoBehaviour
                 }
                 
                 _observableObject.ClearObservers();
-            }
-            else if(collision.impulse.magnitude > _hitGroundSoundMinimumImpulse)
-            {
-                PlayHittingGroundSound();
             }
         }
     }
@@ -113,23 +109,13 @@ public class ObservablePhysics : MonoBehaviour
     
     private void PlayHittingGroundSound()
     {
-        if (!(_hittingGroundSounds.Count > 0))
-        {
-            return;
-        }
-        int indexToPlay = Random.Range(0, _hittingGroundSounds.Count);
-        _audioSource.clip = _hittingGroundSounds[indexToPlay];
+        _audioSource.clip = _hittingGroundClips.GetRandom();
         _audioSource.Play();
     }
 
     private void PlayBreakingSound()
     {
-        if (!(_breakingSounds.Count > 0))
-        {
-            return;
-        }
-        int indexToPlay = Random.Range(0, _breakingSounds.Count);
-        _audioSource.clip = _breakingSounds[indexToPlay];
+        _audioSource.clip = _breakingClips.GetRandom();
         _audioSource.Play();
     }
 }
