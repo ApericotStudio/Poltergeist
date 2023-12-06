@@ -8,7 +8,8 @@ public class Drop : MonoBehaviour
 {
 
     private HingeJoint _hingeJoint;
-    public GameObject connectedBody;
+    [SerializeField]
+    private GameObject connectedBody;
     private void Awake()
     {
         _hingeJoint = GetComponent<HingeJoint>();
