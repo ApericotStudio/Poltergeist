@@ -124,9 +124,9 @@ namespace StarterAssets
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
             int playerLayer = LayerMask.NameToLayer("Player");
-            int observableObjectLayer = LayerMask.NameToLayer("Observable Object");
+            int npcObjectLayer = LayerMask.NameToLayer("Npc");
 
-            Physics.IgnoreLayerCollision(playerLayer, observableObjectLayer);
+            Physics.IgnoreLayerCollision(playerLayer, npcObjectLayer);
         }
 
         private void Start()
