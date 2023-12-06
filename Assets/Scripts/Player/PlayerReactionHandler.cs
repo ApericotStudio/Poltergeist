@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerReactionHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject _npcCollection;
+    [SerializeField] private Transform _npcCollection;
     [SerializeField] private AudioClip _teriffiedLaughClip;
     [SerializeField] private AudioClip _bigLaughClip;
     [SerializeField] private AudioClip _smallLaughClip;
