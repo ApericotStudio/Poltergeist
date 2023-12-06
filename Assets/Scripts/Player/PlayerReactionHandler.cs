@@ -6,6 +6,8 @@ public class PlayerReactionHandler : MonoBehaviour
     [SerializeField] private AudioClip _teriffiedLaughClip;
     [SerializeField] private AudioClip _bigLaughClip;
     [SerializeField] private AudioClip _smallLaughClip;
+    [Range(0, 100), Tooltip("Chance that the ghost laughs when an npc investigates")]
+    [SerializeField] private int _smallLaughChance = 33;
 
     private AudioSource _audioSource;
 
@@ -41,6 +43,10 @@ public class PlayerReactionHandler : MonoBehaviour
                 }
             case (InvestigateState):
                 {
+                    if (Random.Range(0, 101) > _smallLaughChance)
+                    {
+                        break;
+                    }
                     _audioSource.clip = _smallLaughClip;
                     _audioSource.Play();
                     break;
