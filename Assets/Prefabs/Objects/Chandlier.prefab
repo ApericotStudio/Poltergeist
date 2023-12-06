@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4461225762291101968}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Chandlier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chandlier base
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b45b713196cb31347ad56e1020ca172c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -159,6 +164,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5646103818476829393}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b45b713196cb31347ad56e1020ca172c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9211072829687674470}
   m_SourcePrefab: {fileID: 100100000, guid: b45b713196cb31347ad56e1020ca172c, type: 3}
 --- !u!4 &531654050253840221 stripped
 Transform:
@@ -284,7 +293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 20
-  _state: 0
 --- !u!114 &3175782424394055641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +388,7 @@ MonoBehaviour:
   InteractEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5646103818476829393}
+      - m_Target: {fileID: 9211072829687674470}
         m_TargetAssemblyTypeName: Drop, Assembly-CSharp
         m_MethodName: Activate
         m_Mode: 1
@@ -501,6 +509,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectedBody: {fileID: 1185715248004465644}
+--- !u!114 &9211072829687674470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876794716240692711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e879c57aa3a2e449fc3514ee5e9b43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectedBody: {fileID: 1185715248004465644}
 --- !u!23 &1669705533518046258 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: b45b713196cb31347ad56e1020ca172c,
@@ -519,6 +540,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Attachement Chandlier
+      objectReference: {fileID: 0}
+    - target: {fileID: 382420217491510944, guid: c5329cfb2696f4e4299fcb7d4c47329e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6975967954925217427, guid: c5329cfb2696f4e4299fcb7d4c47329e,
         type: 3}
@@ -693,6 +719,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chandelier chain
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d6aa507ca1076d749be861eb630f06d9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1269384189401446143, guid: d6aa507ca1076d749be861eb630f06d9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
