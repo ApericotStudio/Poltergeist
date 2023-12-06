@@ -15,8 +15,6 @@ public class Drop : MonoBehaviour
     }
     public void Activate()
     {
-        //_rigidBody.AddForce(new Vector3(0, -1, 0));
-        //_hingeJoint.connectedBody.gameObject.SetActive(false);
         _hingeJoint.connectedBody = connectedBody.GetComponent<Rigidbody>();
         connectedBody.SetActive(false);
     }
