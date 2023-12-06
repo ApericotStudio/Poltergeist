@@ -94,7 +94,7 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private PossessionController _posControl;
         private GameObject _mainCamera;
-        private MeshRenderer[] _meshRs;
+        private SkinnedMeshRenderer[] _meshRs;
 
         private const float _threshold = 0.01f;
 
@@ -142,7 +142,7 @@ namespace StarterAssets
             _playerInput = GetComponent<PlayerInput>();
             _posControl = gameObject.GetComponent<PossessionController>();
             _posControl.CurrentPossessionChanged.AddListener(TogglePlayerVisible);
-            _meshRs = gameObject.GetComponentsInChildren<MeshRenderer>();
+            _meshRs = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -179,12 +179,6 @@ namespace StarterAssets
                 transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
-
-            // update animator if using character
-            if (_hasAnimator)
-            {
-                _animator.SetBool(_animIDGrounded, Grounded);
-            }
         }
 
         private void CameraRotation()
@@ -331,7 +325,7 @@ namespace StarterAssets
 
         public void TogglePlayerVisible()
         {
-            foreach (MeshRenderer mesh in _meshRs) { mesh.enabled = _posControl.CurrentPossession == null; }
+            foreach (SkinnedMeshRenderer mesh in _meshRs) { mesh.enabled = _posControl.CurrentPossession == null; }
         }
     }
 }
