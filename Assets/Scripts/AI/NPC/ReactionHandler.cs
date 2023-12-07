@@ -28,7 +28,6 @@ public class ReactionHandler : MonoBehaviour
     private Sprite _scaredSprite;
 
     [Header("Faces")]
-    private bool _hasFace;
     [SerializeField] private Material _restingFace;
     [SerializeField] private Material _scaredFace;
     [SerializeField] private Material _investigateFace;
@@ -44,7 +43,6 @@ public class ReactionHandler : MonoBehaviour
         _npcController.OnStateChange.AddListener(OnStateChange);
         _npcController.OnFearValueChange.AddListener(OnFearValueChange);
         _previousState = _npcController.CurrentState;
-        _hasFace = _faceMesh != null;
     }
 
     private void OnStateChange()
@@ -89,7 +87,7 @@ public class ReactionHandler : MonoBehaviour
 
     private void ChangeFace()
     {
-        if (_hasFace)
+        if (_faceMesh != null)
         {
             switch (_npcController.CurrentState)
             {
