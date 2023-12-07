@@ -22,7 +22,7 @@ public class FearHandler : MonoBehaviour
     [Tooltip("Amount fear goes up when object breaks"), SerializeField]
     private float _brokenAddition = 5f;
     [Tooltip("These multipliers are used to decrease the fear value as an object is used more frequently."), SerializeField]
-    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0f};
+    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0.1f};
 
     private NpcController _npcController;
     private NpcSenses _npcSenses;
