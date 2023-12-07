@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class NpcManager : MonoBehaviour
 {
+    public delegate void NpcsLeftChanged(int amount);
+    public event NpcsLeftChanged OnNpcsLeftChanged;
+
     private NpcController[] _npcs;
 
     [Header("References")]
