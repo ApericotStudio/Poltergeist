@@ -9,11 +9,11 @@ public class Interactable : MonoBehaviour
     [Tooltip("Interactable is reusable")]
     [SerializeField] private bool _hasMax = false;
     [SerializeField] private int _maxUses = 10;
+    [SerializeField] private bool _scary = true;
 
     public UnityEvent InteractEvent;
     private bool _interactDepleted;
 
-    
 
     private ObservableObject _observableObject;
     private int _uses = 0;
@@ -32,7 +32,10 @@ public class Interactable : MonoBehaviour
         }
         InteractEvent.Invoke();
         ObjectState originalState = _observableObject.State;
-        _observableObject.State = ObjectState.Interacted;
+        if (_scary)
+        {
+            _observableObject.State = ObjectState.Interacted;
+        }
         _observableObject.State = originalState;
         _uses++;
         if (_uses >= _maxUses && _hasMax)
