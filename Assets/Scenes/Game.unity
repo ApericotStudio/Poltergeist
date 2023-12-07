@@ -233,6 +233,104 @@ MonoBehaviour:
   m_Damping: 0
   m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
+--- !u!1001 &485671290
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: CurrentRoamOrigin
+      value: 
+      objectReference: {fileID: 2023189373}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: FrightenedTargetLocation
+      value: 
+      objectReference: {fileID: 139968730}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.data[0]
+      value: 
+      objectReference: {fileID: 2023189372}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.data[1]
+      value: 
+      objectReference: {fileID: 2023189371}
+    - target: {fileID: 7660481155509779078, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.6301155
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.811812
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969111268812583773, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: m_Name
+      value: NPCFelicia
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715, type: 3}
 --- !u!1 &518756336 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3273517543312067971, guid: e34c78252842bad47ab450e158f18a16,
@@ -2614,3 +2712,4 @@ SceneRoots:
   - {fileID: 866230639}
   - {fileID: 1638105398}
   - {fileID: 2112015160}
+  - {fileID: 485671290}

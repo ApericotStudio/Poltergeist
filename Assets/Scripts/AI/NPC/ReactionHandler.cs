@@ -27,6 +27,12 @@ public class ReactionHandler : MonoBehaviour
     [Tooltip("The sprite that will be displayed when the NPC is scared."), SerializeField]
     private Sprite _scaredSprite;
 
+    [Header("Faces")]
+    [SerializeField] private bool _hasFace;
+    [SerializeField] private Material _restingFace;
+    [SerializeField] private Material _scaredFace;
+    [SerializeField] private SkinnedMeshRenderer _faceMesh;
+
     private NpcController _npcController;
     private IState _previousState;
 
@@ -112,5 +118,10 @@ public class ReactionHandler : MonoBehaviour
         {
             _reactionImage.sprite = _mediumFearSprite;
         }
+    }
+
+    private void ChangeFace(Material newFace)
+    {
+        _faceMesh.material = newFace;
     }
 }
