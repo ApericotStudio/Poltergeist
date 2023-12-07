@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class LevelSelectController : MonoBehaviour
     [SerializeField] private GameObject _levelCardContainer;
     [SerializeField] private Button _backButton;
     [SerializeField] private GameObject _mainMenuCanvas;
+    [SerializeField] private GradeDisplay _gradeDisplay;
+    [SerializeField] private TextMeshProUGUI _levelDescription;
 
     private void Awake()
     {
@@ -21,7 +24,9 @@ public class LevelSelectController : MonoBehaviour
         foreach(Level level in _levelCatalog.Levels)
         {
             GameObject levelCard = Instantiate(_levelCardPrefab, _levelCardContainer.transform);
-            levelCard.GetComponent<LevelCardController>().Setup(level);
+            LevelCardController levelCardController = levelCard.GetComponent<LevelCardController>();
+            levelCardController.Setup(level);
+            levelCardController.OnLevelSelected += OnLevelSelected;
         }
     }
 
@@ -34,5 +39,11 @@ public class LevelSelectController : MonoBehaviour
     {
         _mainMenuCanvas.SetActive(true);
         gameObject.SetActive(false);
+    }
+
+    public void OnLevelSelected(Level level)
+    {
+        _gradeDisplay.SetGrade(level.Grade);
+        _levelDescription.text = level.Description;
     }
 }
