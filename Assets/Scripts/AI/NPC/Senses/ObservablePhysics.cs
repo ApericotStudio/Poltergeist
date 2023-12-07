@@ -37,6 +37,7 @@ public class ObservablePhysics : MonoBehaviour
             return;
         }
 
+
         if (collision.impulse.magnitude > _minimumImpulse)
         {
             PlayHittingGroundSound();
@@ -46,7 +47,7 @@ public class ObservablePhysics : MonoBehaviour
                 _observableObject.State = ObjectState.Hit;
             }
         }
-
+        
         if(_isBreakable)
         {
             if(collision.impulse.magnitude > _destroyMinimumImpulse)
