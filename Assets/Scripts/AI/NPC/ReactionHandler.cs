@@ -27,6 +27,13 @@ public class ReactionHandler : MonoBehaviour
     [Tooltip("The sprite that will be displayed when the NPC is scared."), SerializeField]
     private Sprite _scaredSprite;
 
+    [Header("Faces")]
+    [SerializeField] private Material _restingFace;
+    [SerializeField] private Material _scaredFace;
+    [SerializeField] private Material _investigateFace;
+    [SerializeField] private Material _panickedFace;
+    [SerializeField] private SkinnedMeshRenderer _faceMesh;
+
     private NpcController _npcController;
     private IState _previousState;
 
@@ -42,6 +49,7 @@ public class ReactionHandler : MonoBehaviour
     {
         PlayReactionSound();
         SetReactionSpriteBasedOnState();
+        ChangeFace();
         _previousState = state;
     }
 
@@ -77,13 +85,40 @@ public class ReactionHandler : MonoBehaviour
         }
     }
 
+    private void ChangeFace()
+    {
+        if (_faceMesh != null)
+        {
+            switch (_npcController.CurrentState)
+            {
+                case InvestigateState:
+                    SetFace(_investigateFace);
+                    break;
+                case RoamState:
+                    SetFace(_restingFace);
+                    break;
+                case PanickedState:
+                    SetFace(_panickedFace);
+                    break;
+                case ScaredState:
+                    SetFace(_scaredFace);
+                    break;
+            }
+        }
+    }
+
+    private void SetFace(Material newFace)
+    {
+        _faceMesh.material = newFace;
+    }
+
     private void SetReactionSpriteBasedOnState()
     {
-        if(_npcController.CurrentState == _npcController.InvestigateState)
+        if(_npcController.CurrentState is InvestigateState)
         {
             _reactionImage.sprite = _investigateSprite;
         }
-        else if(_npcController.CurrentState == _npcController.ScaredState)
+        else if(_npcController.CurrentState is ScaredState)
         {
             _reactionImage.sprite = _scaredSprite;
         }
