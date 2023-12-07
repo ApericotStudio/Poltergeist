@@ -40,17 +40,17 @@ public class ReactionHandler : MonoBehaviour
     private void Awake()
     {
         _npcController = GetComponent<NpcController>();
-        _npcController.OnStateChange.AddListener(OnStateChange);
+        _npcController.OnStateChange += OnStateChange;
         _npcController.OnFearValueChange.AddListener(OnFearValueChange);
         _previousState = _npcController.CurrentState;
     }
 
-    private void OnStateChange()
+    private void OnStateChange(IState state)
     {
         PlayReactionSound();
         SetReactionSpriteBasedOnState();
         ChangeFace();
-        _previousState = _npcController.CurrentState;
+        _previousState = state;
     }
 
 
