@@ -40,8 +40,6 @@ public class FearHandler : MonoBehaviour
     /// <param name="detectedProperties">The object's detected properties</param>
     public void Handle(ObservableObject observableObject, DetectedProperties detectedProperties)
     {
-        _npcController.InvestigateTarget = observableObject.transform;
-
         int objectUsageCount = _usedObjects.Count(x => x.Equals(observableObject));
 
         if(objectUsageCount >= _usageMultipliers.Count - 1)
@@ -61,13 +59,19 @@ public class FearHandler : MonoBehaviour
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
+                _npcController.InvestigateTarget = observableObject.transform;
                 _npcController.Investigate();
                 break;
             case ObjectState.Hit:
                 if (observableObject.Type == ObjectType.Small)
+                {
+                    _npcController.InvestigateTarget = observableObject.transform;
                     _npcController.Investigate();
+                }
                 else
+                {
                     _npcController.GetScared();
+                }
                 break;
             default:
                 return;

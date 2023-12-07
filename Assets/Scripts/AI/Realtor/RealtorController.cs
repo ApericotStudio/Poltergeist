@@ -32,6 +32,7 @@ public class RealtorController : AiController
         InitializeController();
         CurrentCheckUpOrigin = _npcCollection.transform.GetChild(_currentNpcIndex);
         _checkUpState = new CheckUpState(this);
+        InvestigateState = new InvestigateState(this, _checkUpState, CurrentCheckUpOrigin);
     }
 
     private void Start() {

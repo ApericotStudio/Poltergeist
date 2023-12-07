@@ -2422,10 +2422,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6da4e7e429bbf45909dd9ce612057a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InvestigatingSpeed: 2
+  OnStateChange:
+    m_PersistentCalls:
+      m_Calls: []
+  InvestigateTarget: {fileID: 0}
+  AnimationBlend: 0
   RoamingSpeed: 2
-  _npcs: []
-  _npcOriginTimeSpent: 30
-  _npcOriginRadius: 5
+  _npcCollection: {fileID: 0}
+  CheckUpTimeSpent: 30
+  CheckUpRadius: 5
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
@@ -2438,6 +2444,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
+  CurrentCheckUpOrigin: {fileID: 0}
 --- !u!114 &6590718137830685194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2452,11 +2459,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 136
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1
-  DetectionRange: 5
+  FieldOfViewAngle: 110
+  SightRange: 20
+  AuditoryRange: 15
+  FearReductionRange: 10
+  _reductionValue: 0.1
+  _reductionSpeed: 0.05
   DetectedNpcs: []
 --- !u!1 &9034284117161447404
 GameObject:
