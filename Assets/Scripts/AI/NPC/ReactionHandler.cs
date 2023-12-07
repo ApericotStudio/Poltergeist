@@ -91,11 +91,11 @@ public class ReactionHandler : MonoBehaviour
 
     private void SetReactionSpriteBasedOnState()
     {
-        if(_npcController.CurrentState == _npcController.InvestigateState)
+        if(_npcController.CurrentState is InvestigateState)
         {
             _reactionImage.sprite = _investigateSprite;
         }
-        else if(_npcController.CurrentState == _npcController.ScaredState)
+        else if(_npcController.CurrentState is ScaredState)
         {
             _reactionImage.sprite = _scaredSprite;
         }

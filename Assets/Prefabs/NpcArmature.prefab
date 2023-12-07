@@ -2866,7 +2866,7 @@ GameObject:
   - component: {fileID: 8863603285084564331}
   - component: {fileID: 8360858964001498300}
   - component: {fileID: 5514684316761317188}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: NpcArmature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2946,11 +2946,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1aed4cef7e38f4397ef21d9db3efbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InvestigatingSpeed: 1.7
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
+  InvestigateTarget: {fileID: 0}
   AnimationBlend: 0
-  InvestigatingSpeed: 1.7
   FrightenedTargetLocation: {fileID: 0}
   FrightenedSpeed: 5.335
   _fearValue: 0
@@ -2974,7 +2975,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
-  InvestigateTarget: {fileID: 0}
   RanAway: 0
   FearReductionHasCooldown: 0
 --- !u!114 &1306518244182312063
