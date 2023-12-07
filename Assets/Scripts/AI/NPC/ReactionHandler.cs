@@ -89,20 +89,23 @@ public class ReactionHandler : MonoBehaviour
 
     private void ChangeFace()
     {
-        switch (_npcController.CurrentState)
+        if (_hasFace)
         {
-            case InvestigateState:
-                SetFace(_investigateFace);
-                break;
-            case RoamState:
-                SetFace(_restingFace);
-                break;
-            case PanickedState:
-                SetFace(_panickedFace);
-                break;
-            case ScaredState:
-                SetFace(_scaredFace);
-                break;
+            switch (_npcController.CurrentState)
+            {
+                case InvestigateState:
+                    SetFace(_investigateFace);
+                    break;
+                case RoamState:
+                    SetFace(_restingFace);
+                    break;
+                case PanickedState:
+                    SetFace(_panickedFace);
+                    break;
+                case ScaredState:
+                    SetFace(_scaredFace);
+                    break;
+            }
         }
     }
     private void SetFace(Material newFace)
