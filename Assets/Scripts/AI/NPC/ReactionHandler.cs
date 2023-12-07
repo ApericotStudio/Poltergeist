@@ -31,6 +31,8 @@ public class ReactionHandler : MonoBehaviour
     private bool _hasFace;
     [SerializeField] private Material _restingFace;
     [SerializeField] private Material _scaredFace;
+    [SerializeField] private Material _investigateFace;
+    [SerializeField] private Material _panickedFace;
     [SerializeField] private SkinnedMeshRenderer _faceMesh;
 
     private NpcController _npcController;
@@ -49,6 +51,7 @@ public class ReactionHandler : MonoBehaviour
     {
         PlayReactionSound();
         SetReactionSpriteBasedOnState();
+        ChangeFace();
         _previousState = _npcController.CurrentState;
     }
 
@@ -70,16 +73,11 @@ public class ReactionHandler : MonoBehaviour
             case RoamState when _previousState is InvestigateState:
                 clip = _investigateEndAudioClips.GetRandom();
                 break;
-            case RoamState when _previousState is ScaredState:
-                ChangeFace(_restingFace);
-                break;
             case PanickedState when _previousState is RoamState || _previousState is InvestigateState:
                 clip = _terrifiedAudioClips.GetRandom();
-                ChangeFace(_scaredFace);
                 break;
             case ScaredState when _previousState is RoamState || _previousState is InvestigateState:
                 clip = _bigScreamAudioClips.GetRandom();
-                ChangeFace(_scaredFace);
                 break;
         }
 
@@ -87,6 +85,29 @@ public class ReactionHandler : MonoBehaviour
         {
             _npcController.NpcAudioSource.PlayOneShot(clip);
         }
+    }
+
+    private void ChangeFace()
+    {
+        switch (_npcController.CurrentState)
+        {
+            case InvestigateState:
+                SetFace(_investigateFace);
+                break;
+            case RoamState:
+                SetFace(_restingFace);
+                break;
+            case PanickedState:
+                SetFace(_panickedFace);
+                break;
+            case ScaredState:
+                SetFace(_scaredFace);
+                break;
+        }
+    }
+    private void SetFace(Material newFace)
+    {
+        _faceMesh.material = newFace;
     }
 
     private void SetReactionSpriteBasedOnState()
@@ -123,14 +144,6 @@ public class ReactionHandler : MonoBehaviour
         else
         {
             _reactionImage.sprite = _mediumFearSprite;
-        }
-    }
-
-    private void ChangeFace(Material newFace)
-    {
-        if (_hasFace)
-        {
-            _faceMesh.material = newFace;
         }
     }
 }
