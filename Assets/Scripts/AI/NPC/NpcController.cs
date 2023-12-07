@@ -41,6 +41,8 @@ public class NpcController : AiController
     public bool RanAway;
     [HideInInspector]
     public bool FearReductionHasCooldown = false;
+    [HideInInspector]
+    public bool SeenByRealtor;
 
     private int _currentRoamIndex = 0;
 

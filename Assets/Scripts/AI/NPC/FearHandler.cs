@@ -80,6 +80,10 @@ public class FearHandler : MonoBehaviour
                 return;
             }
        }
+        if (_npcController.SeenByRealtor)
+        {
+            fearToAdd /= 2;
+        }
        _npcController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);

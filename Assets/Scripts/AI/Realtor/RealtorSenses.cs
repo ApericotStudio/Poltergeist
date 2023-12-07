@@ -42,11 +42,16 @@ public class RealtorSenses : AiDetection
                 continue;
 
             DetectedNpcs.Add(npc);
+            npc.SeenByRealtor = true;
         }
     }
     
     protected override void ClearDetectedObjects()
     {
+        foreach(NpcController npc in DetectedNpcs)
+        {
+            npc.SeenByRealtor = false;
+        }
         DetectedNpcs.Clear();
     }
 
