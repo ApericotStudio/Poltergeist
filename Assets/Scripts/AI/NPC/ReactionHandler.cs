@@ -28,7 +28,7 @@ public class ReactionHandler : MonoBehaviour
     private Sprite _scaredSprite;
 
     [Header("Faces")]
-    [SerializeField] private bool _hasFace;
+    private bool _hasFace;
     [SerializeField] private Material _restingFace;
     [SerializeField] private Material _scaredFace;
     [SerializeField] private SkinnedMeshRenderer _faceMesh;
@@ -42,6 +42,7 @@ public class ReactionHandler : MonoBehaviour
         _npcController.OnStateChange.AddListener(OnStateChange);
         _npcController.OnFearValueChange.AddListener(OnFearValueChange);
         _previousState = _npcController.CurrentState;
+        _hasFace = _faceMesh != null;
     }
 
     private void OnStateChange()
@@ -69,11 +70,16 @@ public class ReactionHandler : MonoBehaviour
             case RoamState when _previousState is InvestigateState:
                 clip = _investigateEndAudioClips.GetRandom();
                 break;
+            case RoamState when _previousState is ScaredState:
+                ChangeFace(_restingFace);
+                break;
             case PanickedState when _previousState is RoamState || _previousState is InvestigateState:
                 clip = _terrifiedAudioClips.GetRandom();
+                ChangeFace(_scaredFace);
                 break;
             case ScaredState when _previousState is RoamState || _previousState is InvestigateState:
                 clip = _bigScreamAudioClips.GetRandom();
+                ChangeFace(_scaredFace);
                 break;
         }
 
@@ -122,6 +128,9 @@ public class ReactionHandler : MonoBehaviour
 
     private void ChangeFace(Material newFace)
     {
-        _faceMesh.material = newFace;
+        if (_hasFace)
+        {
+            _faceMesh.material = newFace;
+        }
     }
 }
