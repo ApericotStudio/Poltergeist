@@ -594,11 +594,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1aed4cef7e38f4397ef21d9db3efbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InvestigatingSpeed: 1.7
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
+  InvestigateTarget: {fileID: 0}
   AnimationBlend: 0
-  InvestigatingSpeed: 1.7
   FrightenedTargetLocation: {fileID: 0}
   FrightenedSpeed: 5.335
   _fearValue: 0
@@ -622,7 +623,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
-  InvestigateTarget: {fileID: 0}
   RanAway: 0
   FearReductionHasCooldown: 0
 --- !u!114 &1306518244182312063
@@ -693,9 +693,10 @@ MonoBehaviour:
   _highFearSprite: {fileID: 21300000, guid: cc75a99b8a1b37e44ba6d250681673dd, type: 3}
   _investigateSprite: {fileID: 21300000, guid: c3db8735f78f90644ad4811e7cf497f4, type: 3}
   _scaredSprite: {fileID: 21300000, guid: e34e31e81e6592c479882407e5ce825f, type: 3}
-  _hasFace: 0
   _restingFace: {fileID: 2100000, guid: 15a87ef1a68564d5abe4bb70851e9736, type: 2}
   _scaredFace: {fileID: 2100000, guid: 66b0af22b65b34947af73529fa03f01c, type: 2}
+  _investigateFace: {fileID: 2100000, guid: 15a87ef1a68564d5abe4bb70851e9736, type: 2}
+  _panickedFace: {fileID: 2100000, guid: 66b0af22b65b34947af73529fa03f01c, type: 2}
   _faceMesh: {fileID: 6571635418339835570}
 --- !u!82 &8360858964001498300
 AudioSource:
