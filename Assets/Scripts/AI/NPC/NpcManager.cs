@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class NpcManager : MonoBehaviour
 {
-    public delegate void NpcsLeftChanged(int amount);
+    public delegate void NpcsLeftChanged(int value);
     public event NpcsLeftChanged OnNpcsLeftChanged;
 
     private NpcController[] _npcs;
+    private int _scaredNpcs;
 
     [Header("References")]
     [SerializeField] private GameObject _npcCollection;
-    [SerializeField] private GameData _gameData;
     [SerializeField] private GameManager _gameManager;
 
     private void Awake()
@@ -24,7 +24,6 @@ public class NpcManager : MonoBehaviour
         {
             npcController.OnStateChange += OnNpcStateChanged;
         }
-        _gameData.AmountOfVisitors = _npcs.Length;
     }
 
     private void OnNpcStateChanged(IState state)
@@ -33,16 +32,10 @@ public class NpcManager : MonoBehaviour
         {
             return;
         }
-        int scaredNpcCounter = 0;
-        foreach(NpcController npcController in _npcs)
-        {
-            if (npcController.CurrentState is PanickedState)
-            {
-                scaredNpcCounter++;
-            }
-        }
-        _gameData.AmountOfVisitorsScared = scaredNpcCounter;
-        if (scaredNpcCounter == _npcs.Length)
+        _scaredNpcs++;
+        int npcsLeft = _npcs.Length - _scaredNpcs;
+        OnNpcsLeftChanged?.Invoke(npcsLeft);
+        if (npcsLeft <= 0)
         {
             _gameManager.EndGame();
         }
