@@ -23,6 +23,7 @@ public class FearHandler : MonoBehaviour
     private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0f};
 
     private NpcController _npcController;
+    private NpcSenses _npcSenses;
     private bool _isScared = false;
     private IEnumerator _coroutine;
 
@@ -31,6 +32,7 @@ public class FearHandler : MonoBehaviour
     private void Awake()
     {
         _npcController = GetComponent<NpcController>();
+        _npcSenses = GetComponent<NpcSenses>();
     }
     
     /// <summary>
@@ -74,6 +76,7 @@ public class FearHandler : MonoBehaviour
             }
        }
 
+        Debug.Log(fearToAdd);
        _npcController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
@@ -94,7 +97,15 @@ public class FearHandler : MonoBehaviour
             _ => 0
         };
 
-        return (float)observableObject.Type * fearValue * _usageMultipliers[objectUsageCount];
+        float falloff = detectedProperties switch
+        {
+            { IsVisible: true, IsAudible: true } => 1 - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange),
+            { IsAudible: true } => 1 - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange),
+            { IsVisible: true } => 1 - (detectedProperties.DistanceToTarget / _npcSenses.SightRange),
+            _ => 0
+        };
+
+        return (float)observableObject.Type * fearValue * _usageMultipliers[objectUsageCount] * falloff;
     }
 
     private IEnumerator ScaredCooldown()

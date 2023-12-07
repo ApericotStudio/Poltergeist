@@ -9,6 +9,7 @@ public class DetectedProperties
 {
     public bool IsAudible = false;
     public bool IsVisible = false;
+    public float DistanceToTarget;
 }
 
 /// <summary>
@@ -67,6 +68,7 @@ public class NpcSenses : AiDetection, IObserver
             {
                 detectedProperties.IsAudible = true;
             }
+            detectedProperties.DistanceToTarget = distanceToTarget;
             DetectedObjects.Add(observableObject, detectedProperties);
             observableObject.AddObserver(this);
         }
