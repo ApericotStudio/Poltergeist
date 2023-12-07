@@ -22,13 +22,17 @@ public class NpcManager : MonoBehaviour
         _npcs = _npcCollection.GetComponentsInChildren<NpcController>();
         foreach(NpcController npcController in _npcs)
         {
-            npcController.OnStateChange.AddListener(OnNpcStateChanged);
+            npcController.OnStateChange += OnNpcStateChanged;
         }
         _gameData.AmountOfVisitors = _npcs.Length;
     }
 
-    private void OnNpcStateChanged()
+    private void OnNpcStateChanged(IState state)
     {
+        if (state is not PanickedState)
+        {
+            return;
+        }
         int scaredNpcCounter = 0;
         foreach(NpcController npcController in _npcs)
         {

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -16,20 +14,7 @@ public class DetectedProperties
 /// </summary>
 public class NpcSenses : AiDetection, IObserver
 {
-    [Header("Sight Settings")]
-    [Tooltip("The angle of the NPC's field of view."), Range(0, 360)]
-    public float FieldOfViewAngle = 110f;
-    [Tooltip("The distance that the NPC can see."), Range(0, 50)]
-    public float SightRange = 20f;
-
-    [Header("Auditory Settings")]
-    [Tooltip("The distance that the NPC can hear."), Range(0, 50)]
-    public float AuditoryRange = 15f;
-
-    public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
-
     private FearHandler _fearHandler;
-    public Dictionary<ObservableObject, DetectedProperties> DetectedObjects = new();
 
     protected override void Awake()
     {
@@ -89,19 +74,4 @@ public class NpcSenses : AiDetection, IObserver
         
         _fearHandler.Handle(observableObject, detectedProperties);
     }
-
-    private bool TargetInSightRadius(Vector3 directionToTarget, float distanceToTarget)
-    {
-        return Vector3.Angle(transform.forward, directionToTarget) < FieldOfViewAngle / 2 && distanceToTarget <= SightRange;
-    }
-
-    /// <summary>
-    /// Returns a vector3 direction from an angle. Used for the field of view.
-    /// </summary>
-    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal) {
-		if (!angleIsGlobal) {
-			angleInDegrees += transform.eulerAngles.y;
-		}
-		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),0,Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-	}
 }
