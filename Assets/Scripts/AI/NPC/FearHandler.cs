@@ -80,7 +80,6 @@ public class FearHandler : MonoBehaviour
                 return;
             }
        }
-
        _npcController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
@@ -103,9 +102,9 @@ public class FearHandler : MonoBehaviour
 
         float falloff = detectedProperties switch
         {
-            { IsVisible: true, IsAudible: true } => 1 - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange),
-            { IsAudible: true } => 1 - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange),
-            { IsVisible: true } => 1 - (detectedProperties.DistanceToTarget / _npcSenses.SightRange),
+            { IsVisible: true, IsAudible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange) * 0.8f + 0.2f,
+            { IsAudible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange) * 0.8f + 0.2f,
+            { IsVisible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.SightRange) * 0.8f + 0.2f,
             _ => 0
         };
 
