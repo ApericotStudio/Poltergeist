@@ -108,6 +108,7 @@ public class ReactionHandler : MonoBehaviour
             }
         }
     }
+
     private void SetFace(Material newFace)
     {
         _faceMesh.material = newFace;
