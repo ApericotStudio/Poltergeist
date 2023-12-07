@@ -19,6 +19,8 @@ public class FearHandler : MonoBehaviour
     private float _audibleMultiplier = 1f;
     [Tooltip("Multiplier to scare value when an object is both visible and audible to an NPC."), Range(0f, 5f), SerializeField]
     private float _visibleAndAudibleMultiplier = 1.5f;
+    [Tooltip("Amount fear goes up when object breaks"), SerializeField]
+    private float _brokenAddition = 5f;
     [Tooltip("These multipliers are used to decrease the fear value as an object is used more frequently."), SerializeField]
     private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0f};
 
@@ -71,12 +73,14 @@ public class FearHandler : MonoBehaviour
                 else
                     _npcController.GetScared();
                 break;
+            case ObjectState.Broken:
+                _npcController.FearValue += _brokenAddition;
+                break;
             default:
                 return;
             }
        }
 
-        Debug.Log(fearToAdd);
        _npcController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
