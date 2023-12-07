@@ -5,8 +5,6 @@ using UnityEngine.Events;
 public class NpcController : AiController
 {
     [Header("NPC Settings")]
-    [Tooltip("The speed the NPC will move when investigating."), Range(1f, 5f)]
-    public float InvestigatingSpeed = 2f;
     [Tooltip("The target location the NPC will run to when frightened.")]
     public Transform FrightenedTargetLocation;
     [Tooltip("The speed the NPC will move when frightened."), Range(2f, 10f)]
@@ -34,9 +32,6 @@ public class NpcController : AiController
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
-
-    [HideInInspector]
-    public Transform InvestigateTarget;
     [HideInInspector]
     public bool RanAway;
     [HideInInspector]
@@ -57,7 +52,6 @@ public class NpcController : AiController
     public AudioSource NpcAudioSource { get; private set; }
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
-    public InvestigateState InvestigateState { get; private set; }
     public ScaredState ScaredState { get; private set; }
 
     private void Awake()
@@ -67,7 +61,7 @@ public class NpcController : AiController
         InitializeController();
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
-        InvestigateState = new InvestigateState(this);
+        InvestigateState = new InvestigateState(this, RoamState, CurrentRoamOrigin);
         ScaredState = new ScaredState(this);
     }
 
@@ -113,14 +107,6 @@ public class NpcController : AiController
         CurrentRoamOrigin = AvailableRoamOrigins[_currentRoamIndex];
     }
 
-    public void Investigate()
-    {
-        if(CurrentState is not global::InvestigateState and not global::PanickedState && FearValue < 100f)
-        {
-            CurrentState = InvestigateState;
-        }
-    }
-
     public void GetScared()
     {
         if(CurrentState is not global::ScaredState and not global::PanickedState && FearValue < 100f)
@@ -139,25 +125,5 @@ public class NpcController : AiController
                 AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepVolume);
             }
         }
-    }
-
-    private void OnAnimatorIK()
-    {
-        if (this.CurrentState is global::InvestigateState)
-        {
-            if (InvestigateTarget != null)
-            {
-                Animator.SetLookAtWeight(1);
-                Animator.SetLookAtPosition(InvestigateTarget.position);
-            }
-            else
-            {
-                Animator.SetLookAtWeight(0);
-            }
-        } else
-        {
-            Animator.SetLookAtWeight(0);
-        }
-
     }
 }
