@@ -34,6 +34,10 @@ public class PolterSenseController : MonoBehaviour
 
     public void RemoveOutline(Outline outline)
     {
+        if (!_outlinesInRange.Contains(outline))
+        {
+            return;
+        }
         _outlinesInRange.Remove(outline);
         outline.enabled = false;
     }

@@ -26,23 +26,30 @@ public class ReactionHandler : MonoBehaviour
     private Sprite _investigateSprite;
     [Tooltip("The sprite that will be displayed when the NPC is scared."), SerializeField]
     private Sprite _scaredSprite;
+    [Tooltip("The sprite that will be displayed as the default sprite."), SerializeField]
+    private Sprite _defaultSprite;
 
-    private NpcController _npcController;
+    private AiController _aiController;
     private IState _previousState;
+    private bool _isNpc = false;
 
     private void Awake()
     {
-        _npcController = GetComponent<NpcController>();
-        _npcController.OnStateChange.AddListener(OnStateChange);
-        _npcController.OnFearValueChange.AddListener(OnFearValueChange);
-        _previousState = _npcController.CurrentState;
+        _aiController = GetComponent<AiController>();
+        _aiController.OnStateChange.AddListener(OnStateChange);
+        if(TryGetComponent(out NpcController npcController))
+        {
+            npcController.OnFearValueChange.AddListener(OnFearValueChange);
+            _isNpc = true;
+        }
+        _previousState = _aiController.CurrentState;
     }
 
     private void OnStateChange()
     {
         PlayReactionSound();
         SetReactionSpriteBasedOnState();
-        _previousState = _npcController.CurrentState;
+        _previousState = _aiController.CurrentState;
     }
 
 
@@ -55,7 +62,7 @@ public class ReactionHandler : MonoBehaviour
     {
         AudioClip clip = null;
 
-        switch (_npcController.CurrentState)
+        switch (_aiController.CurrentState)
         {
             case InvestigateState when _previousState is RoamState:
                 clip = _investigateAudioClips.GetRandom();
@@ -71,31 +78,38 @@ public class ReactionHandler : MonoBehaviour
                 break;
         }
 
-        if (clip != null)
+        if (clip != null && _isNpc)
         {
-            _npcController.NpcAudioSource.PlayOneShot(clip);
+            if(TryGetComponent(out NpcController npcController))
+            {
+                npcController.NpcAudioSource.PlayOneShot(clip);
+            }
         }
     }
 
     private void SetReactionSpriteBasedOnState()
     {
-        if(_npcController.CurrentState is InvestigateState)
+        if(_aiController.CurrentState is InvestigateState)
         {
             _reactionImage.sprite = _investigateSprite;
         }
-        else if(_npcController.CurrentState is ScaredState)
+        else if(_aiController.CurrentState is ScaredState)
         {
             _reactionImage.sprite = _scaredSprite;
         }
+        else if(TryGetComponent(out NpcController npcController))
+        {
+            SetReactionSpriteBasedOnFear(npcController.FearValue);
+        }
         else
         {
-            SetReactionSpriteBasedOnFear(_npcController.FearValue);
+            _reactionImage.sprite = _defaultSprite;
         }
     }
 
     private void SetReactionSpriteBasedOnFear(float fear)
     {
-        if(_npcController.CurrentState is InvestigateState || _npcController.CurrentState is ScaredState)
+        if(_aiController.CurrentState is InvestigateState || _aiController.CurrentState is ScaredState)
         {
             return;
         }

@@ -16,7 +16,7 @@ public class FearBarController : MonoBehaviour
 
     private void Start()
     {
-        _npcController.OnFearValueChange.AddListener(OnFearChange);
+        _npcController?.OnFearValueChange.AddListener(OnFearChange);
     }
 
     public void OnFearChange(float fear)
