@@ -110,13 +110,19 @@ public class ObservablePhysics : MonoBehaviour
     
     private void PlayHittingGroundSound()
     {
-        _audioSource.clip = _hittingGroundClips.GetRandom();
-        _audioSource.Play();
+        if (_audioSource != null)
+        {
+            _audioSource.clip = _hittingGroundClips.GetRandom();
+            _audioSource.Play();
+        }
     }
 
     private void PlayBreakingSound()
     {
-        _audioSource.clip = _breakingClips.GetRandom();
-        _audioSource.Play();
+        if (_audioSource != null)
+        {
+            _audioSource.clip = _breakingClips.GetRandom();
+            _audioSource.Play();
+        }
     }
 }

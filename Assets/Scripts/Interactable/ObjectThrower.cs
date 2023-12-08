@@ -16,7 +16,6 @@ public class ObjectThrower : MonoBehaviour
     void Start()
     {
         _direction = _spawnLocation.transform.position - transform.position;
-        _direction.y = 0;
         _direction.Normalize();
         _spawnLocation.transform.forward = _direction;
     }
