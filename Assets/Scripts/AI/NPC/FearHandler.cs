@@ -57,8 +57,8 @@ public class FearHandler : MonoBehaviour
         }
 
        float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
-       
-       if(_npcController.FearValue + fearToAdd < 100f)
+
+        if (_npcController.FearValue + fearToAdd < 100f)
        {
         switch (observableObject.State)
         {
@@ -77,17 +77,10 @@ public class FearHandler : MonoBehaviour
                     _npcController.GetScared();
                 }
                 break;
-            case ObjectState.Broken:
-                _npcController.FearValue += _brokenAddition;
-                break;
             default:
                 return;
             }
        }
-        if (_npcController.SeenByRealtor)
-        {
-            fearToAdd /= 2;
-        }
        _npcController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
@@ -116,7 +109,27 @@ public class FearHandler : MonoBehaviour
             _ => 0
         };
 
-        return (float)observableObject.Type * fearValue * _usageMultipliers[objectUsageCount] * falloff;
+        float soothe;
+        if (_npcController.SeenByRealtor)
+        {
+            soothe = 0.5f;
+        }
+        else
+        {
+            soothe = 1f;
+        }
+
+        float brokenAddition;
+        if (observableObject.State == ObjectState.Broken)
+        {
+            brokenAddition = _brokenAddition;
+        }
+        else
+        {
+            brokenAddition = 0f;
+        }
+
+        return ((float)observableObject.Type * fearValue + brokenAddition) * _usageMultipliers[objectUsageCount] * falloff * soothe;
     }
 
     private IEnumerator ScaredCooldown()
