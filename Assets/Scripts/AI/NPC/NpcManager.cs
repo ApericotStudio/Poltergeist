@@ -9,7 +9,7 @@ public class NpcManager : MonoBehaviour
     private int _scaredNpcs;
 
     [Header("References")]
-    [SerializeField] private GameObject _npcCollection;
+    public GameObject NpcCollection;
     [SerializeField] private GameManager _gameManager;
 
     private void Awake()
@@ -19,7 +19,7 @@ public class NpcManager : MonoBehaviour
 
     private void SetupVisitors()
     {
-        _npcs = _npcCollection.GetComponentsInChildren<NpcController>();
+        _npcs = NpcCollection.GetComponentsInChildren<NpcController>();
         foreach(NpcController npcController in _npcs)
         {
             npcController.OnStateChange += OnNpcStateChanged;

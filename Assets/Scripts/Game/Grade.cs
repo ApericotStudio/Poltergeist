@@ -21,7 +21,7 @@ public class Grade : ScriptableObject
     private int _visitorsLeft;
     private int _differentObjectsUsed;
     private int _phobiaScares;
-    private int _timeLeft;
+    private float _timeLeft;
 
     public int VisitorsLeft
     {
@@ -59,7 +59,7 @@ public class Grade : ScriptableObject
             _isDirty = true;
         }
     }
-    public int TimeLeft
+    public float TimeLeft
     {
         get
         {

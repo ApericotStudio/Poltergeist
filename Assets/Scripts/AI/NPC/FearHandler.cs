@@ -8,6 +8,9 @@ using UnityEngine;
 /// </summary>
 public class FearHandler : MonoBehaviour
 {
+    public delegate void ObjectUsed(ObservableObject observableObject);
+    public event ObjectUsed OnObjectUsed;
+
     [Header("Fear Handler Settings")]
     [Tooltip("The cooldown between each scare."), Range(0f, 10f), SerializeField]
     private float _scaredCooldown = 2f;
@@ -52,10 +55,10 @@ public class FearHandler : MonoBehaviour
             return;
         }
 
-       float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
+        float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
        
-       if(_npcController.FearValue + fearToAdd < 100f)
-       {
+        if(_npcController.FearValue + fearToAdd < 100f)
+        {
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
@@ -76,12 +79,13 @@ public class FearHandler : MonoBehaviour
             default:
                 return;
             }
-       }
+        }
 
-       _npcController.FearValue += fearToAdd;
-       _coroutine = ScaredCooldown();
-       StartCoroutine(_coroutine);
-       _usedObjects.Add(observableObject);
+        _npcController.FearValue += fearToAdd;
+        _coroutine = ScaredCooldown();
+        StartCoroutine(_coroutine);
+        _usedObjects.Add(observableObject);
+        OnObjectUsed?.Invoke(observableObject);
     }
 
     /// <summary>
