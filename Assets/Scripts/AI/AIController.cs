@@ -14,8 +14,6 @@ public class AiController : MonoBehaviour
 
     public NavMeshAgent Agent { get; set; }
     public Animator Animator { get; private set; }
-
-    [HideInInspector]
     public Transform InvestigateTarget;
 
     public int AnimIDMotionSpeed { get; private set; }
@@ -28,6 +26,8 @@ public class AiController : MonoBehaviour
 
     public InvestigateState InvestigateState { get; protected set; }
     
+    private float lookWeight = 0f;
+
     public IState CurrentState
     {
         get => _currentState;
@@ -37,7 +37,7 @@ public class AiController : MonoBehaviour
             OnStateChange.Invoke(_currentState);
         }
     }
-    
+
     private void OnStateChanged(IState state)
     {
         CurrentState.Handle();
@@ -68,17 +68,22 @@ public class AiController : MonoBehaviour
         {
             if (InvestigateTarget != null)
             {
-                Animator.SetLookAtWeight(1);
+                lookWeight = Mathf.Lerp(lookWeight, 1f, Time.deltaTime * 2.5f);
                 Animator.SetLookAtPosition(InvestigateTarget.position);
             }
             else
             {
-                Animator.SetLookAtWeight(0);
+                lookWeight = Mathf.Lerp(lookWeight, 0f, Time.deltaTime * 2.5f);
             }
-        } else
-        {
-            Animator.SetLookAtWeight(0);
         }
-
+        else
+        {
+            lookWeight = Mathf.Lerp(lookWeight, 0f, Time.deltaTime * 2.5f);
+        }
+        if(InvestigateTarget != null)
+        {
+            Animator.SetLookAtPosition(InvestigateTarget.position);
+        }
+        Animator.SetLookAtWeight(lookWeight);
     }
 }
