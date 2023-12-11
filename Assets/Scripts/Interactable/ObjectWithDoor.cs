@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class ObjectWithDoor : MonoBehaviour
 {
-    public bool IsOpen = false;
-    [SerializeField] private bool _isRotatingDoor = true;
+    private bool _isOpen = false;
     [SerializeField] private float _speed = 1f;
+    [SerializeField] private bool _startOpen = false;
 
     [Header("Rotation Configs")]
     [SerializeField] private float _rotationAmount = 90f;
-    [SerializeField] private float _forwardDirection = 0;
     [SerializeField] private RotationDirection _rotationDirection = RotationDirection.LeftOutward;
     [SerializeField] private RotationAxis _rotationAxis = RotationAxis.y;
     [SerializeField] private GameObject _pivotObject;
@@ -24,11 +23,12 @@ public class ObjectWithDoor : MonoBehaviour
     {
         _pivot = _pivotObject.transform;
         _awakeRotation = _pivot.localRotation.eulerAngles;
+        if (_startOpen) { _pivot.localRotation = GetRotation(); _isOpen = true; }
     }
 
     public void Use()
     {
-        if (IsOpen)
+        if (_isOpen)
         {
             Close();
         }
@@ -41,26 +41,22 @@ public class ObjectWithDoor : MonoBehaviour
 
     public void Open()
     {
-        if (!IsOpen)
+        if (!_isOpen)
         {
             if (_animationCoroutine != null)
             {
                 StopCoroutine(_animationCoroutine);
             }
+            //This commented line is for the dynamic door
+            //float dot = Vector3.Dot(_forward, (UserPosition - _pivot.position).normalized);
 
-            if (_isRotatingDoor)
+            if (_rotationDirection == RotationDirection.LeftInward)
             {
-                //This commented line is for the dynamic door
-                //float dot = Vector3.Dot(_forward, (UserPosition - _pivot.position).normalized);
-
-                if (_rotationDirection == RotationDirection.LeftInward)
-                {
-                    _animationCoroutine = StartCoroutine(DoRotationLeftInward());
-                }
-                else
-                {
-                    _animationCoroutine = StartCoroutine(DoRotationLeftOutward());
-                }
+                _animationCoroutine = StartCoroutine(DoRotationLeftInward());
+            }
+            else
+            {
+                _animationCoroutine = StartCoroutine(DoRotationLeftOutward());
             }
         }
     }
@@ -73,7 +69,7 @@ public class ObjectWithDoor : MonoBehaviour
 
         endRotation = GetRotation();
 
-        IsOpen = true;
+        _isOpen = true;
 
         float time = 0;
         while (time < 1)
@@ -93,7 +89,7 @@ public class ObjectWithDoor : MonoBehaviour
         endRotation = GetRotation();
 
 
-        IsOpen = true;
+        _isOpen = true;
 
         float time = 0;
         while (time < 1)
@@ -106,17 +102,13 @@ public class ObjectWithDoor : MonoBehaviour
 
     public void Close()
     {
-        if (IsOpen)
+        if (_isOpen)
         {
             if (_animationCoroutine != null)
             {
                 StopCoroutine(_animationCoroutine);
             }
-
-            if (_isRotatingDoor)
-            {
-                _animationCoroutine = StartCoroutine(DoRotationClose());
-            }
+            _animationCoroutine = StartCoroutine(DoRotationClose());
         }
     }
 
@@ -125,7 +117,7 @@ public class ObjectWithDoor : MonoBehaviour
         Quaternion startRotation = _pivot.localRotation;
         Quaternion endRotation = Quaternion.Euler(_awakeRotation);
 
-        IsOpen = false;
+        _isOpen = false;
 
         float time = 0;
         while (time < 1)
