@@ -46,8 +46,13 @@ public class InvestigateState : IState
             _aiController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
             yield return new WaitForSeconds(0.2f);
         }
-
+    
         yield return new WaitForSeconds(3f);
+
+        if(_aiController.InvestigateTarget.IsInteractable(out var interactable))
+        {
+            interactable.Use(Interacter.Npc);
+        }
 
         _aiController.Agent.SetDestination(_targetToReturnTo.position);
 

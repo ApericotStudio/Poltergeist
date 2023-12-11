@@ -36,16 +36,21 @@ public class Interactable : MonoBehaviour
         {
             return;
         }
+        if(_observableObject.State == ObjectState.Idle && interacter == Interacter.Npc)
+        {
+            return;
+        }
         InteractEvent.Invoke(interacter);
 
         if(interacter == Interacter.Player)
         {
-            ObjectState originalState = _observableObject.State;
             if (_scary)
             {
-                _observableObject.State = ObjectState.Interacted;
+                if(_observableObject.State == ObjectState.Idle)
+                    _observableObject.State = ObjectState.Interacted;
+                else
+                    _observableObject.State = ObjectState.Idle;
             }
-            _observableObject.State = originalState;
             _uses++;
             if (_uses >= _maxUses && _hasMax)
             {

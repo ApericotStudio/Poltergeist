@@ -40,6 +40,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     [Header("Observable Object Settings")]
     [Tooltip("The type of object.")]
     public ObjectType Type;
+    [SerializeField]
     private ObjectState _state = ObjectState.Idle;
     public Interactable InteractableComponent => GetComponent<Interactable>();
     private MinimumImpulse _minimumImpulse;

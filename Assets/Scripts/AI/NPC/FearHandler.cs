@@ -63,13 +63,13 @@ public class FearHandler : MonoBehaviour
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
-                _npcController.InvestigateTarget = observableObject.transform;
+                _npcController.InvestigateTarget = observableObject;
                 _npcController.Investigate();
                 break;
             case ObjectState.Hit:
                 if (observableObject.Type == ObjectType.Small)
                 {
-                    _npcController.InvestigateTarget = observableObject.transform;
+                    _npcController.InvestigateTarget = observableObject;
                     _npcController.Investigate();
                 }
                 else
