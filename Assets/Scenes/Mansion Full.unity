@@ -20553,6 +20553,7 @@ Transform:
   - {fileID: 1308128404}
   - {fileID: 649188448}
   - {fileID: 1519648031}
+  - {fileID: 2066034795}
   m_Father: {fileID: 1718719724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1097456596
@@ -22328,7 +22329,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 1
   m_VoxelSize: 0.08
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 85eaebf4f8d5d164a876b87b340b684e, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 5fb2609a4f5aade42aeb88edb20db1e3, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1201043300
 Transform:
@@ -25173,7 +25174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1390620586}
   m_Layer: 0
-  m_Name: RoamOrigin
+  m_Name: LivingRoomOrigin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25618,6 +25619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a6066d8aa81c0340bec4156b82f9fd6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28920,9 +28926,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
+      propertyPath: RoamRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
       propertyPath: CurrentRoamOrigin
       value: 
-      objectReference: {fileID: 1390620586}
+      objectReference: {fileID: 2066034795}
     - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
       propertyPath: FrightenedTargetLocation
@@ -28931,11 +28942,21 @@ PrefabInstance:
     - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
       propertyPath: AvailableRoamOrigins.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
       propertyPath: AvailableRoamOrigins.Array.data[0]
+      value: 
+      objectReference: {fileID: 2066034795}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.data[1]
+      value: 
+      objectReference: {fileID: 1390620586}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: AvailableRoamOrigins.Array.data[2]
       value: 
       objectReference: {fileID: 1390620586}
     - target: {fileID: 7660481155509779078, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
@@ -32658,6 +32679,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a6066d8aa81c0340bec4156b82f9fd6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32666,6 +32692,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1877961124}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0a6066d8aa81c0340bec4156b82f9fd6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1877961127}
   m_SourcePrefab: {fileID: 100100000, guid: 0a6066d8aa81c0340bec4156b82f9fd6, type: 3}
 --- !u!4 &1877961122 stripped
 Transform:
@@ -32700,6 +32730,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.12896225, y: 0.93848103, z: 2.3082929}
   m_Center: {x: -0.07216873, y: 0.029308993, z: 1.1469713}
+--- !u!208 &1877961127
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877961123}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.03, y: 0.00001, z: 1.154}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.072000004, y: 0.029000001, z: 1.1470001}
+  m_TimeToStationary: 0.5
 --- !u!1 &1883954739
 GameObject:
   m_ObjectHideFlags: 0
@@ -33117,6 +33163,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WallDoor1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d8d21b8a128e402449381e1fa8dfeb52,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34308,6 +34359,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallDoor1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d8d21b8a128e402449381e1fa8dfeb52,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -34667,6 +34723,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2052636627}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2066034794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2066034795}
+  m_Layer: 0
+  m_Name: BathroomOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2066034795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066034794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.5, y: 0, z: -3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1092526396}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2066635321
 GameObject:
   m_ObjectHideFlags: 0
