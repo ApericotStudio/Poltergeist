@@ -12,6 +12,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private bool _scary = true;
 
     public UnityEvent InteractEvent;
+    public UnityEvent MaxUseEvent;
     private bool _interactDepleted;
 
 
@@ -45,6 +46,7 @@ public class Interactable : MonoBehaviour
             }
 
             _interactDepleted = true;
+            MaxUseEvent.Invoke();
         }
     }
 }

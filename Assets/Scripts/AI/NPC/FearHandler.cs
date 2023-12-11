@@ -22,10 +22,13 @@ public class FearHandler : MonoBehaviour
     private float _audibleMultiplier = 1f;
     [Tooltip("Multiplier to scare value when an object is both visible and audible to an NPC."), Range(0f, 5f), SerializeField]
     private float _visibleAndAudibleMultiplier = 1.5f;
+    [Tooltip("Amount fear goes up when object breaks"), SerializeField]
+    private float _brokenAddition = 5f;
     [Tooltip("These multipliers are used to decrease the fear value as an object is used more frequently."), SerializeField]
-    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0f};
+    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0.1f};
 
     private NpcController _npcController;
+    private NpcSenses _npcSenses;
     private bool _isScared = false;
     private IEnumerator _coroutine;
 
@@ -34,6 +37,7 @@ public class FearHandler : MonoBehaviour
     private void Awake()
     {
         _npcController = GetComponent<NpcController>();
+        _npcSenses = GetComponent<NpcSenses>();
     }
     
     /// <summary>
@@ -55,10 +59,10 @@ public class FearHandler : MonoBehaviour
             return;
         }
 
-        float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
-       
-        if(_npcController.FearValue + fearToAdd < 100f)
-        {
+       float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
+
+        if (_npcController.FearValue + fearToAdd < 100f)
+       {
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
@@ -79,12 +83,11 @@ public class FearHandler : MonoBehaviour
             default:
                 return;
             }
-        }
-
-        _npcController.FearValue += fearToAdd;
-        _coroutine = ScaredCooldown();
-        StartCoroutine(_coroutine);
-        _usedObjects.Add(observableObject);
+       }
+       _npcController.FearValue += fearToAdd;
+       _coroutine = ScaredCooldown();
+       StartCoroutine(_coroutine);
+       _usedObjects.Add(observableObject);
         OnObjectUsed?.Invoke(observableObject);
     }
 
@@ -102,7 +105,35 @@ public class FearHandler : MonoBehaviour
             _ => 0
         };
 
-        return (float)observableObject.Type * fearValue * _usageMultipliers[objectUsageCount];
+        float falloff = detectedProperties switch
+        {
+            { IsVisible: true, IsAudible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.SightRange) * 0.8f + 0.2f,
+            { IsAudible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange) * 0.8f + 0.2f,
+            { IsVisible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.SightRange) * 0.8f + 0.2f,
+            _ => 0
+        };
+
+        float soothe;
+        if (_npcController.SeenByRealtor)
+        {
+            soothe = 0.5f;
+        }
+        else
+        {
+            soothe = 1f;
+        }
+
+        float brokenAddition;
+        if (observableObject.State == ObjectState.Broken)
+        {
+            brokenAddition = _brokenAddition;
+        }
+        else
+        {
+            brokenAddition = 0f;
+        }
+
+        return ((float)observableObject.Type * fearValue + brokenAddition) * _usageMultipliers[objectUsageCount] * falloff * soothe;
     }
 
     private IEnumerator ScaredCooldown()
