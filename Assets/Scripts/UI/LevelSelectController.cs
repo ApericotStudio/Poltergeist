@@ -43,7 +43,9 @@ public class LevelSelectController : MonoBehaviour
 
     public void OnLevelSelected(Level level)
     {
-        _gradeDisplay.SetGrade(level.Grade);
+        LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
+        Grade grade = levelGradeHandler.Load(level.SceneName);
+        _gradeDisplay.SetGrade(grade);
         _levelDescription.text = level.Description;
     }
 }
