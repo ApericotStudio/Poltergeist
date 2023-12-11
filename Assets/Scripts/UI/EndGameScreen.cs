@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,8 +5,8 @@ using UnityEngine.UI;
 public class EndGameScreen : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameData _gameData;
-    [SerializeField] private TextMeshProUGUI _grade;
+    [SerializeField] private GradeController _gradeController;
+    [SerializeField] private GradeDisplay _gradeDisplay;
     [SerializeField] private Button _replayButton;
     
     private void Awake()
@@ -22,7 +21,7 @@ public class EndGameScreen : MonoBehaviour
 
     private void UpdateSummary()
     {
-        _grade.text = _gameData.Grade;
+        _gradeDisplay.SetGrade(_gradeController.Grade);
     }
 
     private void OnReplayButtonClicked()
