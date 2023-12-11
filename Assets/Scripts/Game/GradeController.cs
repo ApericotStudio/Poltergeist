@@ -5,16 +5,11 @@ using UnityEngine;
 public class GradeController : MonoBehaviour
 {
     [HideInInspector] public Grade Grade;
-    [HideInInspector] public string GradeAssetPath = "Assets/Scripts/Game/Grades/Grade.Asset";
     private List<ObservableObject> _observableObjectsUsed = new List<ObservableObject>();
 
     private void Awake()
     {
-        Grade = ScriptableObject.CreateInstance<Grade>();
-        AssetDatabase.DeleteAsset(GradeAssetPath);
-        AssetDatabase.Refresh();
-        AssetDatabase.CreateAsset(Grade, GradeAssetPath);
-        AssetDatabase.Refresh();
+        Grade = new Grade();
         SetupSubscriptions();
     }
 

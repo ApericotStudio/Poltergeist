@@ -1,8 +1,18 @@
-using UnityEngine;
-
-[CreateAssetMenu(fileName = "Grade", menuName = "ScriptableObjects/Grade", order = 1)]
-public class Grade : ScriptableObject
+public class Grade
 {
+    public Grade(GradeFile gradeFile)
+    {
+        VisitorsLeft = gradeFile.VisitorsLeft;
+        DifferentObjectsUsed = gradeFile.DifferentObjectsUsed;
+        PhobiaScares = gradeFile.PhobiaScares;
+        TimeLeft = gradeFile.TimeLeft;
+    }
+
+    public Grade()
+    {
+
+    }
+
     private bool _isDirty = true;
     private int _result;
     public int Result

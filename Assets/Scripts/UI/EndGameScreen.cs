@@ -27,26 +27,26 @@ public class EndGameScreen : MonoBehaviour
         _gradeDisplay.SetGrade(_gradeController.Grade);
     }
 
+    /// <summary>
+    /// Checks if player has achieved a new highest grade and if so save it
+    /// </summary>
     private void CheckForHighestGrade()
     {
+        LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
+        Grade currentGrade = levelGradeHandler.Load(SceneManager.GetActiveScene().name);
+
         bool newHighestGrade = false;
-
-        if (_levelCatalog.GetCurrent().Grade == null)
+        if (currentGrade == null)
         {
             newHighestGrade = true;
         }
-        else if (_levelCatalog.GetCurrent().Grade.Result < _gradeController.Grade.Result)
+        else if (currentGrade.Result < _gradeController.Grade.Result)
         {
             newHighestGrade = true;
         }
-
         if (newHighestGrade)
         {
-            AssetDatabase.DeleteAsset("Assets/Scripts/Game/Grades/" + _levelCatalog.GetCurrent().SceneName + "Grade");
-            AssetDatabase.Refresh();
-            AssetDatabase.RenameAsset(_gradeController.GradeAssetPath, _levelCatalog.GetCurrent().SceneName + "Grade");
-            AssetDatabase.Refresh();
-            _levelCatalog.GetCurrent().Grade = _gradeController.Grade;
+            levelGradeHandler.Save(_gradeController.Grade, SceneManager.GetActiveScene().name);
         }
     }
 
