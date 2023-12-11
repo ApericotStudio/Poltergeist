@@ -4,8 +4,8 @@ using UnityEngine;
 public class Grade : ScriptableObject
 {
     private bool _isDirty = true;
-    private string _result;
-    public string Result
+    private int _result;
+    public int Result
     {
         get
         {
@@ -18,10 +18,10 @@ public class Grade : ScriptableObject
         }
     }
 
-    private int _visitorsLeft;
-    private int _differentObjectsUsed;
-    private int _phobiaScares;
-    private float _timeLeft;
+    private int _visitorsLeft = 0;
+    private int _differentObjectsUsed = 0;
+    private int _phobiaScares = 0;
+    private float _timeLeft = 0;
 
     public int VisitorsLeft
     {
@@ -72,12 +72,13 @@ public class Grade : ScriptableObject
         }
     }
 
-    private string CalculateResult()
+    private int CalculateResult()
     {
-        if(_visitorsLeft == 0)
-        {
-            return "passed";
-        }
-        return "failed";
+        int score = 0;
+        score -= _visitorsLeft * 20;
+        score += _differentObjectsUsed * 5;
+        score += PhobiaScares * 10;
+        score += (int) _timeLeft;
+        return score;
     }
 }

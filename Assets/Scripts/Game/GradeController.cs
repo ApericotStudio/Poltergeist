@@ -1,14 +1,18 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GradeController : MonoBehaviour
 {
     [HideInInspector] public Grade Grade;
+    [HideInInspector] public string GradeAssetPath = "Assets/Scripts/Game/Grades/Grade.Asset";
     private List<ObservableObject> _observableObjectsUsed = new List<ObservableObject>();
 
     private void Awake()
     {
         Grade = ScriptableObject.CreateInstance<Grade>();
+        AssetDatabase.DeleteAsset(GradeAssetPath);
+        AssetDatabase.CreateAsset(Grade, GradeAssetPath);
         SetupSubscriptions();
     }
 

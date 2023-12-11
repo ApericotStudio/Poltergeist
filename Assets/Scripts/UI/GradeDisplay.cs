@@ -21,7 +21,7 @@ public class GradeDisplay : MonoBehaviour
         _differentObjectsUsed.text = grade.DifferentObjectsUsed.ToString();
         _phobiaScares.text = grade.PhobiaScares.ToString();
         _timeLeft.text = grade.TimeLeft.ToString();
-        _result.text = grade.Result;
+        _result.text = grade.Result.ToString();
     }
 
     private void NoGrade()

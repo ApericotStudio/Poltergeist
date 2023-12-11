@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,7 +9,8 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private GradeController _gradeController;
     [SerializeField] private GradeDisplay _gradeDisplay;
     [SerializeField] private Button _replayButton;
-    
+    [SerializeField] private LevelCatalog _levelCatalog;
+
     private void Awake()
     {
         _replayButton.onClick.AddListener(OnReplayButtonClicked);
@@ -17,11 +19,35 @@ public class EndGameScreen : MonoBehaviour
     public void OnEnable()
     {
         UpdateSummary();
+        CheckForHighestGrade();
     }
 
     private void UpdateSummary()
     {
         _gradeDisplay.SetGrade(_gradeController.Grade);
+    }
+
+    private void CheckForHighestGrade()
+    {
+        bool newHighestGrade = false;
+
+        if (_levelCatalog.GetCurrent().Grade == null)
+        {
+            newHighestGrade = true;
+        }
+        else if (_levelCatalog.GetCurrent().Grade.Result < _gradeController.Grade.Result)
+        {
+            newHighestGrade = true;
+        }
+
+        if (newHighestGrade)
+        {
+            print("current grade: " + _levelCatalog.GetCurrent().Grade + " new grade: " + _gradeController.Grade);
+            _levelCatalog.GetCurrent().Grade = _gradeController.Grade;
+            AssetDatabase.DeleteAsset("Assets/Scripts/Game/Grades/" + _levelCatalog.GetCurrent().SceneName + "Grade");
+            AssetDatabase.RenameAsset(_gradeController.GradeAssetPath, _levelCatalog.GetCurrent().SceneName + "Grade");
+            print("new current grade: " + _levelCatalog.GetCurrent().Grade);
+        }
     }
 
     private void OnReplayButtonClicked()
