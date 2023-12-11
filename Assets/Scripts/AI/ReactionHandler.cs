@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,8 +39,22 @@ public class ReactionHandler : MonoBehaviour
         _aiController = GetComponent<AiController>();
         _animator = _reactionImage.GetComponent<Animator>();
         _aiController.OnStateChange.AddListener(OnStateChange);
+
+        if(_aiController.TryGetComponent(out NpcController npcController))
+        {
+            npcController.OnFearValueChange.AddListener(OnFearValueChange);
+        }
+
         _previousState = _aiController.CurrentState;
         
+    }
+
+    private void OnFearValueChange(float fear)
+    {
+        if (fear >= 50f)
+            _animator.SetBool("Grumpy", true);
+        else
+            _animator.SetBool("Grumpy", false);
     }
 
     private void OnStateChange(IState state)
