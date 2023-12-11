@@ -45,7 +45,9 @@ public class EndGameScreen : MonoBehaviour
             print("current grade: " + _levelCatalog.GetCurrent().Grade + " new grade: " + _gradeController.Grade);
             _levelCatalog.GetCurrent().Grade = _gradeController.Grade;
             AssetDatabase.DeleteAsset("Assets/Scripts/Game/Grades/" + _levelCatalog.GetCurrent().SceneName + "Grade");
+            AssetDatabase.Refresh();
             AssetDatabase.RenameAsset(_gradeController.GradeAssetPath, _levelCatalog.GetCurrent().SceneName + "Grade");
+            AssetDatabase.Refresh();
             print("new current grade: " + _levelCatalog.GetCurrent().Grade);
         }
     }

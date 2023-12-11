@@ -12,7 +12,9 @@ public class GradeController : MonoBehaviour
     {
         Grade = ScriptableObject.CreateInstance<Grade>();
         AssetDatabase.DeleteAsset(GradeAssetPath);
+        AssetDatabase.Refresh();
         AssetDatabase.CreateAsset(Grade, GradeAssetPath);
+        AssetDatabase.Refresh();
         SetupSubscriptions();
     }
 
