@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ReactionHandler : MonoBehaviour
+public class OldReactionHandler : MonoBehaviour
 {
     [Header("Reaction Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC gets scared into a new room."), SerializeField]
@@ -40,7 +40,7 @@ public class ReactionHandler : MonoBehaviour
     private void Awake()
     {
         _npcController = GetComponent<NpcController>();
-        _npcController.OnStateChange += OnStateChange;
+        _npcController.OnStateChange.AddListener(OnStateChange);
         _npcController.OnFearValueChange.AddListener(OnFearValueChange);
         _previousState = _npcController.CurrentState;
     }
@@ -81,7 +81,7 @@ public class ReactionHandler : MonoBehaviour
 
         if (clip != null)
         {
-            _npcController.NpcAudioSource.PlayOneShot(clip);
+            _npcController.AudioSource.PlayOneShot(clip);
         }
     }
 

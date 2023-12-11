@@ -19,7 +19,7 @@ public class NpcManager : MonoBehaviour
         _npcs = _npcCollection.GetComponentsInChildren<NpcController>();
         foreach(NpcController npcController in _npcs)
         {
-            npcController.OnStateChange += OnNpcStateChanged;
+            npcController.OnStateChange.AddListener(OnNpcStateChanged);
         }
         _gameData.AmountOfVisitors = _npcs.Length;
     }

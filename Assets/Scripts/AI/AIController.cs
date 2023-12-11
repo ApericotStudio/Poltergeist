@@ -9,8 +9,7 @@ public class AiController : MonoBehaviour
     [Tooltip("The speed the AI will move when investigating."), Range(1f, 5f)]
     public float InvestigatingSpeed = 2f;
     [Tooltip("The event that will be invoked when the ai changes state.")]
-    public delegate void StateChanged(IState state);
-    public event StateChanged OnStateChange;
+    public UnityEvent<IState> OnStateChange;
 
     public NavMeshAgent Agent { get; set; }
     public Animator Animator { get; private set; }
@@ -18,6 +17,7 @@ public class AiController : MonoBehaviour
 
     public int AnimIDMotionSpeed { get; private set; }
     public int AnimIDSpeed { get; private set; }
+    public AudioSource AudioSource { get; private set; }
     
     [HideInInspector]
     public float AnimationBlend;
@@ -47,11 +47,12 @@ public class AiController : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         Animator = GetComponent<Animator>();
+        AudioSource = GetComponent<AudioSource>();
 
         AnimIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         AnimIDSpeed = Animator.StringToHash("Speed");
 
-        OnStateChange += OnStateChanged;
+        OnStateChange.AddListener(OnStateChanged);
     }
 
     public void Investigate()
