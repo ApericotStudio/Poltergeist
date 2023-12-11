@@ -5,8 +5,6 @@ using UnityEngine.Events;
 public class NpcController : AiController
 {
     [Header("NPC Settings")]
-    [Tooltip("The speed the NPC will move when investigating."), Range(1f, 5f)]
-    public float InvestigatingSpeed = 2f;
     [Tooltip("The target location the NPC will run to when frightened.")]
     public Transform FrightenedTargetLocation;
     [Tooltip("The speed the NPC will move when frightened."), Range(2f, 10f)]
@@ -15,8 +13,6 @@ public class NpcController : AiController
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
     public UnityEvent<float> OnFearValueChange;
-    [Tooltip("The Game Event Manager that will be used to invoke game events in the various states.")]
-    public GameEventManager GameEventManager;
 
     [Header("Roaming Settings")]
     [Tooltip("The current roam origin of the NPC. This is the location the NPC will roam around.")]
@@ -31,29 +27,17 @@ public class NpcController : AiController
     public float RoamOriginTimeSpent = 50f;
 
     [Header("Audio Settings")]
-    [Tooltip("The audio clips that will be played when the NPC gets scared into a new room.")]
-    public AudioClipList SmallScreamAudioClips;
-    [Tooltip("The audio clips that will be played when the NPC screams.")]
-    public AudioClipList ScreamAudioClips;
-    [Tooltip("The audio clip that will be played when the NPC investigates.")]
-    public AudioClipList InvestigateAudioClips;
-    [Tooltip("The audio clip that will be played when the NPC stops investigating.")]
-    public AudioClipList InvestigateEndAudioClips;
-    [Tooltip("The volume of the scream audio clips.")]
-    [Range(0f, 1f)]
-    public float ScreamVolume = 1f;
     [Tooltip("The audio clips that will be played when the NPC moves.")]
     public AudioClip[] FootstepAudioClips;
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
-    
-    [HideInInspector]
-    public ObservableObject InvestigateTarget;
     [HideInInspector]
     public bool RanAway;
     [HideInInspector]
     public bool FearReductionHasCooldown = false;
+    [HideInInspector]
+    public bool SeenByRealtor;
 
     private int _currentRoamIndex = 0;
 
@@ -68,7 +52,6 @@ public class NpcController : AiController
     public AudioSource NpcAudioSource { get; private set; }
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
-    public InvestigateState InvestigateState { get; private set; }
     public ScaredState ScaredState { get; private set; }
 
     private void Awake()
@@ -78,7 +61,7 @@ public class NpcController : AiController
         InitializeController();
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
-        InvestigateState = new InvestigateState(this);
+        InvestigateState = new InvestigateState(this, RoamState, CurrentRoamOrigin);
         ScaredState = new ScaredState(this);
     }
 
@@ -122,14 +105,6 @@ public class NpcController : AiController
     {
         _currentRoamIndex = (_currentRoamIndex + 1) % AvailableRoamOrigins.Length;
         CurrentRoamOrigin = AvailableRoamOrigins[_currentRoamIndex];
-    }
-
-    public void Investigate()
-    {
-        if(CurrentState is not global::InvestigateState and not global::PanickedState && FearValue < 100f)
-        {
-            CurrentState = InvestigateState;
-        }
     }
 
     public void GetScared()

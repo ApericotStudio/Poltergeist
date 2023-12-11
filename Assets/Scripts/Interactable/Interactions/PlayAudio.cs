@@ -6,6 +6,8 @@ public class PlayAudio : MonoBehaviour
     private AudioSource _audioSource;
 
     [Header("Adjustable variables")]
+    [Tooltip("Keep empty to use sound clip on audio source component")]
+    [SerializeField] private AudioClipList _audioClips = null;
     [Tooltip("Restart sound instead of stopping it")]
     [SerializeField] private bool _onlyActivatable = false;
     [Tooltip("Pause sound instead of stopping it")]
@@ -24,6 +26,10 @@ public class PlayAudio : MonoBehaviour
     {
         if (_onlyActivatable)
         {
+            if (_audioClips != null)
+            {
+                _audioSource.clip = _audioClips.GetRandom();
+            }
             _audioSource.Play();
             return;
         }
@@ -47,6 +53,10 @@ public class PlayAudio : MonoBehaviour
         }
         else
         {
+            if (_audioClips != null)
+            {
+                _audioSource.clip = _audioClips.GetRandom();
+            }
             _audioSource.Play();
         }
     }

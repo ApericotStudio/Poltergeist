@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 /// <summary>
@@ -18,10 +19,18 @@ public enum ObjectState
 /// </summary>
 public enum ObjectType
 {
-    Big = 20,
-    Small = 10,
-    Medium = 15
+    Big = 30,
+    Medium = 15,
+    Small = 10
 }
+
+public enum MinimumImpulse
+{
+    Big = 14,
+    Medium = 14,
+    Small = 30
+}
+
 /// <summary>
 /// The Observable Object class is used to store the state of the object. 
 /// It also contains the anxiety values that will be added to the NPC's anxiety when the object has entered certain states.
@@ -33,6 +42,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
     public Interactable InteractableComponent => GetComponent<Interactable>();
+    private MinimumImpulse _minimumImpulse;
 
     private readonly List<IObserver> _observers = new();
 
@@ -54,6 +64,27 @@ public class ObservableObject : MonoBehaviour, IObservableObject
         return interactable != null;
     }
 
+    public MinimumImpulse MinimumImpulse
+    {
+        get => _minimumImpulse;
+    }
+
+    private void Awake()
+    {
+        switch (Type)
+        {
+            case ObjectType.Big:
+                _minimumImpulse = MinimumImpulse.Big;
+                break;
+            case ObjectType.Medium:
+                _minimumImpulse = MinimumImpulse.Medium;
+                break;
+            case ObjectType.Small:
+                _minimumImpulse = MinimumImpulse.Small;
+                break;
+        }
+        NotifyObservers();
+    }
     public void NotifyObservers()
     {
         for (int i = 0; i < _observers.Count; i++)
