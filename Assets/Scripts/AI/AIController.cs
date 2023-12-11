@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 public class AiController : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class AiController : MonoBehaviour
 
     public NavMeshAgent Agent { get; set; }
     public Animator Animator { get; private set; }
+    public AudioSource AiAudioSource { get; private set; }
     public Transform InvestigateTarget;
 
     public int AnimIDMotionSpeed { get; private set; }
@@ -47,6 +47,7 @@ public class AiController : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         Animator = GetComponent<Animator>();
+        AiAudioSource = GetComponent<AudioSource>();
 
         AnimIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         AnimIDSpeed = Animator.StringToHash("Speed");

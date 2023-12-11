@@ -10,7 +10,7 @@ public class NpcController : AiController
     [Tooltip("The speed the NPC will move when frightened."), Range(2f, 10f)]
     public float FrightenedSpeed = 5.335f;
     [Tooltip("The fear value of the NPC."), SerializeField, Range(0f, 100f)]
-    private float _fearValue = 50f;
+    private float _fearValue = 0f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
     public UnityEvent<float> OnFearValueChange;
 
@@ -42,14 +42,14 @@ public class NpcController : AiController
     private int _currentRoamIndex = 0;
 
     public float FearValue
-    { 
-        get => _fearValue; 
-        set {
+    {
+        get => _fearValue;
+        set
+        {
             _fearValue = value;
             OnFearValueChange.Invoke(_fearValue);
-        }  
+        }
     }
-    public AudioSource NpcAudioSource { get; private set; }
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
     public ScaredState ScaredState { get; private set; }
@@ -57,7 +57,6 @@ public class NpcController : AiController
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
-        NpcAudioSource = GetComponent<AudioSource>();
         InitializeController();
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
@@ -112,18 +111,6 @@ public class NpcController : AiController
         if(CurrentState is not global::ScaredState and not global::PanickedState && FearValue < 100f)
         {
             CurrentState = ScaredState;
-        }
-    }
-
-    private void OnFootstep(AnimationEvent animationEvent)
-    {
-        if (animationEvent.animatorClipInfo.weight > 0.5f)
-        {
-            if (FootstepAudioClips.Length > 0)
-            {
-                int index = Random.Range(0, FootstepAudioClips.Length);
-                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepVolume);
-            }
         }
     }
 }

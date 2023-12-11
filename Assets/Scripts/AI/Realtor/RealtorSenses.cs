@@ -7,12 +7,6 @@ public class RealtorSenses : AiDetection, IObserver
     [Tooltip("The distance that the realtor can reduce NPC fear."), Range(0, 50)]
     public float FearReductionRange = 10f;
     
-    [Header("Fear Reduction Settings")]
-    [Tooltip("The value that will be subtracted from the fear value of npc's close to the realtor."), Range(0f, 1f), SerializeField]
-    private float _reductionValue = 0.1f;
-    [Tooltip("The speed at which the fear value will be reduced."), Range(0f, 1f), SerializeField]
-    private float _reductionSpeed = 0.05f;
-    
     [HideInInspector]
     public List<NpcController> DetectedNpcs = new();
 
@@ -22,7 +16,6 @@ public class RealtorSenses : AiDetection, IObserver
     {
         base.Awake();
         _realtorController = GetComponent<RealtorController>();
-        StartCoroutine(DecreaseNpcFear());
     }
 
     protected override void DetectTargets()
@@ -94,31 +87,14 @@ public class RealtorSenses : AiDetection, IObserver
                 return;
             }
     }
-    
+
     protected override void ClearDetectedObjects()
     {
-        foreach(NpcController npc in DetectedNpcs)
+        foreach (NpcController npc in DetectedNpcs)
         {
             npc.SeenByRealtor = false;
         }
         DetectedNpcs.Clear();
         DetectedObjects.Clear();
-    }
-
-    private IEnumerator DecreaseNpcFear()
-    {
-        while (true)
-        {
-            if (DetectedNpcs.Count == 0)
-            {
-                yield return new WaitForSeconds(_reductionSpeed);
-                continue;
-            }
-            foreach (NpcController npc in DetectedNpcs)
-            {
-                npc.FearValue -= _reductionValue;
-            }
-            yield return new WaitForSeconds(_reductionSpeed);
-        }
     }
 }
