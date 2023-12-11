@@ -50,6 +50,7 @@ public class RealtorSenses : AiDetection, IObserver
                 if (distanceToTarget <= FearReductionRange)
                 {
                     DetectedNpcs.Add(npc);
+                    npc.SeenByRealtor = true;
                 }
             }
 
@@ -96,6 +97,10 @@ public class RealtorSenses : AiDetection, IObserver
     
     protected override void ClearDetectedObjects()
     {
+        foreach(NpcController npc in DetectedNpcs)
+        {
+            npc.SeenByRealtor = false;
+        }
         DetectedNpcs.Clear();
         DetectedObjects.Clear();
     }

@@ -19,7 +19,7 @@ public enum ObjectState
 /// </summary>
 public enum ObjectType
 {
-    Big = 20,
+    Big = 30,
     Medium = 15,
     Small = 10
 }
