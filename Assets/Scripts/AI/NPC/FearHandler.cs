@@ -72,7 +72,7 @@ public class FearHandler : MonoBehaviour
                 _npcController.Investigate();
                 break;
             case ObjectState.Hit:
-                if (fearToAdd > _bigScareThreshold)
+                if (fearToAdd < _bigScareThreshold)
                 {
                     _npcController.InvestigateTarget = observableObject.transform;
                     _npcController.Investigate();
