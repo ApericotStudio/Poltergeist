@@ -11,6 +11,11 @@ public class FearHandler : MonoBehaviour
     [Header("Fear Handler Settings")]
     [Tooltip("The cooldown between each scare."), Range(0f, 10f), SerializeField]
     private float _scaredCooldown = 2f;
+    [Tooltip("The threshold for when big scare"), Range(0f, 100f), SerializeField]
+    private float _bigScareThreshold = 22f;
+    [Tooltip("Realtor Soothe"), Range(0f, 1f), SerializeField]
+    private float _soothe = 0.25f;
+
 
     [Header("Multipliers")]
     [Tooltip("Multiplier to scare value when an object is visible to an NPC."), Range(0f, 5f), SerializeField]
@@ -59,7 +64,7 @@ public class FearHandler : MonoBehaviour
        float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
 
         if (_npcController.FearValue + fearToAdd < 100f)
-       {
+        {
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
@@ -67,7 +72,7 @@ public class FearHandler : MonoBehaviour
                 _npcController.Investigate();
                 break;
             case ObjectState.Hit:
-                if (observableObject.Type == ObjectType.Small)
+                if (fearToAdd > _bigScareThreshold)
                 {
                     _npcController.InvestigateTarget = observableObject.transform;
                     _npcController.Investigate();
@@ -112,7 +117,7 @@ public class FearHandler : MonoBehaviour
         float soothe;
         if (_npcController.SeenByRealtor)
         {
-            soothe = 0.5f;
+            soothe = _soothe;
         }
         else
         {

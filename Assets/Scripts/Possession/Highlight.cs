@@ -50,7 +50,6 @@ public class Highlight : MonoBehaviour
             }
             foreach (Material material in _materials)
             {
-                material.EnableKeyword(_emmissions[material]);
                 material.SetColor("_EmissionColor", _highlightColor);
             }
         }
@@ -58,7 +57,7 @@ public class Highlight : MonoBehaviour
         {
             foreach (Material material in _materials)
             {
-                material.DisableKeyword(_emmissions[material]);
+                material.SetColor("_EmissionColor", new Color(1f/255f, 1f / 255f, 1f / 255f, 1f));
             }
         }
     }
