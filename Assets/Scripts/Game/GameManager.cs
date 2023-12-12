@@ -4,14 +4,17 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void TimeLeftChanged(float value);
+    public event TimeLeftChanged OnTimeLeftChanged;
+
     [HideInInspector] public UnityEvent OnEndGame = new UnityEvent();
 
     [Header("Adjustable variables")]
-    [SerializeField] private float _timeRemaining;
+    [SerializeField] private float _timeLeft;
 
     private void Awake()
     {
-        StartCoroutine(ManageTimeRemaining());
+        StartCoroutine(ManageTimeLeft());
     }
 
     public void EndGame()
@@ -19,14 +22,15 @@ public class GameManager : MonoBehaviour
         OnEndGame.Invoke();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        StopCoroutine(ManageTimeRemaining());
+        StopCoroutine(ManageTimeLeft());
     }
 
-    IEnumerator ManageTimeRemaining()
+    IEnumerator ManageTimeLeft()
     {
-        while (_timeRemaining > 0)
+        while (_timeLeft > 0)
         {
-            _timeRemaining -= Time.deltaTime;
+            _timeLeft -= Time.deltaTime;
+            OnTimeLeftChanged?.Invoke(_timeLeft);
             yield return new WaitForFixedUpdate();
         }
         EndGame();
