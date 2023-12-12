@@ -1,6 +1,7 @@
 using UnityEngine;
 using StarterAssets;
 using UnityEngine.Events;
+using TMPro;
 
 public class PossessionController : MonoBehaviour, IObserver
 {
@@ -17,11 +18,16 @@ public class PossessionController : MonoBehaviour, IObserver
     [SerializeField] private AudioClip _possessSound;
     [SerializeField] private AudioClip _unpossessSound;
 
+    [Header("References")]
+    [SerializeField] private TextMeshProUGUI _hoverMessage;
+
     private void Awake()
     {
         _thirdPersonController = GetComponent<ThirdPersonController>();
         _visionController = GetComponent<VisionController>();
         _audioSource = GetComponent<AudioSource>();
+
+        _visionController.LookingAtChanged.AddListener(HandleDisplayingPossessionPrompt);
     }
 
     /// <summary>
@@ -82,6 +88,23 @@ public class PossessionController : MonoBehaviour, IObserver
         if (observableObject.State == ObjectState.Broken)
         {
             Unpossess();
+        }
+    }
+
+    private void HandleDisplayingPossessionPrompt()
+    {
+        _hoverMessage.enabled = false;
+        GameObject objectInView = _visionController.LookingAt;
+        if (objectInView != null)
+        {
+            bool possessableAndNotBroken = objectInView.TryGetComponent(out Throwable throwable) && !throwable.isPossessed() && objectInView.TryGetComponent(out ObservableObject observableObject) && observableObject.State != ObjectState.Broken;
+            print(possessableAndNotBroken);
+            if (possessableAndNotBroken)
+            {
+                _hoverMessage.enabled = true;
+                _hoverMessage.text = "Press [E] to posses";
+                return;
+            }
         }
     }
 }
