@@ -81,7 +81,7 @@ public class ReactionHandler : MonoBehaviour
 
         if (clip != null)
         {
-            _npcController.NpcAudioSource.PlayOneShot(clip);
+            _npcController.AiAudioSource.PlayOneShot(clip);
         }
     }
 

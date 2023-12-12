@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Highlight : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Highlight : MonoBehaviour
 
     private bool _highlightable = true;
     private List<Material> _materials;
+    private Dictionary<Material, LocalKeyword> _emmissions;
 
     private void Awake()
     {
@@ -24,9 +26,14 @@ public class Highlight : MonoBehaviour
     private void SetupMaterials()
     {
         _materials = new List<Material>();
+        _emmissions = new Dictionary<Material, LocalKeyword>();
         foreach (Renderer renderer in _renderers)
         {
             _materials.AddRange(new List<Material>(renderer.materials));
+            foreach (Material mat in renderer.materials)
+            {
+                _emmissions.Add(mat, new LocalKeyword(mat.shader, "_EMISSION"));
+            }
         }
     }
 
@@ -43,7 +50,7 @@ public class Highlight : MonoBehaviour
             }
             foreach (Material material in _materials)
             {
-                material.EnableKeyword("_EMISSION");
+                material.EnableKeyword(_emmissions[material]);
                 material.SetColor("_EmissionColor", _highlightColor);
             }
         }
@@ -51,7 +58,7 @@ public class Highlight : MonoBehaviour
         {
             foreach (Material material in _materials)
             {
-                material.DisableKeyword("_EMISSION");
+                material.DisableKeyword(_emmissions[material]);
             }
         }
     }

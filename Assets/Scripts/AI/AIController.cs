@@ -12,6 +12,8 @@ public class AiController : MonoBehaviour
     public delegate void StateChanged(IState state);
     public event StateChanged OnStateChange;
 
+    public AudioSource AiAudioSource { get; protected set; }
+
     public NavMeshAgent Agent { get; set; }
     public Animator Animator { get; private set; }
     public Transform InvestigateTarget;
@@ -47,6 +49,7 @@ public class AiController : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         Animator = GetComponent<Animator>();
+        AiAudioSource = GetComponent<AudioSource>();
 
         AnimIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         AnimIDSpeed = Animator.StringToHash("Speed");
