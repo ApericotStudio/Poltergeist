@@ -6,8 +6,6 @@ public class RealtorReactionHandler : MonoBehaviour
     [Header("Reaction Audio Settings")]
     [Tooltip("The audio clip that will be played when the NPC investigates."), SerializeField]
     private AudioClipList _investigateAudioClips;
-    [Tooltip("The audio clip that will be played when the NPC stops investigating."), SerializeField]
-    private AudioClipList _investigateEndAudioClips;
 
     [Header("Reaction Image Settings")]
     [Tooltip("The image that will be used to display the reaction sprite."), SerializeField]
@@ -46,9 +44,6 @@ public class RealtorReactionHandler : MonoBehaviour
         {
             case InvestigateState when _previousState is CheckUpState:
                 clip = _investigateAudioClips.GetRandom();
-                break;
-            case CheckUpState when _previousState is InvestigateState:
-                clip = _investigateEndAudioClips.GetRandom();
                 break;
         }
 
