@@ -104,6 +104,9 @@ public class ReactionHandler : MonoBehaviour
             _aiController.AudioSource.PlayOneShot(clip);
         }
     }
+
+
+
     private void ChangeFace()
     {
         if (_faceMesh != null)
