@@ -22,7 +22,7 @@ public class NpcManager : MonoBehaviour
         _npcs = NpcCollection.GetComponentsInChildren<NpcController>();
         foreach(NpcController npcController in _npcs)
         {
-            npcController.OnStateChange += OnNpcStateChanged;
+            npcController.OnStateChange.AddListener(OnNpcStateChanged);
         }
     }
 
