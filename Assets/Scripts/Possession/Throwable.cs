@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Throwable : MonoBehaviour, IPossessable
 {
@@ -15,6 +15,10 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] private Transform _hitPointImage;
     private LayerMask _throwLayerMask;
 
+    private Outline _outline;
+    private float _geistChargeDuration = 10.0f;
+    private float _geistCharge = 1f;
+    private float _outlineMaxSize;
 
     public bool Possessed;
 
@@ -35,6 +39,8 @@ public class Throwable : MonoBehaviour, IPossessable
         _cam = Camera.main;
         _observableObject = this.GetComponent<ObservableObject>();
         _cameraScript = this.GetComponent<ClutterCamera>();
+        _outline = GetComponent<Outline>();
+        _outlineMaxSize = _outline.OutlineWidth;
 
         int throwLayer = gameObject.layer;
         for(int i = 0; i < 32; i++)
@@ -71,10 +77,10 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Throw()
     {
-        
-        if(_observableObject.State == ObjectState.Idle)
+        if(_observableObject.State == ObjectState.Idle && _geistCharge == 1f)
         {
             _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
+            StartCoroutine(RechargeGeist());
         }        
     }
 
@@ -119,5 +125,21 @@ public class Throwable : MonoBehaviour, IPossessable
     public ObjectState GetState()
     {
         return _observableObject.State;
+    }
+
+    private IEnumerator RechargeGeist()
+    {
+        _geistCharge = 0;
+        _outline.OutlineWidth = 0;
+        while (_geistCharge < 1f)
+        {
+            yield return new WaitForFixedUpdate();
+            _geistCharge += Time.deltaTime / _geistChargeDuration;
+            if (_geistCharge >= 1f)
+            {
+                _geistCharge = 1f;
+            }
+            _outline.OutlineWidth = _geistCharge * _outlineMaxSize;
+        }
     }
 }
