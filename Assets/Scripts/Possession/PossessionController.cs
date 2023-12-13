@@ -101,7 +101,7 @@ public class PossessionController : MonoBehaviour, IObserver
             if (possessableAndNotBroken)
             {
                 _hoverMessage.enabled = true;
-                _hoverMessage.text = "Press [E] to posses";
+                _hoverMessage.text = "Press [E] to possess";
                 return;
             }
         }
