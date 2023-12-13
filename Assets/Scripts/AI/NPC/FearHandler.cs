@@ -8,6 +8,9 @@ using UnityEngine;
 /// </summary>
 public class FearHandler : MonoBehaviour
 {
+    public delegate void ObjectUsed(ObservableObject observableObject);
+    public event ObjectUsed OnObjectUsed;
+
     [Header("Fear Handler Settings")]
     [Tooltip("The cooldown between each scare."), Range(0f, 10f), SerializeField]
     private float _scaredCooldown = 2f;
@@ -85,6 +88,7 @@ public class FearHandler : MonoBehaviour
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
        _usedObjects.Add(observableObject);
+        OnObjectUsed?.Invoke(observableObject);
     }
 
     /// <summary>

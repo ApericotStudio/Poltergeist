@@ -58,7 +58,6 @@ public class NpcController : AiController
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
-        NpcAudioSource = GetComponent<AudioSource>();
         InitializeController();
         InitializeStateInstances();
     }
