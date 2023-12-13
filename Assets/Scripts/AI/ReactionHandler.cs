@@ -14,9 +14,18 @@ public class ReactionHandler : MonoBehaviour
     [Tooltip("The audio clip that will be played when the NPC stops investigating."), SerializeField]
     private AudioClipList _investigateEndAudioClips;
     
-    [Header("Reaction Image Settings")]
+    [Header("Reaction Indicator Settings")]
     [Tooltip("The image that will be used to display the reaction sprite."), SerializeField]
     private Image _reactionImage;
+    [Tooltip("The particle system that will be played when the NPC is panicked or hit the sweaty treshold."), SerializeField]
+    private ParticleSystem _particleSystem;
+
+    [Header("Reaction Tresholds")]
+    [Tooltip("The fear value at which the NPC will start to sweat."), Range(0f, 100f), SerializeField]
+    private float _sweatTreshold = 66f;
+    [Tooltip("The fear value at which the NPC will start to get grumpy."), Range(0f, 100f), SerializeField]
+    private float _grumpyTreshold = 33f;
+
 
     [Header("Faces")]
     [Tooltip("The NPC's face mesh, used for showing their reaction."), SerializeField]
@@ -51,10 +60,21 @@ public class ReactionHandler : MonoBehaviour
 
     private void OnFearValueChange(float fear)
     {
-        if (fear >= 50f)
-            _animator.SetBool("Grumpy", true);
-        else
-            _animator.SetBool("Grumpy", false);
+        switch(fear)
+        {
+            case float f when f >= _sweatTreshold:
+                _animator.SetBool("Grumpy", false);
+                _particleSystem.Play();
+                break;
+            case float f when f >= _grumpyTreshold:
+                _animator.SetBool("Grumpy", true);
+                _particleSystem.Stop();
+                break;
+            default:
+                _animator.SetBool("Grumpy", false);
+                _particleSystem.Stop();
+                break;
+        }
     }
 
     private void OnStateChange(IState state)
@@ -70,32 +90,34 @@ public class ReactionHandler : MonoBehaviour
 
         switch (_aiController.CurrentState)
         {
-            case InvestigateState when _previousState is RoamState:
+            case InvestigateState when _previousState is not ScaredState && _previousState is not PhobiaState:
                 clip = _investigateAudioClips.GetRandom();
-                _animator.SetBool("Investigating", true);
-                break;
-            case InvestigateState when _previousState is CheckUpState:
-                clip = _investigateAudioClips.GetRandom();
-                _animator.SetBool("Investigating", true);
+                ToggleAnimation("Investigating");
                 break;
             case RoamState when _previousState is InvestigateState:
                 clip = _investigateEndAudioClips.GetRandom();
-                _animator.SetBool("Investigating", false);
+                ToggleAnimation("Investigating");
                 break;
             case RoamState when _previousState is ScaredState:
-                _animator.SetBool("Scared", false);
+                ToggleAnimation("Scared");
+                break;
+            case RoamState when _previousState is PhobiaState:
+                ToggleAnimation("Phobia");
                 break;
             case PanickedState when _previousState is RoamState || _previousState is InvestigateState:
                 clip = _terrifiedAudioClips.GetRandom();
-                _animator.SetTrigger("Fear");
                 break;
             case ScaredState when _previousState is RoamState || _previousState is InvestigateState:
                 clip = _bigScreamAudioClips.GetRandom();
-                _animator.SetBool("Scared", true);
+                ToggleAnimation("Scared");
+                break;
+            case PhobiaState when _previousState is RoamState || _previousState is InvestigateState:
+                clip = _terrifiedAudioClips.GetRandom();
+                ToggleAnimation("Phobia");
                 break;
             case CheckUpState when _previousState is InvestigateState:
                 clip = _investigateEndAudioClips.GetRandom();
-                _animator.SetBool("Investigating", false);
+                ToggleAnimation("Investigating");
                 break;
         }
 
@@ -105,7 +127,19 @@ public class ReactionHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Toggles the animation with the given name while disabling all other animations.
+    /// </summary>
+    private void ToggleAnimation(string animationName)
+    {
+        string[] listOfAnimations = new[] {"Investigating", "Scared", "Phobia"};
 
+        foreach (string anim in listOfAnimations)
+            if (anim != animationName)
+                _animator.SetBool(anim, false);
+
+        _animator.SetBool(animationName, !_animator.GetBool(animationName));
+    }
 
     private void ChangeFace()
     {
