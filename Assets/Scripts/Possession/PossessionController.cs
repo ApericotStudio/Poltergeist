@@ -98,7 +98,6 @@ public class PossessionController : MonoBehaviour, IObserver
         if (objectInView != null)
         {
             bool possessableAndNotBroken = objectInView.TryGetComponent(out Throwable throwable) && !throwable.isPossessed() && objectInView.TryGetComponent(out ObservableObject observableObject) && observableObject.State != ObjectState.Broken;
-            print(possessableAndNotBroken);
             if (possessableAndNotBroken)
             {
                 _hoverMessage.enabled = true;
