@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Drop : MonoBehaviour
 {
-
     private HingeJoint _hingeJoint;
     [SerializeField]
     private GameObject _connectedBody;

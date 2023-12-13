@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2888640853675573933}
   - component: {fileID: 1871557956774806525}
   - component: {fileID: 3028869041759280478}
+  - component: {fileID: 7444451536167477588}
   m_Layer: 0
   m_Name: Game Managers
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MonoBehaviour:
   OnEndGame:
     m_PersistentCalls:
       m_Calls: []
-  _timeRemaining: 120
+  _timeLeft: 120
 --- !u!114 &3028869041759280478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +77,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0e9a0480843c744a04e50e41eeb71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npcCollection: {fileID: 0}
-  _gameData: {fileID: 11400000, guid: 0c7b994db405a7244b28adcb3b89d6c8, type: 2}
+  NpcCollection: {fileID: 0}
   _gameManager: {fileID: 1871557956774806525}
+--- !u!114 &7444451536167477588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148388120156649140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f4bb75d796dee24eb5751e28e039842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grade: {fileID: 0}
