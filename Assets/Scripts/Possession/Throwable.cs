@@ -134,6 +134,10 @@ public class Throwable : MonoBehaviour, IPossessable
         while (_geistCharge < 1f)
         {
             yield return new WaitForFixedUpdate();
+            if (_observableObject.State == ObjectState.Broken)
+            {
+                break;
+            }
             _geistCharge += Time.deltaTime / _geistChargeDuration;
             if (_geistCharge >= 1f)
             {
