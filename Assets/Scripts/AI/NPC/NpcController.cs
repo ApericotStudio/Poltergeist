@@ -16,16 +16,16 @@ public class NpcController : AiController
     public UnityEvent<float> OnFearValueChange;
 
     [Header("Roaming Settings")]
-    [Tooltip("The current roam origin of the NPC. This is the location the NPC will roam around.")]
-    public Transform CurrentRoamOrigin;
+    [Tooltip("The current room the NPC is in.")]
+    public Room CurrentRoom;
     [Tooltip("The available roam origins of the NPC. The NPC will loop through these locations when roaming.")]
-    public Transform[] AvailableRoamOrigins;
+    public Room[] AvailableRooms;
     [Tooltip("The radius around the origin the NPC will roam around in."), Range(1f, 10f)]
     public float RoamRadius = 5f;
     [Tooltip("The speed the NPC will move when roaming."), Range(2f, 10f)]
     public float RoamingSpeed = 2f;
-    [Tooltip("The amount of time the NPC will stay around one roam origin"), Range(0f, 100f)]
-    public float RoamOriginTimeSpent = 50f;
+    [Tooltip("The amount of time the NPC will stay in one room."), Range(0f, 100f)]
+    public float RoomTimeSpent = 50f;
 
     [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the NPC moves.")]
@@ -40,7 +40,9 @@ public class NpcController : AiController
     [HideInInspector]
     public bool SeenByRealtor;
     [HideInInspector]
-    public int CurrentRoamIndex = 0;
+    public int CurrentRoomIndex = 0;
+    [HideInInspector]
+    public Transform CurrentInspectTarget;
 
     public float FearValue
     { 
@@ -51,6 +53,7 @@ public class NpcController : AiController
         }  
     }
     public AudioSource NpcAudioSource { get; private set; }
+    public IdleState IdleStateInstance { get; private set; }
     public RoamState RoamStateInstance { get; private set; }
     public PanickedState PanickedStateInstance { get; private set; }
     public ScaredState ScaredStateInstance { get; private set; }
@@ -74,7 +77,7 @@ public class NpcController : AiController
             CurrentState = PanickedStateInstance;
             return;
         }
-        if(CurrentState is not RoamState and not PanickedState and not InvestigateState and not ScaredState)
+        if(CurrentState is null)
         {
             CurrentState = RoamStateInstance;
             return;
@@ -90,12 +93,12 @@ public class NpcController : AiController
     }    
     
     /// <summary>
-    /// Sets the next roam origin. Will loop back to the first origin if the last origin is reached.
+    /// Switches to the next room. Will loop back to the first room if the last room is reached.
     /// </summary>
-    public void SetRoamOrigin()
+    public void SwitchRooms()
     {
-        CurrentRoamIndex = (CurrentRoamIndex + 1) % AvailableRoamOrigins.Length;
-        CurrentRoamOrigin = AvailableRoamOrigins[CurrentRoamIndex];
+        CurrentRoomIndex = (CurrentRoomIndex + 1) % AvailableRooms.Length;
+        CurrentRoom = AvailableRooms[CurrentRoomIndex];
     }
 
     private void OnFootstep(AnimationEvent animationEvent)
@@ -114,7 +117,8 @@ public class NpcController : AiController
     {
         RoamStateInstance = new RoamState(this);
         PanickedStateInstance = new PanickedState(this);
-        InvestigateStateInstance = new InvestigateState(this, RoamStateInstance, CurrentRoamOrigin);
+        InvestigateStateInstance = new InvestigateState(this, RoamStateInstance);
         ScaredStateInstance = new ScaredState(this);
+        IdleStateInstance = new IdleState(this);
     }
 }

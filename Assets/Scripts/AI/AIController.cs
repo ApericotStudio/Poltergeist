@@ -22,6 +22,8 @@ public class AiController : MonoBehaviour
     [HideInInspector]
     public float AnimationBlend;
 
+    private Transform lookAtTarget = null;
+
     private IState _currentState;
 
     public InvestigateState InvestigateStateInstance { get; protected set; }
@@ -70,12 +72,12 @@ public class AiController : MonoBehaviour
 
     private void OnAnimatorIK()
     {
-        if (CurrentState is InvestigateState)
+        if (CurrentState is InvestigateState or IdleState)
         {
-            if (InvestigateTarget != null)
+            if (lookAtTarget != null)
             {
                 lookWeight = Mathf.Lerp(lookWeight, 1f, Time.deltaTime * 2.5f);
-                Animator.SetLookAtPosition(InvestigateTarget.position);
+                Animator.SetLookAtPosition(lookAtTarget.position);
             }
             else
             {
@@ -86,11 +88,16 @@ public class AiController : MonoBehaviour
         {
             lookWeight = Mathf.Lerp(lookWeight, 0f, Time.deltaTime * 2.5f);
         }
-        if(InvestigateTarget != null)
+        if(lookAtTarget != null)
         {
-            Animator.SetLookAtPosition(InvestigateTarget.position);
+            Animator.SetLookAtPosition(lookAtTarget.position);
         }
         Animator.SetLookAtWeight(lookWeight);
+    }
+
+    public void LookAt(Transform target)
+    {
+        lookAtTarget = target;
     }
 
     private void Animate()

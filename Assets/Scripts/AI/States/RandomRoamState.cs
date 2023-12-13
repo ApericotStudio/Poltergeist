@@ -42,8 +42,8 @@ public class RandomRoamState : IState
         {
             _npcController.Agent.SetDestination(GetRoamLocation());
             yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
-            yield return new WaitForSeconds(_npcController.RoamOriginTimeSpent);
-            _npcController.SetRoamOrigin();
+            yield return new WaitForSeconds(_npcController.RoomTimeSpent);
+            _npcController.SwitchRooms();
         }
     }
 
@@ -53,7 +53,7 @@ public class RandomRoamState : IState
     private Vector3 GetRoamLocation()
     {
         Vector3 randomDirection = Random.insideUnitSphere * _npcController.RoamRadius;
-        randomDirection += _npcController.CurrentRoamOrigin.position;
+        randomDirection += _npcController.CurrentRoom.transform.position;
         NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _npcController.RoamRadius, 1);
         return hit.position;
     }
