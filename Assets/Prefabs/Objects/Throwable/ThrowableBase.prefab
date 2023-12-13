@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: 1245404942070832359}
   - component: {fileID: 8154751151673643609}
   - component: {fileID: -7916970730608740314}
+  - component: {fileID: 1769713156518827079}
   m_Layer: 3
   m_Name: ThrowableBase
   m_TagString: Untagged
@@ -358,10 +359,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 1
   _destroyMinimumImpulse: 10
-  _hittingGroundSounds: []
-  _breakingSounds:
-  - {fileID: 8300000, guid: c9b5a0581c3e80f4ca47ac7c34368aef, type: 3}
-  - {fileID: 8300000, guid: 62aafd2a82e00cc48b012f0a54ec65f2, type: 3}
+  _hittingGroundClips: {fileID: 0}
+  _breakingClips: {fileID: 0}
 --- !u!208 &8154751151673643609
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -474,6 +473,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1769713156518827079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8134340862381624796}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {fileID: 11400000, guid: 304a909ad91d7c34e937296a203fe5db, type: 2}
+  outlineWidth: 4
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &8751099585421852571
 PrefabInstance:
   m_ObjectHideFlags: 0
