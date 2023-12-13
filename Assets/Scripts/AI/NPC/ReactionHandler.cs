@@ -14,9 +14,11 @@ public class ReactionHandler : MonoBehaviour
     private AudioClipList _investigateEndAudioClips;
 
     [Header("Chance to play voiceline on state enter")]
-    [SerializeField] private int _investigateVoicelineChance = 40;
+    [SerializeField, Range(0, 100)]
+    private int _investigateVoicelineChance = 40;
     private int _investigateVoiceLineUnsuccesfullAttempts = 0;
-    [SerializeField] private int _investigateEndVoicelineChance = 40;
+    [SerializeField, Range(0, 100)]
+    private int _investigateEndVoicelineChance = 40;
     private int _investigateEndVoiceLineUnsuccesfullAttempts = 0;
 
     [Header("Reaction Image Settings")]
