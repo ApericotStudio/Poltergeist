@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -38,8 +39,8 @@ public class NpcController : AiController
     public bool FearReductionHasCooldown = false;
     [HideInInspector]
     public bool SeenByRealtor;
-
-    private int _currentRoamIndex = 0;
+    [HideInInspector]
+    public int CurrentRoamIndex = 0;
 
     public float FearValue
     { 
@@ -50,26 +51,18 @@ public class NpcController : AiController
         }  
     }
     public AudioSource NpcAudioSource { get; private set; }
-    public RoamState RoamState { get; private set; }
-    public PanickedState PanickedState { get; private set; }
-    public ScaredState ScaredState { get; private set; }
+    public RoamState RoamStateInstance { get; private set; }
+    public PanickedState PanickedStateInstance { get; private set; }
+    public ScaredState ScaredStateInstance { get; private set; }
 
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
         NpcAudioSource = GetComponent<AudioSource>();
         InitializeController();
-        RoamState = new RoamState(this);
-        PanickedState = new PanickedState(this);
-        InvestigateState = new InvestigateState(this, RoamState, CurrentRoamOrigin);
-        ScaredState = new ScaredState(this);
+        InitializeStateInstances();
     }
-
-    private void Update()
-    {
-        Animate();
-    }
-
+    
     private void FixedUpdate()
     {
         ChangeBehaviourBasedOnAnxiety();
@@ -77,42 +70,33 @@ public class NpcController : AiController
 
     private void ChangeBehaviourBasedOnAnxiety()
     {
-        if(FearValue >= 100f && CurrentState is not global::PanickedState)
+        if(FearValue >= 100f && CurrentState is not PanickedState)
         {
-            CurrentState = PanickedState;
+            CurrentState = PanickedStateInstance;
             return;
         }
-        if(CurrentState is not global::RoamState and not global::PanickedState and not global::InvestigateState and not global::ScaredState)
+        if(CurrentState is not RoamState and not PanickedState and not InvestigateState and not ScaredState)
         {
-            CurrentState = RoamState;
+            CurrentState = RoamStateInstance;
             return;
         }
-    }
-
-    private void Animate()
-    {
-        AnimationBlend = Mathf.Lerp(AnimationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
-        if (AnimationBlend < 0.01f) AnimationBlend = 0f;
-
-        Animator.SetFloat(AnimIDSpeed, AnimationBlend);
-        Animator.SetFloat(AnimIDMotionSpeed, 1f);
-    }
-
-     /// <summary>
-    /// Sets the next roam origin. Will loop back to the first origin if the last origin is reached.
-    /// </summary>
-    public void SetRoamOrigin()
-    {
-        _currentRoamIndex = (_currentRoamIndex + 1) % AvailableRoamOrigins.Length;
-        CurrentRoamOrigin = AvailableRoamOrigins[_currentRoamIndex];
     }
 
     public void GetScared()
     {
-        if(CurrentState is not global::ScaredState and not global::PanickedState && FearValue < 100f)
+        if(CurrentState is not ScaredState and not PanickedState && FearValue < 100f)
         {
-            CurrentState = ScaredState;
+            CurrentState = ScaredStateInstance;
         }
+    }    
+    
+    /// <summary>
+    /// Sets the next roam origin. Will loop back to the first origin if the last origin is reached.
+    /// </summary>
+    public void SetRoamOrigin()
+    {
+        CurrentRoamIndex = (CurrentRoamIndex + 1) % AvailableRoamOrigins.Length;
+        CurrentRoamOrigin = AvailableRoamOrigins[CurrentRoamIndex];
     }
 
     private void OnFootstep(AnimationEvent animationEvent)
@@ -121,9 +105,17 @@ public class NpcController : AiController
         {
             if (FootstepAudioClips.Length > 0)
             {
-                int index = Random.Range(0, FootstepAudioClips.Length);
+                int index = UnityEngine.Random.Range(0, FootstepAudioClips.Length);
                 AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepVolume);
             }
         }
+    }
+
+    private void InitializeStateInstances()
+    {
+        RoamStateInstance = new RoamState(this);
+        PanickedStateInstance = new PanickedState(this);
+        InvestigateStateInstance = new InvestigateState(this, RoamStateInstance, CurrentRoamOrigin);
+        ScaredStateInstance = new ScaredState(this);
     }
 }

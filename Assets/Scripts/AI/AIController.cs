@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 public class AiController : MonoBehaviour
 {
@@ -24,7 +23,7 @@ public class AiController : MonoBehaviour
 
     private IState _currentState;
 
-    public InvestigateState InvestigateState { get; protected set; }
+    public InvestigateState InvestigateStateInstance { get; protected set; }
     
     private float lookWeight = 0f;
 
@@ -36,6 +35,11 @@ public class AiController : MonoBehaviour
             _currentState = value;
             OnStateChange.Invoke(_currentState);
         }
+    }
+
+    private void Update()
+    {
+        Animate();
     }
 
     private void OnStateChanged(IState state)
@@ -56,9 +60,9 @@ public class AiController : MonoBehaviour
 
     public void Investigate()
     {
-        if(CurrentState is not global::InvestigateState and not global::PanickedState)
+        if(CurrentState is not InvestigateState and not PanickedState)
         {
-            CurrentState = InvestigateState;
+            CurrentState = InvestigateStateInstance;
         }
     }
 
@@ -85,5 +89,14 @@ public class AiController : MonoBehaviour
             Animator.SetLookAtPosition(InvestigateTarget.position);
         }
         Animator.SetLookAtWeight(lookWeight);
+    }
+
+    private void Animate()
+    {
+        AnimationBlend = Mathf.Lerp(AnimationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
+        if (AnimationBlend < 0.01f) AnimationBlend = 0f;
+
+        Animator.SetFloat(AnimIDSpeed, AnimationBlend);
+        Animator.SetFloat(AnimIDMotionSpeed, 1f);
     }
 }
