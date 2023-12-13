@@ -296,6 +296,8 @@ MonoBehaviour:
   _linePoints: 25
   _timeBetweenPoints: 0.1
   _hitPointImage: {fileID: 0}
+  _geistChargeDuration: {fileID: 11400000, guid: 9ce298f790a10494d966b576f5cd152f,
+    type: 2}
   Possessed: 0
 --- !u!114 &4358661920050603208
 MonoBehaviour:
@@ -358,10 +360,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 1
   _destroyMinimumImpulse: 10
-  _hittingGroundSounds: []
-  _breakingSounds:
-  - {fileID: 8300000, guid: c9b5a0581c3e80f4ca47ac7c34368aef, type: 3}
-  - {fileID: 8300000, guid: 62aafd2a82e00cc48b012f0a54ec65f2, type: 3}
+  _hittingGroundClips: {fileID: 0}
+  _breakingClips: {fileID: 0}
 --- !u!208 &8154751151673643609
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -505,7 +505,7 @@ PrefabInstance:
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -4.000001
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}

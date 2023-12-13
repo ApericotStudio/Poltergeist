@@ -15,10 +15,18 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] private Transform _hitPointImage;
     private LayerMask _throwLayerMask;
 
-    private Outline _outline;
-    private float _geistChargeDuration = 10.0f;
+    [Header("GeistCharge")]
+    [SerializeField] private FloatReference _geistChargeDuration;
     private float _geistCharge = 1f;
     private float _outlineMaxSize;
+    private bool _geistCharged
+    {
+        get
+        {
+            return _geistCharge == 1f;
+        }
+    }
+    private Outline _outline;
 
     public bool Possessed;
 
@@ -77,7 +85,7 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Throw()
     {
-        if(_observableObject.State == ObjectState.Idle && _geistCharge == 1f)
+        if(_observableObject.State == ObjectState.Idle && _geistCharged)
         {
             _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
             StartCoroutine(RechargeGeist());
@@ -138,7 +146,7 @@ public class Throwable : MonoBehaviour, IPossessable
             {
                 break;
             }
-            _geistCharge += Time.deltaTime / _geistChargeDuration;
+            _geistCharge += Time.deltaTime / _geistChargeDuration.Value;
             if (_geistCharge >= 1f)
             {
                 _geistCharge = 1f;

@@ -16,8 +16,8 @@ public class Interactable : MonoBehaviour
     public UnityEvent MaxUseEvent;
     private bool _interactDepleted;
 
-    private Outline _outline;
-    private float _geistChargeDuration = 10.0f;
+    [Header("GeistCharge")]
+    [SerializeField] private FloatReference _geistChargeDuration;
     private float _geistCharge = 1f;
     private float _outlineMaxSize;
     private bool _geistCharged
@@ -27,6 +27,7 @@ public class Interactable : MonoBehaviour
             return _geistCharge == 1f;
         }
     }
+    private Outline _outline;
 
 
     private ObservableObject _observableObject;
@@ -76,7 +77,7 @@ public class Interactable : MonoBehaviour
         while (_geistCharge < 1f)
         {
             yield return new WaitForFixedUpdate();
-            _geistCharge += Time.deltaTime / _geistChargeDuration;
+            _geistCharge += Time.deltaTime / _geistChargeDuration.Value;
             if (_geistCharge >= 1f)
             {
                 _geistCharge = 1f;
