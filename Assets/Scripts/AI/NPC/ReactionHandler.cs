@@ -13,6 +13,12 @@ public class ReactionHandler : MonoBehaviour
     [Tooltip("The audio clip that will be played when the NPC stops investigating."), SerializeField]
     private AudioClipList _investigateEndAudioClips;
 
+    [Header("Chance to play voiceline on state enter")]
+    [SerializeField] private int _investigateVoicelineChance = 40;
+    private int _investigateVoiceLineUnsuccesfullAttempts = 0;
+    [SerializeField] private int _investigateEndVoicelineChance = 40;
+    private int _investigateEndVoiceLineUnsuccesfullAttempts = 0;
+
     [Header("Reaction Image Settings")]
     [Tooltip("The image that will be used to display the reaction sprite."), SerializeField]
     private Image _reactionImage;
@@ -36,6 +42,7 @@ public class ReactionHandler : MonoBehaviour
 
     private NpcController _npcController;
     private IState _previousState;
+    private int _voicelineChanceIncreaseMultiplier = 5;
 
     private void Awake()
     {
@@ -66,10 +73,10 @@ public class ReactionHandler : MonoBehaviour
         switch (_npcController.CurrentState)
         {
             case InvestigateState when _previousState is RoamState:
-                clip = _investigateAudioClips.GetRandom();
+                TryPlayVoiceline(_investigateAudioClips.GetRandom(), _investigateVoicelineChance, ref _investigateVoiceLineUnsuccesfullAttempts);
                 break;
             case RoamState when _previousState is InvestigateState:
-                clip = _investigateEndAudioClips.GetRandom();
+                TryPlayVoiceline(_investigateEndAudioClips.GetRandom(), _investigateEndVoicelineChance, ref _investigateEndVoiceLineUnsuccesfullAttempts);
                 break;
             case PanickedState when _previousState is RoamState || _previousState is InvestigateState:
                 clip = _terrifiedAudioClips.GetRandom();
@@ -146,6 +153,20 @@ public class ReactionHandler : MonoBehaviour
         else
         {
             _reactionImage.sprite = _mediumFearSprite;
+        }
+    }
+
+    private void TryPlayVoiceline(AudioClip clip, int baseChance, ref int unsuccesfullAttempts)
+    {
+        bool playVoiceline = Random.Range(1, 100) < baseChance + Mathf.Pow(unsuccesfullAttempts, _voicelineChanceIncreaseMultiplier * baseChance / 100);
+        if (playVoiceline)
+        {
+            _npcController.NpcAudioSource.PlayOneShot(clip);
+            unsuccesfullAttempts = 0;
+        }
+        else
+        {
+            unsuccesfullAttempts++;
         }
     }
 }
