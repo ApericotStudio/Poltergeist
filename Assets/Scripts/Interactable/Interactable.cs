@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,6 +16,18 @@ public class Interactable : MonoBehaviour
     public UnityEvent MaxUseEvent;
     private bool _interactDepleted;
 
+    private Outline _outline;
+    private float _geistChargeDuration = 10.0f;
+    private float _geistCharge = 1f;
+    private float _outlineMaxSize;
+    private bool _geistCharged
+    {
+        get
+        {
+            return _geistCharge == 1f;
+        }
+    }
+
 
     private ObservableObject _observableObject;
     private int _uses = 0;
@@ -23,11 +36,13 @@ public class Interactable : MonoBehaviour
     private void Awake()
     {
         _observableObject = GetComponent<ObservableObject>();
+        _outline = GetComponent<Outline>();
+        _outlineMaxSize = _outline.OutlineWidth;
     }
 
     public void Use()
     {
-        if (_uses >= _maxUses && _hasMax)
+        if (_uses >= _maxUses && _hasMax || !_geistCharged)
         {
             return;
         }
@@ -47,6 +62,26 @@ public class Interactable : MonoBehaviour
 
             _interactDepleted = true;
             MaxUseEvent.Invoke();
+        }
+        else
+        {
+            StartCoroutine(RechargeGeist());
+        }
+    }
+
+    private IEnumerator RechargeGeist()
+    {
+        _geistCharge = 0;
+        _outline.OutlineWidth = 0;
+        while (_geistCharge < 1f)
+        {
+            yield return new WaitForFixedUpdate();
+            _geistCharge += Time.deltaTime / _geistChargeDuration;
+            if (_geistCharge >= 1f)
+            {
+                _geistCharge = 1f;
+            }
+            _outline.OutlineWidth = _geistCharge * _outlineMaxSize;
         }
     }
 }
