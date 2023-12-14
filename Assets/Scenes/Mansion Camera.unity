@@ -1254,7 +1254,7 @@ GameObject:
   - component: {fileID: 94655450}
   - component: {fileID: 94655451}
   m_Layer: 10
-  m_Name: GameObject
+  m_Name: Roof bigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1290,12 +1290,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 1, z: 10}
-  m_Center: {x: -0.2127863, y: 0, z: 0}
+  m_Size: {x: 22.458477, y: 6.447749, z: 20.873371}
+  m_Center: {x: 3.7369766, y: 0.92813075, z: -5.4366856}
 --- !u!114 &95363858 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5565245918107379277, guid: 8e39140cd48d64bd6a410e7fc989db47,
@@ -10147,6 +10147,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
+      propertyPath: CameraRadius
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8,
+        type: 3}
       propertyPath: CameraDistance
       value: 2
       objectReference: {fileID: 0}
@@ -10163,17 +10168,17 @@ PrefabInstance:
     - target: {fileID: 2070925442191277752, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: CameraCollisionFilter.m_Bits
-      value: 1793
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 3964381201854375573, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_Damping
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3964381201854375573, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_Strategy
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3964381201854375573, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
@@ -10198,7 +10203,7 @@ PrefabInstance:
     - target: {fileID: 3964381201854375573, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_TransparentLayers.m_Bits
-      value: 1025
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3964381201854375573, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
@@ -12339,6 +12344,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 18.403198, y: 13.939198, z: 40.97069}
   m_Center: {x: 22.654655, y: 6.469599, z: -7.023742}
+--- !u!1 &534013960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 534013961}
+  - component: {fileID: 534013962}
+  m_Layer: 8
+  m_Name: Roof bigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &534013961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534013960}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.204, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1333104110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &534013962
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534013960}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 22.458477, y: 6.447749, z: 20.873371}
+  m_Center: {x: 3.7369766, y: 0.92813075, z: -5.4366856}
 --- !u!1001 &551003992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24290,6 +24348,7 @@ Transform:
   - {fileID: 355530949}
   - {fileID: 1167665875}
   - {fileID: 527109953}
+  - {fileID: 534013961}
   m_Father: {fileID: 1718719724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1352329706
@@ -25951,8 +26010,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 26.959965, z: 1}
-  m_Center: {x: 0, y: 8.188862, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1476428220
 MeshRenderer:
   m_ObjectHideFlags: 0
