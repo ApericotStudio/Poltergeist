@@ -61,7 +61,11 @@ public class ObservablePhysics : MonoBehaviour
                 {
                     highlight.Highlightable(false);
                 }
-                
+                if (gameObject.TryGetComponent(out Outline outline))
+                {
+                    Destroy(outline);
+                }
+
                 _observableObject.ClearObservers();
             }
         }

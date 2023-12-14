@@ -8,6 +8,7 @@ public class PolterSenseController : MonoBehaviour
 
     public void SetState(bool enable)
     {
+        CheckCancellationTokens();
         _isOn = enable;
         if (enable)
         {
@@ -36,5 +37,21 @@ public class PolterSenseController : MonoBehaviour
     {
         _outlinesInRange.Remove(outline);
         outline.enabled = false;
+    }
+
+    private void CheckCancellationTokens()
+    {
+        List<Outline> removedOutlines = new List<Outline>();
+        foreach (Outline outline in _outlinesInRange)
+        {
+            if (outline.destroyCancellationToken.IsCancellationRequested)
+            {
+                removedOutlines.Add(outline);
+            }
+        }
+        foreach (Outline outline in removedOutlines)
+        {
+            _outlinesInRange.Remove(outline);
+        }
     }
 }
