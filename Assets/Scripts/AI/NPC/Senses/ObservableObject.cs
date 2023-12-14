@@ -18,7 +18,7 @@ public enum ObjectState
 /// <summary>
 /// The various phobias an object can have
 /// </summary>
-public enum ObjectPhobias
+public enum ObjectPhobia
 {
     Phonophobia = 10,
     Nyctophobia = 10,
@@ -52,6 +52,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
     private MinimumImpulse _minimumImpulse;
+    private ObjectPhobia _objectPhobia;
 
     private readonly List<IObserver> _observers = new();
 
@@ -70,6 +71,10 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public MinimumImpulse MinimumImpulse
     {
         get => _minimumImpulse;
+    }
+    public ObjectPhobia ObjectPhobia
+    {
+        get => _objectPhobia;
     }
 
     private void Awake()
