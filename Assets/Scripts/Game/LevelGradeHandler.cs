@@ -36,7 +36,7 @@ public class LevelGradeHandler
     public void Save(Grade grade, string sceneName)
     {
         string fullPath = Path.Combine(_gradeDirPath, sceneName);
-        GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, (int)grade.TimeLeft);
+        GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, (int)grade.TimePassed);
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
