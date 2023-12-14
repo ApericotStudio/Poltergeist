@@ -58,7 +58,7 @@ public class RealtorSenses : AiDetection, IObserver
             {
                 DetectedProperties detectedProperties = new();
 
-                if (TargetInSightRadius(directionToTarget, distanceToTarget))
+                if (TargetInSightRadius(target))
                 {
                     detectedProperties.IsVisible = true;
                 }
