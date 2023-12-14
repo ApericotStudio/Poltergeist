@@ -20,7 +20,7 @@ public class ScaredState : IState
         _npcController.Agent.speed = _npcController.FrightenedSpeed;
         _npcController.SwitchRooms();
         _npcController.Agent.stoppingDistance = 0f;
-        _npcController.Agent.SetDestination(_npcController.CurrentRoom.transform.position);
+        _npcController.Agent.SetDestination(_npcController.CurrentRoom.GetRandomInspectableObject(null).position);
         yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
         if(IsScared())
         {

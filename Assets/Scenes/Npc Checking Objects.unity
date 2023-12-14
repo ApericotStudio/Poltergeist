@@ -12539,7 +12539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 0, b: 0.41960785, a: 1}
+  outlineColor: {fileID: 0}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
@@ -25861,7 +25861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 0, b: 0.41960785, a: 1}
+  outlineColor: {fileID: 0}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
@@ -30417,7 +30417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 0, b: 0.41960785, a: 1}
+  outlineColor: {fileID: 0}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
@@ -31692,6 +31692,21 @@ PrefabInstance:
       propertyPath: _npcCollection
       value: 
       objectReference: {fileID: 1207009364}
+    - target: {fileID: 6590718137830685194, guid: 4abd3ac1cc6c471488a29603e7373e25,
+        type: 3}
+      propertyPath: SightRange
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590718137830685194, guid: 4abd3ac1cc6c471488a29603e7373e25,
+        type: 3}
+      propertyPath: AuditoryRange
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590718137830685194, guid: 4abd3ac1cc6c471488a29603e7373e25,
+        type: 3}
+      propertyPath: FearReductionRange
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8334725635003804250, guid: 4abd3ac1cc6c471488a29603e7373e25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31705,7 +31720,7 @@ PrefabInstance:
     - target: {fileID: 8334725635003804250, guid: 4abd3ac1cc6c471488a29603e7373e25,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.7239515
+      value: 1.142
       objectReference: {fileID: 0}
     - target: {fileID: 8334725635003804250, guid: 4abd3ac1cc6c471488a29603e7373e25,
         type: 3}
