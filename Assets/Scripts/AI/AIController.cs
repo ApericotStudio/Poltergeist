@@ -68,6 +68,7 @@ public class AiController : MonoBehaviour
         if(CurrentState is not InvestigateState and not PanickedState)
         {
             CurrentState = InvestigateStateInstance;
+            LookAt(InspectTarget);
         }
     }
 

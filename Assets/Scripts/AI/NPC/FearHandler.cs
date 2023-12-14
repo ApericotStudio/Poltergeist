@@ -67,14 +67,12 @@ public class FearHandler : MonoBehaviour
         {
             case ObjectState.Interacted:
                 _npcController.InspectTarget = observableObject.transform;
-                _npcController.LookAt(observableObject.transform);
                 _npcController.Investigate();
                 break;
             case ObjectState.Hit:
                 if (observableObject.Type == ObjectType.Small)
                 {
                     _npcController.InspectTarget = observableObject.transform;
-                    _npcController.LookAt(observableObject.transform);
                     _npcController.Investigate();
                 }
                 else
