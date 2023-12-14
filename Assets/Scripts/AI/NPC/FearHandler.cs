@@ -66,14 +66,14 @@ public class FearHandler : MonoBehaviour
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
-                _npcController.InvestigateTarget = observableObject.transform;
+                _npcController.InspectTarget = observableObject.transform;
                 _npcController.LookAt(observableObject.transform);
                 _npcController.Investigate();
                 break;
             case ObjectState.Hit:
                 if (observableObject.Type == ObjectType.Small)
                 {
-                    _npcController.InvestigateTarget = observableObject.transform;
+                    _npcController.InspectTarget = observableObject.transform;
                     _npcController.LookAt(observableObject.transform);
                     _npcController.Investigate();
                 }
@@ -109,9 +109,9 @@ public class FearHandler : MonoBehaviour
 
         float falloff = detectedProperties switch
         {
-            { IsVisible: true, IsAudible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.SightRange) * 0.8f + 0.2f,
-            { IsAudible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange) * 0.8f + 0.2f,
-            { IsVisible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.SightRange) * 0.8f + 0.2f,
+            { IsVisible: true, IsAudible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.SightRange * 0.8f + 0.2f,
+            { IsAudible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange * 0.8f + 0.2f,
+            { IsVisible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.SightRange * 0.8f + 0.2f,
             _ => 0
         };
 

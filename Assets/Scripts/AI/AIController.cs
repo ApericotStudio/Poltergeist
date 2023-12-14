@@ -21,7 +21,7 @@ public class AiController : MonoBehaviour
     [HideInInspector]
     public float AnimationBlend;
     [HideInInspector]
-    public Transform InvestigateTarget;
+    public Transform InspectTarget;
 
     private Transform lookAtTarget = null;
 

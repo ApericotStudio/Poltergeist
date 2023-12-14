@@ -17,7 +17,7 @@ public class InvestigateState : IState
 
     public void Handle()
     {
-        _investigateTargetCollider = _aiController.InvestigateTarget.GetComponent<Collider>();
+        _investigateTargetCollider = _aiController.InspectTarget.GetComponent<Collider>();
         _aiController.StartCoroutine(InvestigateCoroutine());
     }
 

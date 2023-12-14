@@ -24,8 +24,8 @@ public class RoamState : IState
 
         while (IsRoaming())
         {
-            Transform inspectTarget = _npcController.CurrentRoom.GetRandomInspectableObject(_npcController.CurrentInspectTarget);
-            _npcController.CurrentInspectTarget = inspectTarget;
+            Transform inspectTarget = _npcController.CurrentRoom.GetRandomInspectableObject(_npcController.InspectTarget);
+            _npcController.InspectTarget = inspectTarget;
             Vector3 newRoamLocation = GetClosestLocationToInspectTarget();
             _npcController.Agent.SetDestination(newRoamLocation);
             yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 1f && !_npcController.Agent.pathPending && IsRoaming());
@@ -53,7 +53,7 @@ public class RoamState : IState
     /// </summary>
     public Vector3 GetClosestLocationToInspectTarget()
     {
-        Vector3 closestLocation = _npcController.CurrentInspectTarget.position; 
+        Vector3 closestLocation = _npcController.InspectTarget.position; 
         NavMesh.SamplePosition(closestLocation, out NavMeshHit hit, _npcController.RoamRadius, 1);
         return hit.position;
     }

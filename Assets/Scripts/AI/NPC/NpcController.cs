@@ -41,8 +41,6 @@ public class NpcController : AiController
     public bool SeenByRealtor;
     [HideInInspector]
     public int CurrentRoomIndex = 0;
-    [HideInInspector]
-    public Transform CurrentInspectTarget;
 
     public float FearValue
     { 
