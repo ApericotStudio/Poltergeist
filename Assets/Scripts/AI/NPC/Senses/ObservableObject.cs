@@ -20,9 +20,10 @@ public enum ObjectState
 /// </summary>
 public enum ObjectPhobia
 {
-    Phonophobia = 10,
-    Nyctophobia = 10,
-    Technophobia = 10
+    Phonophobia,
+    Nyctophobia,
+    Technophobia,
+    None
 }
 /// <summary>
 /// The various types of objects that can be in the game.
@@ -52,7 +53,8 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
     private MinimumImpulse _minimumImpulse;
-    private ObjectPhobia _objectPhobia;
+    [SerializeField]
+    private ObjectPhobia _objectPhobia = ObjectPhobia.None;
 
     private readonly List<IObserver> _observers = new();
 

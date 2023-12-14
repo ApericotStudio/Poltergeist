@@ -25,7 +25,11 @@ public class FearHandler : MonoBehaviour
     [Tooltip("Amount fear goes up when object breaks"), SerializeField]
     private float _brokenAddition = 5f;
     [Tooltip("These multipliers are used to decrease the fear value as an object is used more frequently."), SerializeField]
-    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0.1f};
+    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0.1f };
+    [Tooltip("Amount of fear gets added when NPC's phobia triggers"), SerializeField]
+    private float _phobiaValue = 10f;
+    [Tooltip("Amount of added fear needed for NPC to get scared"), SerializeField]
+    private float _scaredThreshold = 22f;
 
     private NpcController _npcController;
     private NpcSenses _npcSenses;
@@ -63,12 +67,12 @@ public class FearHandler : MonoBehaviour
 
       if (_npcController.FearValue + fearToAdd < 100f)
         {
-            if (observableObject.State != ObjectState.Hit || observableObject.State != ObjectState.Interacted)
+            if (observableObject.State != ObjectState.Hit && observableObject.State != ObjectState.Interacted)
             {
                 return;
             }
 
-            if (fearToAdd < 22f)
+            if (fearToAdd < _scaredThreshold)
             {
                 _npcController.InvestigateTarget = observableObject.transform;
                 _npcController.Investigate();
@@ -108,9 +112,9 @@ public class FearHandler : MonoBehaviour
         };
 
         float phobiaValue;
-        if(observableObject.ObjectPhobia == _npcController.NPCPhobia)
+        if(observableObject.ObjectPhobia == _npcController.NPCPhobia && _npcController.NPCPhobia != ObjectPhobia.None)
         {
-            phobiaValue = (float)observableObject.ObjectPhobia;
+            phobiaValue = _phobiaValue;
         }
         else
         {
