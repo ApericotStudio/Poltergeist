@@ -8,7 +8,6 @@ public class InvestigateState : IState
     private Collider _investigateTargetCollider;
 
     private IState _stateToReturnTo;
-    private Transform _targetToReturnTo;
 
     public InvestigateState(AiController aiController, IState stateToReturnTo)
     {

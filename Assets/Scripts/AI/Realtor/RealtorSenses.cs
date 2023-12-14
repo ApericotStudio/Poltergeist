@@ -81,12 +81,14 @@ public class RealtorSenses : AiDetection, IObserver
         {
             case ObjectState.Interacted:
                 _realtorController.InvestigateTarget = observableObject.transform;
+                _realtorController.LookAt(observableObject.transform);
                 _realtorController.Investigate();
                 break;
             case ObjectState.Hit:
                 if (observableObject.Type == ObjectType.Small)
                 {
                     _realtorController.InvestigateTarget = observableObject.transform;
+                    _realtorController.LookAt(observableObject.transform);
                     _realtorController.Investigate();
                 }
                 break;

@@ -13,7 +13,6 @@ public class AiController : MonoBehaviour
 
     public NavMeshAgent Agent { get; set; }
     public Animator Animator { get; private set; }
-    public Transform InvestigateTarget;
 
     public int AnimIDMotionSpeed { get; private set; }
     public int AnimIDSpeed { get; private set; }
@@ -21,6 +20,8 @@ public class AiController : MonoBehaviour
     
     [HideInInspector]
     public float AnimationBlend;
+    [HideInInspector]
+    public Transform InvestigateTarget;
 
     private Transform lookAtTarget = null;
 
