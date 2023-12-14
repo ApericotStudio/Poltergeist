@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Throwable : MonoBehaviour, IPossessable
+public class Throwable : MonoBehaviour, IPossessable, IObserver
 {
     [Header("Throw Controls")]
     [SerializeField] private float _throwForce = 15;
@@ -48,6 +48,7 @@ public class Throwable : MonoBehaviour, IPossessable
         _cameraScript = this.GetComponent<ClutterCamera>();
         _outline = GetComponent<Outline>();
         _outlineMaxSize = _outline.OutlineWidth;
+        _observableObject.AddObserver(this);
 
         int throwLayer = gameObject.layer;
         for(int i = 0; i < 32; i++)
@@ -87,15 +88,6 @@ public class Throwable : MonoBehaviour, IPossessable
         if(_observableObject.State == ObjectState.Idle)
         {
             _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
-            if (_geistCharged)
-            {
-                StartCoroutine(RechargeGeist());
-            }
-            else
-            {
-                _observableObject.GeistCharge = 0;
-                _outline.OutlineWidth = 0;
-            }
         }        
     }
 
@@ -159,6 +151,22 @@ public class Throwable : MonoBehaviour, IPossessable
                 _observableObject.GeistCharge = 1f;
             }
             _outline.OutlineWidth = _observableObject.GeistCharge * _outlineMaxSize;
+        }
+    }
+
+    public void OnNotify(ObservableObject observableObject)
+    {
+        if (observableObject.State == ObjectState.Hit || observableObject.State == ObjectState.Broken)
+        {
+            if (_geistCharged)
+            {
+                StartCoroutine(RechargeGeist());
+            }
+            else
+            {
+                _observableObject.GeistCharge = 0;
+                _outline.OutlineWidth = 0;
+            }
         }
     }
 }

@@ -114,7 +114,6 @@ public class FearHandler : MonoBehaviour
         };
 
         float geistCharge = observableObject.GeistCharge;
-        print(geistCharge);
 
         float soothe;
         if (_npcController.SeenByRealtor)

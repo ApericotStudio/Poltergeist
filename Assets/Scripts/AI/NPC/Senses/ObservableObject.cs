@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 
 /// <summary>
@@ -42,7 +40,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
     private MinimumImpulse _minimumImpulse;
-    public float GeistCharge = 1;
+    [HideInInspector] public float GeistCharge = 1;
 
     private readonly List<IObserver> _observers = new();
 
