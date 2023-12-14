@@ -14,6 +14,16 @@ public enum ObjectState
     Broken,
     Interacted
 }
+
+/// <summary>
+/// The various phobias an object can have
+/// </summary>
+public enum ObjectPhobias
+{
+    Phonophobia = 10,
+    Nyctophobia = 10,
+    Technophobia = 10
+}
 /// <summary>
 /// The various types of objects that can be in the game.
 /// </summary>

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -13,6 +15,8 @@ public class NpcController : AiController
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
     public UnityEvent<float> OnFearValueChange;
+    [Tooltip("Makes the NPC more scared for specific items based on the phobia")]
+    public ObjectPhobias NPCPhobia;
 
     [Header("Roaming Settings")]
     [Tooltip("The current roam origin of the NPC. This is the location the NPC will roam around.")]
