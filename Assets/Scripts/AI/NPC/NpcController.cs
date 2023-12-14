@@ -49,7 +49,6 @@ public class NpcController : AiController
             OnFearValueChange.Invoke(_fearValue);
         }  
     }
-    public AudioSource NpcAudioSource { get; private set; }
     public RoamState RoamState { get; private set; }
     public PanickedState PanickedState { get; private set; }
     public ScaredState ScaredState { get; private set; }
@@ -57,7 +56,6 @@ public class NpcController : AiController
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
-        NpcAudioSource = GetComponent<AudioSource>();
         InitializeController();
         RoamState = new RoamState(this);
         PanickedState = new PanickedState(this);
