@@ -18,16 +18,15 @@ public class Interactable : MonoBehaviour
 
     [Header("GeistCharge")]
     [SerializeField] private FloatReference _geistChargeDuration;
-    private float _geistCharge = 1f;
     private float _outlineMaxSize;
+    private Outline _outline;
     private bool _geistCharged
     {
         get
         {
-            return _geistCharge == 1f;
+            return _observableObject.GeistCharge == 1;
         }
     }
-    private Outline _outline;
 
 
     private ObservableObject _observableObject;
@@ -43,7 +42,7 @@ public class Interactable : MonoBehaviour
 
     public void Use()
     {
-        if (_uses >= _maxUses && _hasMax || !_geistCharged)
+        if (_uses >= _maxUses && _hasMax)
         {
             return;
         }
@@ -66,23 +65,31 @@ public class Interactable : MonoBehaviour
         }
         else
         {
-            StartCoroutine(RechargeGeist());
+            if (_geistCharged)
+            {
+                StartCoroutine(RechargeGeist());
+            }
+            else
+            {
+                _observableObject.GeistCharge = 0;
+                _outline.OutlineWidth = 0;
+            }
         }
     }
 
     private IEnumerator RechargeGeist()
     {
-        _geistCharge = 0;
+        _observableObject.GeistCharge = 0;
         _outline.OutlineWidth = 0;
-        while (_geistCharge < 1f)
+        while (_observableObject.GeistCharge < 1f)
         {
             yield return new WaitForFixedUpdate();
-            _geistCharge += Time.deltaTime / _geistChargeDuration.Value;
-            if (_geistCharge >= 1f)
+            _observableObject.GeistCharge += Time.deltaTime / _geistChargeDuration.Value;
+            if (_observableObject.GeistCharge >= 1f)
             {
-                _geistCharge = 1f;
+                _observableObject.GeistCharge = 1f;
             }
-            _outline.OutlineWidth = _geistCharge * _outlineMaxSize;
+            _outline.OutlineWidth = _observableObject.GeistCharge * _outlineMaxSize;
         }
     }
 }

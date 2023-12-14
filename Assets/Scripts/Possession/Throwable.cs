@@ -17,16 +17,15 @@ public class Throwable : MonoBehaviour, IPossessable
 
     [Header("GeistCharge")]
     [SerializeField] private FloatReference _geistChargeDuration;
-    private float _geistCharge = 1f;
     private float _outlineMaxSize;
+    private Outline _outline;
     private bool _geistCharged
     {
         get
         {
-            return _geistCharge == 1f;
+            return _observableObject.GeistCharge == 1;
         }
     }
-    private Outline _outline;
 
     public bool Possessed;
 
@@ -85,10 +84,18 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Throw()
     {
-        if(_observableObject.State == ObjectState.Idle && _geistCharged)
+        if(_observableObject.State == ObjectState.Idle)
         {
             _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
-            StartCoroutine(RechargeGeist());
+            if (_geistCharged)
+            {
+                StartCoroutine(RechargeGeist());
+            }
+            else
+            {
+                _observableObject.GeistCharge = 0;
+                _outline.OutlineWidth = 0;
+            }
         }        
     }
 
@@ -137,21 +144,21 @@ public class Throwable : MonoBehaviour, IPossessable
 
     private IEnumerator RechargeGeist()
     {
-        _geistCharge = 0;
+        _observableObject.GeistCharge = 0;
         _outline.OutlineWidth = 0;
-        while (_geistCharge < 1f)
+        while (_observableObject.GeistCharge < 1f)
         {
             yield return new WaitForFixedUpdate();
             if (_observableObject.State == ObjectState.Broken)
             {
                 break;
             }
-            _geistCharge += Time.deltaTime / _geistChargeDuration.Value;
-            if (_geistCharge >= 1f)
+            _observableObject.GeistCharge += Time.deltaTime / _geistChargeDuration.Value;
+            if (_observableObject.GeistCharge >= 1f)
             {
-                _geistCharge = 1f;
+                _observableObject.GeistCharge = 1f;
             }
-            _outline.OutlineWidth = _geistCharge * _outlineMaxSize;
+            _outline.OutlineWidth = _observableObject.GeistCharge * _outlineMaxSize;
         }
     }
 }
