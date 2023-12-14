@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelGradeHandler
 {
-    private string _gradeDirPath = "Assets/Scripts/Game/Grades";
+    private string _gradeDirPath = Application.persistentDataPath;
 
     public Grade Load(string sceneName)
     {
