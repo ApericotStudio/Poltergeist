@@ -111,16 +111,15 @@ public class FearHandler : MonoBehaviour
             _ => 0
         };
 
-        float phobiaValue = 0f;
-        foreach (var phobia in observableObject.ObjectPhobia)
+        float phobiaValue;
+        if(observableObject.ObjectPhobia == _npcController.NPCPhobia && _npcController.NPCPhobia != ObjectPhobia.None)
         {
-            if (phobia == _npcController.NPCPhobia && _npcController.NPCPhobia != ObjectPhobia.None)
-            {
-                phobiaValue = _phobiaValue;
-                break;
-            }
+            phobiaValue = _phobiaValue;
         }
-
+        else
+        {
+            phobiaValue = 0f;
+        }
 
         float soothe;
         if (_npcController.SeenByRealtor)
