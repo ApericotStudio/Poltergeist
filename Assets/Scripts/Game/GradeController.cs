@@ -20,7 +20,7 @@ public class GradeController : MonoBehaviour
         {
             fearHandler.OnObjectUsed += OnObjectUsed;
         }
-        transform.GetComponent<GameManager>().OnTimeLeftChanged += OnTimeLeftChanged;
+        transform.GetComponent<GameManager>().OnTimePassedChanged += OnTimePassedChanged;
     }
 
     private void OnNpcsLeftChanged(int value)
@@ -43,8 +43,8 @@ public class GradeController : MonoBehaviour
         Grade.PhobiaScares++;
     }
 
-    private void OnTimeLeftChanged(float value)
+    private void OnTimePassedChanged(int value)
     {
-        Grade.TimeLeft = value;
+        Grade.TimePassed = value;
     }
 }

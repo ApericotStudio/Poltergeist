@@ -4,13 +4,13 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    public delegate void TimeLeftChanged(float value);
-    public event TimeLeftChanged OnTimeLeftChanged;
+    public delegate void TimeLeftChanged(int value);
+    public event TimeLeftChanged OnTimePassedChanged;
 
     [HideInInspector] public UnityEvent OnEndGame = new UnityEvent();
 
     [Header("Adjustable variables")]
-    [SerializeField] private float _timeLeft;
+    [SerializeField] private int _timePassed;
 
     private void Awake()
     {
@@ -27,12 +27,11 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ManageTimeLeft()
     {
-        while (_timeLeft > 0)
+        while (true)
         {
-            _timeLeft -= Time.deltaTime;
-            OnTimeLeftChanged?.Invoke(_timeLeft);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(1);
+            _timePassed++;
+            OnTimePassedChanged?.Invoke(_timePassed);
         }
-        EndGame();
     }
 }
