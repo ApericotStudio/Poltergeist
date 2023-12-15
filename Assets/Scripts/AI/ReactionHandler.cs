@@ -124,7 +124,7 @@ public class ReactionHandler : MonoBehaviour
                 ToggleAnimation("Phobia");
                 break;
             case CheckUpState when _previousState is InvestigateState:
-                clip = _investigateEndAudioClips.GetRandom();
+                //clip = _investigateEndAudioClips.GetRandom();
                 ToggleAnimation("Investigating");
                 break;
         }
