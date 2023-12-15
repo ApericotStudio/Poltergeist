@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
-/// The state in which the realtor checks up on the NPCs.
+/// The state in which the realtor checks up on the visitors.
 /// </summary>
 public class CheckUpState : IState
 {
