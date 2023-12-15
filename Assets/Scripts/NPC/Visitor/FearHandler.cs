@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// Handles the fear value of the NPC and their reaction.
+/// Handles the fear value of the visitor and their reaction.
 /// </summary>
 public class FearHandler : MonoBehaviour
 {
@@ -16,23 +16,23 @@ public class FearHandler : MonoBehaviour
     private float _scaredCooldown = 2f;
 
     [Header("Multipliers")]
-    [Tooltip("Multiplier to scare value when an object is visible to an NPC."), Range(0f, 5f), SerializeField]
+    [Tooltip("Multiplier to scare value when an object is visible to a visitor."), Range(0f, 5f), SerializeField]
     private float _visibleMultiplier = 1f;
-    [Tooltip("Multiplier to scare value when an object is audible to an NPC."), Range(0f, 5f), SerializeField]
+    [Tooltip("Multiplier to scare value when an object is audible to a visitor."), Range(0f, 5f), SerializeField]
     private float _audibleMultiplier = 1f;
-    [Tooltip("Multiplier to scare value when an object is both visible and audible to an NPC."), Range(0f, 5f), SerializeField]
+    [Tooltip("Multiplier to scare value when an object is both visible and audible to a visitor."), Range(0f, 5f), SerializeField]
     private float _visibleAndAudibleMultiplier = 1.5f;
     [Tooltip("Amount fear goes up when object breaks"), SerializeField]
     private float _brokenAddition = 5f;
     [Tooltip("These multipliers are used to decrease the fear value as an object is used more frequently."), SerializeField]
     private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0.1f };
-    [Tooltip("Amount of fear gets added when NPC's phobia triggers"), SerializeField]
+    [Tooltip("Amount of fear gets added when visitor's phobia triggers"), SerializeField]
     private float _phobiaValue = 10f;
-    [Tooltip("Amount of added fear needed for NPC to get scared"), SerializeField]
+    [Tooltip("Amount of added fear needed for visitor to get scared"), SerializeField]
     private float _scaredThreshold = 22f;
 
-    private NpcController _npcController;
-    private NpcSenses _npcSenses;
+    private VisitorController _visitorController;
+    private VisitorSenses _visitorSenses;
     private bool _isScared = false;
     private IEnumerator _coroutine;
 
@@ -40,12 +40,12 @@ public class FearHandler : MonoBehaviour
 
     private void Awake()
     {
-        _npcController = GetComponent<NpcController>();
-        _npcSenses = GetComponent<NpcSenses>();
+        _visitorController = GetComponent<VisitorController>();
+        _visitorSenses = GetComponent<VisitorSenses>();
     }
     
     /// <summary>
-    /// Handles the fear value of the NPC and their reaction.
+    /// Handles the fear value of the visitor and their reaction.
     /// </summary>
     /// <param name="observableObject">The object they've detected</param>
     /// <param name="detectedProperties">The object's detected properties</param>
@@ -65,7 +65,7 @@ public class FearHandler : MonoBehaviour
 
        float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
 
-      if (_npcController.FearValue + fearToAdd < 100f)
+      if (_visitorController.FearValue + fearToAdd < 100f)
       {
             if (observableObject.State != ObjectState.Hit && observableObject.State != ObjectState.Interacted)
             {
@@ -74,15 +74,15 @@ public class FearHandler : MonoBehaviour
 
             if (fearToAdd < _scaredThreshold)
             {
-                _npcController.InspectTarget = observableObject.transform;
-                _npcController.Investigate();
+                _visitorController.InspectTarget = observableObject.transform;
+                _visitorController.Investigate();
             }
             else
             {
-                _npcController.GetScared();
+                _visitorController.GetScared();
             }
       }
-       _npcController.FearValue += fearToAdd;
+       _visitorController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
        _usedObjects.Add(observableObject);
@@ -90,7 +90,7 @@ public class FearHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Calculates the fear value of the NPC based on the object's detected properties and usage count.
+    /// Calculates the fear value of the visitor based on the object's detected properties and usage count.
     /// </summary>
     /// <returns>The amount of fear it has calculated.</returns>
     private float CalculateFearValue(ObservableObject observableObject, DetectedProperties detectedProperties, int objectUsageCount)
@@ -105,9 +105,9 @@ public class FearHandler : MonoBehaviour
 
         float falloff = detectedProperties switch
         {
-            { IsVisible: true, IsAudible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.SightRange * 0.8f + 0.2f,
-            { IsAudible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange * 0.8f + 0.2f,
-            { IsVisible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.SightRange * 0.8f + 0.2f,
+            { IsVisible: true, IsAudible: true } => 0.8f - detectedProperties.DistanceToTarget / _visitorSenses.SightRange * 0.8f + 0.2f,
+            { IsAudible: true } => 0.8f - detectedProperties.DistanceToTarget / _visitorSenses.AuditoryRange * 0.8f + 0.2f,
+            { IsVisible: true } => 0.8f - detectedProperties.DistanceToTarget / _visitorSenses.SightRange * 0.8f + 0.2f,
             _ => 0
         };
 
@@ -123,7 +123,7 @@ public class FearHandler : MonoBehaviour
 
 
         float soothe;
-        if (_npcController.SeenByRealtor)
+        if (_visitorController.SeenByRealtor)
         {
             soothe = 0.5f;
         }
