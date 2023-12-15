@@ -44,7 +44,10 @@ public class Interactable : MonoBehaviour
             if (gameObject.TryGetComponent(out Highlight highlight)){
                 highlight.Highlightable(false);
             }
-
+            if (gameObject.TryGetComponent(out Outline outline))
+            {
+                Destroy(outline);
+            }
             _interactDepleted = true;
             MaxUseEvent.Invoke();
         }

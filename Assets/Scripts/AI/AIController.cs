@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class AiController : MonoBehaviour
 {
@@ -8,22 +9,25 @@ public class AiController : MonoBehaviour
     [Tooltip("The speed the AI will move when investigating."), Range(1f, 5f)]
     public float InvestigatingSpeed = 2f;
     [Tooltip("The event that will be invoked when the ai changes state.")]
-    public delegate void StateChanged(IState state);
-    public event StateChanged OnStateChange;
+    public UnityEvent<IState> OnStateChange;
 
     public NavMeshAgent Agent { get; set; }
     public Animator Animator { get; private set; }
-    public Transform InvestigateTarget;
 
     public int AnimIDMotionSpeed { get; private set; }
     public int AnimIDSpeed { get; private set; }
+    public AudioSource AudioSource { get; private set; }
     
     [HideInInspector]
     public float AnimationBlend;
+    [HideInInspector]
+    public Transform InspectTarget;
+
+    private Transform lookAtTarget = null;
 
     private IState _currentState;
 
-    public InvestigateState InvestigateState { get; protected set; }
+    public InvestigateState InvestigateStateInstance { get; protected set; }
     
     private float lookWeight = 0f;
 
@@ -37,6 +41,11 @@ public class AiController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        Animate();
+    }
+
     private void OnStateChanged(IState state)
     {
         CurrentState.Handle();
@@ -46,29 +55,31 @@ public class AiController : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         Animator = GetComponent<Animator>();
+        AudioSource = GetComponent<AudioSource>();
 
         AnimIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         AnimIDSpeed = Animator.StringToHash("Speed");
 
-        OnStateChange += OnStateChanged;
+        OnStateChange.AddListener(OnStateChanged);
     }
 
     public void Investigate()
     {
-        if(CurrentState is not global::InvestigateState and not global::PanickedState)
+        if(CurrentState is not InvestigateState and not PanickedState)
         {
-            CurrentState = InvestigateState;
+            CurrentState = InvestigateStateInstance;
+            LookAt(InspectTarget);
         }
     }
 
     private void OnAnimatorIK()
     {
-        if (CurrentState is InvestigateState)
+        if (CurrentState is InvestigateState or IdleState)
         {
-            if (InvestigateTarget != null)
+            if (lookAtTarget != null)
             {
                 lookWeight = Mathf.Lerp(lookWeight, 1f, Time.deltaTime * 2.5f);
-                Animator.SetLookAtPosition(InvestigateTarget.position);
+                Animator.SetLookAtPosition(lookAtTarget.position);
             }
             else
             {
@@ -79,10 +90,24 @@ public class AiController : MonoBehaviour
         {
             lookWeight = Mathf.Lerp(lookWeight, 0f, Time.deltaTime * 2.5f);
         }
-        if(InvestigateTarget != null)
+        if(lookAtTarget != null)
         {
-            Animator.SetLookAtPosition(InvestigateTarget.position);
+            Animator.SetLookAtPosition(lookAtTarget.position);
         }
         Animator.SetLookAtWeight(lookWeight);
+    }
+
+    public void LookAt(Transform target)
+    {
+        lookAtTarget = target;
+    }
+
+    private void Animate()
+    {
+        AnimationBlend = Mathf.Lerp(AnimationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
+        if (AnimationBlend < 0.01f) AnimationBlend = 0f;
+
+        Animator.SetFloat(AnimIDSpeed, AnimationBlend);
+        Animator.SetFloat(AnimIDMotionSpeed, 1f);
     }
 }
