@@ -8,18 +8,16 @@ public class InvestigateState : IState
     private Collider _investigateTargetCollider;
 
     private IState _stateToReturnTo;
-    private Transform _targetToReturnTo;
 
-    public InvestigateState(AiController aiController, IState stateToReturnTo, Transform targetToReturnTo)
+    public InvestigateState(AiController aiController, IState stateToReturnTo)
     {
         _aiController = aiController;
         _stateToReturnTo = stateToReturnTo;
-        _targetToReturnTo = targetToReturnTo;
     }
 
     public void Handle()
     {
-        _investigateTargetCollider = _aiController.InvestigateTarget.GetComponent<Collider>();
+        _investigateTargetCollider = _aiController.InspectTarget.GetComponent<Collider>();
         _aiController.StartCoroutine(InvestigateCoroutine());
     }
 
@@ -30,7 +28,7 @@ public class InvestigateState : IState
     private IEnumerator InvestigateCoroutine()
     {
         _aiController.Agent.speed = _aiController.InvestigatingSpeed;
-        _aiController.Agent.stoppingDistance = 2f;
+        _aiController.Agent.stoppingDistance = 1f;
         _aiController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
 
         // This while loop continues as long as the AI's navigation path is still being calculated (pathPending) 
@@ -48,8 +46,6 @@ public class InvestigateState : IState
         }
 
         yield return new WaitForSeconds(3f);
-
-        _aiController.Agent.SetDestination(_targetToReturnTo.position);
 
         if(IsInvestigating())
         {

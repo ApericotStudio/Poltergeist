@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class RoamState : IState
 {
     private readonly NpcController _npcController;
-    
+
     public RoamState(NpcController npcController)
     {
         _npcController = npcController;
@@ -14,47 +14,47 @@ public class RoamState : IState
     public void Handle()
     {
         _npcController.StartCoroutine(RoamCoroutine());
-        _npcController.StartCoroutine(PeriodicallySetRoamOriginCoroutine());
+        _npcController.StartCoroutine(PeriodicallySwitchRoomCoroutine());
     }
 
     private IEnumerator RoamCoroutine()
     {
-        _npcController.Agent.stoppingDistance = 0f;
+        _npcController.Agent.stoppingDistance = 1f;
         _npcController.Agent.speed = _npcController.RoamingSpeed;
 
         while (IsRoaming())
         {
-            if (_npcController.Agent.remainingDistance < 0.5f)
-            {
-                Vector3 newRoamLocation = GetRoamLocation();
-                _npcController.Agent.SetDestination(newRoamLocation);
-            }
-            yield return new WaitForSeconds(Random.Range(3f, 5f));
+            Transform inspectTarget = _npcController.CurrentRoom.GetRandomInspectableObject(_npcController.InspectTarget);
+            _npcController.InspectTarget = inspectTarget;
+            Vector3 newRoamLocation = GetClosestLocationToInspectTarget();
+            _npcController.Agent.SetDestination(newRoamLocation);
+            yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 1f && !_npcController.Agent.pathPending && IsRoaming());
+            _npcController.LookAt(inspectTarget);
+            _npcController.CurrentState = _npcController.IdleStateInstance;
         }
     }
     
     /// <summary>
-    /// Sets the roam origin location every x seconds.
+    /// Periodically switches the room the NPC is roaming in.
     /// </summary>
-    private IEnumerator PeriodicallySetRoamOriginCoroutine()
+    private IEnumerator PeriodicallySwitchRoomCoroutine()
     {
         while (IsRoaming())
         {
-            _npcController.Agent.SetDestination(GetRoamLocation());
+            _npcController.Agent.SetDestination(GetClosestLocationToInspectTarget());
             yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
-            yield return new WaitForSeconds(_npcController.RoamOriginTimeSpent);
-            _npcController.SetRoamOrigin();
+            yield return new WaitForSeconds(_npcController.RoomTimeSpent);
+            _npcController.SwitchRooms();
         }
     }
 
     /// <summary>
-    /// Returns a random location within the roam radius around the roam origin.
+    /// Returns the closest location to the inspect target.
     /// </summary>
-    private Vector3 GetRoamLocation()
+    public Vector3 GetClosestLocationToInspectTarget()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * _npcController.RoamRadius;
-        randomDirection += _npcController.CurrentRoamOrigin.position;
-        NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _npcController.RoamRadius, 1);
+        Vector3 closestLocation = _npcController.InspectTarget.position; 
+        NavMesh.SamplePosition(closestLocation, out NavMeshHit hit, _npcController.RoamRadius, 1);
         return hit.position;
     }
 

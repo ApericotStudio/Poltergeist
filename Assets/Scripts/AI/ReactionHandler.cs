@@ -26,6 +26,14 @@ public class ReactionHandler : MonoBehaviour
     [Tooltip("The fear value at which the NPC will start to get grumpy."), Range(0f, 100f), SerializeField]
     private float _grumpyTreshold = 33f;
 
+    [Header("Chance to play voiceline on state enter")]
+    [SerializeField, Range(0, 100)]
+    private int _investigateVoicelineChance = 40;
+    private int _investigateVoiceLineUnsuccesfullAttempts = 0;
+    [SerializeField, Range(0, 100)]
+    private int _investigateEndVoicelineChance = 40;
+    private int _investigateEndVoiceLineUnsuccesfullAttempts = 0;
+    private float _voicelineChanceIncreaseMultiplier = 5; //increases how much the probability increases with every failed attempt
 
     [Header("Faces")]
     [Tooltip("The NPC's face mesh, used for showing their reaction."), SerializeField]
@@ -91,11 +99,11 @@ public class ReactionHandler : MonoBehaviour
         switch (_aiController.CurrentState)
         {
             case InvestigateState when _previousState is not ScaredState && _previousState is not PhobiaState:
-                clip = _investigateAudioClips.GetRandom();
+                TryPlayVoiceline(_investigateAudioClips.GetRandom(), _investigateVoicelineChance, ref _investigateVoiceLineUnsuccesfullAttempts);
                 ToggleAnimation("Investigating");
                 break;
             case RoamState when _previousState is InvestigateState:
-                clip = _investigateEndAudioClips.GetRandom();
+                TryPlayVoiceline(_investigateEndAudioClips.GetRandom(), _investigateEndVoicelineChance, ref _investigateEndVoiceLineUnsuccesfullAttempts);
                 ToggleAnimation("Investigating");
                 break;
             case RoamState when _previousState is ScaredState:
@@ -116,7 +124,7 @@ public class ReactionHandler : MonoBehaviour
                 ToggleAnimation("Phobia");
                 break;
             case CheckUpState when _previousState is InvestigateState:
-                clip = _investigateEndAudioClips.GetRandom();
+                //clip = _investigateEndAudioClips.GetRandom();
                 ToggleAnimation("Investigating");
                 break;
         }
@@ -166,5 +174,19 @@ public class ReactionHandler : MonoBehaviour
     private void SetFace(Material newFace)
     {
         _faceMesh.material = newFace;
+    }
+
+    private void TryPlayVoiceline(AudioClip clip, int baseChance, ref int unsuccesfullAttempts)
+    {
+        bool playVoiceline = UnityEngine.Random.Range(1, 100) < baseChance + Mathf.Pow(unsuccesfullAttempts, _voicelineChanceIncreaseMultiplier * baseChance / 100);
+        if (playVoiceline)
+        {
+            _aiController.AudioSource.PlayOneShot(clip);
+            unsuccesfullAttempts = 0;
+        }
+        else
+        {
+            unsuccesfullAttempts++;
+        }
     }
 }

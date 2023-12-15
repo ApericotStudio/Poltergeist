@@ -5363,11 +5363,11 @@ MonoBehaviour:
   OnFearValueChange:
     m_PersistentCalls:
       m_Calls: []
-  CurrentRoamOrigin: {fileID: 0}
-  AvailableRoamOrigins: []
+  CurrentRoom: {fileID: 0}
+  AvailableRooms: []
   RoamRadius: 5
   RoamingSpeed: 2
-  RoamOriginTimeSpent: 50
+  RoomTimeSpent: 50
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
@@ -5383,6 +5383,8 @@ MonoBehaviour:
   RanAway: 0
   FearReductionHasCooldown: 0
   SeenByRealtor: 0
+  CurrentRoomIndex: 0
+  CurrentInspectTarget: {fileID: 0}
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5395,6 +5397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083bc7aaae7d3144e8aa18d4b04015cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _headTransform: {fileID: 1107924307483550832}
   _targetMask:
     serializedVersion: 2
     m_Bits: 8
@@ -6746,6 +6749,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78ed6c12479e54ded88fd09986a80f4c, type: 3}
+--- !u!4 &1107924307483550832 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3321919801592875672, guid: 78ed6c12479e54ded88fd09986a80f4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6811141123481506072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6416699001694254835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 78ed6c12479e54ded88fd09986a80f4c,
