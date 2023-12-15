@@ -30,7 +30,7 @@ public class PlayerReactionHandler : MonoBehaviour
     {
         foreach(AiController npc in _npcCollection.GetComponentsInChildren<AiController>())
         {
-            npc.OnStateChange += OnNpcStateChanged;
+            npc.OnStateChange.AddListener(OnNpcStateChanged);
         }
     }
 

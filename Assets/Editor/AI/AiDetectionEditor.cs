@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -75,7 +74,7 @@ public class AiDetectionEditor : Editor
                 Handles.color = Color.yellow;
                 Handles.DrawLine(_aiDetection.transform.position, observableObject.transform.position);
             }
-		}
+        }
     }
 
     /// <summary>

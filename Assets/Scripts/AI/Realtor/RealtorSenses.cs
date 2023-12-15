@@ -58,7 +58,7 @@ public class RealtorSenses : AiDetection, IObserver
             {
                 DetectedProperties detectedProperties = new();
 
-                if (TargetInSightRadius(directionToTarget, distanceToTarget))
+                if (TargetInSightRadius(target))
                 {
                     detectedProperties.IsVisible = true;
                 }
@@ -80,13 +80,13 @@ public class RealtorSenses : AiDetection, IObserver
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
-                _realtorController.InvestigateTarget = observableObject.transform;
+                _realtorController.InspectTarget = observableObject.transform;
                 _realtorController.Investigate();
                 break;
             case ObjectState.Hit:
                 if (observableObject.Type == ObjectType.Small)
                 {
-                    _realtorController.InvestigateTarget = observableObject.transform;
+                    _realtorController.InspectTarget = observableObject.transform;
                     _realtorController.Investigate();
                 }
                 break;

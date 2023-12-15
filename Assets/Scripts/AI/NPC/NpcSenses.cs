@@ -44,7 +44,7 @@ public class NpcSenses : AiDetection, IObserver
             if (Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleMask))
                 continue;
 
-            if (TargetInSightRadius(directionToTarget, distanceToTarget))
+            if (TargetInSightRadius(target))
             {
                 detectedProperties.IsVisible = true;
             }

@@ -14,6 +14,17 @@ public enum ObjectState
     Broken,
     Interacted
 }
+
+/// <summary>
+/// The various phobias an object can have
+/// </summary>
+public enum ObjectPhobia
+{
+    Phonophobia,
+    Nyctophobia,
+    Technophobia,
+    None
+}
 /// <summary>
 /// The various types of objects that can be in the game.
 /// </summary>
@@ -42,6 +53,8 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public ObjectType Type;
     private ObjectState _state = ObjectState.Idle;
     private MinimumImpulse _minimumImpulse;
+    [SerializeField]
+    private ObjectPhobia _objectPhobia = ObjectPhobia.None;
 
     private readonly List<IObserver> _observers = new();
 
@@ -60,6 +73,10 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     public MinimumImpulse MinimumImpulse
     {
         get => _minimumImpulse;
+    }
+    public ObjectPhobia ObjectPhobia
+    {
+        get => _objectPhobia;
     }
 
     private void Awake()

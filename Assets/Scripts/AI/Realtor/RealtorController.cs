@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class RealtorController : AiController
@@ -32,16 +31,11 @@ public class RealtorController : AiController
         InitializeController();
         CurrentCheckUpOrigin = _npcCollection.transform.GetChild(_currentNpcIndex);
         _checkUpState = new CheckUpState(this);
-        InvestigateState = new InvestigateState(this, _checkUpState, CurrentCheckUpOrigin);
+        InvestigateStateInstance = new InvestigateState(this, _checkUpState);
     }
 
     private void Start() {
         CurrentState = _checkUpState;
-    }
-
-    private void Update()
-    {
-        Animate();
     }
 
     /// <summary>
@@ -51,15 +45,6 @@ public class RealtorController : AiController
     {
         _currentNpcIndex = (_currentNpcIndex + 1) % _npcCollection.transform.childCount;
         CurrentCheckUpOrigin = _npcCollection.transform.GetChild(_currentNpcIndex);
-    }
-    
-    private void Animate()
-    {
-        AnimationBlend = Mathf.Lerp(AnimationBlend, Agent.velocity.magnitude, Time.deltaTime * Agent.acceleration);
-        if (AnimationBlend < 0.01f) AnimationBlend = 0f;
-
-        Animator.SetFloat(AnimIDSpeed, AnimationBlend);
-        Animator.SetFloat(AnimIDMotionSpeed, 1f);
     }
     
     private void OnFootstep(AnimationEvent animationEvent)
