@@ -4,30 +4,30 @@ using UnityEngine;
 /// <summary>
 /// The editor for the NPC's senses. Draws the detection range, field of view, and hearing radius.
 /// </summary>
-[CustomEditor (typeof (AiDetection), true)]
-public class AiDetectionEditor : Editor
+[CustomEditor (typeof (BaseSenses), true)]
+public class SensesEditor : Editor
 {
-    private AiDetection _aiDetection;
+    private BaseSenses _senses;
     private RealtorSenses _realtorSenses;
 
     private void OnEnable() {
-        _aiDetection = (AiDetection)target;
-        _realtorSenses = _aiDetection.GetComponent<RealtorSenses>();
+        _senses = (BaseSenses)target;
+        _realtorSenses = _senses.GetComponent<RealtorSenses>();
     }
 	private void OnSceneGUI() {
-		_aiDetection = (AiDetection)target;
+		_senses = (BaseSenses)target;
         DrawHearingRadius();
         DrawFieldOfView();
         DrawObjectDetectionLine();
         if(IsRealtor())
         {
             DrawFearReductionRange();
-            DrawNpcDetectionLines();
+            DrawVisitorDetectionLines();
         }
 	}
 
     /// <summary>
-    /// Draws the radius around the realtor that reduces NPC fear.
+    /// Draws the radius around the realtor that reduces visitor fear.
     /// </summary>
     private void DrawFearReductionRange()
     {
@@ -39,53 +39,53 @@ public class AiDetectionEditor : Editor
     }
 
     /// <summary>
-    /// Draws the AI's hearing radius on screen, which is the AI's auditory range.
+    /// Draws the npc's hearing radius on screen, which is the AI's auditory range.
     /// </summary>
     private void DrawHearingRadius()
     {
         Handles.color = new Color(1, 1, 0, 0.1f); // Yellow color with 50% transparency
-        Handles.DrawSolidArc(_aiDetection.transform.position, Vector3.up, Vector3.forward, 360, _aiDetection.AuditoryRange);
+        Handles.DrawSolidArc(_senses.transform.position, Vector3.up, Vector3.forward, 360, _senses.AuditoryRange);
     }
 
     /// <summary>
-    /// Draws the AI's field of view on screen, which is the AI's sight range and field of view angle.
+    /// Draws the npc's field of view on screen, which is the npc's sight range and field of view angle.
     /// </summary>
     private void DrawFieldOfView()
     {
-        Vector3 viewAngle = _aiDetection.DirFromAngle(-_aiDetection.FieldOfViewAngle / 2, false);
+        Vector3 viewAngle = _senses.DirFromAngle(-_senses.FieldOfViewAngle / 2, false);
 
         Handles.color = new Color(0, 0, 1, 0.2f); // Blue color with 50% transparency
-        Handles.DrawSolidArc(_aiDetection.transform.position, Vector3.up, viewAngle, _aiDetection.FieldOfViewAngle, _aiDetection.SightRange);
+        Handles.DrawSolidArc(_senses.transform.position, Vector3.up, viewAngle, _senses.FieldOfViewAngle, _senses.SightRange);
     }
 
     /// <summary>
-    /// Draws a line from the AI to the detected clutter. The line is red if the clutter is visible, and yellow if the clutter is audible.
+    /// Draws a line from the NPC to the detected clutter. The line is red if the clutter is visible, and yellow if the clutter is audible.
     /// </summary>
     private void DrawObjectDetectionLine()
     {
-        foreach (var (observableObject, detectedProperties) in _aiDetection.DetectedObjects) {
+        foreach (var (observableObject, detectedProperties) in _senses.DetectedObjects) {
             if(detectedProperties.IsVisible)
             {
                 Handles.color = Color.blue;
-                Handles.DrawLine(_aiDetection.transform.position, observableObject.transform.position);
+                Handles.DrawLine(_senses.transform.position, observableObject.transform.position);
             }
             else if(detectedProperties.IsAudible)
             {
                 Handles.color = Color.yellow;
-                Handles.DrawLine(_aiDetection.transform.position, observableObject.transform.position);
+                Handles.DrawLine(_senses.transform.position, observableObject.transform.position);
             }
         }
     }
 
     /// <summary>
-    /// Draws a line from the realtor to the detected NPC. 
+    /// Draws a line from the realtor to the detected visitor. 
     /// </summary>
-    private void DrawNpcDetectionLines()
+    private void DrawVisitorDetectionLines()
     {
-        foreach (var npc in _realtorSenses.DetectedNpcs)
+        foreach (var visitor in _realtorSenses.SoothedVisitors)
         {
             Handles.color = Handles.color = new Color(0, 1, 0);
-            Handles.DrawLine(_realtorSenses.transform.position, npc.transform.position);
+            Handles.DrawLine(_realtorSenses.transform.position, visitor.transform.position);
         }
     }
 

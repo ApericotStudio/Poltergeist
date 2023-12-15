@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RealtorController : AiController
+public class RealtorController : NpcController
 {
     [Header("Realtor Settings")]
     [Tooltip("The speed the realtor will move when roaming."), Range(1f, 5f)]

@@ -4,16 +4,16 @@ using UnityEngine;
 public class PlayerReactionHandler : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Transform _npcCollection;
+    [SerializeField] private Transform _visitorCollection;
 
     [Header("Adjustable Variables")]
-    [Tooltip("Laugh when npc gets scared out of the house")]
+    [Tooltip("Laugh when visitor gets scared out of the house")]
     [SerializeField] private AudioClip _teriffiedLaughClip;
-    [Tooltip("Laugh when npc gets scared into a new room")]
+    [Tooltip("Laugh when visitor gets scared into a new room")]
     [SerializeField] private AudioClip _bigLaughClip;
-    [Tooltip("Laugh when npc investigates")]
+    [Tooltip("Laugh when visitor investigates")]
     [SerializeField] private AudioClip _smallLaughClip;
-    [Range(0, 100), Tooltip("Chance that the ghost laughs when an npc investigates")]
+    [Range(0, 100), Tooltip("Chance that the ghost laughs when an visitor investigates")]
     [SerializeField] private int _smallLaughChance = 33;
     [Range(0f, 3f), Tooltip("Delay after scare before ghost laughs")]
     [SerializeField] private float _laughDelay = 0;
@@ -28,27 +28,27 @@ public class PlayerReactionHandler : MonoBehaviour
 
     private void SetupListeners()
     {
-        foreach(AiController npc in _npcCollection.GetComponentsInChildren<AiController>())
+        foreach(VisitorController visitor in _visitorCollection.GetComponentsInChildren<VisitorController>())
         {
-            npc.OnStateChange.AddListener(OnNpcStateChanged);
+            visitor.OnStateChange.AddListener(OnVisitorStateChanged);
         }
     }
 
-    private void OnNpcStateChanged(IState state)
+    private void OnVisitorStateChanged(IState state)
     {
         switch (state)
         {
-            case (PanickedState):
+            case PanickedState:
                 {
                     StartCoroutine(PlaySoundAfterDelay(_teriffiedLaughClip, _laughDelay));
                     break;
                 }
-            case (ScaredState):
+            case ScaredState:
                 {
                     StartCoroutine(PlaySoundAfterDelay(_bigLaughClip, _laughDelay));
                     break;
                 }
-            case (InvestigateState):
+            case InvestigateState:
                 {
                     if (Random.Range(0, 101) > _smallLaughChance)
                     {

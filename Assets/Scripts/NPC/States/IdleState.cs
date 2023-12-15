@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class IdleState : IState
 {
-    private readonly NpcController _npcController;
+    private readonly VisitorController _npcController;
 
-    public IdleState(NpcController npcController)
+    public IdleState(VisitorController npcController)
     {
         _npcController = npcController;
     }

@@ -31,8 +31,8 @@ public class FearHandler : MonoBehaviour
     [Tooltip("Amount of added fear needed for NPC to get scared"), SerializeField]
     private float _scaredThreshold = 22f;
 
-    private NpcController _npcController;
-    private NpcSenses _npcSenses;
+    private VisitorController _npcController;
+    private VisitorSenses _npcSenses;
     private bool _isScared = false;
     private IEnumerator _coroutine;
 
@@ -40,8 +40,8 @@ public class FearHandler : MonoBehaviour
 
     private void Awake()
     {
-        _npcController = GetComponent<NpcController>();
-        _npcSenses = GetComponent<NpcSenses>();
+        _npcController = GetComponent<VisitorController>();
+        _npcSenses = GetComponent<VisitorSenses>();
     }
     
     /// <summary>
@@ -112,7 +112,7 @@ public class FearHandler : MonoBehaviour
         };
 
         float phobiaValue;
-        if(observableObject.ObjectPhobia == _npcController.NPCPhobia && _npcController.NPCPhobia != ObjectPhobia.None)
+        if(observableObject.ObjectPhobia == _npcController.VisitorPhobia && _npcController.VisitorPhobia != ObjectPhobia.None)
         {
             phobiaValue = _phobiaValue;
         }

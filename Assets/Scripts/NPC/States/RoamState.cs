@@ -4,9 +4,9 @@ using UnityEngine.AI;
 
 public class RoamState : IState
 {
-    private readonly NpcController _npcController;
+    private readonly VisitorController _npcController;
 
-    public RoamState(NpcController npcController)
+    public RoamState(VisitorController npcController)
     {
         _npcController = npcController;
     }
@@ -43,7 +43,7 @@ public class RoamState : IState
         {
             _npcController.Agent.SetDestination(GetClosestLocationToInspectTarget());
             yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
-            yield return new WaitForSeconds(_npcController.RoomTimeSpent);
+            yield return new WaitForSeconds(_npcController.TimeToSpendInRoom);
             _npcController.SwitchRooms();
         }
     }

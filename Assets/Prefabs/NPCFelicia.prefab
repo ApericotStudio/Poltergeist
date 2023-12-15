@@ -5329,7 +5329,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 2
   m_Acceleration: 10
-  avoidancePriority: 50
+  avoidancePriority: 40
   m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -5355,19 +5355,20 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-  InvestigateTarget: {fileID: 0}
   AnimationBlend: 0
-  FrightenedTargetLocation: {fileID: 0}
-  FrightenedSpeed: 5.335
+  InspectTarget: {fileID: 0}
+  PanickedTargetLocation: {fileID: 0}
+  PanickedSpeed: 5.335
   _fearValue: 0
   OnFearValueChange:
     m_PersistentCalls:
       m_Calls: []
+  VisitorPhobia: 0
   CurrentRoom: {fileID: 0}
   AvailableRooms: []
   RoamRadius: 5
   RoamingSpeed: 2
-  RoomTimeSpent: 50
+  TimeToSpendInRoom: 50
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
@@ -5384,7 +5385,6 @@ MonoBehaviour:
   FearReductionHasCooldown: 0
   SeenByRealtor: 0
   CurrentRoomIndex: 0
-  CurrentInspectTarget: {fileID: 0}
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5407,6 +5407,7 @@ MonoBehaviour:
   FieldOfViewAngle: 110
   SightRange: 20
   AuditoryRange: 15
+  DetectedNpcs: []
 --- !u!114 &8534830403552682731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5429,6 +5430,8 @@ MonoBehaviour:
   - 0.5
   - 0.25
   - 0
+  _phobiaValue: 10
+  _scaredThreshold: 22
 --- !u!114 &9066106825480100028
 MonoBehaviour:
   m_ObjectHideFlags: 0

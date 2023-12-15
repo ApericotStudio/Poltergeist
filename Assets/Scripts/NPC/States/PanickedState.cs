@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PanickedState : IState
 {
-    private readonly NpcController _npcController;
+    private readonly VisitorController _npcController;
 
-    public PanickedState(NpcController npcController)
+    public PanickedState(VisitorController npcController)
     {
         _npcController = npcController;
     }
@@ -17,9 +17,9 @@ public class PanickedState : IState
 
     private IEnumerator PanickedCoroutine()
     {
-        _npcController.Agent.speed = _npcController.FrightenedSpeed;
+        _npcController.Agent.speed = _npcController.PanickedSpeed;
         _npcController.Agent.stoppingDistance = 0f;
-        _npcController.Agent.SetDestination(_npcController.FrightenedTargetLocation.position);
+        _npcController.Agent.SetDestination(_npcController.PanickedTargetLocation.position);
         while (true)
         {
             if (_npcController.Agent.pathPending && _npcController.Agent.velocity.magnitude > 0 && _npcController.Agent.remainingDistance < 0.5f)

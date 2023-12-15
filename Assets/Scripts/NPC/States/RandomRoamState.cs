@@ -4,9 +4,9 @@ using UnityEngine.AI;
 
 public class RandomRoamState : IState
 {
-    private readonly NpcController _npcController;
+    private readonly VisitorController _npcController;
     
-    public RandomRoamState(NpcController npcController)
+    public RandomRoamState(VisitorController npcController)
     {
         _npcController = npcController;
     }
@@ -42,7 +42,7 @@ public class RandomRoamState : IState
         {
             _npcController.Agent.SetDestination(GetRoamLocation());
             yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
-            yield return new WaitForSeconds(_npcController.RoomTimeSpent);
+            yield return new WaitForSeconds(_npcController.TimeToSpendInRoom);
             _npcController.SwitchRooms();
         }
     }

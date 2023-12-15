@@ -41,15 +41,15 @@ public class ReactionHandler : MonoBehaviour
 
     private IState _previousState;
     private Animator _animator;
-    private AiController _aiController;
+    private NpcController _aiController;
 
     private void Awake()
     {
-        _aiController = GetComponent<AiController>();
+        _aiController = GetComponent<NpcController>();
         _animator = _reactionImage.GetComponent<Animator>();
         _aiController.OnStateChange.AddListener(OnStateChange);
 
-        if(_aiController.TryGetComponent(out NpcController npcController))
+        if(_aiController.TryGetComponent(out VisitorController npcController))
         {
             npcController.OnFearValueChange.AddListener(OnFearValueChange);
         }

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class InvestigateState : IState
 {
-    private readonly AiController _aiController;
+    private readonly NpcController _aiController;
 
     private Collider _investigateTargetCollider;
 
     private IState _stateToReturnTo;
 
-    public InvestigateState(AiController aiController, IState stateToReturnTo)
+    public InvestigateState(NpcController aiController, IState stateToReturnTo)
     {
         _aiController = aiController;
         _stateToReturnTo = stateToReturnTo;

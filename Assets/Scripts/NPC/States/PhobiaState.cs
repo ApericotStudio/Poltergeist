@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class ScaredState : IState
+public class PhobiaState : IState
 {
-    private readonly NpcController _npcController;
+    private readonly VisitorController _npcController;
 
-    public ScaredState(NpcController npcController)
+    public PhobiaState(VisitorController npcController)
     {
         _npcController = npcController;
     }
@@ -17,10 +17,10 @@ public class ScaredState : IState
 
     private IEnumerator ScaredCoroutine()
     {
-        _npcController.Agent.speed = _npcController.FrightenedSpeed;
+        _npcController.Agent.speed = _npcController.PanickedSpeed;
         _npcController.SwitchRooms();
         _npcController.Agent.stoppingDistance = 0f;
-        _npcController.Agent.SetDestination(_npcController.CurrentRoom.GetRandomInspectableObject(null).position);
+        _npcController.Agent.SetDestination(_npcController.CurrentRoom.transform.position);
         yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
         if(IsScared())
         {
