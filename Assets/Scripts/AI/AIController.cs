@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class NpcController : MonoBehaviour
+public class AiController : MonoBehaviour
 {
-    [Header("NPC Settings")]
-    [Tooltip("The speed the npc will move when investigating."), Range(1f, 5f)]
+    [Header("AI Settings")]
+    [Tooltip("The speed the AI will move when investigating."), Range(1f, 5f)]
     public float InvestigatingSpeed = 2f;
-    [Tooltip("The event that will be invoked when the npc changes state.")]
+    [Tooltip("The event that will be invoked when the ai changes state.")]
     public UnityEvent<IState> OnStateChange;
 
     public NavMeshAgent Agent { get; set; }

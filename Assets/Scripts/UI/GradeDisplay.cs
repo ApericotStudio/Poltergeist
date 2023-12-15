@@ -20,7 +20,7 @@ public class GradeDisplay : MonoBehaviour
         _visitorsLeft.text = grade.VisitorsLeft.ToString();
         _differentObjectsUsed.text = grade.DifferentObjectsUsed.ToString();
         _phobiaScares.text = grade.PhobiaScares.ToString();
-        _timeLeft.text = grade.TimePassed.ToString();
+        _timeLeft.text = grade.TimeLeft.ToString();
         _result.text = grade.Result.ToString();
     }
 

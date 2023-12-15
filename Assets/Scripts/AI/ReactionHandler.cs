@@ -49,20 +49,20 @@ public class ReactionHandler : MonoBehaviour
 
     private IState _previousState;
     private Animator _animator;
-    private NpcController _npcController;
+    private AiController _aiController;
 
     private void Awake()
     {
-        _npcController = GetComponent<NpcController>();
+        _aiController = GetComponent<AiController>();
         _animator = _reactionImage.GetComponent<Animator>();
-        _npcController.OnStateChange.AddListener(OnStateChange);
+        _aiController.OnStateChange.AddListener(OnStateChange);
 
-        if(_npcController.TryGetComponent(out VisitorController visitorController))
+        if(_aiController.TryGetComponent(out NpcController npcController))
         {
-            visitorController.OnFearValueChange.AddListener(OnFearValueChange);
+            npcController.OnFearValueChange.AddListener(OnFearValueChange);
         }
 
-        _previousState = _npcController.CurrentState;
+        _previousState = _aiController.CurrentState;
         
     }
 
@@ -96,7 +96,7 @@ public class ReactionHandler : MonoBehaviour
     {
         AudioClip clip = null;
 
-        switch (_npcController.CurrentState)
+        switch (_aiController.CurrentState)
         {
             case InvestigateState when _previousState is not ScaredState && _previousState is not PhobiaState:
                 TryPlayVoiceline(_investigateAudioClips.GetRandom(), _investigateVoicelineChance, ref _investigateVoiceLineUnsuccesfullAttempts);
@@ -124,13 +124,14 @@ public class ReactionHandler : MonoBehaviour
                 ToggleAnimation("Phobia");
                 break;
             case CheckUpState when _previousState is InvestigateState:
+                //clip = _investigateEndAudioClips.GetRandom();
                 ToggleAnimation("Investigating");
                 break;
         }
 
         if (clip != null)
         {
-            _npcController.AudioSource.PlayOneShot(clip);
+            _aiController.AudioSource.PlayOneShot(clip);
         }
     }
 
@@ -152,7 +153,7 @@ public class ReactionHandler : MonoBehaviour
     {
         if (_faceMesh != null)
         {
-            switch (_npcController.CurrentState)
+            switch (_aiController.CurrentState)
             {
                 case InvestigateState:
                     SetFace(_investigateFace);
@@ -180,7 +181,7 @@ public class ReactionHandler : MonoBehaviour
         bool playVoiceline = UnityEngine.Random.Range(1, 100) < baseChance + Mathf.Pow(unsuccesfullAttempts, _voicelineChanceIncreaseMultiplier * baseChance / 100);
         if (playVoiceline)
         {
-            _npcController.AudioSource.PlayOneShot(clip);
+            _aiController.AudioSource.PlayOneShot(clip);
             unsuccesfullAttempts = 0;
         }
         else

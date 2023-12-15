@@ -2971,10 +2971,10 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
+  InvestigateTarget: {fileID: 0}
   AnimationBlend: 0
-  InspectTarget: {fileID: 0}
   RoamingSpeed: 2
-  _visitorCollection: {fileID: 0}
+  _npcCollection: {fileID: 0}
   CheckUpTimeSpent: 30
   CheckUpRadius: 5
   FootstepAudioClips:
@@ -3002,7 +3002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38efb18c852dfe745a67d93406ddee5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeadTransform: {fileID: 0}
+  _headTransform: {fileID: 8984608198586044382}
   _targetMask:
     serializedVersion: 2
     m_Bits: 136
@@ -3010,13 +3010,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   FieldOfViewAngle: 110
-  SightRange: 50
-  AuditoryRange: 50
-  DetectedVisitors: []
-  FearReductionRange: 4
+  SightRange: 20
+  AuditoryRange: 15
+  FearReductionRange: 10
   _reductionValue: 0.1
   _reductionSpeed: 0.05
-  SoothedVisitors: []
+  DetectedNpcs: []
 --- !u!114 &2914573208631283160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3038,8 +3037,6 @@ MonoBehaviour:
   _particleSystem: {fileID: 2948186541682109808}
   _sweatTreshold: 66
   _grumpyTreshold: 33
-  _investigateVoicelineChance: 40
-  _investigateEndVoicelineChance: 40
   _faceMesh: {fileID: 0}
   _restingFace: {fileID: 0}
   _scaredFace: {fileID: 0}

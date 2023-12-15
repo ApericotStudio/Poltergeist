@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelGradeHandler
 {
-    private string _gradeDirPath = Application.persistentDataPath;
+    private string _gradeDirPath = "Assets/Scripts/Game/Grades";
 
     public Grade Load(string sceneName)
     {
@@ -36,7 +36,7 @@ public class LevelGradeHandler
     public void Save(Grade grade, string sceneName)
     {
         string fullPath = Path.Combine(_gradeDirPath, sceneName);
-        GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, (int)grade.TimePassed);
+        GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, (int)grade.TimeLeft);
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));

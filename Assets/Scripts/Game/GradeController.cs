@@ -4,7 +4,7 @@ using UnityEngine;
 public class GradeController : MonoBehaviour
 {
     [HideInInspector] public Grade Grade;
-    private List<ObservableObject> _observableObjectsUsed = new();
+    private List<ObservableObject> _observableObjectsUsed = new List<ObservableObject>();
 
     private void Awake()
     {
@@ -14,16 +14,16 @@ public class GradeController : MonoBehaviour
 
     private void SetupSubscriptions()
     {
-        VisitorManager visitorManager = transform.GetComponent<VisitorManager>();
-        visitorManager.OnVisitorsLeftChanged += OnVisitorsLeftChanged;
-        foreach(FearHandler fearHandler in visitorManager.VisitorCollection.GetComponentsInChildren<FearHandler>())
+        NpcManager npcManager = transform.GetComponent<NpcManager>();
+        npcManager.OnNpcsLeftChanged += OnNpcsLeftChanged;
+        foreach(FearHandler fearHandler in npcManager.NpcCollection.GetComponentsInChildren<FearHandler>())
         {
             fearHandler.OnObjectUsed += OnObjectUsed;
         }
-        transform.GetComponent<GameManager>().OnTimePassedChanged += OnTimePassedChanged;
+        transform.GetComponent<GameManager>().OnTimeLeftChanged += OnTimeLeftChanged;
     }
 
-    private void OnVisitorsLeftChanged(int value)
+    private void OnNpcsLeftChanged(int value)
     {
         Grade.VisitorsLeft = value;
     }
@@ -43,8 +43,8 @@ public class GradeController : MonoBehaviour
         Grade.PhobiaScares++;
     }
 
-    private void OnTimePassedChanged(int value)
+    private void OnTimeLeftChanged(float value)
     {
-        Grade.TimePassed = value;
+        Grade.TimeLeft = value;
     }
 }
