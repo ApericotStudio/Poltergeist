@@ -5,7 +5,9 @@ using UnityEngine;
 public class ObjectThrower : MonoBehaviour
 {
     public GameObject SpawnedObject;
+    [Header("Spawn Settings")]
     [SerializeField] private GameObject _spawnLocation;
+    [SerializeField] private Quaternion _spawnRotation = Quaternion.identity;
     [SerializeField] private float _throwForce = 500;
     private Vector3 _direction;
 
@@ -22,7 +24,7 @@ public class ObjectThrower : MonoBehaviour
 
     public void ThrowObject()
     {
-        GameObject mySpawn = Instantiate(SpawnedObject, _spawnLocation.transform.position, Quaternion.identity);
+        GameObject mySpawn = Instantiate(SpawnedObject, _spawnLocation.transform.position, _spawnRotation);
         Rigidbody rb = mySpawn.GetComponent<Rigidbody>();
         rb.AddForce(_direction * _throwForce);
     }
@@ -37,7 +39,7 @@ public class ObjectThrower : MonoBehaviour
     {
         for (int i = 0; i < _nrPerActivation; i++)
         {
-            GameObject mySpawn = Instantiate(SpawnedObject, _spawnLocation.transform.position, Quaternion.identity);
+            GameObject mySpawn = Instantiate(SpawnedObject, _spawnLocation.transform.position, _spawnRotation);
             mySpawn.transform.forward = _direction;
             Rigidbody rb = mySpawn.GetComponent<Rigidbody>();
 
