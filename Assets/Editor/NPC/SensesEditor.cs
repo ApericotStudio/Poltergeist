@@ -39,7 +39,7 @@ public class SensesEditor : Editor
     }
 
     /// <summary>
-    /// Draws the npc's hearing radius on screen, which is the AI's auditory range.
+    /// Draws the npc's hearing radius on screen, which is the npc's auditory range.
     /// </summary>
     private void DrawHearingRadius()
     {
@@ -52,7 +52,7 @@ public class SensesEditor : Editor
     /// </summary>
     private void DrawFieldOfView()
     {
-        Vector3 viewAngle = _senses.DirFromAngle(-_senses.FieldOfViewAngle / 2, false);
+        Vector3 viewAngle = DirFromAngle(-_senses.FieldOfViewAngle / 2, false);
 
         Handles.color = new Color(0, 0, 1, 0.2f); // Blue color with 50% transparency
         Handles.DrawSolidArc(_senses.transform.position, Vector3.up, viewAngle, _senses.FieldOfViewAngle, _senses.SightRange);
@@ -88,6 +88,16 @@ public class SensesEditor : Editor
             Handles.DrawLine(_realtorSenses.transform.position, visitor.transform.position);
         }
     }
+    
+    /// <summary>
+    /// Returns a vector3 direction from an angle. Used for the field of view.
+    /// </summary>
+    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal) {
+		if (!angleIsGlobal) {
+			angleInDegrees += _senses.HeadTransform.eulerAngles.y;
+		}
+		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),0,Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+	}
 
     private bool IsRealtor()
     {
