@@ -14,6 +14,8 @@ public class NpcController : AiController
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
     public UnityEvent<float> OnFearValueChange;
+    [Tooltip("Makes the NPC more scared for specific items based on the phobia")]
+    public ObjectPhobia NPCPhobia;
 
     [Header("Roaming Settings")]
     [Tooltip("The current room the NPC is in.")]
