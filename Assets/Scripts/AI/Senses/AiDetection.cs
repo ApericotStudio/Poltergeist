@@ -9,6 +9,8 @@ using UnityEngine;
 public abstract class AiDetection : MonoBehaviour
 {
     [Header("AI Detection Settings")]
+    [Tooltip("The transform that the entity uses to detect targets."), SerializeField]
+    public Transform _headTransform;
     [Tooltip("The target layers that the entity detects."), SerializeField]
     protected LayerMask _targetMask;
     [Tooltip("The obstacle layers that block the entity's vision."), SerializeField]
@@ -47,9 +49,11 @@ public abstract class AiDetection : MonoBehaviour
 
     protected abstract void ClearDetectedObjects();
 
-    protected bool TargetInSightRadius(Vector3 directionToTarget, float distanceToTarget)
+    protected bool TargetInSightRadius(Collider target)
     {
-        return Vector3.Angle(transform.forward, directionToTarget) < FieldOfViewAngle / 2 && distanceToTarget <= SightRange;
+        Vector3 directionToTarget = (target.transform.position - _headTransform.position).normalized;
+        float distanceToTarget = Vector3.Distance(_headTransform.position, target.ClosestPoint(_headTransform.position));
+        return Vector3.Angle(_headTransform.forward, directionToTarget) < FieldOfViewAngle / 2 && distanceToTarget <= SightRange;
     }
     
     /// <summary>
@@ -57,7 +61,7 @@ public abstract class AiDetection : MonoBehaviour
     /// </summary>
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal) {
 		if (!angleIsGlobal) {
-			angleInDegrees += transform.eulerAngles.y;
+			angleInDegrees += _headTransform.eulerAngles.y;
 		}
 		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),0,Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
 	}
