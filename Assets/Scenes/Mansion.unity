@@ -24749,6 +24749,12 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2583920765455680324, guid: 3c34ceed6f1794840adb7237223dd285, type: 3}
+--- !u!4 &1469562211 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8984608198586044382, guid: 4abd3ac1cc6c471488a29603e7373e25,
+    type: 3}
+  m_PrefabInstance: {fileID: 1570654612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1470652176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4263922822445036487, guid: 3cdafb3c2f54d434894928d72d282874,
@@ -25880,6 +25886,11 @@ PrefabInstance:
       propertyPath: _npcCollection
       value: 
       objectReference: {fileID: 1207009364}
+    - target: {fileID: 685281948183461682, guid: 4abd3ac1cc6c471488a29603e7373e25,
+        type: 3}
+      propertyPath: _visitorCollection
+      value: 
+      objectReference: {fileID: 1207009364}
     - target: {fileID: 6590718137830685194, guid: 4abd3ac1cc6c471488a29603e7373e25,
         type: 3}
       propertyPath: SightRange
@@ -25890,6 +25901,11 @@ PrefabInstance:
       propertyPath: AuditoryRange
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 6590718137830685194, guid: 4abd3ac1cc6c471488a29603e7373e25,
+        type: 3}
+      propertyPath: HeadTransform
+      value: 
+      objectReference: {fileID: 1469562211}
     - target: {fileID: 6590718137830685194, guid: 4abd3ac1cc6c471488a29603e7373e25,
         type: 3}
       propertyPath: FearReductionRange
@@ -27111,11 +27127,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306518244182312063, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
-        type: 3}
-      propertyPath: _targetMask.m_Bits
-      value: 136
       objectReference: {fileID: 0}
     - target: {fileID: 1359824719247389076, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
@@ -30812,6 +30823,11 @@ PrefabInstance:
     - target: {fileID: 3028869041759280478, guid: a209c4aab6536364e95f4d820d379001,
         type: 3}
       propertyPath: _npcCollection
+      value: 
+      objectReference: {fileID: 1207009364}
+    - target: {fileID: 3028869041759280478, guid: a209c4aab6536364e95f4d820d379001,
+        type: 3}
+      propertyPath: VisitorCollection
       value: 
       objectReference: {fileID: 1207009364}
     m_RemovedComponents: []

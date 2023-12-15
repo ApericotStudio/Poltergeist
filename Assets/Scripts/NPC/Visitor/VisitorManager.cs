@@ -9,7 +9,7 @@ public class VisitorManager : MonoBehaviour
     private int _scaredVisitors;
 
     [Header("References")]
-    public GameObject NpcCollection;
+    public GameObject VisitorCollection;
     [SerializeField] private GameManager _gameManager;
 
     private void Awake()
@@ -19,7 +19,7 @@ public class VisitorManager : MonoBehaviour
 
     private void SetupVisitors()
     {
-        _visitors = NpcCollection.GetComponentsInChildren<VisitorController>();
+        _visitors = VisitorCollection.GetComponentsInChildren<VisitorController>();
         foreach(VisitorController npcController in _visitors)
         {
             npcController.OnStateChange.AddListener(OnNpcStateChanged);

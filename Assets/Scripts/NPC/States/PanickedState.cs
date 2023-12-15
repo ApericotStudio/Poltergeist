@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class PanickedState : IState
 {
-    private readonly VisitorController _npcController;
+    private readonly VisitorController _visitorController;
 
-    public PanickedState(VisitorController npcController)
+    public PanickedState(VisitorController visitorController)
     {
-        _npcController = npcController;
+        _visitorController = visitorController;
     }
 
     public void Handle()
     {
-        _npcController.StartCoroutine(PanickedCoroutine());
+        _visitorController.StartCoroutine(PanickedCoroutine());
     }
 
     private IEnumerator PanickedCoroutine()
     {
-        _npcController.Agent.speed = _npcController.PanickedSpeed;
-        _npcController.Agent.stoppingDistance = 0f;
-        _npcController.Agent.SetDestination(_npcController.PanickedTargetLocation.position);
+        _visitorController.Agent.speed = _visitorController.PanickedSpeed;
+        _visitorController.Agent.stoppingDistance = 0f;
+        _visitorController.Agent.SetDestination(_visitorController.PanickedTargetLocation.position);
         while (true)
         {
-            if (_npcController.Agent.pathPending && _npcController.Agent.velocity.magnitude > 0 && _npcController.Agent.remainingDistance < 0.5f)
+            if (_visitorController.Agent.pathPending && _visitorController.Agent.velocity.magnitude > 0 && _visitorController.Agent.remainingDistance < 0.5f)
             {
-                _npcController.RanAway = true;
+                _visitorController.RanAway = true;
                 yield break;
             }
             yield return new WaitForSeconds(0.5f);

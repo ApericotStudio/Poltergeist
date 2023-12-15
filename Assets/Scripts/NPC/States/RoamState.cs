@@ -4,47 +4,47 @@ using UnityEngine.AI;
 
 public class RoamState : IState
 {
-    private readonly VisitorController _npcController;
+    private readonly VisitorController _visitorController;
 
-    public RoamState(VisitorController npcController)
+    public RoamState(VisitorController visitorController)
     {
-        _npcController = npcController;
+        _visitorController = visitorController;
     }
 
     public void Handle()
     {
-        _npcController.StartCoroutine(RoamCoroutine());
-        _npcController.StartCoroutine(PeriodicallySwitchRoomCoroutine());
+        _visitorController.StartCoroutine(RoamCoroutine());
+        _visitorController.StartCoroutine(PeriodicallySwitchRoomCoroutine());
     }
 
     private IEnumerator RoamCoroutine()
     {
-        _npcController.Agent.stoppingDistance = 1f;
-        _npcController.Agent.speed = _npcController.RoamingSpeed;
+        _visitorController.Agent.stoppingDistance = 1f;
+        _visitorController.Agent.speed = _visitorController.RoamingSpeed;
 
         while (IsRoaming())
         {
-            Transform inspectTarget = _npcController.CurrentRoom.GetRandomInspectableObject(_npcController.InspectTarget);
-            _npcController.InspectTarget = inspectTarget;
+            Transform inspectTarget = _visitorController.CurrentRoom.GetRandomInspectableObject(_visitorController.InspectTarget);
+            _visitorController.InspectTarget = inspectTarget;
             Vector3 newRoamLocation = GetClosestLocationToInspectTarget();
-            _npcController.Agent.SetDestination(newRoamLocation);
-            yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 1f && !_npcController.Agent.pathPending && IsRoaming());
-            _npcController.LookAt(inspectTarget);
-            _npcController.CurrentState = _npcController.IdleStateInstance;
+            _visitorController.Agent.SetDestination(newRoamLocation);
+            yield return new WaitUntil(() => _visitorController.Agent.remainingDistance < 1f && !_visitorController.Agent.pathPending && IsRoaming());
+            _visitorController.LookAt(inspectTarget);
+            _visitorController.CurrentState = _visitorController.IdleStateInstance;
         }
     }
     
     /// <summary>
-    /// Periodically switches the room the NPC is roaming in.
+    /// Periodically switches the room the visitor is roaming in.
     /// </summary>
     private IEnumerator PeriodicallySwitchRoomCoroutine()
     {
         while (IsRoaming())
         {
-            _npcController.Agent.SetDestination(GetClosestLocationToInspectTarget());
-            yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
-            yield return new WaitForSeconds(_npcController.TimeToSpendInRoom);
-            _npcController.SwitchRooms();
+            _visitorController.Agent.SetDestination(GetClosestLocationToInspectTarget());
+            yield return new WaitUntil(() => _visitorController.Agent.remainingDistance < 0.5f && !_visitorController.Agent.pathPending);
+            yield return new WaitForSeconds(_visitorController.TimeToSpendInRoom);
+            _visitorController.SwitchRooms();
         }
     }
 
@@ -53,13 +53,13 @@ public class RoamState : IState
     /// </summary>
     public Vector3 GetClosestLocationToInspectTarget()
     {
-        Vector3 closestLocation = _npcController.InspectTarget.position; 
-        NavMesh.SamplePosition(closestLocation, out NavMeshHit hit, _npcController.RoamRadius, 1);
+        Vector3 closestLocation = _visitorController.InspectTarget.position; 
+        NavMesh.SamplePosition(closestLocation, out NavMeshHit hit, _visitorController.RoamRadius, 1);
         return hit.position;
     }
 
     private bool IsRoaming()
     {
-        return _npcController.CurrentState is RoamState;
+        return _visitorController.CurrentState is RoamState;
     }
 }

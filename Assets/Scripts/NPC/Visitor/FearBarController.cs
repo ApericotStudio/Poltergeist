@@ -6,17 +6,17 @@ public class FearBarController : MonoBehaviour
     private Slider _fearBar;
 
     private readonly float _maxFear = 100;
-    private VisitorController _npcController;
+    private VisitorController _visitorController;
 
     private void Awake()
     {
         _fearBar = GetComponent<Slider>();
-        _npcController = GetComponentInParent<VisitorController>();
+        _visitorController = GetComponentInParent<VisitorController>();
     }
 
     private void Start()
     {
-        _npcController.OnFearValueChange.AddListener(OnFearChange);
+        _visitorController.OnFearValueChange.AddListener(OnFearChange);
     }
 
     public void OnFearChange(float fear)

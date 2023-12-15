@@ -18,26 +18,26 @@ public class DetectedProperties
 public abstract class BaseSenses : MonoBehaviour, IObserver
 {
     [Header("NPC Senses Settings")]
-    [Tooltip("The transform that the entity uses to detect targets."), SerializeField]
-    public Transform _headTransform;
+    [Tooltip("The transform that the entity uses to detect targets.")]
+    public Transform HeadTransform;
     [Tooltip("The target layers that the entity detects."), SerializeField]
     protected LayerMask _targetMask;
     [Tooltip("The obstacle layers that block the entity's vision."), SerializeField]
     protected LayerMask _obstacleMask;
     [Header("Sight Settings")]
-    [Tooltip("The angle of the AI's field of view."), Range(0, 360)]
+    [Tooltip("The angle of the npc's field of view."), Range(0, 360)]
     public float FieldOfViewAngle = 110f;
-    [Tooltip("The distance that the AI can see."), Range(0, 50)]
+    [Tooltip("The distance that the npc can see."), Range(0, 50)]
     public float SightRange = 20f;
 
     [Header("Auditory Settings")]
-    [Tooltip("The distance that the AI can hear."), Range(0, 50)]
+    [Tooltip("The distance that the npc can hear."), Range(0, 50)]
     public float AuditoryRange = 15f;
     
     [HideInInspector]
     public Dictionary<ObservableObject, DetectedProperties> DetectedObjects = new();
     [HideInInspector]
-    public List<VisitorController> DetectedNpcs = new();
+    public List<VisitorController> DetectedVisitors = new();
 
     public float DetectionRange { get { return Math.Max(AuditoryRange, SightRange); } }
 
@@ -71,11 +71,18 @@ public abstract class BaseSenses : MonoBehaviour, IObserver
         for (int i = 0; i < targetsInDetectionRadius.Length; i++)
         {
             Collider target = targetsInDetectionRadius[i];
-            bool isNpc = target.TryGetComponent<VisitorController>(out var npc);
 
-            if(isNpc)
+            Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+            float distanceToTarget = Vector3.Distance(transform.position, target.ClosestPoint(transform.position));
+
+            if (Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleMask))
+                continue;
+                
+            bool isVisitor = target.TryGetComponent<VisitorController>(out var visitor);
+
+            if(isVisitor)
             {
-                DetectedNpcs.Add(npc);
+                DetectedVisitors.Add(visitor);
                 continue;
             }
 
@@ -85,12 +92,6 @@ public abstract class BaseSenses : MonoBehaviour, IObserver
                 continue;
             
             DetectedProperties detectedProperties = new();
-
-            Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
-            float distanceToTarget = Vector3.Distance(transform.position, target.ClosestPoint(transform.position));
-
-            if (Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstacleMask))
-                continue;
 
             if (TargetInSightRadius(target))
             {
@@ -114,25 +115,15 @@ public abstract class BaseSenses : MonoBehaviour, IObserver
             detectedObject.RemoveObserver(this);
         }
         DetectedObjects.Clear();
-        DetectedNpcs.Clear();
+        DetectedVisitors.Clear();
     }
 
     protected bool TargetInSightRadius(Collider target)
     {
-        Vector3 directionToTarget = (target.transform.position - _headTransform.position).normalized;
-        float distanceToTarget = Vector3.Distance(_headTransform.position, target.ClosestPoint(_headTransform.position));
-        return Vector3.Angle(_headTransform.forward, directionToTarget) < FieldOfViewAngle / 2 && distanceToTarget <= SightRange;
+        Vector3 directionToTarget = (target.transform.position - HeadTransform.position).normalized;
+        float distanceToTarget = Vector3.Distance(HeadTransform.position, target.ClosestPoint(HeadTransform.position));
+        return Vector3.Angle(HeadTransform.forward, directionToTarget) < FieldOfViewAngle / 2 && distanceToTarget <= SightRange;
     }
-    
-    /// <summary>
-    /// Returns a vector3 direction from an angle. Used for the field of view.
-    /// </summary>
-    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal) {
-		if (!angleIsGlobal) {
-			angleInDegrees += _headTransform.eulerAngles.y;
-		}
-		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),0,Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-	}
 
     public abstract void OnNotify(ObservableObject observableObject);
 }

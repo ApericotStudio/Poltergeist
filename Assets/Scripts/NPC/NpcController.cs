@@ -6,9 +6,9 @@ using UnityEngine.Events;
 public class NpcController : MonoBehaviour
 {
     [Header("NPC Settings")]
-    [Tooltip("The speed the AI will move when investigating."), Range(1f, 5f)]
+    [Tooltip("The speed the npc will move when investigating."), Range(1f, 5f)]
     public float InvestigatingSpeed = 2f;
-    [Tooltip("The event that will be invoked when the ai changes state.")]
+    [Tooltip("The event that will be invoked when the npc changes state.")]
     public UnityEvent<IState> OnStateChange;
 
     public NavMeshAgent Agent { get; set; }

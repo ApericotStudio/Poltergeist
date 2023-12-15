@@ -27,23 +27,23 @@ public class RealtorSenses : BaseSenses
     protected override void HandleTargets(Collider[] targetsInDetectionRadius)
     {
         base.HandleTargets(targetsInDetectionRadius);
-        for (int i = 0; i < DetectedNpcs.Count; i++)
+        for (int i = 0; i < DetectedVisitors.Count; i++)
         {
-            float distanceToVisitor = Vector3.Distance(transform.position, DetectedNpcs[i].transform.position);
+            float distanceToVisitor = Vector3.Distance(transform.position, DetectedVisitors[i].transform.position);
             if (distanceToVisitor <= FearReductionRange)
             {
-                if (!SoothedVisitors.Contains(DetectedNpcs[i]))
+                if (!SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
-                    DetectedNpcs[i].SeenByRealtor = true;
-                    SoothedVisitors.Add(DetectedNpcs[i]);
+                    DetectedVisitors[i].SeenByRealtor = true;
+                    SoothedVisitors.Add(DetectedVisitors[i]);
                 }
             }
             else
             {
-                if (SoothedVisitors.Contains(DetectedNpcs[i]))
+                if (SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
-                    DetectedNpcs[i].SeenByRealtor = false;
-                    SoothedVisitors.Remove(DetectedNpcs[i]);
+                    DetectedVisitors[i].SeenByRealtor = false;
+                    SoothedVisitors.Remove(DetectedVisitors[i]);
                 }
             }  
         }
@@ -86,12 +86,12 @@ public class RealtorSenses : BaseSenses
     {
         while (true)
         {
-            if (DetectedNpcs.Count == 0)
+            if (DetectedVisitors.Count == 0)
             {
                 yield return new WaitForSeconds(_reductionSpeed);
                 continue;
             }
-            foreach (VisitorController npc in DetectedNpcs)
+            foreach (VisitorController npc in DetectedVisitors)
             {
                 npc.FearValue -= _reductionValue;
             }

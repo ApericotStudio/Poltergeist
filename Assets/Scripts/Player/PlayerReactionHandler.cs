@@ -13,7 +13,7 @@ public class PlayerReactionHandler : MonoBehaviour
     [SerializeField] private AudioClip _bigLaughClip;
     [Tooltip("Laugh when visitor investigates")]
     [SerializeField] private AudioClip _smallLaughClip;
-    [Range(0, 100), Tooltip("Chance that the ghost laughs when an visitor investigates")]
+    [Range(0, 100), Tooltip("Chance that the ghost laughs when a visitor investigates")]
     [SerializeField] private int _smallLaughChance = 33;
     [Range(0f, 3f), Tooltip("Delay after scare before ghost laughs")]
     [SerializeField] private float _laughDelay = 0;

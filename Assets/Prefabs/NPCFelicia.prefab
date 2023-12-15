@@ -5397,17 +5397,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083bc7aaae7d3144e8aa18d4b04015cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _headTransform: {fileID: 1107924307483550832}
+  HeadTransform: {fileID: 1107924307483550832}
   _targetMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1
   FieldOfViewAngle: 110
   SightRange: 20
   AuditoryRange: 15
-  DetectedNpcs: []
+  DetectedVisitors: []
 --- !u!114 &8534830403552682731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5456,6 +5456,8 @@ MonoBehaviour:
   _particleSystem: {fileID: 1253597017054885501}
   _sweatTreshold: 66
   _grumpyTreshold: 33
+  _investigateVoicelineChance: 40
+  _investigateEndVoicelineChance: 40
   _faceMesh: {fileID: 6571635418339835570}
   _restingFace: {fileID: 2100000, guid: 15a87ef1a68564d5abe4bb70851e9736, type: 2}
   _scaredFace: {fileID: 2100000, guid: 66b0af22b65b34947af73529fa03f01c, type: 2}

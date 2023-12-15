@@ -16,7 +16,7 @@ public class GradeController : MonoBehaviour
     {
         VisitorManager visitorManager = transform.GetComponent<VisitorManager>();
         visitorManager.OnVisitorsLeftChanged += OnVisitorsLeftChanged;
-        foreach(FearHandler fearHandler in visitorManager.NpcCollection.GetComponentsInChildren<FearHandler>())
+        foreach(FearHandler fearHandler in visitorManager.VisitorCollection.GetComponentsInChildren<FearHandler>())
         {
             fearHandler.OnObjectUsed += OnObjectUsed;
         }

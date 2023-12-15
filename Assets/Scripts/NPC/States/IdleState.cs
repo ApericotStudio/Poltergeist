@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class IdleState : IState
 {
-    private readonly VisitorController _npcController;
+    private readonly VisitorController _visitorController;
 
-    public IdleState(VisitorController npcController)
+    public IdleState(VisitorController _visitorController)
     {
-        _npcController = npcController;
+        this._visitorController = _visitorController;
     }
 
     public void Handle()
     {
-        _npcController.StartCoroutine(IdleCoroutine());
+        _visitorController.StartCoroutine(IdleCoroutine());
     }
 
     private IEnumerator IdleCoroutine()
@@ -20,12 +20,12 @@ public class IdleState : IState
         yield return new WaitForSeconds(Random.Range(3f, 5f));
         if (IsIdle())
         {
-            _npcController.CurrentState = _npcController.RoamStateInstance;
+            _visitorController.CurrentState = _visitorController.RoamStateInstance;
         }
     }
 
     private bool IsIdle()
     {
-        return _npcController.CurrentState is IdleState;
+        return _visitorController.CurrentState is IdleState;
     }
 }

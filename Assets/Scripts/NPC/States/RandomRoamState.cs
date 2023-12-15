@@ -4,30 +4,30 @@ using UnityEngine.AI;
 
 public class RandomRoamState : IState
 {
-    private readonly VisitorController _npcController;
+    private readonly VisitorController _visitorController;
     
-    public RandomRoamState(VisitorController npcController)
+    public RandomRoamState(VisitorController visitorController)
     {
-        _npcController = npcController;
+        _visitorController = visitorController;
     }
 
     public void Handle()
     {
-        _npcController.StartCoroutine(RoamCoroutine());
-        _npcController.StartCoroutine(PeriodicallySetRoamOriginCoroutine());
+        _visitorController.StartCoroutine(RoamCoroutine());
+        _visitorController.StartCoroutine(PeriodicallySetRoamOriginCoroutine());
     }
 
     private IEnumerator RoamCoroutine()
     {
-        _npcController.Agent.stoppingDistance = 0f;
-        _npcController.Agent.speed = _npcController.RoamingSpeed;
+        _visitorController.Agent.stoppingDistance = 0f;
+        _visitorController.Agent.speed = _visitorController.RoamingSpeed;
 
         while (IsRoaming())
         {
-            if (_npcController.Agent.remainingDistance < 0.5f)
+            if (_visitorController.Agent.remainingDistance < 0.5f)
             {
                 Vector3 newRoamLocation = GetRoamLocation();
-                _npcController.Agent.SetDestination(newRoamLocation);
+                _visitorController.Agent.SetDestination(newRoamLocation);
             }
             yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
@@ -40,10 +40,10 @@ public class RandomRoamState : IState
     {
         while (IsRoaming())
         {
-            _npcController.Agent.SetDestination(GetRoamLocation());
-            yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
-            yield return new WaitForSeconds(_npcController.TimeToSpendInRoom);
-            _npcController.SwitchRooms();
+            _visitorController.Agent.SetDestination(GetRoamLocation());
+            yield return new WaitUntil(() => _visitorController.Agent.remainingDistance < 0.5f && !_visitorController.Agent.pathPending);
+            yield return new WaitForSeconds(_visitorController.TimeToSpendInRoom);
+            _visitorController.SwitchRooms();
         }
     }
 
@@ -52,14 +52,14 @@ public class RandomRoamState : IState
     /// </summary>
     private Vector3 GetRoamLocation()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * _npcController.RoamRadius;
-        randomDirection += _npcController.CurrentRoom.transform.position;
-        NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _npcController.RoamRadius, 1);
+        Vector3 randomDirection = Random.insideUnitSphere * _visitorController.RoamRadius;
+        randomDirection += _visitorController.CurrentRoom.transform.position;
+        NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _visitorController.RoamRadius, 1);
         return hit.position;
     }
 
     private bool IsRoaming()
     {
-        return _npcController.CurrentState is RandomRoamState;
+        return _visitorController.CurrentState is RandomRoamState;
     }
 }

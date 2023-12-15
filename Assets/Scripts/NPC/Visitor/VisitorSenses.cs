@@ -1,5 +1,5 @@
 /// <summary>
-/// The Visitors's senses. Handles the Visitors's field of view, hearing radius, and detection radius.
+/// The Visitors's senses. Handles the visitors's field of view, hearing radius, and detection radius.
 /// </summary>
 public class VisitorSenses : BaseSenses
 {

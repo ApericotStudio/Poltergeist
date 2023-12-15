@@ -3,45 +3,45 @@ using UnityEngine;
 
 public class InvestigateState : IState
 {
-    private readonly NpcController _aiController;
+    private readonly NpcController _npcController;
 
     private Collider _investigateTargetCollider;
 
     private IState _stateToReturnTo;
 
-    public InvestigateState(NpcController aiController, IState stateToReturnTo)
+    public InvestigateState(NpcController npcController, IState stateToReturnTo)
     {
-        _aiController = aiController;
+        _npcController = npcController;
         _stateToReturnTo = stateToReturnTo;
     }
 
     public void Handle()
     {
-        _investigateTargetCollider = _aiController.InspectTarget.GetComponent<Collider>();
-        _aiController.StartCoroutine(InvestigateCoroutine());
+        _investigateTargetCollider = _npcController.InspectTarget.GetComponent<Collider>();
+        _npcController.StartCoroutine(InvestigateCoroutine());
     }
 
     /// <summary>
-    /// Moves the AI to the location of the object that made a sound and then back to the roam location.
+    /// Moves the npc to the location of the object that made a sound and then back to the roam location.
     /// </summary>
     /// <returns></returns>
     private IEnumerator InvestigateCoroutine()
     {
-        _aiController.Agent.speed = _aiController.InvestigatingSpeed;
-        _aiController.Agent.stoppingDistance = 1f;
-        _aiController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
+        _npcController.Agent.speed = _npcController.InvestigatingSpeed;
+        _npcController.Agent.stoppingDistance = 1f;
+        _npcController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
 
-        // This while loop continues as long as the AI's navigation path is still being calculated (pathPending) 
+        // This while loop continues as long as the npc's navigation path is still being calculated (pathPending) 
         // or the remaining distance to the target is greater than the stopping distance. 
         // This ensures the NPC continues moving until it has reached its destination.
 
-        while (_aiController.Agent.pathPending || _aiController.Agent.remainingDistance > _aiController.Agent.stoppingDistance)
+        while (_npcController.Agent.pathPending || _npcController.Agent.remainingDistance > _npcController.Agent.stoppingDistance)
         {
-            if (_aiController.CurrentState is not InvestigateState)
+            if (_npcController.CurrentState is not InvestigateState)
             {
                 yield break;
             }
-            _aiController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
+            _npcController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
             yield return new WaitForSeconds(0.2f);
         }
 
@@ -49,7 +49,7 @@ public class InvestigateState : IState
 
         if(IsInvestigating())
         {
-            _aiController.CurrentState = _stateToReturnTo;
+            _npcController.CurrentState = _stateToReturnTo;
         }
     }
 
@@ -58,11 +58,11 @@ public class InvestigateState : IState
     /// </summary>
     private Vector3 NearestPointOnTargetFromPlayer()
     {
-        return _investigateTargetCollider.ClosestPoint(_aiController.transform.position);
+        return _investigateTargetCollider.ClosestPoint(_npcController.transform.position);
     }
 
     private bool IsInvestigating()
     {
-        return _aiController.CurrentState is InvestigateState;
+        return _npcController.CurrentState is InvestigateState;
     }
 }

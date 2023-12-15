@@ -3,33 +3,33 @@ using UnityEngine;
 
 public class ScaredState : IState
 {
-    private readonly VisitorController _npcController;
+    private readonly VisitorController _visitorController;
 
-    public ScaredState(VisitorController npcController)
+    public ScaredState(VisitorController visitorController)
     {
-        _npcController = npcController;
+        _visitorController = visitorController;
     }
 
     public void Handle()
     {
-        _npcController.StartCoroutine(ScaredCoroutine());
+        _visitorController.StartCoroutine(ScaredCoroutine());
     }
 
     private IEnumerator ScaredCoroutine()
     {
-        _npcController.Agent.speed = _npcController.PanickedSpeed;
-        _npcController.SwitchRooms();
-        _npcController.Agent.stoppingDistance = 0f;
-        _npcController.Agent.SetDestination(_npcController.CurrentRoom.GetRandomInspectableObject(null).position);
-        yield return new WaitUntil(() => _npcController.Agent.remainingDistance < 0.5f && !_npcController.Agent.pathPending);
+        _visitorController.Agent.speed = _visitorController.PanickedSpeed;
+        _visitorController.SwitchRooms();
+        _visitorController.Agent.stoppingDistance = 0f;
+        _visitorController.Agent.SetDestination(_visitorController.CurrentRoom.GetRandomInspectableObject(null).position);
+        yield return new WaitUntil(() => _visitorController.Agent.remainingDistance < 0.5f && !_visitorController.Agent.pathPending);
         if(IsScared())
         {
-            _npcController.CurrentState = _npcController.RoamStateInstance;
+            _visitorController.CurrentState = _visitorController.RoamStateInstance;
         }
     }
 
     private bool IsScared()
     {
-        return _npcController.CurrentState is ScaredState;
+        return _visitorController.CurrentState is ScaredState;
     }
 }
