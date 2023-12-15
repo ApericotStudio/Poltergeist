@@ -66,7 +66,7 @@ public class FearHandler : MonoBehaviour
        float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
 
       if (_npcController.FearValue + fearToAdd < 100f)
-        {
+      {
             if (observableObject.State != ObjectState.Hit && observableObject.State != ObjectState.Interacted)
             {
                 return;
@@ -74,14 +74,14 @@ public class FearHandler : MonoBehaviour
 
             if (fearToAdd < _scaredThreshold)
             {
-                _npcController.InvestigateTarget = observableObject.transform;
+                _npcController.InspectTarget = observableObject.transform;
                 _npcController.Investigate();
             }
             else
             {
                 _npcController.GetScared();
             }
-        }
+      }
        _npcController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
@@ -105,9 +105,9 @@ public class FearHandler : MonoBehaviour
 
         float falloff = detectedProperties switch
         {
-            { IsVisible: true, IsAudible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.SightRange) * 0.8f + 0.2f,
-            { IsAudible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange) * 0.8f + 0.2f,
-            { IsVisible: true } => 0.8f - (detectedProperties.DistanceToTarget / _npcSenses.SightRange) * 0.8f + 0.2f,
+            { IsVisible: true, IsAudible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.SightRange * 0.8f + 0.2f,
+            { IsAudible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.AuditoryRange * 0.8f + 0.2f,
+            { IsVisible: true } => 0.8f - detectedProperties.DistanceToTarget / _npcSenses.SightRange * 0.8f + 0.2f,
             _ => 0
         };
 
