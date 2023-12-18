@@ -634,10 +634,10 @@ MonoBehaviour:
   _grumpyTreshold: 33
   _investigateVoicelineChance: 40
   _investigateEndVoicelineChance: 40
-  _faceMesh: {fileID: 0}
-  _restingFace: {fileID: 0}
+  _faceMesh: {fileID: 6002561350365622456}
+  _restingFace: {fileID: 2100000, guid: 8e7510838c8614e149436d66ca1c9358, type: 2}
   _scaredFace: {fileID: 0}
-  _investigateFace: {fileID: 0}
+  _investigateFace: {fileID: 2100000, guid: 29ce2de99b2e4458a8125a6b2ad20f6f, type: 2}
   _panickedFace: {fileID: 0}
 --- !u!82 &725554429273213746
 AudioSource:
@@ -5724,6 +5724,12 @@ PrefabInstance:
 --- !u!4 &2926751787734728070 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 50f60e6ec64e443178b4c931c95deff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 3393269097018399341}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6002561350365622456 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -262842664676775211, guid: 50f60e6ec64e443178b4c931c95deff9,
     type: 3}
   m_PrefabInstance: {fileID: 3393269097018399341}
   m_PrefabAsset: {fileID: 0}

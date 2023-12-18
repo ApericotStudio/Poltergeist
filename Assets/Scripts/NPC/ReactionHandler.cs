@@ -166,6 +166,9 @@ public class ReactionHandler : MonoBehaviour
                 case ScaredState:
                     SetFace(_scaredFace);
                     break;
+                case CheckUpState:
+                    SetFace(_restingFace);
+                    break;
             }
         }
     }
