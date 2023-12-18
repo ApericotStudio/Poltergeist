@@ -20,7 +20,7 @@ public class PauseController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _phobiaScares;
     [SerializeField] private TextMeshProUGUI _differentObjectsUsed;
 
-    [Header("Other")]
+    [Header("Other References")]
     [SerializeField] private string _mainMenuSceneName;
     [SerializeField] private GradeController _gradeController;
 
