@@ -27,13 +27,15 @@ public class RealtorController : NpcController
     private Animator _animator;
 
     private CheckUpState _checkUpState;
+    private IdleState _idleAfterInvestigateState;
 
     private void Awake()
     {
         InitializeController();
         CurrentCheckUpOrigin = _visitorCollection.transform.GetChild(_currentVisitorIndex);
         _checkUpState = new CheckUpState(this);
-        InvestigateStateInstance = new InvestigateState(this, _checkUpState);
+        _idleAfterInvestigateState = new IdleState(this, _checkUpState, 6);
+        InvestigateStateInstance = new InvestigateState(this, _idleAfterInvestigateState);
         _animator = this.GetComponent<Animator>();
     }
 
