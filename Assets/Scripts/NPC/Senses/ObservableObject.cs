@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 
 /// <summary>
@@ -55,6 +53,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     private MinimumImpulse _minimumImpulse;
     [SerializeField]
     private ObjectPhobia _objectPhobia = ObjectPhobia.None;
+    [HideInInspector] public float GeistCharge = 1;
 
     private readonly List<IObserver> _observers = new();
 
