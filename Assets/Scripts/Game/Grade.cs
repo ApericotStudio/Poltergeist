@@ -5,7 +5,7 @@ public class Grade
         VisitorsLeft = gradeFile.VisitorsLeft;
         DifferentObjectsUsed = gradeFile.DifferentObjectsUsed;
         PhobiaScares = gradeFile.PhobiaScares;
-        TimeLeft = gradeFile.TimeLeft;
+        TimePassed = gradeFile.TimePassed;
     }
 
     public Grade()
@@ -31,7 +31,7 @@ public class Grade
     private int _visitorsLeft = 0;
     private int _differentObjectsUsed = 0;
     private int _phobiaScares = 0;
-    private float _timeLeft = 0;
+    private int _timePassed = 0;
 
     public int VisitorsLeft
     {
@@ -69,15 +69,15 @@ public class Grade
             _isDirty = true;
         }
     }
-    public float TimeLeft
+    public int TimePassed
     {
         get
         {
-            return _timeLeft;
+            return _timePassed;
         }
         set
         {
-            _timeLeft = value;
+            _timePassed = value;
             _isDirty = true;
         }
     }
@@ -88,7 +88,11 @@ public class Grade
         score -= _visitorsLeft * 20;
         score += _differentObjectsUsed * 5;
         score += PhobiaScares * 10;
-        score += (int) _timeLeft;
+        score += 120 - _timePassed;
+        if (score < 0)
+        {
+            score = 0;
+        }
         return score;
     }
 }

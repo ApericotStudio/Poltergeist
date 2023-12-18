@@ -7,8 +7,11 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _settingsButton;
     [SerializeField] private Button _exitButton;
+    [SerializeField] private Button _feedbackButton;
     [SerializeField] private GameObject _levelSelectCanvas;
     [SerializeField] private GameObject _settingsCanvas;
+
+    [SerializeField] private string _feedbackFormLink = string.Empty;
 
     private void Awake()
     {
@@ -20,6 +23,7 @@ public class MainMenuController : MonoBehaviour
         _playButton.onClick.AddListener(OnPlayButtonPressed);
         _settingsButton.onClick.AddListener(OnSettingsButtonPressed);
         _exitButton.onClick.AddListener(OnExitButtonPressed);
+        _feedbackButton.onClick.AddListener(OnFeedbackButtonPressed);
     }
 
     private void OnPlayButtonPressed()
@@ -37,5 +41,10 @@ public class MainMenuController : MonoBehaviour
     private void OnExitButtonPressed()
     {
         Debug.Log("Exit Game");
+    }
+
+    private void OnFeedbackButtonPressed()
+    {
+        Application.OpenURL(_feedbackFormLink);
     }
 }

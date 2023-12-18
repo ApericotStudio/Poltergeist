@@ -5329,7 +5329,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 2
   m_Acceleration: 10
-  avoidancePriority: 50
+  avoidancePriority: 40
   m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -5355,19 +5355,20 @@ MonoBehaviour:
   OnStateChange:
     m_PersistentCalls:
       m_Calls: []
-  InvestigateTarget: {fileID: 0}
   AnimationBlend: 0
-  FrightenedTargetLocation: {fileID: 0}
-  FrightenedSpeed: 5.335
+  InspectTarget: {fileID: 0}
+  PanickedTargetLocation: {fileID: 0}
+  PanickedSpeed: 5.335
   _fearValue: 0
   OnFearValueChange:
     m_PersistentCalls:
       m_Calls: []
-  CurrentRoamOrigin: {fileID: 0}
-  AvailableRoamOrigins: []
+  VisitorPhobia: 0
+  CurrentRoom: {fileID: 0}
+  AvailableRooms: []
   RoamRadius: 5
   RoamingSpeed: 2
-  RoamOriginTimeSpent: 50
+  TimeToSpendInRoom: 50
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
@@ -5383,6 +5384,7 @@ MonoBehaviour:
   RanAway: 0
   FearReductionHasCooldown: 0
   SeenByRealtor: 0
+  CurrentRoomIndex: 0
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5395,15 +5397,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083bc7aaae7d3144e8aa18d4b04015cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HeadTransform: {fileID: 1107924307483550832}
   _targetMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1
   FieldOfViewAngle: 110
   SightRange: 20
   AuditoryRange: 15
+  DetectedVisitors: []
 --- !u!114 &8534830403552682731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5426,6 +5430,8 @@ MonoBehaviour:
   - 0.5
   - 0.25
   - 0
+  _phobiaValue: 10
+  _scaredThreshold: 22
 --- !u!114 &9066106825480100028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5450,6 +5456,8 @@ MonoBehaviour:
   _particleSystem: {fileID: 1253597017054885501}
   _sweatTreshold: 66
   _grumpyTreshold: 33
+  _investigateVoicelineChance: 40
+  _investigateEndVoicelineChance: 40
   _faceMesh: {fileID: 6571635418339835570}
   _restingFace: {fileID: 2100000, guid: 15a87ef1a68564d5abe4bb70851e9736, type: 2}
   _scaredFace: {fileID: 2100000, guid: 66b0af22b65b34947af73529fa03f01c, type: 2}
@@ -6746,6 +6754,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78ed6c12479e54ded88fd09986a80f4c, type: 3}
+--- !u!4 &1107924307483550832 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3321919801592875672, guid: 78ed6c12479e54ded88fd09986a80f4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6811141123481506072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6416699001694254835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 78ed6c12479e54ded88fd09986a80f4c,
