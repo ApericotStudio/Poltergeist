@@ -31,10 +31,6 @@ public class ObservablePhysics : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(_minimumImpulse + gameObject.name + " minimum");
-        Debug.Log(collision.impulse.magnitude + gameObject.name + " impulse");
-
-
         if (_observableObject.State == ObjectState.Broken)
         {
             return;
