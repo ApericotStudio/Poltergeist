@@ -112,14 +112,14 @@ public class ReactionHandler : MonoBehaviour
             case RoamState when _previousState is PhobiaState:
                 ToggleAnimation("Phobia");
                 break;
-            case PanickedState when _previousState is RoamState || _previousState is InvestigateState:
+            case PanickedState when _previousState is RoamState || _previousState is InvestigateState|| _previousState is IdleState:
                 clip = _terrifiedAudioClips.GetRandom();
                 break;
-            case ScaredState when _previousState is RoamState || _previousState is InvestigateState:
+            case ScaredState when _previousState is RoamState || _previousState is InvestigateState || _previousState is IdleState:
                 clip = _bigScreamAudioClips.GetRandom();
                 ToggleAnimation("Scared");
                 break;
-            case PhobiaState when _previousState is RoamState || _previousState is InvestigateState:
+            case PhobiaState when _previousState is RoamState || _previousState is InvestigateState || _previousState is IdleState:
                 clip = _terrifiedAudioClips.GetRandom();
                 ToggleAnimation("Phobia");
                 break;
