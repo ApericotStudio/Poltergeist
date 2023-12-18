@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1702,6 +1702,7 @@ GameObject:
   - component: {fileID: 729715889}
   - component: {fileID: 729715888}
   - component: {fileID: 729715887}
+  - component: {fileID: 729715891}
   m_Layer: 5
   m_Name: Pause menu
   m_TagString: Untagged
@@ -1738,10 +1739,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1816,6 +1817,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &729715891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729715886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d11144d8911ae0438ac257e6044caa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resumeButton: {fileID: 1729030217}
+  _optionsButton: {fileID: 640089570}
+  _buttonMapButton: {fileID: 280827191}
+  _mainMenuButton: {fileID: 1408720035}
+  _options: {fileID: 0}
+  _buttonMap: {fileID: 0}
+  _timePassed: {fileID: 444003639}
+  _phobiaScares: {fileID: 2055811617}
+  _differentObjectsUsed: {fileID: 1973598126}
+  _mainMenuSceneName: MainMenu
+  _gradeController: {fileID: 0}
 --- !u!1 &917887157
 GameObject:
   m_ObjectHideFlags: 0

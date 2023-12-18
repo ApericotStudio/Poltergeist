@@ -16,12 +16,13 @@ public class PauseController : MonoBehaviour
     [SerializeField] private GameObject _buttonMap;
 
     [Header("Progress References")]
-    [SerializeField] private TextMeshProUGUI _timeSpend;
+    [SerializeField] private TextMeshProUGUI _timePassed;
     [SerializeField] private TextMeshProUGUI _phobiaScares;
     [SerializeField] private TextMeshProUGUI _differentObjectsUsed;
 
     [Header("Other")]
     [SerializeField] private string _mainMenuSceneName;
+    [SerializeField] private GradeController _gradeController;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class PauseController : MonoBehaviour
 
     private void OnEnable()
     {
-        // update progress
+        UpdateProgress(_gradeController.Grade);
     }
 
     private void SetupButtons()
@@ -43,6 +44,7 @@ public class PauseController : MonoBehaviour
 
     private void OnResumeButtonPressed()
     {
+        gameObject.SetActive(false);
         // unpause game
     }
 
@@ -61,5 +63,12 @@ public class PauseController : MonoBehaviour
     private void OnMainMenuButtonPressed()
     {
         SceneManager.LoadScene(_mainMenuSceneName);
+    }
+
+    private void UpdateProgress(Grade grade)
+    {
+        _timePassed.text = grade.TimePassed.ToString();
+        _phobiaScares.text = grade.PhobiaScares.ToString();
+        _differentObjectsUsed.text = grade.DifferentObjectsUsed.ToString();
     }
 }
