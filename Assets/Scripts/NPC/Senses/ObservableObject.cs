@@ -18,9 +18,9 @@ public enum ObjectState
 /// </summary>
 public enum ObjectPhobia
 {
-    Phonophobia,
-    Nyctophobia,
-    Technophobia,
+    Loud,
+    Dark,
+    Technology,
     None
 }
 /// <summary>
@@ -52,7 +52,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     private ObjectState _state = ObjectState.Idle;
     private MinimumImpulse _minimumImpulse;
     [SerializeField]
-    private ObjectPhobia _objectPhobia = ObjectPhobia.None;
+    private List<ObjectPhobia> _objectPhobia = new List<ObjectPhobia>();
     [HideInInspector] public float GeistCharge = 1;
 
     private readonly List<IObserver> _observers = new();
@@ -73,7 +73,7 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     {
         get => _minimumImpulse;
     }
-    public ObjectPhobia ObjectPhobia
+    public List<ObjectPhobia> ObjectPhobia
     {
         get => _objectPhobia;
     }
