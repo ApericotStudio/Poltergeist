@@ -24,8 +24,6 @@ public class RealtorController : NpcController
     public Transform CurrentCheckUpOrigin;
     private int _currentVisitorIndex = 0;
 
-    private Animator _animator;
-
     private CheckUpState _checkUpState;
     private IdleState _idleAfterInvestigateState;
 
@@ -36,7 +34,6 @@ public class RealtorController : NpcController
         _checkUpState = new CheckUpState(this);
         _idleAfterInvestigateState = new IdleState(this, _checkUpState, 6);
         InvestigateStateInstance = new InvestigateState(this, _idleAfterInvestigateState);
-        _animator = this.GetComponent<Animator>();
     }
 
     private void Start() {
