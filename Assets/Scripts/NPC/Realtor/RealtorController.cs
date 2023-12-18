@@ -24,6 +24,8 @@ public class RealtorController : NpcController
     public Transform CurrentCheckUpOrigin;
     private int _currentVisitorIndex = 0;
 
+    private Animator _animator;
+
     private CheckUpState _checkUpState;
 
     private void Awake()
@@ -32,6 +34,7 @@ public class RealtorController : NpcController
         CurrentCheckUpOrigin = _visitorCollection.transform.GetChild(_currentVisitorIndex);
         _checkUpState = new CheckUpState(this);
         InvestigateStateInstance = new InvestigateState(this, _checkUpState);
+        _animator = this.GetComponent<Animator>();
     }
 
     private void Start() {
@@ -58,4 +61,15 @@ public class RealtorController : NpcController
             }
         }
     }
+
+    public void InvestigateAnim()
+    {
+        _animator.SetTrigger("Investigate");
+    }
+
+    public void SoothAnim()
+    {
+        _animator.SetTrigger("Sooth");
+    }
+
 }
