@@ -34,8 +34,6 @@ public class FearHandler : MonoBehaviour
     private bool _isScared = false;
     private IEnumerator _coroutine;
 
-    private readonly List<ObservableObject> _usedObjects = new();
-
     private void Awake()
     {
         _visitorController = GetComponent<VisitorController>();
@@ -49,19 +47,12 @@ public class FearHandler : MonoBehaviour
     /// <param name="detectedProperties">The object's detected properties</param>
     public void Handle(ObservableObject observableObject, DetectedProperties detectedProperties)
     {
-        int objectUsageCount = _usedObjects.Count(x => x.Equals(observableObject));
-
-        if(objectUsageCount >= _usageMultipliers.Count - 1)
-        {
-            objectUsageCount = _usageMultipliers.Count - 1;
-        }
-
         if(_isScared)
         {
             return;
         }
 
-       float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
+       float fearToAdd = CalculateFearValue(observableObject, detectedProperties);
 
       if (_visitorController.FearValue + fearToAdd < 100f)
       {
@@ -83,15 +74,14 @@ public class FearHandler : MonoBehaviour
        _visitorController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
-       _usedObjects.Add(observableObject);
-        OnObjectUsed?.Invoke(observableObject);
+       OnObjectUsed?.Invoke(observableObject);
     }
 
     /// <summary>
     /// Calculates the fear value of the visitor based on the object's detected properties and usage count.
     /// </summary>
     /// <returns>The amount of fear it has calculated.</returns>
-    private float CalculateFearValue(ObservableObject observableObject, DetectedProperties detectedProperties, int objectUsageCount)
+    private float CalculateFearValue(ObservableObject observableObject, DetectedProperties detectedProperties)
     {
         float fearValue = detectedProperties switch
         {
@@ -120,6 +110,7 @@ public class FearHandler : MonoBehaviour
         }
 
         float geistCharge = observableObject.GeistCharge;
+
         float soothe;
         if (_visitorController.SeenByRealtor)
         {
