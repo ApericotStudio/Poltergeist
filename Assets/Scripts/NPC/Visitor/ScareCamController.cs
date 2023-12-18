@@ -1,56 +1,42 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class ScareCamController : MonoBehaviour
 {
-    [SerializeField] private Transform _scareCam;
+    [Header("References")]
     [SerializeField] private GameObject _scareCamImage;
     [SerializeField] private Transform _visitorCollection;
-    private List<NpcController> _visitorsToShow = new();
-    private Transform _visitorHeadToShow = null;
+
+    [Header("Adjustable Variables")]
+    [SerializeField] private Vector3 _cameraOffset = Vector3.zero;
+    [SerializeField] private float _followDuration = 2f;
 
     private void Awake()
     {
-        foreach (NpcController visitor in _visitorsToShow)
+        foreach (ScareCamTrigger visitor in _visitorCollection.GetComponentsInChildren<ScareCamTrigger>())
         {
-            visitor.OnStateChange.AddListener(OnVisitorStateChange);
+            visitor.OnScareCamTriggered += OnScareCamTriggered;
         }
     }
 
-    private void OnVisitorStateChange(IState state)
+    private void OnScareCamTriggered(Transform head)
     {
-        foreach (NpcController visitor in _visitorCollection.GetComponentsInChildren<NpcController>())
-        {
-            if (_visitorsToShow.Contains(visitor))
-            {
-                if (!StateIsStateForScareCam(visitor.CurrentState))
-                {
-                    _visitorsToShow.Remove(visitor);
-                }
-            }
-            else
-            {
-                if (StateIsStateForScareCam(visitor.CurrentState))
-                {
-                    _visitorsToShow.Add(visitor);
-                }
-            }
-        }
+        StopAllCoroutines();
+        SetFollowTarget(head);
+        StartCoroutine(ClearFollowTarget());
     }
 
-    private bool StateIsStateForScareCam(IState state)
+    private IEnumerator ClearFollowTarget()
     {
-        return state is PanickedState || state is ScaredState;
+        yield return new WaitForSeconds(_followDuration);
+        _scareCamImage.SetActive(false);
     }
 
-    private void Update()
+    private void SetFollowTarget(Transform target)
     {
-        if (_visitorHeadToShow == null)
-        {
-            _scareCamImage.SetActive(false);
-            return;
-        }
+        transform.SetParent(target);
+        transform.localPosition = _cameraOffset;
+        transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
         _scareCamImage.SetActive(true);
-        _scareCam.position = _visitorHeadToShow.position + new Vector3(0, 0, 1);
     }
 }
