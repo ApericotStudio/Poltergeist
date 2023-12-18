@@ -121,6 +121,8 @@ public class FearHandler : MonoBehaviour
             phobiaValue = 0f;
         }
 
+        float geistCharge = observableObject.GeistCharge;
+
         float soothe;
         if (_visitorController.SeenByRealtor)
         {
@@ -141,7 +143,7 @@ public class FearHandler : MonoBehaviour
             brokenAddition = 0f;
         }
 
-        return ((float)observableObject.Type * fearValue + brokenAddition + phobiaValue) * _usageMultipliers[objectUsageCount] * falloff * soothe;
+        return ((float)observableObject.Type * fearValue + brokenAddition + phobiaValue) * _usageMultipliers[objectUsageCount] * falloff * soothe * geistCharge;
     }
 
     private IEnumerator ScaredCooldown()
