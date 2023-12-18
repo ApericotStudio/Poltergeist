@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,6 +14,11 @@ public class PauseController : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject _options;
     [SerializeField] private GameObject _buttonMap;
+
+    [Header("Progress References")]
+    [SerializeField] private TextMeshProUGUI _timeSpend;
+    [SerializeField] private TextMeshProUGUI _phobiaScares;
+    [SerializeField] private TextMeshProUGUI _differentObjectsUsed;
 
     [Header("Other")]
     [SerializeField] private string _mainMenuSceneName;
