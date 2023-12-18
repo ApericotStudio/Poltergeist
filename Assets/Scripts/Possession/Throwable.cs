@@ -1,7 +1,7 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Throwable : MonoBehaviour, IPossessable
+public class Throwable : MonoBehaviour, IPossessable, IObserver
 {
     [Header("Throw Controls")]
     [SerializeField] private float _throwForce = 15;
@@ -15,6 +15,17 @@ public class Throwable : MonoBehaviour, IPossessable
     [SerializeField] private Transform _hitPointImage;
     private LayerMask _throwLayerMask;
 
+    [Header("GeistCharge")]
+    [SerializeField] private FloatReference _geistChargeDuration;
+    private float _outlineMaxSize;
+    private Outline _outline;
+    private bool _geistCharged
+    {
+        get
+        {
+            return _observableObject.GeistCharge == 1;
+        }
+    }
 
     public bool Possessed;
 
@@ -35,6 +46,9 @@ public class Throwable : MonoBehaviour, IPossessable
         _cam = Camera.main;
         _observableObject = this.GetComponent<ObservableObject>();
         _cameraScript = this.GetComponent<ClutterCamera>();
+        _outline = GetComponent<Outline>();
+        _outlineMaxSize = _outline.OutlineWidth;
+        _observableObject.AddObserver(this);
 
         int throwLayer = gameObject.layer;
         for(int i = 0; i < 32; i++)
@@ -71,7 +85,6 @@ public class Throwable : MonoBehaviour, IPossessable
 
     public void Throw()
     {
-        
         if(_observableObject.State == ObjectState.Idle)
         {
             _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
@@ -119,5 +132,41 @@ public class Throwable : MonoBehaviour, IPossessable
     public ObjectState GetState()
     {
         return _observableObject.State;
+    }
+
+    private IEnumerator RechargeGeist()
+    {
+        _observableObject.GeistCharge = 0;
+        _outline.OutlineWidth = 0;
+        while (_observableObject.GeistCharge < 1f)
+        {
+            yield return new WaitForFixedUpdate();
+            if (_observableObject.State == ObjectState.Broken)
+            {
+                break;
+            }
+            _observableObject.GeistCharge += Time.deltaTime / _geistChargeDuration.Value;
+            if (_observableObject.GeistCharge >= 1f)
+            {
+                _observableObject.GeistCharge = 1f;
+            }
+            _outline.OutlineWidth = _observableObject.GeistCharge * _outlineMaxSize;
+        }
+    }
+
+    public void OnNotify(ObservableObject observableObject)
+    {
+        if (observableObject.State == ObjectState.Hit || observableObject.State == ObjectState.Broken)
+        {
+            if (_geistCharged)
+            {
+                StartCoroutine(RechargeGeist());
+            }
+            else
+            {
+                _observableObject.GeistCharge = 0;
+                _outline.OutlineWidth = 0;
+            }
+        }
     }
 }
