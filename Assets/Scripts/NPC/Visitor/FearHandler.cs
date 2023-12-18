@@ -24,8 +24,6 @@ public class FearHandler : MonoBehaviour
     private float _visibleAndAudibleMultiplier = 1.5f;
     [Tooltip("Amount fear goes up when object breaks"), SerializeField]
     private float _brokenAddition = 5f;
-    [Tooltip("These multipliers are used to decrease the fear value as an object is used more frequently."), SerializeField]
-    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0.1f };
     [Tooltip("Amount of fear gets added when visitor's phobia triggers"), SerializeField]
     private float _phobiaValue = 10f;
     [Tooltip("Amount of added fear needed for visitor to get scared"), SerializeField]
@@ -35,8 +33,6 @@ public class FearHandler : MonoBehaviour
     private VisitorSenses _visitorSenses;
     private bool _isScared = false;
     private IEnumerator _coroutine;
-
-    private readonly List<ObservableObject> _usedObjects = new();
 
     private void Awake()
     {
@@ -51,19 +47,12 @@ public class FearHandler : MonoBehaviour
     /// <param name="detectedProperties">The object's detected properties</param>
     public void Handle(ObservableObject observableObject, DetectedProperties detectedProperties)
     {
-        int objectUsageCount = _usedObjects.Count(x => x.Equals(observableObject));
-
-        if(objectUsageCount >= _usageMultipliers.Count - 1)
-        {
-            objectUsageCount = _usageMultipliers.Count - 1;
-        }
-
         if(_isScared)
         {
             return;
         }
 
-       float fearToAdd = CalculateFearValue(observableObject, detectedProperties, objectUsageCount);
+       float fearToAdd = CalculateFearValue(observableObject, detectedProperties);
 
       if (_visitorController.FearValue + fearToAdd < 100f)
       {
@@ -85,15 +74,14 @@ public class FearHandler : MonoBehaviour
        _visitorController.FearValue += fearToAdd;
        _coroutine = ScaredCooldown();
        StartCoroutine(_coroutine);
-       _usedObjects.Add(observableObject);
-        OnObjectUsed?.Invoke(observableObject);
+       OnObjectUsed?.Invoke(observableObject);
     }
 
     /// <summary>
     /// Calculates the fear value of the visitor based on the object's detected properties and usage count.
     /// </summary>
     /// <returns>The amount of fear it has calculated.</returns>
-    private float CalculateFearValue(ObservableObject observableObject, DetectedProperties detectedProperties, int objectUsageCount)
+    private float CalculateFearValue(ObservableObject observableObject, DetectedProperties detectedProperties)
     {
         float fearValue = detectedProperties switch
         {
@@ -111,15 +99,17 @@ public class FearHandler : MonoBehaviour
             _ => 0
         };
 
-        float phobiaValue;
-        if(observableObject.ObjectPhobia == _visitorController.VisitorPhobia && _visitorController.VisitorPhobia != ObjectPhobia.None)
+        float phobiaValue = 0f;
+        foreach (var phobia in observableObject.ObjectPhobia)
         {
-            phobiaValue = _phobiaValue;
+            if (phobia == _visitorController.VisitorPhobia && _visitorController.VisitorPhobia != ObjectPhobia.None)
+            {
+                phobiaValue = _phobiaValue;
+                break;
+            }
         }
-        else
-        {
-            phobiaValue = 0f;
-        }
+
+        float geistCharge = observableObject.GeistCharge;
 
         float soothe;
         if (_visitorController.SeenByRealtor)
@@ -141,7 +131,7 @@ public class FearHandler : MonoBehaviour
             brokenAddition = 0f;
         }
 
-        return ((float)observableObject.Type * fearValue + brokenAddition + phobiaValue) * _usageMultipliers[objectUsageCount] * falloff * soothe;
+        return ((float)observableObject.Type * fearValue + brokenAddition + phobiaValue) * falloff * soothe * geistCharge;
     }
 
     private IEnumerator ScaredCooldown()
