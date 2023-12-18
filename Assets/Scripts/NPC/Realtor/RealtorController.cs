@@ -63,15 +63,4 @@ public class RealtorController : NpcController
             }
         }
     }
-
-    public void InvestigateAnim()
-    {
-        _animator.SetTrigger("Investigate");
-    }
-
-    public void SoothAnim()
-    {
-        _animator.SetTrigger("Sooth");
-    }
-
 }
