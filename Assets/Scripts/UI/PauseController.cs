@@ -31,7 +31,7 @@ public class PauseController : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateProgress(_gradeController.Grade);
+        SetProgress(_gradeController.Grade);
     }
 
     private void SetupButtons()
@@ -65,10 +65,15 @@ public class PauseController : MonoBehaviour
         SceneManager.LoadScene(_mainMenuSceneName);
     }
 
-    private void UpdateProgress(Grade grade)
+    private void SetProgress(Grade grade)
     {
         _timePassed.text = grade.TimePassed.ToString();
         _phobiaScares.text = grade.PhobiaScares.ToString();
         _differentObjectsUsed.text = grade.DifferentObjectsUsed.ToString();
+    }
+
+    private void SetVisitor()
+    {
+        // update visitors information
     }
 }
