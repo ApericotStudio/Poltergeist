@@ -33,6 +33,7 @@ public class Fridge : MonoBehaviour
     private void OnClose()
     {
         _highlight.Highlightable(true);
+        _highlight.Highlighted(true);
 
         if(_closeSound != null)
             AudioSource.PlayClipAtPoint(_closeSound, transform.position);
