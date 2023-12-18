@@ -30,7 +30,10 @@ public class RoamState : IState
             _visitorController.Agent.SetDestination(newRoamLocation);
             yield return new WaitUntil(() => _visitorController.Agent.remainingDistance < 1f && !_visitorController.Agent.pathPending && IsRoaming());
             _visitorController.LookAt(inspectTarget);
-            _visitorController.CurrentState = _visitorController.IdleStateInstance;
+            if(IsRoaming())
+            {
+                _visitorController.CurrentState = _visitorController.IdleStateInstance;
+            }
         }
     }
     
