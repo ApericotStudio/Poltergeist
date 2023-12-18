@@ -24,8 +24,6 @@ public class FearHandler : MonoBehaviour
     private float _visibleAndAudibleMultiplier = 1.5f;
     [Tooltip("Amount fear goes up when object breaks"), SerializeField]
     private float _brokenAddition = 5f;
-    [Tooltip("These multipliers are used to decrease the fear value as an object is used more frequently."), SerializeField]
-    private List<float> _usageMultipliers = new() { 1f, 0.5f, 0.25f, 0.1f };
     [Tooltip("Amount of fear gets added when visitor's phobia triggers"), SerializeField]
     private float _phobiaValue = 10f;
     [Tooltip("Amount of added fear needed for visitor to get scared"), SerializeField]
@@ -121,7 +119,7 @@ public class FearHandler : MonoBehaviour
             }
         }
 
-
+        float geistCharge = observableObject.GeistCharge;
         float soothe;
         if (_visitorController.SeenByRealtor)
         {
@@ -142,7 +140,7 @@ public class FearHandler : MonoBehaviour
             brokenAddition = 0f;
         }
 
-        return ((float)observableObject.Type * fearValue + brokenAddition + phobiaValue) * _usageMultipliers[objectUsageCount] * falloff * soothe;
+        return ((float)observableObject.Type * fearValue + brokenAddition + phobiaValue) * falloff * soothe * geistCharge;
     }
 
     private IEnumerator ScaredCooldown()
