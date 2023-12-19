@@ -3,16 +3,35 @@ using UnityEngine;
 
 public class IdleState : IState
 {
-    private readonly VisitorController _visitorController;
+    private readonly NpcController _npcController;
 
-    public IdleState(VisitorController _visitorController)
+    private IState _stateToReturnTo;
+    private float _timeIdle;
+
+    public IdleState(NpcController _npcController)
     {
-        this._visitorController = _visitorController;
+        this._npcController = _npcController;
+        this._stateToReturnTo = null;
+        this._timeIdle = 0;
+    }
+    public IdleState(NpcController _npcController, IState StateToReturnTo, float TimeIdle)
+    {
+        this._npcController = _npcController;
+        this._stateToReturnTo = StateToReturnTo;
+        this._timeIdle = TimeIdle;
     }
 
     public void Handle()
     {
-        _visitorController.StartCoroutine(IdleCoroutine());
+        if (_stateToReturnTo == null)
+        {
+            _npcController.StartCoroutine(IdleCoroutine());
+        } else
+        {
+            _npcController.StartCoroutine(IdleCoroutineWithTimer());
+        }
+
+        
     }
 
     private IEnumerator IdleCoroutine()
@@ -20,12 +39,22 @@ public class IdleState : IState
         yield return new WaitForSeconds(Random.Range(3f, 5f));
         if (IsIdle())
         {
-            _visitorController.CurrentState = _visitorController.RoamStateInstance;
+            if (_npcController is VisitorController)
+            {
+                VisitorController _visitorController = _npcController as VisitorController;
+                _visitorController.CurrentState = _visitorController.RoamStateInstance;
+            }
         }
+    }
+
+    private IEnumerator IdleCoroutineWithTimer()
+    {
+        yield return new WaitForSeconds(_timeIdle);
+        _npcController.CurrentState = _stateToReturnTo;
     }
 
     private bool IsIdle()
     {
-        return _visitorController.CurrentState is IdleState;
+        return _npcController.CurrentState is IdleState;
     }
 }
