@@ -168,6 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 10
+  _objectPhobia: 
+  GeistCharge: 1
 --- !u!114 &5030223199616537604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 1
   _destroyMinimumImpulse: 10
+  _hittingGroundClips: {fileID: 0}
+  _breakingClips: {fileID: 0}
 --- !u!208 &5967700316553098386
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -211,7 +215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoverMessage: Interact
-  _singleUse: 0
+  _hasMax: 0
+  _maxUses: 10
+  _scary: 1
   InteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -227,6 +233,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  MaxUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _geistChargeDuration: {fileID: 11400000, guid: 9ce298f790a10494d966b576f5cd152f,
+    type: 2}
 --- !u!114 &4306626876402358202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {fileID: 11400000, guid: 1f0984fb97070b9408decc0bbdb3b41f, type: 2}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []

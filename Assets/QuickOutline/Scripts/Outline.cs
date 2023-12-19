@@ -32,7 +32,7 @@ public class Outline : MonoBehaviour {
     }
   }
 
-  public Color OutlineColor {
+  public ColorReference OutlineColor {
     get { return outlineColor; }
     set {
       outlineColor = value;
@@ -57,7 +57,7 @@ public class Outline : MonoBehaviour {
   private Mode outlineMode;
 
   [SerializeField]
-  private Color outlineColor = Color.white;
+  private ColorReference outlineColor;
 
   [SerializeField, Range(0f, 10f)]
   private float outlineWidth = 2f;
@@ -272,7 +272,7 @@ public class Outline : MonoBehaviour {
   void UpdateMaterialProperties() {
 
     // Apply properties according to mode
-    outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
+    outlineFillMaterial.SetColor("_OutlineColor", outlineColor.Value);
 
     switch (outlineMode) {
       case Mode.OutlineAll:
