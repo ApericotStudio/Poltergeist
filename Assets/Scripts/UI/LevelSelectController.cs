@@ -38,7 +38,6 @@ public class LevelSelectController : MonoBehaviour
 
     private void OnAssignmentButtonPressed()
     {
-        print("Pressed");
         SelectLevel(_levelCatalog.Levels[0]);
     }
 
@@ -62,7 +61,7 @@ public class LevelSelectController : MonoBehaviour
     {
         LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
         Grade grade = levelGradeHandler.Load(level.SceneName);
-        // update grade
+        // update grade and grade image
         _levelTitleText.text = level.Title;
         _levelDescriptionText.text = level.Description;
         _selectedLevel = level;
