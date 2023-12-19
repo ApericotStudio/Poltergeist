@@ -38,6 +38,7 @@ public class LevelSelectController : MonoBehaviour
 
     private void OnAssignmentButtonPressed()
     {
+        print("Pressed");
         SelectLevel(_levelCatalog.Levels[0]);
     }
 
