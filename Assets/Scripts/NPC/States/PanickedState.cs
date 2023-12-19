@@ -25,6 +25,8 @@ public class PanickedState : IState
             if (_visitorController.Agent.pathPending && _visitorController.Agent.velocity.magnitude > 0 && _visitorController.Agent.remainingDistance < 0.5f)
             {
                 _visitorController.RanAway = true;
+                _visitorController.Agent.isStopped = true;
+                _visitorController.Agent.enabled = false;
                 _visitorController.gameObject.SetActive(false);
                 yield break;
             }

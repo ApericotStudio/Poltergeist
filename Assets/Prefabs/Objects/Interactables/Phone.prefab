@@ -173,6 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 15
+  _objectPhobia: 02000000
+  GeistCharge: 1
 --- !u!114 &2573790776020858459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,9 +189,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isBreakable: 1
   _destroyMinimumImpulse: 10
-  _hitGroundSoundMinimumImpulse: 3
-  _hittingGroundSounds: []
-  _breakingSounds: []
+  _hittingGroundClips: {fileID: 0}
+  _breakingClips: {fileID: 0}
 --- !u!208 &3794431788514203341
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -221,6 +222,7 @@ MonoBehaviour:
   HoverMessage: ring / stop
   _hasMax: 0
   _maxUses: 10
+  _scary: 1
   InteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -236,6 +238,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  MaxUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _geistChargeDuration: {fileID: 0}
 --- !u!114 &6396864825219451509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +258,7 @@ MonoBehaviour:
   _onlyActivatable: 0
   _keepProgress: 0
   _TurnOff: 1
+  _randomSound: 1
   DevNote: Other adjustable variables such as audio clip and loop can be found in
     the audio source component.
 --- !u!82 &2045532392527393637
@@ -363,7 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {fileID: 0}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []

@@ -5329,7 +5329,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 2
   m_Acceleration: 10
-  avoidancePriority: 40
+  avoidancePriority: 30
   m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -5363,9 +5363,13 @@ MonoBehaviour:
   OnFearValueChange:
     m_PersistentCalls:
       m_Calls: []
-  VisitorPhobia: 0
+  VisitorPhobia: 1
   CurrentRoom: {fileID: 0}
-  AvailableRooms: []
+  AvailableRooms:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   RoamRadius: 5
   RoamingSpeed: 2
   TimeToSpendInRoom: 50
@@ -5425,11 +5429,6 @@ MonoBehaviour:
   _audibleMultiplier: 1
   _visibleAndAudibleMultiplier: 1.5
   _brokenAddition: 5
-  _usageMultipliers:
-  - 1
-  - 0.5
-  - 0.25
-  - 0
   _phobiaValue: 10
   _scaredThreshold: 22
 --- !u!114 &9066106825480100028

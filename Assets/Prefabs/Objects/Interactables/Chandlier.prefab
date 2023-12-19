@@ -224,7 +224,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de1a478009c8414e9303b12dd63f349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 20
+  Type: 30
+  _objectPhobia: 
+  GeistCharge: 1
 --- !u!208 &608041810926083892
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -253,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e879c57aa3a2e449fc3514ee5e9b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _connectedBody: {fileID: 0}
 --- !u!114 &4647447783786878502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {fileID: 11400000, guid: 1f0984fb97070b9408decc0bbdb3b41f, type: 2}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
@@ -310,6 +313,7 @@ MonoBehaviour:
   HoverMessage: Drop
   _hasMax: 1
   _maxUses: 1
+  _scary: 1
   InteractEvent:
     m_PersistentCalls:
       m_Calls:
@@ -325,6 +329,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  MaxUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _geistChargeDuration: {fileID: 11400000, guid: 9ce298f790a10494d966b576f5cd152f,
+    type: 2}
 --- !u!114 &3881469804117906103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,13 +346,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcccc81285b52549b75ddee2fadf09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isBreakable: 1
+  _isBreakable: 0
   _destroyMinimumImpulse: 10
-  _hitGroundSoundMinimumImpulse: 3
-  _hittingGroundSounds:
-  - {fileID: 8300000, guid: b4558c1019e346440b7fb1f239e4df21, type: 3}
-  _breakingSounds:
-  - {fileID: 8300000, guid: b4558c1019e346440b7fb1f239e4df21, type: 3}
+  _hittingGroundClips: {fileID: 0}
+  _breakingClips: {fileID: 0}
 --- !u!82 &6509307271699597459
 AudioSource:
   m_ObjectHideFlags: 0
