@@ -5,7 +5,6 @@ public class ObservablePhysics : MonoBehaviour
     private ObservableObject _observableObject;
     private AudioSource _audioSource;
     private Rigidbody _rigidbody;
-    private LayerMask _obstacleMask;
     private Collider _collider;
     [Tooltip("Is the object breakable?"), SerializeField]
     private bool _isBreakable = false;
@@ -41,15 +40,11 @@ public class ObservablePhysics : MonoBehaviour
         if (collision.impulse.magnitude > _minimumImpulse)
         {
             PlayHittingGroundSound();
-
-            if (collision.gameObject.layer == _obstacleMask)
-            {
-                _observableObject.State = ObjectState.Hit;
-                _observableObject.GeistCharge = 0;
-            }
+            _observableObject.State = ObjectState.Hit;
+            _observableObject.GeistCharge = 0;
         }
-        
-        if(_isBreakable)
+
+        if (_isBreakable)
         {
             if(collision.impulse.magnitude > _destroyMinimumImpulse)
             {
@@ -78,10 +73,7 @@ public class ObservablePhysics : MonoBehaviour
         {
             return;
         }
-        if (collision.gameObject.layer == _obstacleMask)
-        {
-            _observableObject.State = ObjectState.Moving;
-        }
+        _observableObject.State = ObjectState.Moving;
     }
 
     private void FixedUpdate()
