@@ -153,9 +153,8 @@ namespace StarterAssets
 
         private void Update()
         {
-
             GroundedCheck();
-            if (!freeze)
+            if (!freeze && Time.timeScale > 0)
             {
                 Move();
             }
@@ -163,7 +162,10 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if(Time.deltaTime > 0)
+            {
+                CameraRotation();
+            }
         }
 
         private void AssignAnimationIDs()
