@@ -41,7 +41,6 @@ public class MainMenuController : MonoBehaviour
     private void OnOptionsButtonPressed()
     {
         _settingsCanvas.SetActive(true);
-        gameObject.SetActive(false);
     }
 
     private void OnExitButtonPressed()
