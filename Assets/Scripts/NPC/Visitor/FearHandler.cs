@@ -132,7 +132,6 @@ public class FearHandler : MonoBehaviour
         {
             brokenAddition = 0f;
         }
-
         return ((float)observableObject.Type * fearValue + brokenAddition + phobiaValue) * falloff * soothe * geistCharge;
     }
 

@@ -45,6 +45,7 @@ public class ObservablePhysics : MonoBehaviour
             if (collision.gameObject.layer == _obstacleMask)
             {
                 _observableObject.State = ObjectState.Hit;
+                _observableObject.GeistCharge = 0;
             }
         }
         
