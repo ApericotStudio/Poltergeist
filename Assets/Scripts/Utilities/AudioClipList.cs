@@ -7,6 +7,16 @@ public class AudioClipList : ScriptableObject
 {
     [SerializeField] private List<AudioClip> _audioClips = new List<AudioClip>();
 
+    public AudioClip GetIndex(int index)
+    {
+        return _audioClips[index];
+    }
+
+    public int GetAmount()
+    {
+        return _audioClips.Count;
+    }
+
     public AudioClip GetRandom()
     {
         if (_audioClips.Count == 0)
