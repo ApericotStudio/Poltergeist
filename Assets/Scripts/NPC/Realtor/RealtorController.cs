@@ -68,9 +68,9 @@ public class RealtorController : NpcController
         }
     }
 
-    public void Soothe(float fear, VisitorController visitor)
+    public void Soothe(float fear, float difference, VisitorController visitor)
     {
-        if (fear > _minimuFearToSoothe && _sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
+        if (difference > _minimuFearToSoothe && _sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
         {
             _sootheCooldownTimer = _sootheCooldown;
             LookAt(visitor.gameObject.transform);
