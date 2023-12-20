@@ -88,6 +88,7 @@ public class ReactionHandler : MonoBehaviour
     private void OnStateChange(IState state)
     {
         PlayReaction();
+        StateChangeAnimation();
         ChangeFace();
         _previousState = state;
     }
@@ -123,7 +124,7 @@ public class ReactionHandler : MonoBehaviour
                 clip = _terrifiedAudioClips.GetRandom();
                 ToggleAnimation("Phobia");
                 break;
-            case CheckUpState when _previousState is InvestigateState:
+            case IdleState when _previousState is InvestigateState:
                 ToggleAnimation("Investigating");
                 break;
         }
@@ -166,6 +167,9 @@ public class ReactionHandler : MonoBehaviour
                 case ScaredState:
                     SetFace(_scaredFace);
                     break;
+                case CheckUpState:
+                    SetFace(_restingFace);
+                    break;
             }
         }
     }
@@ -173,6 +177,16 @@ public class ReactionHandler : MonoBehaviour
     private void SetFace(Material newFace)
     {
         _faceMesh.material = newFace;
+    }
+
+    private void StateChangeAnimation()
+    {
+        switch (_npcController.CurrentState)
+        {
+            case IdleState when _previousState is InvestigateState:
+                _npcController.Animator.SetTrigger("Investigate");
+                break;
+        }
     }
 
     private void TryPlayVoiceline(AudioClip clip, int baseChance, ref int unsuccesfullAttempts)
