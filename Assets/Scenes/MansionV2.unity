@@ -1138,24 +1138,34 @@ PrefabInstance:
       objectReference: {fileID: 54661846}
     - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
+      propertyPath: AvailableRooms.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
       propertyPath: AvailableRooms.Array.data[0]
       value: 
-      objectReference: {fileID: 2143024159}
+      objectReference: {fileID: 838581764}
     - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
       propertyPath: AvailableRooms.Array.data[1]
       value: 
-      objectReference: {fileID: 1092526397}
+      objectReference: {fileID: 2143024159}
     - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
       propertyPath: AvailableRooms.Array.data[2]
       value: 
-      objectReference: {fileID: 1065539283}
+      objectReference: {fileID: 1022626300}
     - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
       propertyPath: AvailableRooms.Array.data[3]
       value: 
-      objectReference: {fileID: 1022626300}
+      objectReference: {fileID: 1065539283}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: AvailableRooms.Array.data[4]
+      value: 
+      objectReference: {fileID: 1092526397}
     - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4001,13 +4011,13 @@ PrefabInstance:
     - target: {fileID: 8691210524884891587, guid: 66cbae7a35d4b4c0687916cc2e57a404,
         type: 3}
       propertyPath: AvailableRooms.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8691210524884891587, guid: 66cbae7a35d4b4c0687916cc2e57a404,
         type: 3}
       propertyPath: AvailableRooms.Array.data[0]
       value: 
-      objectReference: {fileID: 2143024159}
+      objectReference: {fileID: 1022626300}
     - target: {fileID: 8691210524884891587, guid: 66cbae7a35d4b4c0687916cc2e57a404,
         type: 3}
       propertyPath: AvailableRooms.Array.data[1]
@@ -4017,10 +4027,15 @@ PrefabInstance:
         type: 3}
       propertyPath: AvailableRooms.Array.data[2]
       value: 
-      objectReference: {fileID: 1022626300}
+      objectReference: {fileID: 2143024159}
     - target: {fileID: 8691210524884891587, guid: 66cbae7a35d4b4c0687916cc2e57a404,
         type: 3}
       propertyPath: AvailableRooms.Array.data[3]
+      value: 
+      objectReference: {fileID: 838581764}
+    - target: {fileID: 8691210524884891587, guid: 66cbae7a35d4b4c0687916cc2e57a404,
+        type: 3}
+      propertyPath: AvailableRooms.Array.data[4]
       value: 
       objectReference: {fileID: 1092526397}
     m_RemovedComponents: []
@@ -15351,34 +15366,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 18.403198, y: 13.939198, z: 40.97069}
   m_Center: {x: 22.654655, y: 6.469599, z: -7.023742}
---- !u!1 &531037941 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1885490637983632215, guid: d4ee637b4cd1a404495912be1613fead,
-    type: 3}
-  m_PrefabInstance: {fileID: 1316127031}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &531037951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1252364713189609965, guid: d4ee637b4cd1a404495912be1613fead,
     type: 3}
   m_PrefabInstance: {fileID: 1316127031}
   m_PrefabAsset: {fileID: 0}
---- !u!208 &531037952
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531037941}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.003, y: 0.007, z: 0.008}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: -0.002, z: 0.008}
-  m_TimeToStationary: 0.5
 --- !u!1 &531156263
 GameObject:
   m_ObjectHideFlags: 0
@@ -17784,18 +17777,18 @@ PrefabInstance:
     - target: {fileID: 4285927498813325517, guid: 6f2fb621035ef43a99591fee797e3c16,
         type: 3}
       propertyPath: AvailableRooms.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4285927498813325517, guid: 6f2fb621035ef43a99591fee797e3c16,
         type: 3}
       propertyPath: AvailableRooms.Array.data[0]
       value: 
-      objectReference: {fileID: 2143024159}
+      objectReference: {fileID: 1092526397}
     - target: {fileID: 4285927498813325517, guid: 6f2fb621035ef43a99591fee797e3c16,
         type: 3}
       propertyPath: AvailableRooms.Array.data[1]
       value: 
-      objectReference: {fileID: 1022626300}
+      objectReference: {fileID: 838581764}
     - target: {fileID: 4285927498813325517, guid: 6f2fb621035ef43a99591fee797e3c16,
         type: 3}
       propertyPath: AvailableRooms.Array.data[2]
@@ -17805,7 +17798,12 @@ PrefabInstance:
         type: 3}
       propertyPath: AvailableRooms.Array.data[3]
       value: 
-      objectReference: {fileID: 1092526397}
+      objectReference: {fileID: 1022626300}
+    - target: {fileID: 4285927498813325517, guid: 6f2fb621035ef43a99591fee797e3c16,
+        type: 3}
+      propertyPath: AvailableRooms.Array.data[4]
+      value: 
+      objectReference: {fileID: 2143024159}
     - target: {fileID: 8516857859672978113, guid: 6f2fb621035ef43a99591fee797e3c16,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21717,7 +21715,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad8cf1e3748e7c4a8b35b90db1dfbe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inspectableObjects: []
+  _inspectableObjects:
+  - {fileID: 589767386}
 --- !u!1001 &840252078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30602,6 +30601,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 111.146
       objectReference: {fileID: 0}
+    - target: {fileID: 1691407514945517359, guid: d4ee637b4cd1a404495912be1613fead,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1691407514945517359, guid: d4ee637b4cd1a404495912be1613fead,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1885490637983632215, guid: d4ee637b4cd1a404495912be1613fead,
         type: 3}
       propertyPath: m_Name
@@ -30615,11 +30624,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1885490637983632215, guid: d4ee637b4cd1a404495912be1613fead,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 531037952}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4ee637b4cd1a404495912be1613fead, type: 3}
 --- !u!1001 &1318969937
 PrefabInstance:
