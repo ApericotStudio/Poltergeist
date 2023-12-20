@@ -97,37 +97,6 @@ public class RealtorSenses : BaseSenses
         SoothedVisitors.Clear();
     }
 
-    //private void Soothe(float fear, VisitorController visitor)
-    //{
-    //    if (fear > 1f && _sootheCooldownTimer <= 0 && _realtorController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
-    //    {
-    //        Debug.Log("Soothe");
-    //        _realtorController.LookAt(visitor.gameObject.transform);
-    //        _realtorController.Agent.isStopped = true;
-    //        _realtorController.Agent.velocity = Vector3.zero;
-    //        _realtorController.Animator.SetTrigger("Soothe");
-    //        _sootheCooldownTimer = _sootheCooldown;
-    //        StartCoroutine(WaitForSoothe(visitor));
-    //    }
-    //}
-
-    //private IEnumerator WaitForSoothe(VisitorController visitor)
-    //{
-    //    //wait until animation is Soothe animation.
-    //    yield return new WaitWhile(() => !_realtorController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"));
-    //    //rotate to visitor while you are in the soothe animation.
-    //    while (_realtorController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"))
-    //    {
-    //        Vector3 rotationDir = visitor.transform.position - this.transform.position;
-    //        rotationDir.y = 0;
-    //        Quaternion rotationQuat = Quaternion.LookRotation(rotationDir);
-    //        transform.rotation = Quaternion.Lerp(transform.rotation, rotationQuat, Time.deltaTime);
-    //        yield return new WaitForEndOfFrame();
-    //    }
-    //    _realtorController.Agent.isStopped = false;
-    //    Debug.Log("Resume");
-    //}
-
     private IEnumerator DecreaseNpcFear()
     {
         while (true)
