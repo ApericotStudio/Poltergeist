@@ -13231,34 +13231,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 386532604}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &386651419 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7839801155693006546, guid: c990191652041b04b8d761c825c3013a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1469574006}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &386651431
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386651419}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3265095938544781489, guid: c5a1772a6d848e24a88a6366a458c987, type: 3}
 --- !u!1001 &386854771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23704,6 +23676,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inspectableObjects:
   - {fileID: 589767386}
+  - {fileID: 691818112}
+  - {fileID: 860235684}
 --- !u!1001 &840252078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29966,7 +29940,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.18471909, y: 3.0183935, z: 6.0915008}
+  m_Size: {x: 0.1447191, y: 3.0183935, z: 6.0915008}
   m_Center: {x: 5.493787, y: 1.4961212, z: -3.4825022}
 --- !u!1001 &1160135981
 PrefabInstance:
@@ -37147,11 +37121,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7839801155693006546, guid: c990191652041b04b8d761c825c3013a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 386651431}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c990191652041b04b8d761c825c3013a, type: 3}
 --- !u!4 &1470652176 stripped
 Transform:
