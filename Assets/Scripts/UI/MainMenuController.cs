@@ -8,13 +8,15 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Button _optionsButton;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _feedbackButton;
+    [SerializeField] private Button _wishlistButton;
 
     [Header("Canvas References")]
     [SerializeField] private GameObject _levelSelectCanvas;
     [SerializeField] private GameObject _settingsCanvas;
 
-    [Header("Other")]
+    [Header("Links")]
     [SerializeField] private string _feedbackFormLink = string.Empty;
+    [SerializeField] private string _wishlistLink = string.Empty;
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class MainMenuController : MonoBehaviour
         _optionsButton.onClick.AddListener(OnOptionsButtonPressed);
         _exitButton.onClick.AddListener(OnExitButtonPressed);
         _feedbackButton.onClick.AddListener(OnFeedbackButtonPressed);
+        _wishlistButton.onClick.AddListener(OnWishlistButtonPressed);
     }
 
     private void OnPlayButtonPressed()
@@ -49,5 +52,10 @@ public class MainMenuController : MonoBehaviour
     private void OnFeedbackButtonPressed()
     {
         Application.OpenURL(_feedbackFormLink);
+    }
+
+    private void OnWishlistButtonPressed()
+    {
+        Application.OpenURL(_wishlistLink);
     }
 }
