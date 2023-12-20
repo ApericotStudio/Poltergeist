@@ -22,6 +22,8 @@ public class FearHandler : MonoBehaviour
     private float _audibleMultiplier = 1f;
     [Tooltip("Multiplier to scare value when an object is both visible and audible to a visitor."), Range(0f, 5f), SerializeField]
     private float _visibleAndAudibleMultiplier = 1.5f;
+    [Tooltip("Amount the realtor soothes this visitor"), SerializeField, Range(0f, 1f)]
+    private float _sootheMultiplier = 0.5f;
     [Tooltip("Amount fear goes up when object breaks"), SerializeField]
     private float _brokenAddition = 5f;
     [Tooltip("Amount of fear gets added when visitor's phobia triggers"), SerializeField]
@@ -114,7 +116,7 @@ public class FearHandler : MonoBehaviour
         float soothe;
         if (_visitorController.SeenByRealtor)
         {
-            soothe = 0.5f;
+            soothe = _sootheMultiplier;
         }
         else
         {
