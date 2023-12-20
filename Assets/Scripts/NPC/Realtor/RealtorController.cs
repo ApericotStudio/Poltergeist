@@ -71,7 +71,6 @@ public class RealtorController : NpcController
         if (fear > 1f && _sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
         {
             _sootheCooldownTimer = _sootheCooldown;
-            Debug.Log("Soothe");
             LookAt(visitor.gameObject.transform);
             Agent.isStopped = true;
             Agent.velocity = Vector3.zero;
@@ -95,18 +94,15 @@ public class RealtorController : NpcController
         }
         LookAt(InspectTarget);
         Agent.isStopped = false;
-        Debug.Log("Resume");
         StartCoroutine(SootheCooldown());
     }
 
     private IEnumerator SootheCooldown()
     {
-        Debug.Log("Cooldown Start");
         while (_sootheCooldownTimer >= 0)
         {
             _sootheCooldownTimer -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log("Cooldown gone");
     }
 }

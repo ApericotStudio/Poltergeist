@@ -24,18 +24,6 @@ public class RealtorSenses : BaseSenses
         StartCoroutine(DecreaseNpcFear());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log("Visitors:");
-            foreach (VisitorController visitor in SoothedVisitors)
-            {
-                Debug.Log(visitor.gameObject.name);
-            }
-        }
-    }
-
     protected override void HandleTargets(Collider[] targetsInDetectionRadius)
     {
         base.HandleTargets(targetsInDetectionRadius);
