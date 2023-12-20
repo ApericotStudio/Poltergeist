@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 10
-  _objectPhobia: 3
+  _objectPhobia: 
   GeistCharge: 1
 --- !u!114 &5609279193068908210
 MonoBehaviour:
@@ -194,6 +194,7 @@ MonoBehaviour:
   _onlyActivatable: 0
   _keepProgress: 0
   _TurnOff: 1
+  _randomSound: 1
   DevNote: Other adjustable variables can be found in the audio source component.
 --- !u!114 &6850957027283034480
 MonoBehaviour:
@@ -269,7 +270,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.75
       inSlope: 0
       outSlope: 0
       tangentMode: 0

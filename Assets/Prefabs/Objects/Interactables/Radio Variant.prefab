@@ -138,6 +138,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -49.364
       objectReference: {fileID: 0}
+    - target: {fileID: 5994779978372457038, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.28361383
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994779978372457038, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.44278246
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994779978372457038, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.23327655
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994779978372457038, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.11570622
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994779978372457038, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.19574644
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994779978372457038, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.07429263
+      objectReference: {fileID: 0}
     - target: {fileID: 8184490156097573802, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -195,8 +225,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.1
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -231,7 +261,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.75
       inSlope: 0
       outSlope: 0
       tangentMode: 0
