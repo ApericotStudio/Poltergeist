@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PauseController : MonoBehaviour
 {
     [Header("Button References")]
-    [SerializeField] private Button _resumeButton;
+    public Button ResumeButton;
     [SerializeField] private Button _optionsButton;
     [SerializeField] private Button _buttonMapButton;
     [SerializeField] private Button _mainMenuButton;
@@ -36,7 +36,7 @@ public class PauseController : MonoBehaviour
 
     private void SetupButtons()
     {
-        _resumeButton.onClick.AddListener(OnResumeButtonPressed);
+        ResumeButton.onClick.AddListener(OnResumeButtonPressed);
         _optionsButton.onClick.AddListener(OnOptionsButtonPressed);
         _buttonMapButton.onClick.AddListener(OnButtonMapButtonPressed);
         _mainMenuButton.onClick.AddListener(OnMainMenuButtonPressed);

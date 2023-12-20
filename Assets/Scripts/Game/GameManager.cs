@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(ManageTimeLeft());
+        _pauseCanvas.GetComponent<PauseController>().ResumeButton.onClick.AddListener(TogglePause);
     }
 
     private void Update()
@@ -34,13 +35,15 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
             _pauseCanvas.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else if (Time.timeScale == 1)
         {
             Time.timeScale = 0;
             _pauseCanvas.SetActive(true);
             Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
