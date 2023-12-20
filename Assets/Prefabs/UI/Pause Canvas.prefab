@@ -658,7 +658,7 @@ MonoBehaviour:
   _options: {fileID: 0}
   _buttonMap: {fileID: 0}
   _timePassed: {fileID: 6888665537891974696}
-  _phobiaScares: {fileID: 1520013917220992301}
+  _phobiaScares: {fileID: 8882657157280787057}
   _differentObjectsUsed: {fileID: 2358052487309685841}
   _mainMenuSceneName: MainMenu
   _gradeController: {fileID: 0}
@@ -696,8 +696,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -658.88, y: 314}
-  m_SizeDelta: {x: 200, y: 88.9906}
+  m_AnchoredPosition: {x: -600, y: 314}
+  m_SizeDelta: {x: 325, y: 88.9906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1127136539434594160
 CanvasRenderer:
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Speed
+  m_text: Time passed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4e537a56d3fec8c41ba31784d7a4d9af, type: 2}
   m_sharedMaterial: {fileID: -8530696936359007190, guid: 4e537a56d3fec8c41ba31784d7a4d9af,
@@ -755,15 +755,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52
+  m_fontSize: 48.25
   m_fontSizeBase: 52
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 52
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2009,8 +2009,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -636.19653, y: 78}
-  m_SizeDelta: {x: 245.3669, y: 88.9906}
+  m_AnchoredPosition: {x: -600, y: 78}
+  m_SizeDelta: {x: 325, y: 88.9906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3589596417911696362
 CanvasRenderer:
@@ -2040,7 +2040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resources
+  m_text: Objects used
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4e537a56d3fec8c41ba31784d7a4d9af, type: 2}
   m_sharedMaterial: {fileID: -8530696936359007190, guid: 4e537a56d3fec8c41ba31784d7a4d9af,
@@ -2068,15 +2068,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52
+  m_fontSize: 48.25
   m_fontSizeBase: 52
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2265,8 +2265,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -647, y: 200}
-  m_SizeDelta: {x: 227.7242, y: 88.9906}
+  m_AnchoredPosition: {x: -600, y: 200}
+  m_SizeDelta: {x: 325, y: 88.9906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &474051743585417628
 CanvasRenderer:
@@ -2296,7 +2296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Research
+  m_text: Phobia scares
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4e537a56d3fec8c41ba31784d7a4d9af, type: 2}
   m_sharedMaterial: {fileID: -8530696936359007190, guid: 4e537a56d3fec8c41ba31784d7a4d9af,
@@ -2324,15 +2324,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52
+  m_fontSize: 48.25
   m_fontSizeBase: 52
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 52
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
