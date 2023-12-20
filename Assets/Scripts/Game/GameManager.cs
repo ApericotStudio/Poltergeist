@@ -9,12 +9,39 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public UnityEvent OnEndGame = new UnityEvent();
 
+    [Header("References")]
+    [SerializeField] private GameObject _pauseCanvas;
+
     [Header("Adjustable variables")]
     [SerializeField] private int _timePassed;
 
     private void Awake()
     {
         StartCoroutine(ManageTimeLeft());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
+    }
+
+    private void TogglePause()
+    {
+        if (Time.timeScale == 0 && _pauseCanvas.activeSelf)
+        {
+            Time.timeScale = 1;
+            _pauseCanvas.SetActive(false);
+        }
+        else if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+            _pauseCanvas.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
     }
 
     public void EndGame()

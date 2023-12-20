@@ -1,6 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum PlayerPrefsVariable
+{
+    Volume,
+    Sensitivity,
+    Brightness,
+    Contrast,
+    Fullscreen
+}
+
 public class OptionsController : MonoBehaviour
 {
     [Header("Slider References")]
@@ -18,7 +27,6 @@ public class OptionsController : MonoBehaviour
     [Header("Other References")]
     [Tooltip("Canvas that is opened when back button is pressed")]
     [SerializeField] private GameObject _backCanvas;
-    [SerializeField] private OptionsData _optionsData;
 
     private void Awake()
     {
@@ -43,10 +51,10 @@ public class OptionsController : MonoBehaviour
 
     private void SetSliders()
     {
-        _volumeSlider.value = _optionsData.Volume;
-        _sensitivitySlider.value = _optionsData.Sensetivity;
-        _brightnessSlider.value = _optionsData.Brightness;
-        _contrastSlider.value = _optionsData.Contrast;
+        _volumeSlider.value = PlayerPrefs.GetInt(PlayerPrefsVariable.Volume.ToString(), 100);
+        _sensitivitySlider.value = PlayerPrefs.GetInt(PlayerPrefsVariable.Sensitivity.ToString(), 100);
+        _brightnessSlider.value = PlayerPrefs.GetInt(PlayerPrefsVariable.Brightness.ToString(), 100);
+        _contrastSlider.value = PlayerPrefs.GetInt(PlayerPrefsVariable.Contrast.ToString(), 100);
     }
 
     private void SetupToggles()
@@ -56,7 +64,7 @@ public class OptionsController : MonoBehaviour
 
     private void SetToggles()
     {
-        _fullscreenToggle.isOn = _optionsData.Fullscreen;
+        _fullscreenToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsVariable.Fullscreen.ToString(), Screen.fullScreen ? 1 : 0) == 1;
     }
 
     private void SetupButtons()
@@ -66,27 +74,27 @@ public class OptionsController : MonoBehaviour
 
     private void OnVolumeSliderValueChanged(float value)
     {
-        _optionsData.Volume = value;
+        PlayerPrefs.SetInt(PlayerPrefsVariable.Volume.ToString(), (int)value);
     }
 
     private void OnSensitivitySliderValueChanged(float value)
     {
-        _optionsData.Sensetivity = value;
+        PlayerPrefs.SetInt(PlayerPrefsVariable.Sensitivity.ToString(), (int)value);
     }
 
     private void OnBrightnessSliderValueChanged(float value)
     {
-        _optionsData.Brightness = value;
+        PlayerPrefs.SetInt(PlayerPrefsVariable.Brightness.ToString(), (int)value);
     }
 
     private void OnContrastSliderValueChanged(float value)
     {
-        _optionsData.Contrast = value;
+        PlayerPrefs.SetInt(PlayerPrefsVariable.Contrast.ToString(), (int)value);
     }
 
     private void OnFullscreenTogglePressed(bool value)
     {
-        _optionsData.Fullscreen = value;
+        PlayerPrefs.SetInt(PlayerPrefsVariable.Fullscreen.ToString(), value ? 1 : 0);
     }
 
     private void OnBackButtonPressed()
