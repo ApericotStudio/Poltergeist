@@ -11,6 +11,9 @@ public class RealtorSenses : BaseSenses
     private float _reductionValue = 0.1f;
     [Tooltip("The speed at which the fear value will be reduced."), Range(0f, 1f), SerializeField]
     private float _reductionSpeed = 0.05f;
+    [Tooltip("Cooldown of soothing."), Range(0f, 1f), SerializeField]
+    private float _sootheCooldown = 15f;
+    private float _sootheCooldownTimer = 5;
 
     [HideInInspector]
     public List<VisitorController> SoothedVisitors = new();
@@ -24,6 +27,11 @@ public class RealtorSenses : BaseSenses
         StartCoroutine(DecreaseNpcFear());
     }
 
+    private void Update()
+    {
+        if (_sootheCooldownTimer > 0f) { _sootheCooldownTimer -= Time.deltaTime; }
+    }
+
     protected override void HandleTargets(Collider[] targetsInDetectionRadius)
     {
         base.HandleTargets(targetsInDetectionRadius);
@@ -35,6 +43,7 @@ public class RealtorSenses : BaseSenses
                 if (!SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
                     DetectedVisitors[i].SeenByRealtor = true;
+                    DetectedVisitors[i].OnFearValueChange.AddListener(Soothe);
                     SoothedVisitors.Add(DetectedVisitors[i]);
                 }
             }
@@ -43,6 +52,7 @@ public class RealtorSenses : BaseSenses
                 if (SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
                     DetectedVisitors[i].SeenByRealtor = false;
+                    DetectedVisitors[i].OnFearValueChange.RemoveListener(Soothe);
                     SoothedVisitors.Remove(DetectedVisitors[i]);
                 }
             }  
@@ -78,8 +88,27 @@ public class RealtorSenses : BaseSenses
         foreach(VisitorController visitor in SoothedVisitors)
         {
             visitor.SeenByRealtor = false;
+            visitor.OnFearValueChange.RemoveListener(Soothe);
         }
         SoothedVisitors.Clear();
+    }
+
+    private void Soothe(float fear)
+    {
+        if (fear > 20f && _sootheCooldownTimer <= 0)
+        {
+            _realtorController.Agent.isStopped = true;
+            _realtorController.Animator.SetTrigger("Soothe");
+            _sootheCooldownTimer = _sootheCooldown;
+            StartCoroutine(WaitAnimation());
+        }
+    }
+
+    private IEnumerator WaitAnimation()
+    {
+        yield return new WaitForSeconds(2f);
+        yield return new WaitWhile(() => _realtorController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"));
+        _realtorController.Agent.isStopped = false;
     }
 
     private IEnumerator DecreaseNpcFear()
