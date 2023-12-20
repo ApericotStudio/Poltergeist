@@ -27,7 +27,7 @@ public class ObservablePhysics : MonoBehaviour
 
     private void Start()
     {
-        _minimumImpulse = _rigidbody.mass * ((float)_observableObject.MinimumImpulse / 10);
+        _minimumImpulse = _rigidbody.mass * ((float)_observableObject.MinimumImpulse / 40);
     }
 
     private void OnCollisionEnter(Collision collision)
