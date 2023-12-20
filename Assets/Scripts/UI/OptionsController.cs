@@ -12,13 +12,19 @@ public class OptionsController : MonoBehaviour
     [Header("Toggle References")]
     [SerializeField] private Toggle _fullscreenToggle;
 
+    [Header("Button References")]
+    [SerializeField] private Button _backButton;
+
     [Header("Other References")]
+    [Tooltip("Canvas that is opened when back button is pressed")]
+    [SerializeField] private GameObject _backCanvas;
     [SerializeField] private OptionsData _optionsData;
 
     private void Awake()
     {
         SetupSliders();
         SetupToggles();
+        SetupButtons();
     }
 
     private void OnEnable()
@@ -53,6 +59,11 @@ public class OptionsController : MonoBehaviour
         _fullscreenToggle.isOn = _optionsData.Fullscreen;
     }
 
+    private void SetupButtons()
+    {
+        _backButton.onClick.AddListener(OnBackButtonPressed);
+    }
+
     private void OnVolumeSliderValueChanged(float value)
     {
         _optionsData.Volume = value;
@@ -76,5 +87,11 @@ public class OptionsController : MonoBehaviour
     private void OnFullscreenTogglePressed(bool value)
     {
         _optionsData.Fullscreen = value;
+    }
+
+    private void OnBackButtonPressed()
+    {
+        gameObject.SetActive(false);
+        _backCanvas.SetActive(true);
     }
 }
