@@ -11,7 +11,7 @@ public class RealtorSenses : BaseSenses
     private float _reductionValue = 0.1f;
     [Tooltip("The speed at which the fear value will be reduced."), Range(0f, 1f), SerializeField]
     private float _reductionSpeed = 0.05f;
-    [Tooltip("Cooldown of soothing."), Range(0f, 1f), SerializeField]
+    [Tooltip("Cooldown of soothing."), Range(0f, 20f), SerializeField]
     private float _sootheCooldown = 15f;
     private float _sootheCooldownTimer = 5;
 
@@ -29,7 +29,26 @@ public class RealtorSenses : BaseSenses
 
     private void Update()
     {
-        if (_sootheCooldownTimer > 0f) { _sootheCooldownTimer -= Time.deltaTime; }
+        if (_sootheCooldownTimer > 0f)
+        {
+            _sootheCooldownTimer -= Time.deltaTime;
+            if (_sootheCooldownTimer <= 0f)
+            {
+                Debug.Log("cooldown gone");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Debug.Log("Visitors:");
+            foreach (VisitorController visitor in SoothedVisitors)
+            {
+                Debug.Log(visitor.gameObject.name);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log(_sootheCooldownTimer);
+        }
     }
 
     protected override void HandleTargets(Collider[] targetsInDetectionRadius)
@@ -93,11 +112,17 @@ public class RealtorSenses : BaseSenses
         SoothedVisitors.Clear();
     }
 
-    private void Soothe(float fear)
+    private void Soothe(float fear, VisitorController visitor)
     {
-        if (fear > 20f && _sootheCooldownTimer <= 0)
+        if (fear > 1f && _sootheCooldownTimer <= 0 && _realtorController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
         {
+            Debug.Log("Soothe");
             _realtorController.Agent.isStopped = true;
+            _realtorController.Agent.velocity = Vector3.zero;
+            Vector3 rotationDir = visitor.transform.position - this.transform.position;
+            rotationDir.y = 0;
+            Quaternion rotationQuat = Quaternion.LookRotation(rotationDir);
+            transform.rotation = rotationQuat;
             _realtorController.Animator.SetTrigger("Soothe");
             _sootheCooldownTimer = _sootheCooldown;
             StartCoroutine(WaitAnimation());
@@ -106,9 +131,10 @@ public class RealtorSenses : BaseSenses
 
     private IEnumerator WaitAnimation()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitWhile(() => !_realtorController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"));
         yield return new WaitWhile(() => _realtorController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"));
         _realtorController.Agent.isStopped = false;
+        Debug.Log("Resume");
     }
 
     private IEnumerator DecreaseNpcFear()

@@ -66,7 +66,7 @@ public class ReactionHandler : MonoBehaviour
         
     }
 
-    private void OnFearValueChange(float fear)
+    private void OnFearValueChange(float fear, VisitorController visitor)
     {
         switch(fear)
         {

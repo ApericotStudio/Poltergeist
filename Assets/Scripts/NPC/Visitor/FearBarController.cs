@@ -19,7 +19,7 @@ public class FearBarController : MonoBehaviour
         _visitorController.OnFearValueChange.AddListener(OnFearChange);
     }
 
-    public void OnFearChange(float fear)
+    public void OnFearChange(float fear, VisitorController visitor)
     {
         _fearBar.value = fear/_maxFear;
     }
