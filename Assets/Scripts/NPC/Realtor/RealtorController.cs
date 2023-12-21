@@ -73,10 +73,10 @@ public class RealtorController : NpcController
         if (difference > _minimuFearToSoothe && _sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
         {
             _sootheCooldownTimer = _sootheCooldown;
-            LookAt(visitor.gameObject.transform);
             Agent.isStopped = true;
             Agent.velocity = Vector3.zero;
             Animator.SetTrigger("Soothe");
+            LookAt(visitor.gameObject.GetComponent<VisitorSenses>().HeadTransform);
             StartCoroutine(WaitForSoothe(visitor));
         }
     }
