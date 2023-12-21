@@ -5,7 +5,12 @@ public class PolterSenseController : MonoBehaviour
 {
     [SerializeField] private List<Outline> _outlinesInRange = new List<Outline>();
     [SerializeField] private bool _isOn = false;
+    private PossessionController _possessionController;
 
+    private void Start()
+    {
+        _possessionController = GetComponent<PossessionController>();
+    }
     public void SetState(bool enable)
     {
         CheckCancellationTokens();
@@ -26,6 +31,11 @@ public class PolterSenseController : MonoBehaviour
 
     public void AddOutline(Outline outline)
     {
+        if(outline.gameObject.GetComponent<Interactable>() && _possessionController.CurrentPossession != null)
+        {
+            return;
+        }
+
         _outlinesInRange.Add(outline);
         if (_isOn)
         {

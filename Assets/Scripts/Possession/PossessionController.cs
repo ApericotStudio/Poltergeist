@@ -5,9 +5,9 @@ using TMPro;
 
 public class PossessionController : MonoBehaviour, IObserver
 {
-    public UnityEvent CurrentPossessionChanged = new UnityEvent();
+    public UnityEvent<GameObject> CurrentPossessionChanged = new UnityEvent<GameObject>();
 
-    public GameObject CurrentPossession;
+    public GameObject CurrentPossession = null;
 
     public Throwable CurrentThrowable;
     private ThirdPersonController _thirdPersonController;
@@ -57,7 +57,7 @@ public class PossessionController : MonoBehaviour, IObserver
         CurrentPossession.GetComponent<ObservableObject>().AddObserver(this);
         _thirdPersonController.freeze = true;
         _audioSource.PlayOneShot(_possessSound);
-        CurrentPossessionChanged?.Invoke();
+        CurrentPossessionChanged?.Invoke(CurrentPossession);
         if (CurrentPossession.TryGetComponent(out Throwable throwable))
         {
             CurrentThrowable = throwable;
@@ -72,7 +72,6 @@ public class PossessionController : MonoBehaviour, IObserver
             RemovePossessionObjects();
             _thirdPersonController.freeze = false;
             _audioSource.PlayOneShot(_unpossessSound);
-            CurrentPossessionChanged?.Invoke();
         }
     }
 
@@ -81,6 +80,7 @@ public class PossessionController : MonoBehaviour, IObserver
         CurrentPossession.GetComponent<IPossessable>().Unpossess();
         CurrentPossession = null;
         CurrentThrowable = null;
+        CurrentPossessionChanged?.Invoke(CurrentPossession);
     }
 
     public void OnNotify(ObservableObject observableObject)
