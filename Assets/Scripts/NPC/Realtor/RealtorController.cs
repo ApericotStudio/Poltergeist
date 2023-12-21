@@ -27,7 +27,7 @@ public class RealtorController : NpcController
     private float _sootheCooldown = 15f;
     private float _sootheCooldownTimer = 0;
     [Tooltip("Minimum fear change required to make realtor play soothing animation"), Range(0f, 50f), SerializeField]
-    private float _minimuFearToSoothe = 4f;
+    private float _minimumFearToSoothe = 4f;
 
     private int _currentVisitorIndex = 0;
 
@@ -70,7 +70,7 @@ public class RealtorController : NpcController
 
     public void Soothe(float fear, float difference, VisitorController visitor)
     {
-        if (difference > _minimuFearToSoothe && _sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
+        if (difference > _minimumFearToSoothe && _sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
         {
             _sootheCooldownTimer = _sootheCooldown;
             Agent.isStopped = true;
