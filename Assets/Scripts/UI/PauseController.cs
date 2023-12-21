@@ -55,7 +55,6 @@ public class PauseController : MonoBehaviour
 
     private void OnButtonMapButtonPressed()
     {
-        gameObject.SetActive(false);
         _buttonMap.SetActive(true);
     }
 
