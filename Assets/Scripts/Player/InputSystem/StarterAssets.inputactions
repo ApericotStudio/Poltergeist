@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GhostFaceChange",
+                    "type": "Button",
+                    "id": "c89c8fb3-5eee-41e0-8076-b5e7fee2c9ba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -356,6 +365,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "PolterSenseLeave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7cefdc04-226c-4072-ae59-9a7cbfff4242",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "GhostFaceChange",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
