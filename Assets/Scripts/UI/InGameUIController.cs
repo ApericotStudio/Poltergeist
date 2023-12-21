@@ -14,22 +14,15 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private GameObject _tutorialCard;
     [SerializeField] private TextMeshProUGUI _tutorialCardTitle;
     [SerializeField] private TextMeshProUGUI _tutorialCardDescription;
-
     [SerializeField] private List<TutorialCardMessage> _tutorialCardMessages = new();
     private int _tutorialCardIndex = 0;
 
-    public void ShowNotification(string text, float duration)
-    {
-        GameObject notification = Instantiate(_notificationPrefab, _notificationParent);
-        notification.GetComponentInChildren<TextMeshProUGUI>().text = text;
-        Destroy(notification, duration);
-    }
+    [SerializeField] private Transform _visitorOverlayParent;
+    [SerializeField] private GameObject _visitorCollection;
 
-    public void SetTutorial(TutorialCardMessage tutorialCardMessage)
+    private void Awake()
     {
-        _tutorialCard.SetActive(true);
-        _tutorialCardTitle.text = tutorialCardMessage.Title;
-        _tutorialCardDescription.text = tutorialCardMessage.Description;
+        AddNpcOverlays();
     }
 
     private void Update()
@@ -49,6 +42,29 @@ public class InGameUIController : MonoBehaviour
             {
                 _tutorialCard.SetActive(false);
             }
+        }
+    }
+
+    public void ShowNotification(string text, float duration)
+    {
+        GameObject notification = Instantiate(_notificationPrefab, _notificationParent);
+        notification.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        Destroy(notification, duration);
+    }
+
+    public void SetTutorial(TutorialCardMessage tutorialCardMessage)
+    {
+        _tutorialCard.SetActive(true);
+        _tutorialCardTitle.text = tutorialCardMessage.Title;
+        _tutorialCardDescription.text = tutorialCardMessage.Description;
+    }
+
+    public void AddNpcOverlays()
+    {
+        foreach (VisitorController controller in _visitorCollection.GetComponentsInChildren<VisitorController>())
+        {
+            GameObject visitorOverlay = Instantiate(controller.VisitorOverlayPrefab, _visitorOverlayParent);
+            visitorOverlay.GetComponent<VisitorOverlayController>().Setup(controller);
         }
     }
 }

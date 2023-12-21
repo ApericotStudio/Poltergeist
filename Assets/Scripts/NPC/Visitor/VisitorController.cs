@@ -58,6 +58,9 @@ public class VisitorController : NpcController
     public PanickedState PanickedStateInstance { get; private set; }
     public ScaredState ScaredStateInstance { get; private set; }
 
+    [Header("UI")]
+    public GameObject VisitorOverlayPrefab;
+
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
