@@ -6,19 +6,19 @@ public class IdleState : IState
     private readonly NpcController _npcController;
 
     private IState _stateToReturnTo;
-    private float _timeIdle;
+    private Animator _animator;
+    private string _animationName;
 
     public IdleState(NpcController _npcController)
     {
         this._npcController = _npcController;
-        this._stateToReturnTo = null;
-        this._timeIdle = 0;
     }
-    public IdleState(NpcController _npcController, IState StateToReturnTo, float TimeIdle)
+    public IdleState(NpcController _npcController, IState StateToReturnTo, Animator _animator, string _animationName)
     {
         this._npcController = _npcController;
         this._stateToReturnTo = StateToReturnTo;
-        this._timeIdle = TimeIdle;
+        this._animator = _animator;
+        this._animationName = _animationName;
     }
 
     public void Handle()
@@ -28,7 +28,7 @@ public class IdleState : IState
             _npcController.StartCoroutine(IdleCoroutine());
         } else
         {
-            _npcController.StartCoroutine(IdleCoroutineWithTimer());
+            _npcController.StartCoroutine(IdleCoroutineUntilAnimation());
         }
 
         
@@ -47,9 +47,10 @@ public class IdleState : IState
         }
     }
 
-    private IEnumerator IdleCoroutineWithTimer()
+    private IEnumerator IdleCoroutineUntilAnimation()
     {
-        yield return new WaitForSeconds(_timeIdle);
+        yield return new WaitWhile(() => !_animator.GetCurrentAnimatorStateInfo(0).IsName(_animationName));
+        yield return new WaitWhile(() => _animator.GetCurrentAnimatorStateInfo(0).IsName(_animationName));
         _npcController.CurrentState = _stateToReturnTo;
     }
 

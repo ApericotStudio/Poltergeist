@@ -13,7 +13,7 @@ public class VisitorController : NpcController
     [Tooltip("The fear value of the visitor."), SerializeField, Range(0f, 100f)]
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
-    public UnityEvent<float> OnFearValueChange;
+    public UnityEvent<float, float, VisitorController> OnFearValueChange;
     [Tooltip("Makes the visitor more scared for specific items based on the phobia")]
     public ObjectPhobia VisitorPhobia;
 
@@ -48,8 +48,9 @@ public class VisitorController : NpcController
     { 
         get => _fearValue; 
         set {
+            float _fearDifference = value - _fearValue;
             _fearValue = value;
-            OnFearValueChange.Invoke(_fearValue);
+            OnFearValueChange.Invoke(_fearValue, _fearDifference, this);
         }  
     }
     public IdleState IdleStateInstance { get; private set; }
