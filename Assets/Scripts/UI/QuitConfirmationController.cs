@@ -24,6 +24,7 @@ public class QuitConfirmationController : MonoBehaviour
 
     private void OnConfirmButtonPressed()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(_mainMenuSceneName);
     }
 
