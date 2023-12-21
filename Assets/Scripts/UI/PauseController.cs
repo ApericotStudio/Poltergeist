@@ -14,6 +14,7 @@ public class PauseController : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject _options;
     [SerializeField] private GameObject _buttonMap;
+    [SerializeField] private GameObject _quitConfirmation;
 
     [Header("Progress References")]
     [SerializeField] private TextMeshProUGUI _timePassed;
@@ -21,7 +22,6 @@ public class PauseController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _differentObjectsUsed;
 
     [Header("Other References")]
-    [SerializeField] private string _mainMenuSceneName;
     [SerializeField] private GradeController _gradeController;
 
     private void Awake()
@@ -45,7 +45,6 @@ public class PauseController : MonoBehaviour
     private void OnResumeButtonPressed()
     {
         gameObject.SetActive(false);
-        // unpause game
     }
 
     private void OnOptionsButtonPressed()
@@ -62,7 +61,7 @@ public class PauseController : MonoBehaviour
 
     private void OnMainMenuButtonPressed()
     {
-        SceneManager.LoadScene(_mainMenuSceneName);
+        _quitConfirmation.SetActive(true);
     }
 
     private void SetProgress(Grade grade)

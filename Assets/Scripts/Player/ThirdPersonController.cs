@@ -125,8 +125,10 @@ namespace StarterAssets
             }
             int playerLayer = LayerMask.NameToLayer("Player");
             int npcObjectLayer = LayerMask.NameToLayer("Npc");
+            int cameraObjectLayer = LayerMask.NameToLayer("Camera");
 
             Physics.IgnoreLayerCollision(playerLayer, npcObjectLayer);
+            Physics.IgnoreLayerCollision(playerLayer, cameraObjectLayer);
         }
 
         private void Start()
