@@ -61,12 +61,20 @@ public class ObservablePhysics : MonoBehaviour
                 {
                     Destroy(outline);
                 }
-
                 _observableObject.ClearObservers();
+                DestroyObject();
             }
         }
     }
-        
+
+    private void DestroyObject()
+    {
+        if(gameObject.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer))
+        {
+            meshRenderer.enabled = false;
+        }
+
+    }
     private void OnCollisionExit(Collision collision)
     {
         if(_observableObject.State == ObjectState.Broken)
@@ -85,6 +93,7 @@ public class ObservablePhysics : MonoBehaviour
     {
         if(_observableObject.State == ObjectState.Broken)
         {
+
             return;
         }
         if (_rigidbody.velocity.magnitude > 0.1f)
