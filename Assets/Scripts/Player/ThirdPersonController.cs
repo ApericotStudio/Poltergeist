@@ -323,7 +323,7 @@ namespace StarterAssets
             _controller.enabled = true;
         }
 
-        public void TogglePlayerVisible(GameObject currentPossession)
+        public void TogglePlayerVisible()
         {
             foreach (SkinnedMeshRenderer mesh in _meshRs) { mesh.enabled = _posControl.CurrentPossession == null; }
         }

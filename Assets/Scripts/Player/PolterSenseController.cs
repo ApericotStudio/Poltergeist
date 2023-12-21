@@ -19,6 +19,11 @@ public class PolterSenseController : MonoBehaviour
         {
             foreach (Outline outline in _outlinesInRange)
             {
+                if (_possessionController.CurrentPossession != null && outline.gameObject.GetComponent<Interactable>())
+                {
+                    outline.enabled = false;
+                    return;
+                }
                 outline.enabled = true;
             }
             return;
@@ -31,11 +36,6 @@ public class PolterSenseController : MonoBehaviour
 
     public void AddOutline(Outline outline)
     {
-        if(outline.gameObject.GetComponent<Interactable>() && _possessionController.CurrentPossession != null)
-        {
-            return;
-        }
-
         _outlinesInRange.Add(outline);
         if (_isOn)
         {

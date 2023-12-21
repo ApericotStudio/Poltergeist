@@ -76,7 +76,7 @@ public class AimMode : MonoBehaviour
         ExitThrowModeEvent.Invoke();
     }
 
-    public void ChangeCameraToPossession(GameObject currentPossession)
+    public void ChangeCameraToPossession()
     {
         if (_possessionController.CurrentPossession == null)
         {
