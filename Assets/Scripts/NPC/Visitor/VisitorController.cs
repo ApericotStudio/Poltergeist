@@ -60,6 +60,7 @@ public class VisitorController : NpcController
 
     [Header("UI")]
     public GameObject VisitorOverlayPrefab;
+    public GameObject VisitorsPausePrefab;
 
     private void Awake()
     {
