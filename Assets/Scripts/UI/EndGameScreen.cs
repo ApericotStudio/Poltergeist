@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class EndGameScreen : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class EndGameScreen : MonoBehaviour
     [Header("Other")]
     [SerializeField] private GradeController _gradeController;
     [SerializeField] private string _mainMenuSceneName = "MainMenuUI";
+    [SerializeField] private Image _gradeImage;
+    [SerializeField] private GradeConverter _gradeConverter;
 
     private void Awake()
     {
@@ -41,7 +44,7 @@ public class EndGameScreen : MonoBehaviour
         _timePassed.text = result.TimePassed.ToString() + " seconds";
         _phobiaScares.text = result.PhobiaScares.ToString() + " times";
         _differentObjectsUsed.text = result.DifferentObjectsUsed.ToString() + " objects used";
-        // update grade and image
+        _gradeImage.sprite = _gradeConverter.GetGradeSprite(result.Result);
     }
 
     /// <summary>
