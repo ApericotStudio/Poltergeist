@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     [Header("Adjustable variables")]
     [SerializeField] private int _timePassed;
 
+    [SerializeField] private AudioMixer _audioMixer;
+
     private void Awake()
     {
         StartCoroutine(ManageTimeLeft());
@@ -27,12 +30,14 @@ public class GameManager : MonoBehaviour
         {
             TogglePause();
         }
+    
     }
 
     private void TogglePause()
     {
         if (Time.timeScale == 0 && _pauseCanvas.activeSelf)
         {
+            PlayerPrefs.Save();
             Time.timeScale = 1;
             _pauseCanvas.SetActive(false);
             Cursor.visible = false;
