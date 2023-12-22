@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] public string HoverMessage = "Interact";
     [Tooltip("Interactable is reusable")]
     [SerializeField] private bool _hasMax = false;
-    [SerializeField] private int _maxUses = 10;
+    public int MaxUses = 10;
     [SerializeField] private bool _scary = true;
 
     public UnityEvent InteractEvent;
@@ -42,7 +42,7 @@ public class Interactable : MonoBehaviour
 
     public void Use()
     {
-        if (_uses >= _maxUses && _hasMax)
+        if (_uses >= MaxUses && _hasMax)
         {
             return;
         }
@@ -54,7 +54,7 @@ public class Interactable : MonoBehaviour
         }
         _observableObject.State = originalState;
         _uses++;
-        if (_uses >= _maxUses && _hasMax)
+        if (_uses >= MaxUses && _hasMax)
         {
             if (gameObject.TryGetComponent(out Highlight highlight)){
                 highlight.Highlightable(false);

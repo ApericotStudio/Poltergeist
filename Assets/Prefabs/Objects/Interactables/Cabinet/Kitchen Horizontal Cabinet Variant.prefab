@@ -131,7 +131,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 17ce1cdd6b07043d78b2f7fab5d5277f, type: 2}
+  - {fileID: 2100000, guid: 8904d2a3e33269647ae5fb101be3c309, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -153,6 +153,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8668023952669101446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 579021845253073588}
+  m_Layer: 3
+  m_Name: Thrower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &579021845253073588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8668023952669101446}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 335559059758086393}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &9094850496847082411
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +522,16 @@ PrefabInstance:
       objectReference: {fileID: 3398283656694359580}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
+      propertyPath: _scary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: MaxUses
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
       propertyPath: _hasMax
       value: 1
       objectReference: {fileID: 0}
@@ -503,7 +544,7 @@ PrefabInstance:
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6014817620437526480}
+      objectReference: {fileID: 5432911223318634606}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -512,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlateThrow, Assembly-CSharp
+      value: PlateThrower, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -583,7 +624,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 17ce1cdd6b07043d78b2f7fab5d5277f, type: 2}
+      objectReference: {fileID: 2100000, guid: 8904d2a3e33269647ae5fb101be3c309, type: 2}
     - target: {fileID: 8433999143914360746, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Mesh
@@ -611,6 +652,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 579021845253073588}
+    - targetCorrespondingSourceObject: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 6211361461245656909}
     - targetCorrespondingSourceObject: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -632,7 +677,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8440278783580584740, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6014817620437526480}
+      addedObject: {fileID: 5432911223318634606}
   m_SourcePrefab: {fileID: 100100000, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
 --- !u!4 &335559059758086393 stripped
 Transform:
@@ -686,7 +731,7 @@ MonoBehaviour:
   _rotationDirection: 1
   _rotationAxis: 1
   _pivotObject: {fileID: 2189590800224851723}
---- !u!114 &6014817620437526480
+--- !u!114 &5432911223318634606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -695,10 +740,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3641300511731537466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38c6ab7c35acaed4fa2b88f02a4d2efd, type: 3}
+  m_Script: {fileID: 11500000, guid: de5b99caf511a1349b100483a2ac4460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plateCollection: {fileID: 2650431947973399272}
+  _thrower: {fileID: 8668023952669101446}
+  _objectCollection: {fileID: 2650431947973399272}
   _maxThrowForce: 20
   _minThrowForce: 15
   _directionRandomness: 0.1
