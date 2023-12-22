@@ -27,6 +27,11 @@ public class InGameUIController : MonoBehaviour
 
     private void Update()
     {
+        //TestTutorialAndNotifications();
+    }
+
+    private void TestTutorialAndNotifications()
+    {
         if (Input.GetKeyDown(KeyCode.R))
         {
             ShowNotification("I can't believe you've done this", 3);
