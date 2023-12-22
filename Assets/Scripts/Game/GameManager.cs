@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,8 +21,27 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        float volume = PlayerPrefs.GetFloat(PlayerPrefsVariable.Volume.ToString(), 1);
+        _audioMixer.SetFloat("GameVol", volume);
+
+        int fullscreen = PlayerPrefs.GetInt(PlayerPrefsVariable.Fullscreen.ToString(), 1);
+        if (fullscreen == 1)
+        {
+            Screen.fullScreen = true;
+        }
+        else
+        {
+            Screen.fullScreen = false;
+        }
+
         StartCoroutine(ManageTimeLeft());
         _pauseCanvas.GetComponent<PauseController>().ResumeButton.onClick.AddListener(TogglePause);
+    }
+
+    private void Start()
+    {
+        float volume = PlayerPrefs.GetFloat(PlayerPrefsVariable.Volume.ToString(), 1);
+        _audioMixer.SetFloat("GameVol", Mathf.Log10(volume) * 20);
     }
 
     private void Update()

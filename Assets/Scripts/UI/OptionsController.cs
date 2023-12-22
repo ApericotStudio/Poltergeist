@@ -37,14 +37,6 @@ public class OptionsController : MonoBehaviour
         SetupButtons();
     }
 
-    private void Start()
-    {
-        Screen.fullScreen = PlayerPrefs.GetInt(PlayerPrefsVariable.Fullscreen.ToString(), Screen.fullScreen ? 1 : 0) == 1;
-        Screen.brightness = PlayerPrefs.GetInt(PlayerPrefsVariable.Brightness.ToString(), 100);
-        float volume = PlayerPrefs.GetFloat(PlayerPrefsVariable.Volume.ToString(), 1);
-        _audioMixer.SetFloat("GameVol", volume);
-    }
-
     private void OnEnable()
     {
         SetSliders();
@@ -109,6 +101,7 @@ public class OptionsController : MonoBehaviour
 
     private void OnFullscreenTogglePressed(bool value)
     {
+        Screen.fullScreen = value;
         PlayerPrefs.SetInt(PlayerPrefsVariable.Fullscreen.ToString(), value ? 1 : 0);
         PlayerPrefs.Save();
     }
