@@ -22,9 +22,11 @@ public class PolterSenseController : MonoBehaviour
                 if (_possessionController.CurrentPossession != null && outline.gameObject.GetComponent<Interactable>())
                 {
                     outline.enabled = false;
-                    return;
                 }
-                outline.enabled = true;
+                else
+                {
+                    outline.enabled = true;
+                }
             }
             return;
         }
