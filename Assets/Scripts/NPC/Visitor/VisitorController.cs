@@ -67,16 +67,12 @@ public class VisitorController : NpcController
         Agent = GetComponent<NavMeshAgent>();
         InitializeController();
         InitializeStateInstances();
-    }
-    
-    private void FixedUpdate()
-    {
-        ChangeBehaviourBasedOnFear();
+        OnFearValueChange.AddListener(ChangeBehaviourBasedOnFear);
     }
 
-    private void ChangeBehaviourBasedOnFear()
+    private void ChangeBehaviourBasedOnFear(float fear, float fearDifference, VisitorController visitorController)
     {
-        if(FearValue >= 100f && CurrentState is not PanickedState)
+        if(fear >= 100f && CurrentState is not PanickedState)
         {
             CurrentState = PanickedStateInstance;
             return;
