@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectWithDoor : MonoBehaviour
@@ -131,20 +130,21 @@ public class ObjectWithDoor : MonoBehaviour
     private Quaternion GetRotation()
     {
         Quaternion rotation = _pivot.rotation;
+        float _rotationWithDirection = _rotationAmount;
         if (_rotationDirection is RotationDirection.LeftInward)
         {
-            _rotationAmount *= -1;
+            _rotationWithDirection *= -1;
         }
         switch (_rotationAxis)
         {
             case RotationAxis.x:
-                rotation = Quaternion.Euler(new Vector3(_awakeRotation.x + _rotationAmount, 0, 0));
+                rotation = Quaternion.Euler(new Vector3(_awakeRotation.x + _rotationWithDirection, 0, 0));
                 break;
             case RotationAxis.y:
-                rotation = Quaternion.Euler(new Vector3(0, _awakeRotation.y + _rotationAmount, 0));
+                rotation = Quaternion.Euler(new Vector3(0, _awakeRotation.y + _rotationWithDirection, 0));
                 break;
             case RotationAxis.z:
-                rotation = Quaternion.Euler(new Vector3(0, 0, _awakeRotation.z + _rotationAmount));
+                rotation = Quaternion.Euler(new Vector3(0, 0, _awakeRotation.z + _rotationWithDirection));
                 break;
         }
         return rotation;

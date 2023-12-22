@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class RealtorController : NpcController
@@ -22,6 +23,12 @@ public class RealtorController : NpcController
     public float FootstepVolume = 0.5f;
     [Tooltip("The current check up origin of the realtor. This is the location the realtor will roam around.")]
     public Transform CurrentCheckUpOrigin;
+    [Tooltip("Cooldown of soothing."), Range(0f, 30f), SerializeField]
+    private float _sootheCooldown = 15f;
+    private float _sootheCooldownTimer = 0;
+    [Tooltip("Minimum fear change required to make realtor play soothing animation"), Range(0f, 50f), SerializeField]
+    private float _minimumFearToSoothe = 4f;
+
     private int _currentVisitorIndex = 0;
 
     private CheckUpState _checkUpState;
@@ -32,7 +39,7 @@ public class RealtorController : NpcController
         InitializeController();
         CurrentCheckUpOrigin = _visitorCollection.transform.GetChild(_currentVisitorIndex);
         _checkUpState = new CheckUpState(this);
-        _idleAfterInvestigateState = new IdleState(this, _checkUpState, 6);
+        _idleAfterInvestigateState = new IdleState(this, _checkUpState, Animator, "Investigate");
         InvestigateStateInstance = new InvestigateState(this, _idleAfterInvestigateState);
     }
 
@@ -58,6 +65,46 @@ public class RealtorController : NpcController
                 int index = Random.Range(0, FootstepAudioClips.Length);
                 AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.position, FootstepVolume);
             }
+        }
+    }
+
+    public void Soothe(float fear, float difference, VisitorController visitor)
+    {
+        if (difference > _minimumFearToSoothe && _sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
+        {
+            _sootheCooldownTimer = _sootheCooldown;
+            Agent.isStopped = true;
+            Agent.velocity = Vector3.zero;
+            Animator.SetTrigger("Soothe");
+            LookAt(visitor.gameObject.GetComponent<VisitorSenses>().HeadTransform);
+            StartCoroutine(WaitForSoothe(visitor));
+        }
+    }
+
+    private IEnumerator WaitForSoothe(VisitorController visitor)
+    {
+        //wait until animation is Soothe animation.
+        yield return new WaitWhile(() => !Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"));
+        //rotate to visitor while you are in the soothe animation.
+        while (Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"))
+        {
+            Vector3 rotationDir = visitor.transform.position - this.transform.position;
+            rotationDir.y = 0;
+            Quaternion rotationQuat = Quaternion.LookRotation(rotationDir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotationQuat, Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        LookAt(InspectTarget);
+        Agent.isStopped = false;
+        StartCoroutine(SootheCooldown());
+    }
+
+    private IEnumerator SootheCooldown()
+    {
+        while (_sootheCooldownTimer >= 0)
+        {
+            _sootheCooldownTimer -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
     }
 }
