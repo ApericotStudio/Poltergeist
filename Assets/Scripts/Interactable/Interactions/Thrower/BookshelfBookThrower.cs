@@ -21,6 +21,6 @@ public class Bookshelf : Thrower
     public override void Throw()
     {
         int amountToThrow = (int)System.Math.Ceiling((double)_totalBooks / _interactable.MaxUses);
-        StartCoroutine(ThrowObjects(amount: amountToThrow, random: _randomBooksThrown, amountThrownAtATime: _booksThrownAtATime));
+        StartCoroutine(ThrowObjects(amount: amountToThrow, randomThrowForce: _randomBooksThrown, amountThrownAtATime: _booksThrownAtATime));
     }
 }

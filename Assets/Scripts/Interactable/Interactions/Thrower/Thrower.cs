@@ -30,7 +30,7 @@ public abstract class Thrower : MonoBehaviour
 
     public abstract void Throw();
 
-    protected IEnumerator ThrowObjects(int amount = 0, bool random = false, int amountThrownAtATime = 0)
+    protected IEnumerator ThrowObjects(int amount = 0, bool randomThrowForce = false, bool randomObjectPick = true, int amountThrownAtATime = 0)
     {
         if (amount == 0)
         {
@@ -54,11 +54,20 @@ public abstract class Thrower : MonoBehaviour
                     break;
                 }
                 
-                int randomIndex = rand.Next(_objectRigidbodies.Count);
-                randomObject = _objectRigidbodies[randomIndex];
-                _objectRigidbodies.RemoveAt(randomIndex);
+                int index;
+                
+                if(randomObjectPick)
+                {
+                    index = rand.Next(_objectRigidbodies.Count);
+                }
+                else
+                {
+                    index = 0;
+                }
+                randomObject = _objectRigidbodies[index];
+                _objectRigidbodies.RemoveAt(index);
 
-                ThrowObject(randomObject, random);
+                ThrowObject(randomObject, randomThrowForce);
             }
 
             yield return new WaitForSeconds(1 / _throwRate);
