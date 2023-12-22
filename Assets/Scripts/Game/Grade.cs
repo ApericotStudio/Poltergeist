@@ -82,17 +82,44 @@ public class Grade
         }
     }
 
+    private int _differentObjectsUsedScore
+    {
+        get
+        {
+            int totalAmountOfObjects = 30; // this is an estimate
+            int objectsUsedPercentage = _differentObjectsUsed / totalAmountOfObjects * 100;
+            if (objectsUsedPercentage >= 80) return 4;
+            if (objectsUsedPercentage >= 50) return 3;
+            if (objectsUsedPercentage >= 25) return 2;
+            return 1;
+        }
+    }
+
+    private int _phobiaScaresScore
+    {
+        get
+        {
+            if (_phobiaScares >= 9) return 4;
+            if (_phobiaScares >= 4) return 3;
+            if (_phobiaScares >= 1) return 2;
+            return 1;
+        }
+    }
+
+    private int _timePassedScore
+    {
+        get
+        {
+            if (_timePassed <= 90) return 4;
+            if (_timePassed <= 180) return 3;
+            if (_timePassed <= 300) return 2;
+            return 1;
+        }
+    }
+
     private int CalculateResult()
     {
-        int score = 0;
-        score -= _visitorsLeft * 20;
-        score += _differentObjectsUsed * 5;
-        score += PhobiaScares * 10;
-        score += 120 - _timePassed;
-        if (score < 0)
-        {
-            score = 0;
-        }
-        return score;
+        int totalScore = _differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore / 3;
+        return totalScore;
     }
 }
