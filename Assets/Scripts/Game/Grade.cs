@@ -119,7 +119,7 @@ public class Grade
 
     private int CalculateResult()
     {
-        int totalScore = _differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore / 3;
+        int totalScore = (_differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore) / 3;
         return totalScore;
     }
 }
