@@ -62,14 +62,22 @@ public class ObservablePhysics : MonoBehaviour
                     Destroy(outline);
                 }
                 _observableObject.ClearObservers();
-                DestroyObject();
+
+                if(gameObject.TryGetComponent(out MeshBreaker meshBreak))
+                {
+                    meshBreak.BreakMesh();
+                }
+                else
+                {
+                    DestroyObject();
+                }
             }
         }
     }
 
     private void DestroyObject()
     {
-        if(gameObject.TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer))
+        if(gameObject.TryGetComponent(out MeshRenderer meshRenderer))
         {
             meshRenderer.enabled = false;
         }
