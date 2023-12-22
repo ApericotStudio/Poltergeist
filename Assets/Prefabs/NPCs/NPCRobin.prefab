@@ -20,11 +20,6 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 4b7c087480fd146f2a8887a1805decad, type: 2}
     - target: {fileID: 1306518244182312063, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
-      propertyPath: AuditoryRange
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1306518244182312063, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
-        type: 3}
       propertyPath: HeadTransform
       value: 
       objectReference: {fileID: 8504536595993712899}
@@ -33,11 +28,18 @@ PrefabInstance:
       propertyPath: VisitorPhobia
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6070195381934028526, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
-      propertyPath: avoidancePriority
-      value: 20
-      objectReference: {fileID: 0}
+      propertyPath: VisitorsPausePrefab
+      value: 
+      objectReference: {fileID: 6708868490547292048, guid: 7edd6454c6a0aef439f5db357af1e904,
+        type: 3}
+    - target: {fileID: 4531111113754646614, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
+        type: 3}
+      propertyPath: VisitorOverlayPrefab
+      value: 
+      objectReference: {fileID: 7373052961423015484, guid: 84895b4f52b47e245844a586f61b962d,
+        type: 3}
     - target: {fileID: 8334725635003804250, guid: 0b19bdcdfd9aa4787988ef8a0c4d7715,
         type: 3}
       propertyPath: m_LocalPosition.x

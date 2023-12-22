@@ -41,17 +41,14 @@ public class PolterSenseController : MonoBehaviour
 
     private void CheckCancellationTokens()
     {
-        List<Outline> removedOutlines = new List<Outline>();
-        foreach (Outline outline in _outlinesInRange)
+        for (int i = 0; i < _outlinesInRange.Count; i++)
         {
-            if (outline.destroyCancellationToken.IsCancellationRequested)
+
+            if (_outlinesInRange[i] == null || _outlinesInRange[i].destroyCancellationToken.IsCancellationRequested)
             {
-                removedOutlines.Add(outline);
+                _outlinesInRange.RemoveAt(i);
             }
-        }
-        foreach (Outline outline in removedOutlines)
-        {
-            _outlinesInRange.Remove(outline);
+
         }
     }
 }

@@ -24,9 +24,13 @@ public class PauseController : MonoBehaviour
     [Header("Other References")]
     [SerializeField] private GradeController _gradeController;
 
+    [SerializeField] private Transform _visitorOverlayParent;
+    [SerializeField] private GameObject _visitorCollection;
+
     private void Awake()
     {
         SetupButtons();
+        AddNpcOverlays();
     }
 
     private void OnEnable()
@@ -70,8 +74,12 @@ public class PauseController : MonoBehaviour
         _differentObjectsUsed.text = grade.DifferentObjectsUsed.ToString();
     }
 
-    private void SetVisitor()
+    private void AddNpcOverlays()
     {
-        // update visitors information
+        foreach (VisitorController controller in _visitorCollection.GetComponentsInChildren<VisitorController>())
+        {
+            GameObject visitorOverlay = Instantiate(controller.VisitorsPausePrefab, _visitorOverlayParent);
+            visitorOverlay.GetComponent<VisitorOverlayController>().Setup(controller);
+        }
     }
 }
