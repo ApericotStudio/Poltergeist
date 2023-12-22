@@ -131,7 +131,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 17ce1cdd6b07043d78b2f7fab5d5277f, type: 2}
+  - {fileID: 2100000, guid: 8904d2a3e33269647ae5fb101be3c309, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -522,6 +522,11 @@ PrefabInstance:
       objectReference: {fileID: 3398283656694359580}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
+      propertyPath: _scary
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
       propertyPath: MaxUses
       value: 1
       objectReference: {fileID: 0}
@@ -539,7 +544,7 @@ PrefabInstance:
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5432911223318634606}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -548,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlateThrow, Assembly-CSharp
+      value: PlateThrower, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -619,7 +624,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 17ce1cdd6b07043d78b2f7fab5d5277f, type: 2}
+      objectReference: {fileID: 2100000, guid: 8904d2a3e33269647ae5fb101be3c309, type: 2}
     - target: {fileID: 8433999143914360746, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Mesh
