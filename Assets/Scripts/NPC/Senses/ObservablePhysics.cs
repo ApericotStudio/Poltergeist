@@ -5,7 +5,6 @@ public class ObservablePhysics : MonoBehaviour
     private ObservableObject _observableObject;
     private AudioSource _audioSource;
     private Rigidbody _rigidbody;
-    private LayerMask _obstacleMask;
     private Collider _collider;
     [Tooltip("Is the object breakable?"), SerializeField]
     private bool _isBreakable = false;
@@ -41,11 +40,7 @@ public class ObservablePhysics : MonoBehaviour
         if (collision.impulse.magnitude > _minimumImpulse)
         {
             PlayHittingGroundSound();
-
-            if (collision.gameObject.layer == _obstacleMask)
-            {
-                _observableObject.State = ObjectState.Hit;
-            }
+            _observableObject.State = ObjectState.Hit;
         }
         
         if(_isBreakable)
@@ -65,22 +60,35 @@ public class ObservablePhysics : MonoBehaviour
                 {
                     Destroy(outline);
                 }
-
                 _observableObject.ClearObservers();
+
+                if(gameObject.TryGetComponent(out MeshBreaker meshBreak))
+                {
+                    meshBreak.BreakMesh();
+                }
+                else
+                {
+                    DestroyObject();
+                }
             }
         }
     }
-        
+
+    private void DestroyObject()
+    {
+        if(gameObject.TryGetComponent(out MeshRenderer meshRenderer))
+        {
+            meshRenderer.enabled = false;
+        }
+
+    }
     private void OnCollisionExit(Collision collision)
     {
         if(_observableObject.State == ObjectState.Broken)
         {
             return;
         }
-        if (collision.gameObject.layer == _obstacleMask)
-        {
-            _observableObject.State = ObjectState.Moving;
-        }
+        _observableObject.State = ObjectState.Moving;
     }
 
     private void FixedUpdate()
@@ -92,6 +100,7 @@ public class ObservablePhysics : MonoBehaviour
     {
         if(_observableObject.State == ObjectState.Broken)
         {
+
             return;
         }
         if (_rigidbody.velocity.magnitude > 0.1f)

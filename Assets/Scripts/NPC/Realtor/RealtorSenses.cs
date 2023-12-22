@@ -19,8 +19,8 @@ public class RealtorSenses : BaseSenses
 
     protected override void Awake()
     {
-        base.Awake();
         _realtorController = GetComponent<RealtorController>();
+        base.Awake();
         StartCoroutine(DecreaseNpcFear());
     }
 
@@ -35,6 +35,7 @@ public class RealtorSenses : BaseSenses
                 if (!SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
                     DetectedVisitors[i].SeenByRealtor = true;
+                    DetectedVisitors[i].OnFearValueChange.AddListener(_realtorController.Soothe);
                     SoothedVisitors.Add(DetectedVisitors[i]);
                 }
             }
@@ -43,6 +44,7 @@ public class RealtorSenses : BaseSenses
                 if (SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
                     DetectedVisitors[i].SeenByRealtor = false;
+                    DetectedVisitors[i].OnFearValueChange.RemoveListener(_realtorController.Soothe);
                     SoothedVisitors.Remove(DetectedVisitors[i]);
                 }
             }  
@@ -78,6 +80,7 @@ public class RealtorSenses : BaseSenses
         foreach(VisitorController visitor in SoothedVisitors)
         {
             visitor.SeenByRealtor = false;
+            visitor.OnFearValueChange.RemoveListener(_realtorController.Soothe);
         }
         SoothedVisitors.Clear();
     }

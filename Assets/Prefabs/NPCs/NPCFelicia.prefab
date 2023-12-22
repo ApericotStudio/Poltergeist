@@ -5385,6 +5385,10 @@ MonoBehaviour:
   FearReductionHasCooldown: 0
   SeenByRealtor: 0
   CurrentRoomIndex: 0
+  VisitorOverlayPrefab: {fileID: 8105716062269869212, guid: 9bb53f46ac8f8004dbdb051c28ad4312,
+    type: 3}
+  VisitorsPausePrefab: {fileID: 1564665377593265591, guid: fb749535c83bb01479558fbb1a50f340,
+    type: 3}
 --- !u!114 &1306518244182312063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5425,11 +5429,6 @@ MonoBehaviour:
   _audibleMultiplier: 1
   _visibleAndAudibleMultiplier: 1.5
   _brokenAddition: 5
-  _usageMultipliers:
-  - 1
-  - 0.5
-  - 0.25
-  - 0
   _phobiaValue: 10
   _scaredThreshold: 22
 --- !u!114 &9066106825480100028
