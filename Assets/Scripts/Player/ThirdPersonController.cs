@@ -129,6 +129,8 @@ namespace StarterAssets
 
             Physics.IgnoreLayerCollision(playerLayer, npcObjectLayer);
             Physics.IgnoreLayerCollision(playerLayer, cameraObjectLayer);
+
+            Sensitivity = PlayerPrefs.GetFloat(PlayerPrefsVariable.Sensitivity.ToString(), 1);
         }
 
         private void Start()
