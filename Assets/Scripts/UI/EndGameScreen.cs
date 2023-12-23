@@ -8,11 +8,13 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private GradeController _gradeController;
     [SerializeField] private GradeDisplay _gradeDisplay;
     [SerializeField] private Button _replayButton;
+    [SerializeField] private Button _timetableButton;
     [SerializeField] private LevelCatalog _levelCatalog;
 
     private void Awake()
     {
         _replayButton.onClick.AddListener(OnReplayButtonClicked);
+        _timetableButton.onClick.AddListener(OnTimetableButtonClicked);
     }
 
     public void OnEnable()
@@ -52,5 +54,10 @@ public class EndGameScreen : MonoBehaviour
     private void OnReplayButtonClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnTimetableButtonClicked()
+    {
+        SceneManager.LoadScene("MainMenuUI");
     }
 }
