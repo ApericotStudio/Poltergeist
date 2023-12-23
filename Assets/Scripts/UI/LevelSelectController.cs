@@ -15,6 +15,9 @@ public class LevelSelectController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _levelTitleText;
     [SerializeField] private TextMeshProUGUI _levelDescriptionText;
 
+    [Header("Image References")]
+    [SerializeField] private Image _gradeImage;
+
     [Header("Canvas References")]
     [SerializeField] private GameObject _mainMenuCanvas;
 
@@ -23,12 +26,15 @@ public class LevelSelectController : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private LevelCatalog _levelCatalog;
+    [SerializeField] private GradeConverter _gradeConverter;
 
     private Level _selectedLevel;
+    private Sprite _gradeImagePlaceholder;
 
     private void Awake()
     {
         SetupButtons();
+        _gradeImagePlaceholder = _gradeImage.sprite;
     }
 
     private void SetupButtons()
@@ -72,7 +78,14 @@ public class LevelSelectController : MonoBehaviour
     {
         LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
         Grade grade = levelGradeHandler.Load(level.SceneName);
-        // update grade and grade image
+        if (grade != null)
+        {
+            _gradeImage.sprite = _gradeConverter.GetGradeSprite(grade.Result);
+        }
+        else
+        {
+            _gradeImage.sprite = _gradeImagePlaceholder;
+        }
         _levelTitleText.text = level.Title;
         _levelDescriptionText.text = level.Description;
         _selectedLevel = level;
