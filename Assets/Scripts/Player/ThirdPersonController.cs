@@ -125,8 +125,12 @@ namespace StarterAssets
             }
             int playerLayer = LayerMask.NameToLayer("Player");
             int npcObjectLayer = LayerMask.NameToLayer("Npc");
+            int cameraObjectLayer = LayerMask.NameToLayer("Camera");
 
             Physics.IgnoreLayerCollision(playerLayer, npcObjectLayer);
+            Physics.IgnoreLayerCollision(playerLayer, cameraObjectLayer);
+
+            Sensitivity = PlayerPrefs.GetFloat(PlayerPrefsVariable.Sensitivity.ToString(), 1);
         }
 
         private void Start()
@@ -153,9 +157,8 @@ namespace StarterAssets
 
         private void Update()
         {
-
             GroundedCheck();
-            if (!freeze)
+            if (!freeze && Time.timeScale > 0)
             {
                 Move();
             }
@@ -163,7 +166,10 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if(Time.deltaTime > 0)
+            {
+                CameraRotation();
+            }
         }
 
         private void AssignAnimationIDs()

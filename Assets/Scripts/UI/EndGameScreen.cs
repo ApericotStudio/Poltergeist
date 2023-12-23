@@ -1,29 +1,50 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class EndGameScreen : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Button References")]
+    [SerializeField] private Button _resitButton;
+    [SerializeField] private Button _levelSelectButton;
+    [SerializeField] private Button _mainMenuButton;
+
+    [Header("Text references")]
+    [SerializeField] private TextMeshProUGUI _timePassed;
+    [SerializeField] private TextMeshProUGUI _phobiaScares;
+    [SerializeField] private TextMeshProUGUI _differentObjectsUsed;
+
+    [Header("Other")]
     [SerializeField] private GradeController _gradeController;
-    [SerializeField] private GradeDisplay _gradeDisplay;
-    [SerializeField] private Button _replayButton;
-    [SerializeField] private LevelCatalog _levelCatalog;
+    [SerializeField] private string _mainMenuSceneName = "MainMenuUI";
+    [SerializeField] private Image _gradeImage;
+    [SerializeField] private GradeConverter _gradeConverter;
 
     private void Awake()
     {
-        _replayButton.onClick.AddListener(OnReplayButtonClicked);
+        _resitButton.onClick.AddListener(OnResitButtonClicked);
+        _levelSelectButton.onClick.AddListener(OnLevelSelectButtonPressed);
+        _mainMenuButton.onClick.AddListener(OnMainMenuButtonPressed);
     }
 
     public void OnEnable()
     {
-        UpdateSummary();
+        UpdateResults();
         CheckForHighestGrade();
     }
 
-    private void UpdateSummary()
+    /// <summary>
+    /// Update values on result screen
+    /// </summary>
+    private void UpdateResults()
     {
-        _gradeDisplay.SetGrade(_gradeController.Grade);
+        Grade result = _gradeController.Grade;
+        _timePassed.text = result.TimePassed.ToString() + " seconds";
+        _phobiaScares.text = result.PhobiaScares.ToString() + " times";
+        _differentObjectsUsed.text = result.DifferentObjectsUsed.ToString() + " objects used";
+        _gradeImage.sprite = _gradeConverter.GetGradeSprite(result.Result);
     }
 
     /// <summary>
@@ -49,8 +70,18 @@ public class EndGameScreen : MonoBehaviour
         }
     }
 
-    private void OnReplayButtonClicked()
+    private void OnResitButtonClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnLevelSelectButtonPressed()
+    {
+        SceneManager.LoadScene(_mainMenuSceneName);
+    }
+
+    private void OnMainMenuButtonPressed()
+    {
+        SceneManager.LoadScene(_mainMenuSceneName);
     }
 }
