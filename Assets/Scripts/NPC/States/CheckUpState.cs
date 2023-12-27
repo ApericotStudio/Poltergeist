@@ -22,16 +22,14 @@ public class CheckUpState : IState
 
     private IEnumerator CheckUpCoroutine()
     {
-        _realtorController.Agent.stoppingDistance = 0f;
+        _realtorController.Agent.stoppingDistance = 2f;
         _realtorController.Agent.speed = _realtorController.RoamingSpeed;
 
         while (IsCheckingUp())
         {
-            if (_realtorController.Agent.remainingDistance < 0.5f)
-            {
-                Vector3 newRoamLocation = GetRoamLocation();
-                _realtorController.Agent.SetDestination(newRoamLocation);
-            }
+            yield return new WaitUntil(() => _realtorController.Agent.remainingDistance < 2.0f && !_realtorController.Agent.pathPending);
+            Vector3 newRoamLocation = GetTargetLocation();
+            _realtorController.Agent.SetDestination(newRoamLocation);
             yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
     }
@@ -65,5 +63,8 @@ public class CheckUpState : IState
         NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _realtorController.CheckUpRadius, 1);
         return hit.position;
     }
-}
 
+    private Vector3 GetTargetLocation() {
+        return _realtorController.CurrentCheckUpOrigin.position;
+    }
+}
