@@ -34,7 +34,7 @@ public class SensesEditor : Editor
         if(_realtorSenses != null)
         {
             Handles.color = Handles.color = new Color(0, 1, 0, 0.1f);
-            Handles.DrawSolidArc(_realtorSenses.transform.position, Vector3.up, Vector3.forward, 360, _realtorSenses.FearReductionRange);
+            Handles.DrawSolidArc(_realtorSenses.transform.position, Vector3.up, Vector3.forward, 360, _realtorSenses.SootheRange);
         }
     }
 
