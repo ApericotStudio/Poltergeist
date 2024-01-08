@@ -242,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4568446454504023457}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.24, y: 0, z: -17.78}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
@@ -598,10 +598,58 @@ MonoBehaviour:
   throwmode: 0
   _enterThrowModeEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _exitThrowModeEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &3495216852992203629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,10 +709,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3495216852992203629}
+        m_TargetAssemblyTypeName: VisionController, Assembly-CSharp
+        m_MethodName: ResetLook
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   CurrentPossession: {fileID: 0}
   CurrentThrowable: {fileID: 0}
   _possessSound: {fileID: 8300000, guid: 58c130ee3fc6d1644992dc9d255e14dc, type: 3}
   _unpossessSound: {fileID: 8300000, guid: 975d0b1f05167b646a435ae64adf1d38, type: 3}
+  _hoverMessage: {fileID: 0}
 --- !u!114 &6054839349699883581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,7 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7474c78a87cfacb49aabf6d8bb78fcb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npcCollection: {fileID: 0}
+  _visitorCollection: {fileID: 0}
   _teriffiedLaughClip: {fileID: 8300000, guid: 269fb3605cdc41340bb4f0885e9a86a1, type: 3}
   _bigLaughClip: {fileID: 8300000, guid: fb2fe0e98a03c4d4cb35ccab5a1861cc, type: 3}
   _smallLaughClip: {fileID: 8300000, guid: 0bdff625f4040fd47af900b1e0966449, type: 3}
@@ -943,7 +1004,7 @@ PrefabInstance:
     - target: {fileID: 3474318036830480654, guid: 0ab6ca52156d94d3ea97e62e4d98592b,
         type: 3}
       propertyPath: m_Data.m_DampPosition
-      value: 0.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3474318036830480654, guid: 0ab6ca52156d94d3ea97e62e4d98592b,
         type: 3}

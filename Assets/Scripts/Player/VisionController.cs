@@ -40,6 +40,11 @@ public class VisionController : MonoBehaviour
         LookingAtChanged?.Invoke();
     }
 
+    public void ResetLook()
+    {
+        LookingAt = null;
+    }
+
     /// <summary>
     /// Check if the middle of the camera is pointing at a game object that is no more than _visionRange away
     /// </summary>
