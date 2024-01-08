@@ -9,7 +9,7 @@ public class InvestigateState : IState
 
     private IState _stateToReturnTo;
 
-    private float _timeLooking;
+    private float _investigateTime;
 
     public InvestigateState(NpcController npcController, IState stateToReturnTo)
     {
@@ -20,7 +20,7 @@ public class InvestigateState : IState
 
     public void Handle()
     {
-        _timeLooking = _npcController.TimeLooking;
+        _investigateTime = _npcController.InvestigateTime;
         _investigateTargetCollider = _npcController.InspectTarget.GetComponent<Collider>();
         _npcController.StartCoroutine(InvestigateCoroutine());
     }
