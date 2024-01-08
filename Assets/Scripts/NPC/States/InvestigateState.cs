@@ -9,14 +9,18 @@ public class InvestigateState : IState
 
     private IState _stateToReturnTo;
 
+    private float _investigateTime;
+
     public InvestigateState(NpcController npcController, IState stateToReturnTo)
     {
         _npcController = npcController;
         _stateToReturnTo = stateToReturnTo;
+
     }
 
     public void Handle()
     {
+        _investigateTime = _npcController.InvestigateTime;
         _investigateTargetCollider = _npcController.InspectTarget.GetComponent<Collider>();
         _npcController.StartCoroutine(InvestigateCoroutine());
     }
@@ -45,7 +49,7 @@ public class InvestigateState : IState
             yield return new WaitForSeconds(0.2f);
         }
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(_investigateTime);
 
         if(IsInvestigating())
         {
