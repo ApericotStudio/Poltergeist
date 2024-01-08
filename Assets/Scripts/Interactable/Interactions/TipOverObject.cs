@@ -16,6 +16,7 @@ public class TipOverObject : MonoBehaviour
 
     public void Push()
     {
+        _rigidbody.constraints = RigidbodyConstraints.None;
         _rigidbody.AddRelativeTorque(_torque, ForceMode.Impulse);
     }
 }
