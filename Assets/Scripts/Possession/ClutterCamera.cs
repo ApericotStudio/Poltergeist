@@ -47,7 +47,10 @@ public class ClutterCamera : MonoBehaviour
     // Update is called once per frame
     private void LateUpdate()
     {
-        CameraRotation();
+        if (Time.deltaTime > 0)
+        {
+            CameraRotation();
+        }
     }
     private void CameraRotation()
     {
