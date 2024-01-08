@@ -17,13 +17,19 @@ public class NpcController : MonoBehaviour
     public int AnimIDMotionSpeed { get; private set; }
     public int AnimIDSpeed { get; private set; }
     public AudioSource AudioSource { get; private set; }
-    
+
+    public float TimeLooking { get { return _timeLooking; } }
+
     [HideInInspector]
     public float AnimationBlend;
     [HideInInspector]
     public Transform InspectTarget;
 
     private Transform lookAtTarget = null;
+
+    [SerializeField]
+    [Tooltip("Amount of time NPC will look at object before wallking away"), Range(1f, 10f)]
+    private float _timeLooking;
 
     private IState _currentState;
 
@@ -65,7 +71,7 @@ public class NpcController : MonoBehaviour
 
     public void Investigate()
     {
-        if(CurrentState is not InvestigateState and not PanickedState)
+        if(CurrentState is not PanickedState)
         {
             CurrentState = InvestigateStateInstance;
             LookAt(InspectTarget);
