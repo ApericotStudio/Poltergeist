@@ -71,7 +71,7 @@ public class NpcController : MonoBehaviour
 
     public void Investigate()
     {
-        if(CurrentState is not PanickedState)
+        if(CurrentState is not InvestigateState and not PanickedState)
         {
             CurrentState = InvestigateStateInstance;
             LookAt(InspectTarget);
