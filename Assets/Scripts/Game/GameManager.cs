@@ -2,12 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
     public delegate void TimeLeftChanged(int value);
     public event TimeLeftChanged OnTimePassedChanged;
+
+    public delegate void PauseToggled(bool isPaused);
+    public event PauseToggled OnPauseToggled;
 
     [HideInInspector] public UnityEvent OnEndGame = new UnityEvent();
 
@@ -50,7 +52,6 @@ public class GameManager : MonoBehaviour
         {
             TogglePause();
         }
-    
     }
 
     private void TogglePause()
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
             _pauseCanvas.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            OnPauseToggled?.Invoke(false);
         }
         else if (Time.timeScale == 1)
         {
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
             _pauseCanvas.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            OnPauseToggled?.Invoke(true);
         }
     }
 
