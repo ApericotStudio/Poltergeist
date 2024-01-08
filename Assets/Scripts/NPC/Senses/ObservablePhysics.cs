@@ -26,7 +26,7 @@ public class ObservablePhysics : MonoBehaviour
 
     private void Start()
     {
-        _minimumImpulse = _rigidbody.mass * ((float)_observableObject.MinimumImpulse / 10);
+        _minimumImpulse = _rigidbody.mass * ((float)_observableObject.MinimumImpulse / 40);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -41,9 +41,10 @@ public class ObservablePhysics : MonoBehaviour
         {
             PlayHittingGroundSound();
             _observableObject.State = ObjectState.Hit;
+            _observableObject.GeistCharge = 0;
         }
-        
-        if(_isBreakable)
+
+        if (_isBreakable)
         {
             if(collision.impulse.magnitude > _destroyMinimumImpulse)
             {

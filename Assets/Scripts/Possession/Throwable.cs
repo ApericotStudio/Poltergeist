@@ -39,7 +39,7 @@ public class Throwable : MonoBehaviour, IPossessable, IObserver
     public LineRenderer LineRenderer { get => _lineRenderer; set => _lineRenderer = value; }
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         _rb = this.GetComponent<Rigidbody>();
         LineRenderer = this.GetComponent<LineRenderer>();
@@ -136,7 +136,7 @@ public class Throwable : MonoBehaviour, IPossessable, IObserver
 
     private IEnumerator RechargeGeist()
     {
-        _observableObject.GeistCharge = 0;
+        yield return new WaitUntil(() => _observableObject.GeistCharge < 0.1f);
         _outline.OutlineWidth = 0;
         while (_observableObject.GeistCharge < 1f)
         {

@@ -297,7 +297,7 @@ MonoBehaviour:
   _movingSpeed: 0.038
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
-  Sensitivity: 1
+  Sensitivity: 2
   Grounded: 1
   GroundedOffset: -0.14
   GroundedRadius: 0.28
@@ -467,6 +467,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onGhostFaceChangeInput:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3183686283985870205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,6 +668,7 @@ MonoBehaviour:
   CurrentThrowable: {fileID: 0}
   _possessSound: {fileID: 8300000, guid: 58c130ee3fc6d1644992dc9d255e14dc, type: 3}
   _unpossessSound: {fileID: 8300000, guid: 975d0b1f05167b646a435ae64adf1d38, type: 3}
+  _hoverMessage: {fileID: 0}
 --- !u!114 &6054839349699883581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,12 +804,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7474c78a87cfacb49aabf6d8bb78fcb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npcCollection: {fileID: 0}
+  _visitorCollection: {fileID: 0}
   _teriffiedLaughClip: {fileID: 8300000, guid: 269fb3605cdc41340bb4f0885e9a86a1, type: 3}
   _bigLaughClip: {fileID: 8300000, guid: fb2fe0e98a03c4d4cb35ccab5a1861cc, type: 3}
   _smallLaughClip: {fileID: 8300000, guid: 0bdff625f4040fd47af900b1e0966449, type: 3}
   _smallLaughChance: 25
   _laughDelay: 0.8
+  _faceMesh: {fileID: 0}
+  _ghostResting: {fileID: 0}
+  _ghostConfused: {fileID: 0}
 --- !u!1 &6189968886108427415
 GameObject:
   m_ObjectHideFlags: 0

@@ -584,6 +584,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepVolume: 0.5
   CurrentCheckUpOrigin: {fileID: 0}
+  _sootheCooldown: 15
+  _minimumFearToSoothe: 4
 --- !u!114 &2200864632212857450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,14 +604,14 @@ MonoBehaviour:
     m_Bits: 136
   _obstacleMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   FieldOfViewAngle: 110
   SightRange: 50
   AuditoryRange: 50
   DetectedVisitors: []
-  FearReductionRange: 4
-  _reductionValue: 0.1
-  _reductionSpeed: 0.05
+  FearReductionRange: 5
+  _reductionValue: 0
+  _reductionSpeed: 0
   SoothedVisitors: []
 --- !u!114 &5086496301395845659
 MonoBehaviour:
