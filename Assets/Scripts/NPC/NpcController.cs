@@ -29,7 +29,7 @@ public class NpcController : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Amount of time NPC will look at object before wallking away"), Range(1f, 10f)]
-    private float _investigateTime;
+    private float _investigateTime = 3f;
 
     private IState _currentState;
 
