@@ -49,7 +49,7 @@ public class InvestigateState : IState
             yield return new WaitForSeconds(0.2f);
         }
 
-        yield return new WaitForSeconds(_timeLooking);
+        yield return new WaitForSeconds(_investigateTime);
 
         if(IsInvestigating())
         {
