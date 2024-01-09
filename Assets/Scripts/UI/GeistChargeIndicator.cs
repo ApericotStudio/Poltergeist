@@ -67,7 +67,7 @@ public class GeistChargeIndicator : MonoBehaviour
         _filler.fillAmount = value;
     }
 
-    public void OnDestroy()
+    public void BeforeDestroy()
     {
         GetComponentInParent<ObservableObject>().OnGeistChargeChanged -= OnGeistChargeValueChange;
         Destroy(_uiComponent);

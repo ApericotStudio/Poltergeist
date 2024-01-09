@@ -63,6 +63,7 @@ public class Interactable : MonoBehaviour
             {
                 Destroy(outline);
             }
+            GetComponentInChildren<GeistChargeIndicator>().BeforeDestroy();
             Destroy(GetComponentInChildren<GeistChargeIndicator>());
             _interactDepleted = true;
             MaxUseEvent.Invoke();
