@@ -18,6 +18,15 @@ public class ScrollingLetterController : MonoBehaviour
         StartCoroutine(WaitForVoiceOver());
     }
 
+    public void Skip()
+    {
+        StopAllCoroutines();
+        _voiceOverAudio.Stop();
+        PlayerPrefs.SetInt("HasWatchedIntroCutscene", 1);
+        PlayerPrefs.Save();
+        GoToLevelSelect();
+    }
+
     private IEnumerator WaitForVoiceOver()
     {
         float clipLength = _voiceOverAudio.clip.length;
