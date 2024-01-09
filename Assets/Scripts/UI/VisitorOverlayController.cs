@@ -17,7 +17,7 @@ public class VisitorOverlayController : MonoBehaviour
         visitorController.OnFearValueChange.AddListener(OnFearValueChanged);
     }
 
-    private void OnFearValueChanged(float fearvalue, float feardiference, VisitorController controller)
+    private void OnFearValueChanged(float fearvalue, float feardifference, VisitorController controller)
     {
         _filler.fillAmount = fearvalue / 100;
     }
