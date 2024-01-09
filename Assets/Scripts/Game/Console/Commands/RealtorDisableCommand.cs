@@ -10,9 +10,9 @@ public class RealtorDisable : ConsoleCommand
         GameObject realtor = GameObject.Find("RealtorArmature");
         if (realtor == null) { return false; }
         RealtorSenses senses = realtor.GetComponent<RealtorSenses>();
-        if (args.Length == 0){ senses.Disabled = true; }
-        if (args[0] == "false") { senses.Disabled = false; }
-        else { senses.Disabled = true; }
-        return true;
+        if (args.Length == 0){ senses.Disabled = true; return true; }
+        if (args[0] == "false") { senses.Disabled = false; return true; }
+        if (args[0] == "true") { senses.Disabled = true; return true; }
+        return false;
     }
 }
