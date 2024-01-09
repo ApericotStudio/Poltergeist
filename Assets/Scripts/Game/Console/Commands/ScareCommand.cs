@@ -7,22 +7,26 @@ public class ScareCommand : ConsoleCommand
 {
     public override bool Process(string[] args)
     {
-        if (args.Length != 1) { return false; }
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null) { return false; }
+        GameObject cheatScareObject = GameObject.Find("CheatScareObject");
+        if (args.Length != 1 || cheatScareObject == null) { return false; }
+        Interactable interactable = cheatScareObject.GetComponent<Interactable>();
+        ObservableObject observable = cheatScareObject.GetComponent<ObservableObject>();
         switch (args[0])
         {
             case "small":
+                observable.Type = ObjectType.Small;
                 break;
             case "medium":
+                observable.Type = ObjectType.Medium;
                 break;
             case "big":
-                Interactable interactable = player.GetComponentInChildren<Interactable>();
-                interactable.Use();
-                ObservableObject observable = player.GetComponentInChildren<ObservableObject>();
-                observable.GeistCharge = 1;
+                observable.Type = ObjectType.Big;
                 break;
+            default:
+                return false;
         }
+        interactable.Use();
+        observable.GeistCharge = 1;
         return true;
     }
 }
