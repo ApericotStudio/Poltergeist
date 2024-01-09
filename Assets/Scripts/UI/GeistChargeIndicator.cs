@@ -3,10 +3,30 @@ using UnityEngine.UI;
 
 public class GeistChargeIndicator : MonoBehaviour
 {
+    [SerializeField] private GameObject _uiComponent;
     [SerializeField] private Image _filler;
 
     private Vector3 _offset;
     private Transform _playerCam;
+
+    private bool _beingLookedAt = false;
+    public bool BeindLookedAt
+    {
+        get
+        {
+            return _beingLookedAt;
+        }
+        set
+        {
+            _beingLookedAt = value;
+            OnBeindLookedAtChanged(value);
+        }
+    }
+
+    private void OnBeindLookedAtChanged(bool value)
+    {
+        _uiComponent.SetActive(value);
+    }
 
     private void Awake()
     {
