@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class DeveloperConsole
 {
-    private readonly string prefix;
-    private readonly IEnumerable<IConsoleCommand> commands;
+    private readonly string _prefix;
+    private readonly IEnumerable<IConsoleCommand> _commands;
 
     public DeveloperConsole(string prefix, IEnumerable<IConsoleCommand> commands)
     {
-        this.prefix = prefix;
-        this.commands = commands;
+        this._prefix = prefix;
+        this._commands = commands;
     }
 
     public void ProcessCommand(string inputValue)
     {
-        if(!inputValue.StartsWith(prefix)) { return; }
+        if(!inputValue.StartsWith(_prefix)) { return; }
 
-        inputValue = inputValue.Remove(0, prefix.Length);
+        inputValue = inputValue.Remove(0, _prefix.Length);
 
         string[] inputSplit = inputValue.Split(' ');
 
@@ -30,7 +30,7 @@ public class DeveloperConsole
 
     public void ProcessCommand(string commandInput, string[] args)
     {
-        foreach(var command in commands)
+        foreach(var command in _commands)
         {
             if (!commandInput.Equals(command.CommandWord, System.StringComparison.OrdinalIgnoreCase))
             {

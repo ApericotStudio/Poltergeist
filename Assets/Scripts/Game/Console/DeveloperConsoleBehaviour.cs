@@ -6,54 +6,54 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class DeveloperConsoleBehaviour : MonoBehaviour
 {
-    [SerializeField] private string prefix = string.Empty;
-    [SerializeField] private ConsoleCommand[] commands = new ConsoleCommand[0];
+    [SerializeField] private string _prefix = string.Empty;
+    [SerializeField] private ConsoleCommand[] _commands = new ConsoleCommand[0];
 
     [Header("UI")]
-    [SerializeField] private GameObject uiCanvas = null;
-    [SerializeField] private TMP_InputField inputField = null;
+    [SerializeField] private GameObject _uiCanvas = null;
+    [SerializeField] private TMP_InputField _inputField = null;
 
-    private float pausedTimeScale;
+    private float _pausedTimeScale;
 
-    private static DeveloperConsoleBehaviour instance;
+    private static DeveloperConsoleBehaviour _instance;
 
-    private DeveloperConsole developerConsole;
+    private DeveloperConsole _developerConsole;
 
-    private DeveloperConsole DeveloperConsole
+    public DeveloperConsole DeveloperConsole
     {
         get
         {
-            if (developerConsole != null) { return developerConsole; }
-            return developerConsole = new DeveloperConsole(prefix, commands);
+            if (_developerConsole != null) { return _developerConsole; }
+            return _developerConsole = new DeveloperConsole(_prefix, _commands);
         }
     }
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
+        _instance = this;
 
         DontDestroyOnLoad(gameObject);
     }
 
     public void Toggle()
     {
-        if (uiCanvas.activeSelf)
+        if (_uiCanvas.activeSelf)
         {
-            Time.timeScale = pausedTimeScale;
-            uiCanvas.SetActive(false);
+            Time.timeScale = _pausedTimeScale;
+            _uiCanvas.SetActive(false);
         }
         else
         {
-            pausedTimeScale = Time.timeScale;
+            _pausedTimeScale = Time.timeScale;
             Time.timeScale = 0;
-            uiCanvas.SetActive(true);
-            inputField.ActivateInputField();
+            _uiCanvas.SetActive(true);
+            _inputField.ActivateInputField();
         }
     }
 
@@ -61,6 +61,6 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     {
         DeveloperConsole.ProcessCommand(inputValue);
 
-        inputField.text = string.Empty;
+        _inputField.text = string.Empty;
     }
 }
