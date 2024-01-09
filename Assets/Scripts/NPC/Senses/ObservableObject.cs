@@ -23,22 +23,6 @@ public enum ObjectPhobia
     Technology,
     None
 }
-/// <summary>
-/// The various types of objects that can be in the game.
-/// </summary>
-public enum ObjectType
-{
-    Big = 30,
-    Medium = 15,
-    Small = 10
-}
-
-public enum MinimumImpulse
-{
-    Big = 14,
-    Medium = 14,
-    Small = 30
-}
 
 /// <summary>
 /// The Observable Object class is used to store the state of the object. 
@@ -47,10 +31,13 @@ public enum MinimumImpulse
 public class ObservableObject : MonoBehaviour, IObservableObject
 {
     [Header("Observable Object Settings")]
-    [Tooltip("The type of object.")]
-    public ObjectType Type;
+    [Tooltip("The base fear value of this object")]
+    [SerializeField]
+    public FloatReference SizeFear;
     private ObjectState _state = ObjectState.Idle;
-    private MinimumImpulse _minimumImpulse;
+    [Tooltip("The minimum impulse for this object to cause a scare")]
+    [SerializeField]
+    private FloatReference _minimumImpulse;
     [SerializeField]
     private List<ObjectPhobia> _objectPhobia = new List<ObjectPhobia>();
     [HideInInspector] public float GeistCharge = 1;
@@ -69,9 +56,9 @@ public class ObservableObject : MonoBehaviour, IObservableObject
         }
     }
 
-    public MinimumImpulse MinimumImpulse
+    public float MinimumImpulse
     {
-        get => _minimumImpulse;
+        get => _minimumImpulse.Value;
     }
     public List<ObjectPhobia> ObjectPhobia
     {
@@ -80,18 +67,6 @@ public class ObservableObject : MonoBehaviour, IObservableObject
 
     private void Awake()
     {
-        switch (Type)
-        {
-            case ObjectType.Big:
-                _minimumImpulse = MinimumImpulse.Big;
-                break;
-            case ObjectType.Medium:
-                _minimumImpulse = MinimumImpulse.Medium;
-                break;
-            case ObjectType.Small:
-                _minimumImpulse = MinimumImpulse.Small;
-                break;
-        }
         NotifyObservers();
     }
     public void NotifyObservers()

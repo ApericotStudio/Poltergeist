@@ -63,11 +63,8 @@ public class RealtorSenses : BaseSenses
                 _realtorController.Investigate();
                 break;
             case ObjectState.Hit:
-                if (observableObject.Type == ObjectType.Small)
-                {
-                    _realtorController.InspectTarget = observableObject.transform;
-                    _realtorController.Investigate();
-                }
+                _realtorController.InspectTarget = observableObject.transform;
+                _realtorController.Investigate();
                 break;
             default:
                 return;
