@@ -31,13 +31,15 @@ namespace StarterAssets
         [SerializeField] private UnityEvent _onPolterSenseEnterInput;
         [SerializeField] private UnityEvent _onPolterSenseLeaveInput;
 		[SerializeField] private UnityEvent _onConsoleToggleInput;
+		[SerializeField] private UnityEvent _onGhostFaceChangeInput;
 
-        public UnityEvent OnCancelInput { get => _onCancelInput; set => _onCancelInput = value; }
+		public UnityEvent OnCancelInput { get => _onCancelInput; set => _onCancelInput = value; }
 		public UnityEvent OnInteractPossessInput { get => _onInteractPossessInput; set => _onInteractPossessInput = value; }
 		public UnityEvent OnUnpossessInput { get => _onUnpossessInput; set => _onUnpossessInput = value; }
 		public UnityEvent OnAimThrowInput { get => _onAimThrowInput; set => _onAimThrowInput = value; }
 		public UnityEvent OnThrowInput { get => _onThrowInput; set => _onThrowInput = value; }
 		public UnityEvent OnConsoleToggleInput { get => _onConsoleToggleInput; set => _onConsoleToggleInput = value; }
+		public UnityEvent OnGhostFaceChangeInput { get => _onGhostFaceChangeInput; set => _onGhostFaceChangeInput = value; }
 
 #if ENABLE_INPUT_SYSTEM
 		private void OnMove(InputValue value)
@@ -102,6 +104,11 @@ namespace StarterAssets
 		{
 			_onPolterSenseLeaveInput.Invoke();
 		}
+
+		private void OnGhostFaceChange(InputValue value)
+        {
+			_onGhostFaceChangeInput.Invoke();
+        }
 
 		private void OnConsoleToggle(InputValue value)
         {

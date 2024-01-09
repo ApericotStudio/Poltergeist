@@ -8,7 +8,7 @@ public class Highlight : MonoBehaviour
     [SerializeField] private List<Renderer> _renderers;
 
     [Header("Adjustable variables")]
-    [SerializeField] private Color _highlightColor = Color.white;
+    [SerializeField] private ColorReference _highlightColor;
 
     private bool _highlightable = true;
     private List<Material> _materials;
@@ -44,7 +44,7 @@ public class Highlight : MonoBehaviour
             foreach (Material material in _materials)
             {
                 material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", _highlightColor);
+                material.SetColor("_EmissionColor", _highlightColor.Value);
             }
         }
         else

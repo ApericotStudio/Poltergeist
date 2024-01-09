@@ -12,12 +12,12 @@ public class ToggleLight : MonoBehaviour
     {
         _light.enabled = !_light.enabled;
 
-        if (_light.enabled)
+        if (_light.enabled && _particleSystem)
         {
             _particleSystem.gameObject.SetActive(true);
             _particleSystem.Play();
         }
-        else
+        else if(_particleSystem)
         {
             _particleSystem.gameObject.SetActive(false);
             _particleSystem.Stop();

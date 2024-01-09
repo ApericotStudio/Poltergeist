@@ -50,7 +50,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90022449388527603}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -8678823145569952518, guid: c7f882964e12e684aa478cc52b459afb, type: 3}
 --- !u!23 &399430902451255165
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -71,7 +71,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c075d6feb809c8542bbbf550ec966f99, type: 2}
+  - {fileID: 2100000, guid: 128159bc1440e2542b9960202d78fcfe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,9 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderers:
   - {fileID: 399430902451255165}
-  - {fileID: 8752053181233398912}
-  - {fileID: 1442320071672791282}
-  _highlightColor: {r: 0.07450981, g: 0.05490196, b: 0.09411765, a: 1}
+  _highlightColor: {fileID: 11400000, guid: d0744834bedf20c479781b169de5616a, type: 2}
 --- !u!114 &5920840076699372839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 15
+  _objectPhobia: 
+  GeistCharge: 1
 --- !u!208 &2796649558626078789
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -179,18 +179,6 @@ MonoBehaviour:
   InteractEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Explode, Assembly-CSharp
-        m_MethodName: Activate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 7904657747819933024}
         m_TargetAssemblyTypeName: PlayAudio, Assembly-CSharp
         m_MethodName: Toggle
@@ -206,6 +194,8 @@ MonoBehaviour:
   MaxUseEvent:
     m_PersistentCalls:
       m_Calls: []
+  _geistChargeDuration: {fileID: 11400000, guid: 9ce298f790a10494d966b576f5cd152f,
+    type: 2}
 --- !u!114 &7904657747819933024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +212,7 @@ MonoBehaviour:
   _onlyActivatable: 1
   _keepProgress: 0
   _TurnOff: 1
+  _randomSound: 1
   DevNote: Other adjustable variables can be found in the audio source component.
 --- !u!82 &2854859454948465972
 AudioSource:
@@ -333,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {fileID: 11400000, guid: 1f0984fb97070b9408decc0bbdb3b41f, type: 2}
-  outlineWidth: 5
+  outlineWidth: 7.5
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []

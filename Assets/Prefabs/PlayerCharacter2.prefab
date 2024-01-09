@@ -298,7 +298,7 @@ MonoBehaviour:
   _movingSpeed: 0.038
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
-  Sensitivity: 1
+  Sensitivity: 2
   Grounded: 1
   GroundedOffset: -0.14
   GroundedRadius: 0.28
@@ -468,7 +468,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _onConsoleToggleInput:
+  _onGhostFaceChangeInput:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &3183686283985870205
@@ -811,6 +811,9 @@ MonoBehaviour:
   _smallLaughClip: {fileID: 8300000, guid: 0bdff625f4040fd47af900b1e0966449, type: 3}
   _smallLaughChance: 25
   _laughDelay: 0.8
+  _faceMesh: {fileID: 0}
+  _ghostResting: {fileID: 0}
+  _ghostConfused: {fileID: 0}
 --- !u!1 &6189968886108427415
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,6 +33,16 @@ PrefabInstance:
       propertyPath: _objectPhobia
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2753171116395276784, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _objectPhobia.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2753171116395276784, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _objectPhobia.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: HoverMessage
@@ -267,7 +277,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.75
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -728,10 +728,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd08495681922ec4b9374c1bade194bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resitButton: {fileID: 0}
+  _levelSelectButton: {fileID: 0}
+  _mainMenuButton: {fileID: 0}
+  _timePassed: {fileID: 0}
+  _phobiaScares: {fileID: 0}
+  _differentObjectsUsed: {fileID: 0}
   _gradeController: {fileID: 0}
-  _gradeDisplay: {fileID: 3265896773586453074}
-  _replayButton: {fileID: 1022134502286260579}
-  _levelCatalog: {fileID: 11400000, guid: 9b5b487417481cd488ddd8b4aad034b2, type: 2}
+  _mainMenuSceneName: MainMenuUI
+  _gradeImage: {fileID: 0}
+  _gradeConverter: {fileID: 0}
 --- !u!1 &9104073507405239928
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,6 +904,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Grade Display
+      objectReference: {fileID: 0}
+    - target: {fileID: 928514172662891690, guid: be57cc61b4d2a064d8ae88051ab461e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1570821265050982252, guid: be57cc61b4d2a064d8ae88051ab461e7,
         type: 3}
@@ -1259,18 +1270,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be57cc61b4d2a064d8ae88051ab461e7, type: 3}
---- !u!114 &3265896773586453074 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4873844029127264424, guid: be57cc61b4d2a064d8ae88051ab461e7,
-    type: 3}
-  m_PrefabInstance: {fileID: 7994334218685319930}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f8cae3f8b03b842934f7a5dc1dee61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &8668388151821964184 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1638705006514313570, guid: be57cc61b4d2a064d8ae88051ab461e7,
