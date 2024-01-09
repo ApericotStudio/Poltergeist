@@ -50,7 +50,6 @@ public class FearHandler : MonoBehaviour
     public void Handle(ObservableObject observableObject, DetectedProperties detectedProperties)
     {
         if(_isScared)
-        if (total > 1)
         {
             return;
         }
@@ -133,10 +132,7 @@ public class FearHandler : MonoBehaviour
         {
             brokenAddition = 0f;
         }
-        float total = (observableObject.SizeFear.Value + brokenAddition + phobiaValue) * fearValue * falloff * soothe * geistCharge;
-        if (total > 1)
-        Debug.Log(total);
-        return total;
+        return (observableObject.SizeFear.Value + brokenAddition + phobiaValue) * fearValue * falloff * soothe * geistCharge;
     }
 
     private IEnumerator ScaredCooldown()
