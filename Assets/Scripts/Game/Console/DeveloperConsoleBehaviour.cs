@@ -41,10 +41,8 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void Toggle(CallbackContext context)
+    public void Toggle()
     {
-        if(!context.action.triggered) { return; }
-
         if (uiCanvas.activeSelf)
         {
             Time.timeScale = pausedTimeScale;
