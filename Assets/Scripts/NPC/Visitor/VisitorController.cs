@@ -125,4 +125,9 @@ public class VisitorController : NpcController
             }
         }
     }
+
+    public void Despawn()
+    {
+        gameObject.SetActive(false);
+    }
 }

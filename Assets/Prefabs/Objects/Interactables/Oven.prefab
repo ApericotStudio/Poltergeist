@@ -141,7 +141,7 @@ Transform:
   m_GameObject: {fileID: 3005187382882253720}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.35100013, y: 0.069, z: 0}
+  m_LocalPosition: {x: 0.491, y: 0.069, z: 0.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -174,9 +174,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8250005058617465386}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071069, y: -0, z: -0, w: 0.70710665}
-  m_LocalPosition: {x: 0.35100013, y: -0.069, z: 0}
-  m_LocalScale: {x: 100.000015, y: 100.00002, z: 100.000015}
+  m_LocalRotation: {x: -0.7071069, y: 9.3132235e-10, z: -0, w: 0.70710665}
+  m_LocalPosition: {x: -0.491, y: -0.069, z: -0.024}
+  m_LocalScale: {x: 100.000015, y: 100.000015, z: 100.00002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7532874543723425827}
@@ -241,6 +241,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
+      propertyPath: _highlightColor.b
+      value: 0.09411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _highlightColor.g
+      value: 0.05490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _highlightColor.r
+      value: 0.07450981
+      objectReference: {fileID: 0}
+    - target: {fileID: 71347247323707012, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
       propertyPath: _renderers.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -254,6 +269,21 @@ PrefabInstance:
       propertyPath: _renderers.Array.data[1]
       value: 
       objectReference: {fileID: 7237906338504831385}
+    - target: {fileID: 2753171116395276784, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: Type
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2753171116395276784, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _objectPhobia.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2753171116395276784, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _objectPhobia.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4671154671675125317, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: InteractEvent.m_PersistentCalls.m_Calls.Array.size
@@ -359,10 +389,20 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5030223199616537604, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: _isBreakable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5341852094705022397, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Constraints
       value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineWidth
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 5967700316553098386, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
@@ -433,6 +473,8 @@ PrefabInstance:
     - {fileID: 8433999143914360746, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
     - {fileID: 8184490156097573802, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
     - {fileID: 4306626876402358202, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
+    - {fileID: 5030223199616537604, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
+    - {fileID: 5994779978372457038, guid: 550731f42b320314ba8cc42ee41050e6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4828349732225652199, guid: 550731f42b320314ba8cc42ee41050e6,
@@ -539,7 +581,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.75
       inSlope: 0
       outSlope: 0
       tangentMode: 0
