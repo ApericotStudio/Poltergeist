@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GeistChargeIndicator : MonoBehaviour
 {
@@ -66,5 +65,11 @@ public class GeistChargeIndicator : MonoBehaviour
     private void OnGeistChargeValueChange(float value)
     {
         _filler.fillAmount = value;
+    }
+
+    public void OnDestroy()
+    {
+        GetComponentInParent<ObservableObject>().OnGeistChargeChanged -= OnGeistChargeValueChange;
+        Destroy(_uiComponent);
     }
 }
