@@ -132,7 +132,7 @@ public class FearHandler : MonoBehaviour
         {
             brokenAddition = 0f;
         }
-        return (observableObject.SizeFear.Value + brokenAddition + phobiaValue) * fearValue * falloff * soothe * geistCharge;
+        return (observableObject.SizeFear.Value + brokenAddition + phobiaValue) * falloff * fearValue * soothe * geistCharge;
     }
 
     private IEnumerator ScaredCooldown()
