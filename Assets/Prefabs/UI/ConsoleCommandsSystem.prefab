@@ -707,7 +707,6 @@ GameObject:
   m_Component:
   - component: {fileID: 981976114766360839}
   - component: {fileID: 1685250647}
-  - component: {fileID: 1685250646}
   m_Layer: 0
   m_Name: ConsoleCommandsSystem
   m_TagString: Untagged
@@ -746,80 +745,7 @@ MonoBehaviour:
   prefix: /
   commands:
   - {fileID: 11400000, guid: c1eb8a67a9d8f4ff7aa05c9ec964271d, type: 2}
+  - {fileID: 11400000, guid: 7cc2a32d95212422ebe865aa0eb6d248, type: 2}
+  - {fileID: 11400000, guid: dfa8348ef462c48189035a1ab5043e51, type: 2}
   uiCanvas: {fileID: 1005529010}
   inputField: {fileID: 1669160770}
---- !u!114 &1685250646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5808037607912292054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e,
-    type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6bc1aaf4-b110-4ff7-891e-5b9fe6f32c4d
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2690c379-f54d-45be-a724-414123833eb4
-    m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8c4abdf8-4099-493a-aa1a-129acec7c3df
-    m_ActionName: Player/Jump[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e6e4fb66-c968-4a13-bc86-081fa6f315a7
-    m_ActionName: Player/Fly[/Keyboard/space,/Keyboard/shift]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 67517238-3414-41f3-9303-ae1b0841d298
-    m_ActionName: Player/Cancel[/Keyboard/c]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5f6ffa3f-76c8-45d6-95f6-0ffb57643682
-    m_ActionName: Player/Unpossess[/Keyboard/q]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ea506377-60a7-40cf-b619-056208622953
-    m_ActionName: Player/AimThrow[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 566d37d5-18c7-496f-8200-233833759f34
-    m_ActionName: Player/Throw[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e52198c8-76a1-4da4-a7d7-ab4d7e8e28d0
-    m_ActionName: Player/InteractPossess[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7c2cd20b-5973-4f82-a344-4d037f3bc576
-    m_ActionName: Player/PolterSenseEnter[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8cb9a763-8863-4c24-b5f9-91e117145af3
-    m_ActionName: Player/PolterSenseLeave[/Mouse/rightButton]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
