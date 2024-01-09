@@ -53,7 +53,22 @@ public class ObservableObject : MonoBehaviour, IObservableObject
     private MinimumImpulse _minimumImpulse;
     [SerializeField]
     private List<ObjectPhobia> _objectPhobia = new List<ObjectPhobia>();
-    [HideInInspector] public float GeistCharge = 1;
+    [HideInInspector] public float GeistCharge
+    {
+        get
+        {
+            return _geistCharge;
+        }
+        set
+        {
+            _geistCharge = value;
+            OnGeistChargeChanged?.Invoke(value);
+        }
+    }
+    private float _geistCharge = 1;
+
+    public delegate void GeistChargeChanged(float value);
+    public event GeistChargeChanged OnGeistChargeChanged;
 
     private readonly List<IObserver> _observers = new();
 
