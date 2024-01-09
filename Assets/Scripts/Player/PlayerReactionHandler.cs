@@ -20,6 +20,11 @@ public class PlayerReactionHandler : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    [Header("Ghost Faces")]
+    [SerializeField] private MeshRenderer _faceMesh;
+    [SerializeField] private Material _ghostResting;
+    [SerializeField] private Material _ghostConfused;
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -65,5 +70,19 @@ public class PlayerReactionHandler : MonoBehaviour
         yield return new WaitForSeconds(delay);
         _audioSource.clip = clip;
         _audioSource.Play();
+    }
+
+    public void ToggleFace()
+    {
+        if (_faceMesh != null)
+        {
+            if (_faceMesh.sharedMaterial == _ghostResting)
+            {
+                _faceMesh.sharedMaterial = _ghostConfused;
+            } else
+            {
+                _faceMesh.sharedMaterial = _ghostResting;
+            }
+        }
     }
 }
