@@ -65,6 +65,9 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         [SerializeField]private bool LockCameraPosition = false;
 
+        public delegate void Movevement();
+        public event Movevement onMovement;
+
         [Header("Flying")]
         public float MinHeight;
         public float MaxHeight;
@@ -103,6 +106,11 @@ namespace StarterAssets
         private bool _aim;
         private Vector3 _previousMovement;
         private Vector3 _newMovement;
+        private bool _tutorialShown;
+
+        public delegate void Movement();
+        public event Movement hasMoved;
+
         private bool IsCurrentDeviceMouse
         {
             get
@@ -243,6 +251,11 @@ namespace StarterAssets
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
 
+            if (_input.Move.x > 0f && _input.Move.y > 0f && _input.Fly > 0f)
+            {
+                _tutorialShown = true;
+                hasMoved.Invoke();
+            }
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving

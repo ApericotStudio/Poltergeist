@@ -50,6 +50,19 @@ public class InGameUIController : MonoBehaviour
         }
     }
 
+    public void ShowTutorial()
+    {
+        if (_tutorialCardMessages.Count > _tutorialCardIndex)
+        {
+            SetTutorial(_tutorialCardMessages[_tutorialCardIndex]);
+            _tutorialCardIndex++;
+        }
+        else
+        {
+            _tutorialCard.SetActive(false);
+        }
+    }
+
     public void ShowNotification(string text, float duration)
     {
         GameObject notification = Instantiate(_notificationPrefab, _notificationParent);
