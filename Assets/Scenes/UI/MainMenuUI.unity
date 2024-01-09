@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -246,6 +246,11 @@ PrefabInstance:
       propertyPath: _mainMenuCanvas
       value: 
       objectReference: {fileID: 974687425}
+    - target: {fileID: 8975785898042435727, guid: 6cbbf4ef136d97f4dbf0811aefd70237,
+        type: 3}
+      propertyPath: _introCutsceneScene
+      value: ScrollingLetter
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1377,7 +1382,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84782f57ca294f742a0482089ad0d4fa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57bbe607271690b4ea854b4a1ba1f29b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1772,6 +1777,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1379910956533779391, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593116788866845801, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2113787922176600196, guid: 9dbbfc3e03e53934793180b1669667cf,
         type: 3}
       propertyPath: _backCanvas
@@ -1781,6 +1796,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Options Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3753961809939355021, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244685748224094178, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316843399897497175, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4431150586761509171, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716499379745055331, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799916950355871018, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362788560917930239, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
