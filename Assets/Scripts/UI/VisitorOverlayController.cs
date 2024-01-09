@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class VisitorOverlayController : MonoBehaviour
 {
     [SerializeField] private Image _face;
+    [SerializeField] private Image _filler;
 
     [SerializeField] private Sprite _investigateFace;
     [SerializeField] private Sprite _panickedFace;
@@ -13,6 +14,12 @@ public class VisitorOverlayController : MonoBehaviour
     public void Setup(VisitorController visitorController)
     {
         visitorController.OnStateChange.AddListener(OnVisitorStateChanged);
+        visitorController.OnFearValueChange.AddListener(OnFearValueChanged);
+    }
+
+    private void OnFearValueChanged(float fearvalue, float feardiference, VisitorController controller)
+    {
+        _filler.fillAmount = fearvalue / 100;
     }
 
     private void OnVisitorStateChanged(IState state)
