@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GeistChargeIndicator : MonoBehaviour
 {
@@ -19,13 +20,34 @@ public class GeistChargeIndicator : MonoBehaviour
         set
         {
             _beingLookedAt = value;
-            OnBeindLookedAtChanged(value);
+            OnInfoUpdate();
         }
     }
 
-    private void OnBeindLookedAtChanged(bool value)
+    private bool _isPossessed;
+    public bool IsPossessed
     {
-        _uiComponent.SetActive(value);
+        get
+        {
+            return _isPossessed;
+        }
+        set
+        {
+            _isPossessed = value;
+            OnInfoUpdate();
+        }
+    }
+
+    private void OnInfoUpdate()
+    {
+        bool shouldBeShown = false;
+
+        if (_isPossessed || _beingLookedAt)
+        {
+            shouldBeShown = true;
+        }
+
+        _uiComponent.SetActive(shouldBeShown);
     }
 
     private void Awake()
