@@ -44,12 +44,18 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
 		private void OnMove(InputValue value)
 		{
-			MoveInput(value.Get<Vector2>());
+			if (Time.timeScale > 0)
+			{
+				MoveInput(value.Get<Vector2>());
+			}
 		}
 
 		private void OnFly(InputValue value)
 		{
-			FlyInput(value.Get<float>());
+			if (Time.timeScale > 0)
+			{
+				FlyInput(value.Get<float>());
+			}
 		}
 
 		private void OnLook(InputValue value)
@@ -72,37 +78,58 @@ namespace StarterAssets
 
 		private void OnCancel(InputValue value)
 		{
-			_onCancelInput.Invoke();
+			if (Time.timeScale > 0)
+			{
+				_onCancelInput.Invoke();
+			}
 		}
 
 		private void OnInteractPossess(InputValue value)
 		{
-			_onInteractPossessInput.Invoke();
+			if (Time.timeScale > 0)
+			{
+				_onInteractPossessInput.Invoke();
+			}
 		}
 
 		private void OnAimThrow(InputValue value)
         {
-			_onAimThrowInput.Invoke();
+			if (Time.timeScale > 0)
+			{
+				_onAimThrowInput.Invoke();
+			}
         }
 
 		private void OnThrow(InputValue value)
         {
-			_onThrowInput.Invoke();
+			if (Time.timeScale > 0)
+			{
+				_onThrowInput.Invoke();
+			}
         }
 
 		private void OnUnpossess(InputValue value)
 		{
-			_onUnpossessInput.Invoke();
+			if (Time.timeScale > 0)
+			{
+				_onUnpossessInput.Invoke();
+			}
 		}
 
 		private void OnPolterSenseEnter(InputValue value)
 		{
-			_onPolterSenseEnterInput.Invoke();
+			if (Time.timeScale > 0)
+            {
+				_onPolterSenseEnterInput.Invoke();
+			}
 		}
 
 		private void OnPolterSenseLeave(InputValue value)
 		{
-			_onPolterSenseLeaveInput.Invoke();
+			if (Time.timeScale > 0)
+			{
+				_onPolterSenseLeaveInput.Invoke();
+			}
 		}
 
 		private void OnGhostFaceChange(InputValue value)
