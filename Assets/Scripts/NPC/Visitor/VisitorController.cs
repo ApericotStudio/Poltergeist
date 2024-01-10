@@ -32,6 +32,9 @@ public class VisitorController : NpcController
     [Header("Audio Settings")]
     [Tooltip("The audio clips that will be played when the visitor moves.")]
     public AudioClip[] FootstepAudioClips;
+    [Tooltip("The audio clip that will be played when visitor runs out of the house")]
+    [SerializeField]
+    private AudioClip _runAwayClip;
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
@@ -128,6 +131,7 @@ public class VisitorController : NpcController
 
     public void Despawn()
     {
+        AudioSource.PlayClipAtPoint(_runAwayClip, transform.position);
         gameObject.SetActive(false);
     }
 }
