@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
@@ -106,9 +107,9 @@ namespace StarterAssets
         private bool _aim;
         private Vector3 _previousMovement;
         private Vector3 _newMovement;
-        private bool _tutorialShown;
+        private bool _tutorialShown = false;
 
-        public delegate void Movement();
+        public delegate void Movement(int index);
         public event Movement hasMoved;
 
         private bool IsCurrentDeviceMouse
@@ -251,10 +252,10 @@ namespace StarterAssets
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
 
-            if (_input.Move.x > 0f && _input.Move.y > 0f && _input.Fly > 0f)
+            if (_input.Fly != 0f && !_tutorialShown)
             {
                 _tutorialShown = true;
-                hasMoved.Invoke();
+                hasMoved?.Invoke(1);
             }
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -282,7 +283,6 @@ namespace StarterAssets
             {
                 targetDirection.y = 0.0f;
             }
-
 
             // move the player
             _newMovement = (targetDirection * _speed + new Vector3(0.0f, inputDirection.y, 0.0f) * _flySpeed) * Time.deltaTime;

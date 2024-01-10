@@ -6,12 +6,19 @@ public class PolterSenseController : MonoBehaviour
     [SerializeField] private List<Outline> _outlinesInRange = new List<Outline>();
     [SerializeField] private bool _isOn = false;
 
+    public delegate void PolterSense(int index);
+    public event PolterSense isEnabled;
+    private bool _tutorialShown = false;
+
     public void SetState(bool enable)
     {
         CheckCancellationTokens();
         _isOn = enable;
+
         if (enable)
         {
+            isEnabled?.Invoke(2);
+
             foreach (Outline outline in _outlinesInRange)
             {
                 outline.enabled = true;

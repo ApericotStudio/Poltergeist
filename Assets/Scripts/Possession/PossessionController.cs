@@ -21,6 +21,10 @@ public class PossessionController : MonoBehaviour, IObserver
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _hoverMessage;
 
+    public delegate void Possession(int index);
+    public event Possession hasPossessed;
+    private int _amountofPossessions = 0;
+
     private void Awake()
     {
         _thirdPersonController = GetComponent<ThirdPersonController>();
@@ -35,6 +39,7 @@ public class PossessionController : MonoBehaviour, IObserver
     /// </summary>
     public void Possess()
     {
+
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView == null)
         {
@@ -54,6 +59,13 @@ public class PossessionController : MonoBehaviour, IObserver
         }
         CurrentPossession = objectInView;
         possessable.Possess();
+
+        if (_amountofPossessions < 4)
+        {
+            hasPossessed?.Invoke(4 + _amountofPossessions);
+            ++_amountofPossessions;
+        }
+
         CurrentPossession.GetComponent<ObservableObject>().AddObserver(this);
         _thirdPersonController.freeze = true;
         _audioSource.PlayOneShot(_possessSound);

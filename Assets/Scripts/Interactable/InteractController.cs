@@ -9,6 +9,9 @@ public class InteractController : MonoBehaviour
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _hoverMessage;
 
+    public delegate void Interaction(int index);
+    public event Interaction hasInteracted;
+
     private void Start()
     {
         _possessionController = GetComponent<PossessionController>();
@@ -20,6 +23,7 @@ public class InteractController : MonoBehaviour
 
     public void Interact()
     {
+        hasInteracted?.Invoke(3);
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView != null)
         {

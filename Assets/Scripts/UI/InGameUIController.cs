@@ -50,12 +50,12 @@ public class InGameUIController : MonoBehaviour
         }
     }
 
-    public void ShowTutorial()
+    public void ShowTutorial(int index)
     {
-        if (_tutorialCardMessages.Count > _tutorialCardIndex)
+        if (_tutorialCardMessages.Count > index)
         {
-            SetTutorial(_tutorialCardMessages[_tutorialCardIndex]);
-            _tutorialCardIndex++;
+            SetTutorial(_tutorialCardMessages[index]);
+            _tutorialCardIndex = index;
         }
         else
         {
