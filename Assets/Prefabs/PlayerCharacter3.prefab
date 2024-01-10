@@ -203,7 +203,7 @@ MonoBehaviour:
     m_ConstrainedObject: {fileID: 2289880517734733925}
     m_Source: {fileID: 7907846974211528471}
     m_DampPosition: 0
-    m_DampRotation: 0.5
+    m_DampRotation: 0.699
     m_MaintainAim: 0
 --- !u!1 &2838522043872120959
 GameObject:
@@ -254,7 +254,7 @@ MonoBehaviour:
     m_ConstrainedObject: {fileID: 123747099913721973}
     m_Source: {fileID: 6055397337715455616}
     m_DampPosition: 0
-    m_DampRotation: 0.5
+    m_DampRotation: 0.735
     m_MaintainAim: 1
 --- !u!1 &3507878386586075874
 GameObject:
@@ -968,7 +968,7 @@ MonoBehaviour:
     m_ConstrainedObject: {fileID: 7907846974211528471}
     m_Source: {fileID: 123747099913721973}
     m_DampPosition: 0
-    m_DampRotation: 0.537
+    m_DampRotation: 0.507
     m_MaintainAim: 0
 --- !u!1 &5487152917545357677
 GameObject:
@@ -1070,7 +1070,7 @@ MonoBehaviour:
     m_ConstrainedObject: {fileID: 8978330244591678903}
     m_Source: {fileID: 2289880517734733925}
     m_DampPosition: 0
-    m_DampRotation: 0.5
+    m_DampRotation: 0.515
     m_MaintainAim: 0
 --- !u!1 &6189968886108427415
 GameObject:
@@ -1359,12 +1359,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
         type: 3}
       propertyPath: m_Name
-      value: 'Ghost Improved Idle- Clean '
+      value: Ghost Skeleton
       objectReference: {fileID: 0}
     - target: {fileID: 4372905354040670176, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
         type: 3}
@@ -1383,14 +1383,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8694056337047465897}
-    - targetCorrespondingSourceObject: {fileID: -4819223349682164798, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6862347729980666026}
-    - targetCorrespondingSourceObject: {fileID: -3610814045932861897, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2679729450740840632}
   m_SourcePrefab: {fileID: 100100000, guid: 6ebb28c6fa1ca4ce88a8501896e2e782, type: 3}
 --- !u!4 &123747099913721973 stripped
 Transform:
@@ -1450,34 +1442,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1776741218805850958}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2717620404563380364 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
-    type: 3}
-  m_PrefabInstance: {fileID: 1776741218805850958}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &6862347729980666026
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2717620404563380364}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!4 &3810175910873192373 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6032511827543362309, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
@@ -1490,34 +1454,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1776741218805850958}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6146163862146770297 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -3610814045932861897, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
-    type: 3}
-  m_PrefabInstance: {fileID: 1776741218805850958}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &2679729450740840632
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6146163862146770297}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!4 &6198150705193582129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3554464340732945025, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
