@@ -567,6 +567,7 @@ MonoBehaviour:
       m_Calls: []
   AnimationBlend: 0
   InspectTarget: {fileID: 0}
+  _investigateTime: 3
   RoamingSpeed: 2
   _visitorCollection: {fileID: 0}
   CheckUpTimeSpent: 30
@@ -613,6 +614,10 @@ MonoBehaviour:
   _reductionValue: 0
   _reductionSpeed: 0
   SoothedVisitors: []
+  Disabled: 0
+  _sootheMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &5086496301395845659
 MonoBehaviour:
   m_ObjectHideFlags: 0
