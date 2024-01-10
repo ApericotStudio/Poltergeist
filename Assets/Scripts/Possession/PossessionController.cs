@@ -102,12 +102,12 @@ public class PossessionController : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
-        if(observableObject.State == ObjectState.Hit && observableObject == CurrentPossession.TryGetComponent<ObservableObject>(out observableObject))
+        if(observableObject.State == ObjectState.Hit)
         {
             if (_amountofPossessions == 1)
             {
-                hasPossessed?.Invoke(4 + _amountofPossessions);
                 ++_amountofPossessions;
+                hasPossessed?.Invoke(4 + _amountofPossessions);
                 _hasHit = true;
             }
         }

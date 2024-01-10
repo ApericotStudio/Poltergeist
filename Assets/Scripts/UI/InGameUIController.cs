@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private GameObject _notificationPrefab;
 
     [SerializeField] private GameObject _tutorialCard;
+    [SerializeField] private GameObject _tutorialCardNext;
     [SerializeField] private TextMeshProUGUI _tutorialCardTitle;
     [SerializeField] private TextMeshProUGUI _tutorialCardDescription;
     [SerializeField] private List<TutorialCardMessage> _tutorialCardMessages = new();
@@ -27,7 +29,7 @@ public class InGameUIController : MonoBehaviour
 
     private void Update()
     {
-        //TestTutorialAndNotifications();
+        NextTutorial();
     }
 
     private void TestTutorialAndNotifications()
@@ -56,10 +58,29 @@ public class InGameUIController : MonoBehaviour
         {
             SetTutorial(_tutorialCardMessages[index]);
             _tutorialCardIndex = index;
+
+            if(index > 5)
+            {
+                _tutorialCardNext.SetActive(true);
+            }
+            else
+            {
+                _tutorialCardNext.SetActive(false);
+            }
         }
         else
         {
             _tutorialCard.SetActive(false);
+            _tutorialCardNext.SetActive(false);
+
+        }
+    }
+
+    private void NextTutorial()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && _tutorialCardIndex > 5)
+        {
+            ShowTutorial(_tutorialCardIndex + 1);
         }
     }
 
