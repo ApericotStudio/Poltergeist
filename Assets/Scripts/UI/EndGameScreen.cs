@@ -19,6 +19,7 @@ public class EndGameScreen : MonoBehaviour
     [Header("Other")]
     [SerializeField] private GradeController _gradeController;
     [SerializeField] private string _mainMenuSceneName = "MainMenuUI";
+    [SerializeField] private string _levelSelectSceneName = "LevelSelectUI";
     [SerializeField] private Image _gradeImage;
     [SerializeField] private GradeConverter _gradeConverter;
 
@@ -77,7 +78,7 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnLevelSelectButtonPressed()
     {
-        SceneManager.LoadScene(_mainMenuSceneName);
+        SceneManager.LoadScene(_levelSelectSceneName);
     }
 
     private void OnMainMenuButtonPressed()
