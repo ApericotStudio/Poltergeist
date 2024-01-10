@@ -49,7 +49,11 @@ public class VisionController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, _visionRange, _obstacleLayerMask))
         {
-            return hit.collider.gameObject;
+            GameObject hitObject = hit.collider.gameObject;
+            if (hitObject.tag != "Invisible")
+            {
+                return hit.collider.gameObject;
+            }
         }
         return null;
     }
