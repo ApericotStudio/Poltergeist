@@ -18,8 +18,8 @@ public class LevelSelectController : MonoBehaviour
     [Header("Image References")]
     [SerializeField] private Image _gradeImage;
 
-    [Header("Canvas References")]
-    [SerializeField] private GameObject _mainMenuCanvas;
+    [Header("Scene References")]
+    [SerializeField] private string _mainMenuScene;
 
     [Header("Other")]
     [SerializeField] private LevelCatalog _levelCatalog;
@@ -59,8 +59,7 @@ public class LevelSelectController : MonoBehaviour
 
     private void OnBackButtonPressed()
     {
-        _mainMenuCanvas.SetActive(true);
-        gameObject.SetActive(false);
+        SceneManager.LoadScene(_mainMenuScene);
     }
 
     public void SelectLevel(Level level)
