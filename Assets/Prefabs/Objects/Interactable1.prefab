@@ -168,7 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de1a478009c8414e9303b12dd63f349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 10
+  SizeFear: {fileID: 0}
+  _minimumImpulse: {fileID: 0}
   _objectPhobia: 
 --- !u!114 &5030223199616537604
 MonoBehaviour:
@@ -329,7 +330,7 @@ PrefabInstance:
     - target: {fileID: 135004468743505395, guid: 984b737b2ad49754baa78c3ab4df5819,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.316
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 135004468743505395, guid: 984b737b2ad49754baa78c3ab4df5819,
         type: 3}
@@ -375,6 +376,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 552324684246642372, guid: 984b737b2ad49754baa78c3ab4df5819,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5590740082484501297, guid: 984b737b2ad49754baa78c3ab4df5819,
         type: 3}
