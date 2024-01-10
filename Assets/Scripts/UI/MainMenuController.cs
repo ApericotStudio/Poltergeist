@@ -9,7 +9,6 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Button _optionsButton;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _feedbackButton;
-    [SerializeField] private Button _wishlistButton;
     [SerializeField] private Button _creditsButton;
 
     [Header("Canvas References")]
@@ -35,7 +34,6 @@ public class MainMenuController : MonoBehaviour
         _optionsButton.onClick.AddListener(OnOptionsButtonPressed);
         _exitButton.onClick.AddListener(OnExitButtonPressed);
         _feedbackButton.onClick.AddListener(OnFeedbackButtonPressed);
-        _wishlistButton.onClick.AddListener(OnWishlistButtonPressed);
         _creditsButton.onClick.AddListener(OnCreditsButtonPressed);
     }
 
@@ -57,11 +55,6 @@ public class MainMenuController : MonoBehaviour
     private void OnFeedbackButtonPressed()
     {
         Application.OpenURL(_feedbackFormLink);
-    }
-
-    private void OnWishlistButtonPressed()
-    {
-        Application.OpenURL(_wishlistLink);
     }
 
     private void OnCreditsButtonPressed()
