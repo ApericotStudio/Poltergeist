@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.Save();
             Time.timeScale = 1;
+            AudioListener.pause = false;
             _pauseCanvas.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
         else if (Time.timeScale == 1)
         {
             Time.timeScale = 0;
+            AudioListener.pause = true;
             _pauseCanvas.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
