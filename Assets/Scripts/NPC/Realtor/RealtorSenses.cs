@@ -16,6 +16,7 @@ public class RealtorSenses : BaseSenses
     public List<VisitorController> SoothedVisitors = new();
 
     private RealtorController _realtorController;
+    public bool Disabled = false;
 
     protected override void Awake()
     {
@@ -30,7 +31,7 @@ public class RealtorSenses : BaseSenses
         for (int i = 0; i < DetectedVisitors.Count; i++)
         {
             float distanceToVisitor = Vector3.Distance(transform.position, DetectedVisitors[i].transform.position);
-            if (distanceToVisitor <= FearReductionRange)
+            if (distanceToVisitor <= FearReductionRange && !Disabled)
             {
                 if (!SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
