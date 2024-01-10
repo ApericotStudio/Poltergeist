@@ -18,7 +18,7 @@ public class EndGameScreen : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private GradeController _gradeController;
-    [SerializeField] private string _mainMenuSceneName = "MainMenuUI";
+    [SerializeField] private string _mainMenuSceneName = "LevelSelectUI";
     [SerializeField] private Image _gradeImage;
     [SerializeField] private GradeConverter _gradeConverter;
 
