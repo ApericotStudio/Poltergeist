@@ -256,57 +256,6 @@ MonoBehaviour:
     m_DampPosition: 0
     m_DampRotation: 0.735
     m_MaintainAim: 1
---- !u!1 &3507878386586075874
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4741433494675685888}
-  - component: {fileID: 3117559441665994899}
-  m_Layer: 0
-  m_Name: DampCloak1-M
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4741433494675685888
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3507878386586075874}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4099815149653740912}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3117559441665994899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3507878386586075874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b37cffab30b939469bac076fdd82c59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Data:
-    m_ConstrainedObject: {fileID: 6198150705193582129}
-    m_Source: {fileID: 1475533057074474663}
-    m_DampPosition: 0
-    m_DampRotation: 0.449
-    m_MaintainAim: 0
 --- !u!1 &4568446454504023457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,7 +1190,7 @@ MonoBehaviour:
     m_ConstrainedObject: {fileID: 3810175910873192373}
     m_Source: {fileID: 1475533057074474663}
     m_DampPosition: 0
-    m_DampRotation: 0.676
+    m_DampRotation: 0.476
     m_MaintainAim: 0
 --- !u!1 &8919519267840745046
 GameObject:
@@ -1280,7 +1229,6 @@ Transform:
   - {fileID: 1368357387318580554}
   - {fileID: 188757102641824229}
   - {fileID: 8936286967314770018}
-  - {fileID: 4741433494675685888}
   - {fileID: 3439214125373145758}
   m_Father: {fileID: 2243630188519408805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1451,12 +1399,6 @@ Transform:
 --- !u!4 &6055397337715455616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3701581270831622706, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
-    type: 3}
-  m_PrefabInstance: {fileID: 1776741218805850958}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6198150705193582129 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3554464340732945025, guid: 6ebb28c6fa1ca4ce88a8501896e2e782,
     type: 3}
   m_PrefabInstance: {fileID: 1776741218805850958}
   m_PrefabAsset: {fileID: 0}
