@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
@@ -15,6 +16,9 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject _levelSelectCanvas;
     [SerializeField] private GameObject _settingsCanvas;
     [SerializeField] private GameObject _creditsCanvas;
+
+    [Header("Scene References")]
+    [SerializeField] private string _introCutsceneScene;
 
     [Header("Links")]
     [SerializeField] private string _feedbackFormLink = string.Empty;
@@ -37,8 +41,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnPlayButtonPressed()
     {
-        _levelSelectCanvas.SetActive(true);
-        gameObject.SetActive(false);
+        SceneManager.LoadScene(_introCutsceneScene);
     }
 
     private void OnOptionsButtonPressed()

@@ -21,9 +21,6 @@ public class LevelSelectController : MonoBehaviour
     [Header("Canvas References")]
     [SerializeField] private GameObject _mainMenuCanvas;
 
-    [Header("Scene References")]
-    [SerializeField] private string _introCutsceneScene;
-
     [Header("Other")]
     [SerializeField] private LevelCatalog _levelCatalog;
     [SerializeField] private GradeConverter _gradeConverter;
@@ -57,15 +54,7 @@ public class LevelSelectController : MonoBehaviour
 
     private void OnStartButtonPressed()
     {
-        int hasSeenCutscene = PlayerPrefs.GetInt("HasWatchedIntroCutscene", 0);
-        if(hasSeenCutscene == 0)
-        {
-            SceneManager.LoadScene(_introCutsceneScene);
-        }
-        else
-        {
-            SceneManager.LoadScene(_selectedLevel.SceneName);
-        }        
+        SceneManager.LoadScene(_selectedLevel.SceneName);        
     }
 
     private void OnBackButtonPressed()

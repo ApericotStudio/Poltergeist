@@ -22,8 +22,6 @@ public class ScrollingLetterController : MonoBehaviour
     {
         StopAllCoroutines();
         _voiceOverAudio.Stop();
-        PlayerPrefs.SetInt("HasWatchedIntroCutscene", 1);
-        PlayerPrefs.Save();
         GoToLevelSelect();
     }
 
@@ -31,8 +29,6 @@ public class ScrollingLetterController : MonoBehaviour
     {
         float clipLength = _voiceOverAudio.clip.length;
         yield return new WaitForSeconds(clipLength);
-        PlayerPrefs.SetInt("HasWatchedIntroCutscene", 1);
-        PlayerPrefs.Save();
         GoToLevelSelect();
     }
 
