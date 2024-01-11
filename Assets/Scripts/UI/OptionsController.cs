@@ -1,3 +1,4 @@
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -29,6 +30,10 @@ public class OptionsController : MonoBehaviour
     [Tooltip("Canvas that is opened when back button is pressed")]
     [SerializeField] private GameObject _backCanvas;
     [SerializeField] private AudioMixer _audioMixer;
+
+    [Header("Player References")]
+    [Tooltip("The player in the game")]
+    [SerializeField] private ThirdPersonController _thirdPersonController;
 
     private void Awake()
     {
@@ -83,6 +88,7 @@ public class OptionsController : MonoBehaviour
 
     private void OnSensitivitySliderValueChanged(float value)
     {
+        _thirdPersonController.SetSensitivity(value);
         PlayerPrefs.SetFloat(PlayerPrefsVariable.Sensitivity.ToString(), value);
         PlayerPrefs.Save();
     }
