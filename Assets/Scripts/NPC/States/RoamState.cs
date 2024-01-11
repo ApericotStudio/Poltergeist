@@ -29,6 +29,7 @@ public class RoamState : IState
             Vector3 newRoamLocation = GetClosestLocationToInspectTarget();
             _visitorController.Agent.SetDestination(newRoamLocation);
             yield return new WaitUntil(() => _visitorController.Agent.remainingDistance < 1f && !_visitorController.Agent.pathPending && IsRoaming());
+            _visitorController.InspectTarget = inspectTarget;
             _visitorController.LookAt(inspectTarget);
             if(IsRoaming())
             {
