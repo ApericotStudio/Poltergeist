@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
@@ -259,7 +260,7 @@ namespace StarterAssets
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
 
-            if (_input.Fly != 0f && !_tutorialShown)
+            if (_input.Move != Vector2.zero && !_tutorialShown)
             {
                 _tutorialShown = true;
                 hasMoved?.Invoke(1);

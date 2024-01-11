@@ -64,7 +64,7 @@ public class PossessionController : MonoBehaviour, IObserver
 
         if (_amountofPossessions == 0)
         {
-            hasPossessed?.Invoke(4);
+            hasPossessed?.Invoke(5);
             ++_amountofPossessions;
         }
         CurrentPossession.GetComponent<ObservableObject>().AddObserver(this);
@@ -83,7 +83,7 @@ public class PossessionController : MonoBehaviour, IObserver
         {
             if (_hasHit)
             {
-                hasPossessed?.Invoke(4 + _amountofPossessions);
+                hasPossessed?.Invoke(5 + _amountofPossessions);
             }
             _thirdPersonController.ToUnpossessLocation();
             RemovePossessionObjects();
@@ -107,7 +107,7 @@ public class PossessionController : MonoBehaviour, IObserver
             if (_amountofPossessions == 1)
             {
                 _hasHit = true;
-                hasPossessed?.Invoke(4 + _amountofPossessions);
+                hasPossessed?.Invoke(5 + _amountofPossessions);
                 ++_amountofPossessions;
             }
         }

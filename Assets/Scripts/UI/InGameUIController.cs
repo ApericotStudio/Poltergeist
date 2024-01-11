@@ -67,7 +67,7 @@ public class InGameUIController : MonoBehaviour
             SetTutorial(_tutorialCardMessages[index]);
             _tutorialCardIndex = index;
 
-            if (index > 5 || _currentSceneName == _mainGameScene)
+            if (index > 6 || _currentSceneName == _mainGameScene || index == 3)
             {
                 _tutorialCardNext.SetActive(true);
             }
@@ -93,7 +93,7 @@ public class InGameUIController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if(_tutorialCardIndex > 5)
+            if(_tutorialCardIndex > 5 || _tutorialCardIndex == 3)
             {
                 ShowTutorial(_tutorialCardIndex + 1);
             }
