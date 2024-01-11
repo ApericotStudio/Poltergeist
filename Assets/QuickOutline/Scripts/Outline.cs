@@ -79,14 +79,14 @@ public class Outline : MonoBehaviour {
   private Material outlineFillMaterial;
 
   [SerializeField]
-  private bool outlineChildren = true;
+  private bool _outlineChildren = true;
 
   private bool needsUpdate;
 
   void Awake() {
 
     // Cache renderers
-    if (outlineChildren)
+    if (_outlineChildren)
     {
         renderers = GetComponentsInChildren<Renderer>();
     }
