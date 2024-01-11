@@ -12,8 +12,8 @@ public class AimMode : MonoBehaviour
     private ThirdPersonController _controller;
     private PossessionController _possessionController;
 
-    [SerializeField]
-    private float _normalSensitivity = 1;
+    // [SerializeField]
+    // private float _normalSensitivity = 1;
 
     public bool throwmode;
 
