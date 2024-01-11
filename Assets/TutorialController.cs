@@ -10,11 +10,12 @@ public class TutorialController : MonoBehaviour
 {
     [SerializeField]
     private ThirdPersonController _playerController;
-    [SerializeField]
     private FearHandler _fearHandler;
+    private VisitorManager _visitorManager;
     private PolterSenseController _polterSenseController;
     private PossessionController _possessionController;
     private InteractController _interactController;
+    private FearHandler[] _visitors;
 
     [SerializeField]
     private InGameUIController _uiController;
@@ -37,6 +38,8 @@ public class TutorialController : MonoBehaviour
         _polterSenseController = _playerController.GetComponent<PolterSenseController>();
         _possessionController = _playerController.GetComponent<PossessionController>();
         _interactController = _playerController.GetComponent<InteractController>();
+        _visitorManager = gameObject.GetComponent<VisitorManager>();
+        _visitors = _visitorManager.VisitorCollection.GetComponentsInChildren<FearHandler>();
 
         showTutorial(0);
     }
@@ -83,7 +86,10 @@ public class TutorialController : MonoBehaviour
         _interactController.hasInteracted -= showTutorial;
         _playerController.hasMoved -= showTutorial;
         _possessionController.hasPossessed -= showTutorial;
-        _fearHandler.activatedPhobia -= showTutorial;
+        foreach (FearHandler visitor in _visitors)
+        {
+            visitor.activatedPhobia -= showTutorial;
+        }
     }
 
     private void checkFirstTutorial()
@@ -120,7 +126,10 @@ public class TutorialController : MonoBehaviour
             case 0:
                 break;
             case 1:
-                _fearHandler.activatedPhobia += showTutorial;
+                foreach (FearHandler visitor in _visitors)
+                {
+                    visitor.activatedPhobia += showTutorial;
+                }
                 break;
         }
     }
