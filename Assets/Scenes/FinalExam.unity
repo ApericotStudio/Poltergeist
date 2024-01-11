@@ -22318,6 +22318,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54aa7315938e5b04aa34b99788258452, type: 3}
+--- !u!114 &733092092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6453242632330396871, guid: 54aa7315938e5b04aa34b99788258452,
+    type: 3}
+  m_PrefabInstance: {fileID: 733092091}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &733092093 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3837989217765524936, guid: 54aa7315938e5b04aa34b99788258452,
@@ -24160,6 +24172,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 826237287}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &826237289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6453242632330396871, guid: 54aa7315938e5b04aa34b99788258452,
+    type: 3}
+  m_PrefabInstance: {fileID: 826237287}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &828067804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40124,11 +40148,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2737445689226592248, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
+      propertyPath: _hoverMessage
+      value: 
+      objectReference: {fileID: 826237289}
     - target: {fileID: 4568446454504023457, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
       propertyPath: m_Name
       value: PlayerCharacter3
       objectReference: {fileID: 0}
+    - target: {fileID: 4799740423979970132, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
+      propertyPath: _visitorCollection
+      value: 
+      objectReference: {fileID: 1207009365}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
       propertyPath: _onConsoleToggleInput.m_PersistentCalls.m_Calls.Array.size
@@ -40164,6 +40198,11 @@ PrefabInstance:
       propertyPath: _onConsoleToggleInput.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6054839349699883581, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
+      propertyPath: _hoverMessage
+      value: 
+      objectReference: {fileID: 733092092}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
