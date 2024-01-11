@@ -112,7 +112,7 @@ public class Throwable : MonoBehaviour, IPossessable, IObserver
 
             Vector3 lastPosition = LineRenderer.GetPosition(i - 1);
 
-            if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, (point - lastPosition).magnitude, _throwLayerMask))
+            if (Physics.Raycast(lastPosition, (point - lastPosition).normalized, out RaycastHit hit, (point - lastPosition).magnitude, _throwLayerMask) && hit.collider.gameObject != this.gameObject)
             {
                 LineRenderer.SetPosition(i, hit.point);
                 LineRenderer.positionCount = i + 1;

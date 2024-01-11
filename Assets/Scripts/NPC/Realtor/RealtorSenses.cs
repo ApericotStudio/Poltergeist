@@ -16,6 +16,10 @@ public class RealtorSenses : BaseSenses
     public List<VisitorController> SoothedVisitors = new();
 
     private RealtorController _realtorController;
+    public bool Disabled = false;
+
+    [Header("Collission Layers")]
+    [SerializeField] private LayerMask _sootheMask;
 
     protected override void Awake()
     {
@@ -30,7 +34,12 @@ public class RealtorSenses : BaseSenses
         for (int i = 0; i < DetectedVisitors.Count; i++)
         {
             float distanceToVisitor = Vector3.Distance(transform.position, DetectedVisitors[i].transform.position);
-            if (distanceToVisitor <= FearReductionRange)
+            Vector3 directionToVisitor = (DetectedVisitors[i].transform.position - transform.position).normalized;
+
+            if (Physics.Raycast(transform.position, directionToVisitor, distanceToVisitor, _sootheMask))
+                continue;
+
+            if (distanceToVisitor <= FearReductionRange && !Disabled)
             {
                 if (!SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
@@ -63,11 +72,8 @@ public class RealtorSenses : BaseSenses
                 _realtorController.Investigate();
                 break;
             case ObjectState.Hit:
-                if (observableObject.Type == ObjectType.Small)
-                {
-                    _realtorController.InspectTarget = observableObject.transform;
-                    _realtorController.Investigate();
-                }
+                _realtorController.InspectTarget = observableObject.transform;
+                _realtorController.Investigate();
                 break;
             default:
                 return;

@@ -5331,7 +5331,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 2
   m_Acceleration: 10
-  avoidancePriority: 30
+  avoidancePriority: 40
   m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -5373,9 +5373,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   RoamRadius: 5
   RoamingSpeed: 2
-  TimeToSpendInRoom: 50
+  TimeToSpendInRoom: 30
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
@@ -5387,6 +5388,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 67c8b33e424ccdc4486edf538ab91c5a, type: 3}
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
+  _runAwayClip: {fileID: 8300000, guid: bbc2ccef03f0c9d4fbada66d830013d1, type: 3}
   FootstepVolume: 0.5
   RanAway: 0
   FearReductionHasCooldown: 0
