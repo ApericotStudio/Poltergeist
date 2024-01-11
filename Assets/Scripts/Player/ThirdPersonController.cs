@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
@@ -65,6 +68,9 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         [SerializeField]private bool LockCameraPosition = false;
 
+        public delegate void Movevement();
+        public event Movevement onMovement;
+
         [Header("Flying")]
         public float MinHeight;
         public float MaxHeight;
@@ -103,6 +109,11 @@ namespace StarterAssets
         private bool _aim;
         private Vector3 _previousMovement;
         private Vector3 _newMovement;
+        private bool _tutorialShown = false;
+
+        public delegate void Movement(int index);
+        public event Movement hasMoved;
+
         private bool IsCurrentDeviceMouse
         {
             get
@@ -123,6 +134,12 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            if(SceneManager.GetActiveScene().name != "Assignment")
+            {
+                _tutorialShown = true;
+            }
+
             int playerLayer = LayerMask.NameToLayer("Player");
             int npcObjectLayer = LayerMask.NameToLayer("Npc");
             int cameraObjectLayer = LayerMask.NameToLayer("Camera");
@@ -243,6 +260,11 @@ namespace StarterAssets
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.Move.x, _input.Fly, _input.Move.y).normalized;
 
+            if (_input.Move != Vector2.zero && !_tutorialShown)
+            {
+                _tutorialShown = true;
+                hasMoved?.Invoke(1);
+            }
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
@@ -269,7 +291,6 @@ namespace StarterAssets
             {
                 targetDirection.y = 0.0f;
             }
-
 
             // move the player
             _newMovement = (targetDirection * _speed + new Vector3(0.0f, inputDirection.y, 0.0f) * _flySpeed) * Time.deltaTime;

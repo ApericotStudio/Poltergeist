@@ -7,6 +7,10 @@ public class PolterSenseController : MonoBehaviour
     [SerializeField] private bool _isOn = false;
     private PossessionController _possessionController;
 
+    public delegate void PolterSense(int index);
+    public event PolterSense isEnabled;
+    private bool _tutorialShown = false;
+
     private void Start()
     {
         _possessionController = GetComponent<PossessionController>();
@@ -15,8 +19,11 @@ public class PolterSenseController : MonoBehaviour
     {
         CheckCancellationTokens();
         _isOn = enable;
+
         if (enable)
         {
+            isEnabled?.Invoke(2);
+
             foreach (Outline outline in _outlinesInRange)
             {
                 if (_possessionController.CurrentPossession != null && outline.gameObject.GetComponent<Interactable>())

@@ -36,6 +36,8 @@ public class FearHandler : MonoBehaviour
     private bool _isScared = false;
     private IEnumerator _coroutine;
 
+    public delegate void Phobia(int index);
+    public event Phobia activatedPhobia; 
     private void Awake()
     {
         _visitorController = GetComponent<VisitorController>();
@@ -106,6 +108,7 @@ public class FearHandler : MonoBehaviour
         {
             if (phobia == _visitorController.VisitorPhobia && _visitorController.VisitorPhobia != ObjectPhobia.None)
             {
+                activatedPhobia?.Invoke(1);
                 phobiaValue = _phobiaValue;
                 break;
             }

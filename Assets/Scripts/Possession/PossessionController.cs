@@ -21,6 +21,11 @@ public class PossessionController : MonoBehaviour, IObserver
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _hoverMessage;
 
+    public delegate void Possession(int index);
+    public event Possession hasPossessed;
+    private int _amountofPossessions = 0;
+
+    private bool _hasHit = false;
     private void Awake()
     {
         _thirdPersonController = GetComponent<ThirdPersonController>();
@@ -35,6 +40,8 @@ public class PossessionController : MonoBehaviour, IObserver
     /// </summary>
     public void Possess()
     {
+
+
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView == null)
         {
@@ -54,6 +61,12 @@ public class PossessionController : MonoBehaviour, IObserver
         }
         CurrentPossession = objectInView;
         possessable.Possess();
+
+        if (_amountofPossessions == 0)
+        {
+            hasPossessed?.Invoke(5);
+            ++_amountofPossessions;
+        }
         CurrentPossession.GetComponent<ObservableObject>().AddObserver(this);
         _thirdPersonController.freeze = true;
         _audioSource.PlayOneShot(_possessSound);
@@ -69,6 +82,10 @@ public class PossessionController : MonoBehaviour, IObserver
     {
         if (CurrentPossession != null)
         {
+            if (_hasHit)
+            {
+                hasPossessed?.Invoke(5 + _amountofPossessions);
+            }
             CurrentPossession.GetComponentInChildren<GeistChargeIndicator>().IsPossessed = false;
             _thirdPersonController.ToUnpossessLocation();
             RemovePossessionObjects();
@@ -87,6 +104,16 @@ public class PossessionController : MonoBehaviour, IObserver
 
     public void OnNotify(ObservableObject observableObject)
     {
+        if(observableObject.State == ObjectState.Hit && !_hasHit)
+        {
+            if (_amountofPossessions == 1)
+            {
+                _hasHit = true;
+                hasPossessed?.Invoke(5 + _amountofPossessions);
+                ++_amountofPossessions;
+            }
+        }
+
         if (observableObject.State == ObjectState.Broken)
         {
             Unpossess();
