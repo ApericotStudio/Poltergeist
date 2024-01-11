@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class LevelSelectController : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class LevelSelectController : MonoBehaviour
     {
         SetupButtons();
         _gradeImagePlaceholder = _gradeImage.sprite;
+        RetrieveProgress();
     }
 
     private void SetupButtons()
@@ -40,6 +42,21 @@ public class LevelSelectController : MonoBehaviour
         _finalExamButton.onClick.AddListener(OnFinalExamButtonPressed);
         _startButton.onClick.AddListener(OnStartButtonPressed);
         _backButton.onClick.AddListener(OnBackButtonPressed);
+    }
+
+    private void RetrieveProgress()
+    {
+        LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
+        Grade grade = levelGradeHandler.Load(_levelCatalog.Levels[0].SceneName);
+        if (grade == null)
+        {
+            print("0");
+            SelectLevel(_levelCatalog.Levels[0]);
+        }
+        else
+        {
+            SelectLevel(_levelCatalog.Levels[1]);
+        }
     }
 
     private void OnAssignmentButtonPressed()
