@@ -100,7 +100,7 @@ public class NpcController : MonoBehaviour
         {
             Animator.SetLookAtPosition(lookAtTarget.position);
         }
-        Animator.SetLookAtWeight(lookWeight, 0.3f, 0.9f, 0, 0);
+        Animator.SetLookAtWeight(lookWeight);
     }
 
     public void LookAt(Transform target)

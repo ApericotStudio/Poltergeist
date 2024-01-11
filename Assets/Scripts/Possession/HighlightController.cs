@@ -3,14 +3,12 @@ using UnityEngine;
 public class HighlightController : MonoBehaviour
 {
     private VisionController _visionController;
-    private PossessionController _possessionController;
     private Highlight _currentHighlight;
 
     private bool _lookingAtPossesion;
     private void Start()
     {
         _visionController = GetComponent<VisionController>();
-        _possessionController = GetComponent<PossessionController>();
         _visionController.LookingAtChanged.AddListener(HandleHighlighting);
     }
 
@@ -48,17 +46,6 @@ public class HighlightController : MonoBehaviour
 
     public void CheckHighlight()
     {
-
-        if (_currentHighlight != null && _currentHighlight.TryGetComponent<Interactable>(out Interactable interactable))
-        {
-            if (_possessionController.CurrentPossession != null)
-            {
-                _currentHighlight.Highlighted(false);
-                _lookingAtPossesion = true;
-                return;
-            }
-        }
-
         if (_currentHighlight != null && _currentHighlight.GetComponent<Throwable>())
         {
             if (_currentHighlight.GetComponent<Throwable>().isPossessed())
