@@ -5,7 +5,6 @@ public class InteractController : MonoBehaviour
 {
     private PossessionController _possessionController;
     private VisionController _visionController;
-
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _hoverMessage;
 
@@ -15,11 +14,15 @@ public class InteractController : MonoBehaviour
         _visionController = GetComponent<VisionController>();
 
         _visionController.LookingAtChanged.AddListener(HandleDisplayingInteractPrompt);
-
     }
 
     public void Interact()
     {
+        if (_possessionController.CurrentPossession != null)
+        {
+            return;
+        }
+
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView != null)
         {
@@ -30,16 +33,6 @@ public class InteractController : MonoBehaviour
                 return;
             }
         }
-        if (_possessionController.CurrentPossession == null)
-        {
-            return;
-        }
-        if (!_possessionController.CurrentPossession.TryGetComponent(out Interactable possessedInteractable))
-        {
-            return;
-        }
-
-        possessedInteractable.Use();
     }
 
     private void HandleDisplayingInteractPrompt()
@@ -48,7 +41,7 @@ public class InteractController : MonoBehaviour
         GameObject objectInView = _visionController.LookingAt;
         if (objectInView != null)
         {
-            if (objectInView.TryGetComponent(out Interactable interactable) && !interactable.InteractDepleted)
+            if (objectInView.TryGetComponent(out Interactable interactable) && !interactable.InteractDepleted && _possessionController.CurrentPossession == null)
             {
                 _hoverMessage.enabled = true;
                 _hoverMessage.text = "Press [E] to " + interactable.HoverMessage;

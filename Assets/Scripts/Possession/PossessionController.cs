@@ -7,7 +7,7 @@ public class PossessionController : MonoBehaviour, IObserver
 {
     public UnityEvent CurrentPossessionChanged = new UnityEvent();
 
-    public GameObject CurrentPossession;
+    public GameObject CurrentPossession = null;
 
     public Throwable CurrentThrowable;
     private ThirdPersonController _thirdPersonController;
@@ -74,7 +74,6 @@ public class PossessionController : MonoBehaviour, IObserver
             RemovePossessionObjects();
             _thirdPersonController.freeze = false;
             _audioSource.PlayOneShot(_unpossessSound);
-            CurrentPossessionChanged?.Invoke();
         }
     }
 
@@ -83,6 +82,7 @@ public class PossessionController : MonoBehaviour, IObserver
         CurrentPossession.GetComponent<IPossessable>().Unpossess();
         CurrentPossession = null;
         CurrentThrowable = null;
+        CurrentPossessionChanged?.Invoke();
     }
 
     public void OnNotify(ObservableObject observableObject)
