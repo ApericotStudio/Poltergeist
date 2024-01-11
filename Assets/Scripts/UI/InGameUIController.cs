@@ -1,7 +1,10 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InGameUIController : MonoBehaviour
 {
@@ -18,12 +21,17 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _tutorialCardDescription;
     [SerializeField] private List<TutorialCardMessage> _tutorialCardMessages = new();
     private int _tutorialCardIndex = 0;
+    private int _tutorialStep = 0;
+    private string _currentSceneName;
+    private string _tutorialScene = "Assignment";
+    private string _mainGameScene = "FinalExam";
 
     [SerializeField] private Transform _visitorOverlayParent;
     [SerializeField] private GameObject _visitorCollection;
 
     private void Awake()
     {
+        _currentSceneName = SceneManager.GetActiveScene().name;
         AddNpcOverlays();
     }
 
@@ -59,7 +67,7 @@ public class InGameUIController : MonoBehaviour
             SetTutorial(_tutorialCardMessages[index]);
             _tutorialCardIndex = index;
 
-            if(index > 5)
+            if (index > 5 || _currentSceneName == _mainGameScene)
             {
                 _tutorialCardNext.SetActive(true);
             }
@@ -78,9 +86,22 @@ public class InGameUIController : MonoBehaviour
 
     private void NextTutorial()
     {
-        if (Input.GetKeyDown(KeyCode.R) && _tutorialCardIndex > 5)
+        if(!(_tutorialCardMessages.Count > _tutorialCardIndex))
         {
-            ShowTutorial(_tutorialCardIndex + 1);
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if(_tutorialCardIndex > 5)
+            {
+                ShowTutorial(_tutorialCardIndex + 1);
+            }
+
+            if(_currentSceneName == _mainGameScene)
+            {
+                _tutorialCard.SetActive(false);
+            }
         }
     }
 

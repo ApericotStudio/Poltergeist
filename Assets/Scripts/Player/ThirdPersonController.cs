@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
@@ -132,6 +133,12 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            if(SceneManager.GetActiveScene().name != "Assignment")
+            {
+                _tutorialShown = true;
+            }
+
             int playerLayer = LayerMask.NameToLayer("Player");
             int npcObjectLayer = LayerMask.NameToLayer("Npc");
             int cameraObjectLayer = LayerMask.NameToLayer("Camera");
