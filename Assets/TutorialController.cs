@@ -74,9 +74,6 @@ public class TutorialController : MonoBehaviour
         _counter = index + 1;
         ++_tutorialIndex;
 
-        Debug.Log(index);
-        Debug.Log(_counter);
-
         unsubscribeEvents();
     }
 
