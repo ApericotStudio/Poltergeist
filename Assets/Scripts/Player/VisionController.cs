@@ -40,6 +40,11 @@ public class VisionController : MonoBehaviour
         LookingAtChanged?.Invoke();
     }
 
+    public void ResetLook()
+    {
+        LookingAt = null;
+    }
+
     /// <summary>
     /// Check if the middle of the camera is pointing at a game object that is no more than _visionRange away
     /// </summary>
@@ -49,7 +54,11 @@ public class VisionController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, _visionRange, _obstacleLayerMask))
         {
-            return hit.collider.gameObject;
+            GameObject hitObject = hit.collider.gameObject;
+            if (hitObject.tag != "Invisible")
+            {
+                return hit.collider.gameObject;
+            }
         }
         return null;
     }

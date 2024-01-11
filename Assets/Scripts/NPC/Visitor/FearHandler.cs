@@ -58,7 +58,7 @@ public class FearHandler : MonoBehaviour
 
        float fearToAdd = CalculateFearValue(observableObject, detectedProperties);
 
-      if (_visitorController.FearValue + fearToAdd < 100f)
+      if (_visitorController.FearValue + fearToAdd < 100f && fearToAdd > 0f)
       {
             if (observableObject.State != ObjectState.Hit && observableObject.State != ObjectState.Interacted)
             {
@@ -135,7 +135,7 @@ public class FearHandler : MonoBehaviour
         {
             brokenAddition = 0f;
         }
-        return ((float)observableObject.Type * fearValue + brokenAddition + phobiaValue) * falloff * soothe * geistCharge;
+        return (observableObject.SizeFear.Value + brokenAddition + phobiaValue) * falloff * fearValue * soothe * geistCharge;
     }
 
     private IEnumerator ScaredCooldown()
