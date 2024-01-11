@@ -6,7 +6,7 @@ public class GeistChargeIndicator : MonoBehaviour
     [SerializeField] private GameObject _uiComponent;
     [SerializeField] private Image _filler;
 
-    private float _minimumFillerSize = 0.5f;
+    // private float _minimumFillerSize = 0.5f;
 
     [SerializeField] private Vector3 _offset;
     private Transform _playerCam;
@@ -66,8 +66,10 @@ public class GeistChargeIndicator : MonoBehaviour
 
     private void OnGeistChargeValueChange(float value)
     {
-        float desiredScale = Mathf.Lerp(_minimumFillerSize, 1, value);
-        _filler.transform.localScale = new Vector3(desiredScale, desiredScale, 1);
+        //float desiredScale = Mathf.Lerp(_minimumFillerSize, 1, value);
+        //_filler.transform.localScale = new Vector3(desiredScale, desiredScale, 1);
+
+        _filler.fillAmount = value;
     }
 
     public void BeforeDestroy()
