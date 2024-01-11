@@ -62,12 +62,14 @@ public class PossessionController : MonoBehaviour, IObserver
         {
             CurrentThrowable = throwable;
         }
+        CurrentPossession.GetComponentInChildren<GeistChargeIndicator>().IsPossessed = true;
     }
 
     public void Unpossess()
     {
         if (CurrentPossession != null)
         {
+            CurrentPossession.GetComponentInChildren<GeistChargeIndicator>().IsPossessed = false;
             _thirdPersonController.ToUnpossessLocation();
             RemovePossessionObjects();
             _thirdPersonController.freeze = false;

@@ -178,6 +178,18 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.42940807
       objectReference: {fileID: 0}
+    - target: {fileID: 5414820381933335572, guid: cf4391359e8dde74cb072b174da80ba4,
+        type: 3}
+      propertyPath: SizeFear
+      value: 
+      objectReference: {fileID: 11400000, guid: 536f2f3ce11cb1c48bddfd47149dcd98,
+        type: 2}
+    - target: {fileID: 5414820381933335572, guid: cf4391359e8dde74cb072b174da80ba4,
+        type: 3}
+      propertyPath: _minimumImpulse
+      value: 
+      objectReference: {fileID: 11400000, guid: 329cd3a184e2f5049b5b733f1bc6b94f,
+        type: 2}
     - target: {fileID: 6533691390592416813, guid: cf4391359e8dde74cb072b174da80ba4,
         type: 3}
       propertyPath: m_Mesh
@@ -203,6 +215,7 @@ PrefabInstance:
         type: 2}
     m_RemovedComponents:
     - {fileID: 4461298090345335483, guid: cf4391359e8dde74cb072b174da80ba4, type: 3}
+    - {fileID: 2133637038662275287, guid: cf4391359e8dde74cb072b174da80ba4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -256,7 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {fileID: 0}
   outlineWidth: 4
   precomputeOutline: 0
   bakeKeys: []

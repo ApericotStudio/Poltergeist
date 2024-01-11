@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
@@ -8,13 +9,15 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Button _optionsButton;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _feedbackButton;
-    [SerializeField] private Button _wishlistButton;
     [SerializeField] private Button _creditsButton;
 
     [Header("Canvas References")]
     [SerializeField] private GameObject _levelSelectCanvas;
     [SerializeField] private GameObject _settingsCanvas;
     [SerializeField] private GameObject _creditsCanvas;
+
+    [Header("Scene References")]
+    [SerializeField] private string _introCutsceneScene;
 
     [Header("Links")]
     [SerializeField] private string _feedbackFormLink = string.Empty;
@@ -31,14 +34,12 @@ public class MainMenuController : MonoBehaviour
         _optionsButton.onClick.AddListener(OnOptionsButtonPressed);
         _exitButton.onClick.AddListener(OnExitButtonPressed);
         _feedbackButton.onClick.AddListener(OnFeedbackButtonPressed);
-        _wishlistButton.onClick.AddListener(OnWishlistButtonPressed);
         _creditsButton.onClick.AddListener(OnCreditsButtonPressed);
     }
 
     private void OnPlayButtonPressed()
     {
-        _levelSelectCanvas.SetActive(true);
-        gameObject.SetActive(false);
+        SceneManager.LoadScene(_introCutsceneScene);
     }
 
     private void OnOptionsButtonPressed()
@@ -54,11 +55,6 @@ public class MainMenuController : MonoBehaviour
     private void OnFeedbackButtonPressed()
     {
         Application.OpenURL(_feedbackFormLink);
-    }
-
-    private void OnWishlistButtonPressed()
-    {
-        Application.OpenURL(_wishlistLink);
     }
 
     private void OnCreditsButtonPressed()

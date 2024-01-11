@@ -6,7 +6,7 @@ using UnityEngine;
 public class TipOverObject : MonoBehaviour
 {
     private Rigidbody _rigidbody;
-    [SerializeField] private Vector3 _torque;
+    [SerializeField] private Vector3 _torque = new Vector3(1, 0, 0);
 
 
     private void Awake()
@@ -16,6 +16,7 @@ public class TipOverObject : MonoBehaviour
 
     public void Push()
     {
+        _rigidbody.constraints = RigidbodyConstraints.None;
         _rigidbody.AddRelativeTorque(_torque, ForceMode.Impulse);
     }
 }

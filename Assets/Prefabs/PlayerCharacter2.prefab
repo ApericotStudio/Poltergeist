@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 5565245918107379277}
   - component: {fileID: 6409222504376928784}
   - component: {fileID: 4799740423979970132}
+  - component: {fileID: 3091000143781057076}
   m_Layer: 6
   m_Name: PlayerCharacter2
   m_TagString: Player
@@ -250,6 +251,7 @@ Transform:
   - {fileID: 3720434132212067407}
   - {fileID: 9176368371019777690}
   - {fileID: 8683300166537956480}
+  - {fileID: 5344562048913876344}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &4340544474986609656
@@ -297,7 +299,7 @@ MonoBehaviour:
   _movingSpeed: 0.038
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
-  Sensitivity: 1
+  Sensitivity: 2
   Grounded: 1
   GroundedOffset: -0.14
   GroundedRadius: 0.28
@@ -467,6 +469,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onConsoleToggleInput:
+    m_PersistentCalls:
+      m_Calls: []
+  _onGhostFaceChangeInput:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3183686283985870205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -867,6 +875,21 @@ MonoBehaviour:
   _smallLaughClip: {fileID: 8300000, guid: 0bdff625f4040fd47af900b1e0966449, type: 3}
   _smallLaughChance: 25
   _laughDelay: 0.8
+  _faceMesh: {fileID: 0}
+  _ghostResting: {fileID: 0}
+  _ghostConfused: {fileID: 0}
+--- !u!114 &3091000143781057076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568446454504023457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5ef4661d447214293567ed2fe2b31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6189968886108427415
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,6 +959,80 @@ MonoBehaviour:
   CameraRadius: 0.2
   DampingIntoCollision: 0
   DampingFromCollision: 2
+--- !u!1001 &2068083781087247219
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1767989793907042625}
+    m_Modifications:
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6969504360577872072, guid: 46e40ff95be6540439a9df242c9b2ca7,
+        type: 3}
+      propertyPath: m_Name
+      value: CheatScareObject
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 46e40ff95be6540439a9df242c9b2ca7, type: 3}
+--- !u!4 &5344562048913876344 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6240016422319693323, guid: 46e40ff95be6540439a9df242c9b2ca7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2068083781087247219}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5709649375909909179
 PrefabInstance:
   m_ObjectHideFlags: 0

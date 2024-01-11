@@ -103,6 +103,24 @@
                     "processors": "",
                     "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GhostFaceChange",
+                    "type": "Button",
+                    "id": "c89c8fb3-5eee-41e0-8076-b5e7fee2c9ba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ConsoleToggle",
+                    "type": "Button",
+                    "id": "7948f559-bbab-42a9-9568-9b2ec720c044",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -295,11 +313,33 @@
                 },
                 {
                     "name": "",
+                    "id": "13d6c37c-d67c-456c-bc0c-e13b4c35033a",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b32d21d3-1027-4d28-847b-6091ee71e942",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
+                    "action": "Unpossess",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be749d12-5b3e-4693-a8a8-01aba9928fab",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
                     "action": "Unpossess",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -317,11 +357,33 @@
                 },
                 {
                     "name": "",
+                    "id": "a6dda8bc-da53-48f9-84b9-f13e9b2e4e80",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AimThrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "aacf7c53-e340-4c73-9a11-861237906f79",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "KeyboardMouse",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41acae4a-bd1e-4563-a97f-667fe7790a14",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
                     "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -339,11 +401,33 @@
                 },
                 {
                     "name": "",
+                    "id": "1223f754-2c30-4473-be87-59ef9cb47590",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InteractPossess",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "75ddb2a7-f2b8-4e16-bc22-703d77da63e1",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
+                    "action": "PolterSenseEnter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6fb0360b-5621-402a-98b5-64a7da65d166",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "PolterSenseEnter",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -356,6 +440,39 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "PolterSenseLeave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5de99889-2e73-48dc-a3d3-2fd8367d4472",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PolterSenseLeave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7cefdc04-226c-4072-ae59-9a7cbfff4242",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "GhostFaceChange",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b240a79-4065-4076-a37f-f75cb42e57e3",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "ConsoleToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

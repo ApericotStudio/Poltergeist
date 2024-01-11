@@ -5290,9 +5290,11 @@ GameObject:
   - component: {fileID: 1306518244182312063}
   - component: {fileID: 8534830403552682731}
   - component: {fileID: 9066106825480100028}
+  - component: {fileID: 3814934347479402644}
   - component: {fileID: 8360858964001498300}
   - component: {fileID: 5514684316761317188}
   - component: {fileID: 684203926785422902}
+  - component: {fileID: 3084082289423911551}
   m_Layer: 7
   m_Name: NPCFelicia
   m_TagString: Untagged
@@ -5357,18 +5359,24 @@ MonoBehaviour:
       m_Calls: []
   AnimationBlend: 0
   InspectTarget: {fileID: 0}
+  _investigateTime: 3
   PanickedTargetLocation: {fileID: 0}
   PanickedSpeed: 5.335
   _fearValue: 0
   OnFearValueChange:
     m_PersistentCalls:
       m_Calls: []
-  VisitorPhobia: 0
+  VisitorPhobia: 1
   CurrentRoom: {fileID: 0}
-  AvailableRooms: []
+  AvailableRooms:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   RoamRadius: 5
   RoamingSpeed: 2
-  TimeToSpendInRoom: 50
+  TimeToSpendInRoom: 30
   FootstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
@@ -5380,6 +5388,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 67c8b33e424ccdc4486edf538ab91c5a, type: 3}
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
+  _runAwayClip: {fileID: 8300000, guid: bbc2ccef03f0c9d4fbada66d830013d1, type: 3}
   FootstepVolume: 0.5
   RanAway: 0
   FearReductionHasCooldown: 0
@@ -5410,7 +5419,7 @@ MonoBehaviour:
     m_Bits: 1
   FieldOfViewAngle: 110
   SightRange: 20
-  AuditoryRange: 15
+  AuditoryRange: 8
   DetectedVisitors: []
 --- !u!114 &8534830403552682731
 MonoBehaviour:
@@ -5428,6 +5437,7 @@ MonoBehaviour:
   _visibleMultiplier: 1
   _audibleMultiplier: 1
   _visibleAndAudibleMultiplier: 1.5
+  _sootheMultiplier: 0.5
   _brokenAddition: 5
   _phobiaValue: 10
   _scaredThreshold: 22
@@ -5462,6 +5472,18 @@ MonoBehaviour:
   _scaredFace: {fileID: 2100000, guid: 66b0af22b65b34947af73529fa03f01c, type: 2}
   _investigateFace: {fileID: 2100000, guid: b8eee95d530fb484d8d1bb15a49bdf7a, type: 2}
   _panickedFace: {fileID: 2100000, guid: 10d014eec14284003a65b229725065cd, type: 2}
+--- !u!114 &3814934347479402644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969111268812583773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2e87bbafc6d8f4fbc688bf61fae283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &8360858964001498300
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5602,6 +5624,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3084082289423911551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969111268812583773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2e87bbafc6d8f4fbc688bf61fae283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9071511905812419752
 GameObject:
   m_ObjectHideFlags: 0

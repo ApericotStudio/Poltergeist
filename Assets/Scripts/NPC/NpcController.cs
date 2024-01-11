@@ -17,13 +17,19 @@ public class NpcController : MonoBehaviour
     public int AnimIDMotionSpeed { get; private set; }
     public int AnimIDSpeed { get; private set; }
     public AudioSource AudioSource { get; private set; }
-    
+
+    public float InvestigateTime { get { return _investigateTime; } }
+
     [HideInInspector]
     public float AnimationBlend;
     [HideInInspector]
     public Transform InspectTarget;
 
     private Transform lookAtTarget = null;
+
+    [SerializeField]
+    [Tooltip("Amount of time NPC will look at object before wallking away"), Range(1f, 10f)]
+    private float _investigateTime = 3f;
 
     private IState _currentState;
 
@@ -94,7 +100,7 @@ public class NpcController : MonoBehaviour
         {
             Animator.SetLookAtPosition(lookAtTarget.position);
         }
-        Animator.SetLookAtWeight(lookWeight);
+        Animator.SetLookAtWeight(lookWeight, 0.3f, 0.9f, 0, 0);
     }
 
     public void LookAt(Transform target)
