@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class RoamState : IState
 {
     private readonly VisitorController _visitorController;
+    private Coroutine _switchRoomCoroutine;
 
     public RoamState(VisitorController visitorController)
     {
@@ -14,7 +15,10 @@ public class RoamState : IState
     public void Handle()
     {
         _visitorController.StartCoroutine(RoamCoroutine());
-        _visitorController.StartCoroutine(PeriodicallySwitchRoomCoroutine());
+        if (_switchRoomCoroutine == null)
+        {
+            _switchRoomCoroutine = _visitorController.StartCoroutine(PeriodicallySwitchRoomCoroutine());
+        }
     }
 
     private IEnumerator RoamCoroutine()
