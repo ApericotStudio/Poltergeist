@@ -9,7 +9,6 @@ public class LevelGradeHandler
     public Grade Load(string sceneName)
     {
         string fullPath = Path.Combine(_gradeDirPath, sceneName);
-        Debug.Log(fullPath);
         Grade grade = null;
         if (File.Exists(fullPath))
         {

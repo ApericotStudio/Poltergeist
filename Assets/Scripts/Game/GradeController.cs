@@ -12,7 +12,6 @@ public class GradeController : MonoBehaviour
     private void Awake()
     {
         Grade = new Grade();
-        Debug.Log(_gradeCriterias.Count);
         switch (_gradeCriterias.Count)
         {
             case 2:
@@ -63,7 +62,6 @@ public class GradeController : MonoBehaviour
             Grade.PhobiaScares++;
 
             _numberOfPhobias++;
-            Debug.Log(_numberOfPhobias);
         }
     }
 
