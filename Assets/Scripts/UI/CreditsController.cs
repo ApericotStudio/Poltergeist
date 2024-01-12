@@ -8,7 +8,6 @@ public class CreditsController : MonoBehaviour
 
     [SerializeField] private Button _nextButton;
     [SerializeField] private Button _backButton;
-    [SerializeField] private string _mainMenuSceneName;
 
     [SerializeField] private GameObject _audioCredits;
 
@@ -26,10 +25,5 @@ public class CreditsController : MonoBehaviour
     private void OnNextButtonPressed()
     {
         Instantiate(_audioCredits);
-    }
-
-    public void GoToMainMenu()
-    {
-        SceneManager.LoadScene(_mainMenuSceneName);
     }
 }
