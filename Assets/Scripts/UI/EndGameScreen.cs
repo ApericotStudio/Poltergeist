@@ -19,6 +19,7 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private GradeController _gradeController;
     [SerializeField] private string _mainMenuSceneName = "MainMenuUI";
     [SerializeField] private string _levelSelectSceneName = "LevelSelectUI";
+    [SerializeField] private string _endCutsceneSceneName = "EndCutsceneUI";
     [SerializeField] private Image _gradeImage;
     [SerializeField] private GradeConverter _gradeConverter;
 
@@ -79,11 +80,25 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnLevelSelectButtonPressed()
     {
-        SceneManager.LoadScene(_levelSelectSceneName);
+        if (SceneManager.GetActiveScene().name == "FinalExam")
+        {
+            SceneManager.LoadScene(_endCutsceneSceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(_levelSelectSceneName);
+        }
     }
 
     private void OnMainMenuButtonPressed()
     {
-        SceneManager.LoadScene(_mainMenuSceneName);
+        if (SceneManager.GetActiveScene().name == "FinalExam")
+        {
+            SceneManager.LoadScene(_endCutsceneSceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(_mainMenuSceneName);
+        }
     }
 }
