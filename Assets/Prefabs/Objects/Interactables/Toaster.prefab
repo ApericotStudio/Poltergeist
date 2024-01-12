@@ -129,6 +129,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 126
       objectReference: {fileID: 0}
+    - target: {fileID: 5965797065065475788, guid: 550731f42b320314ba8cc42ee41050e6,
+        type: 3}
+      propertyPath: outlineMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5967700316553098386, guid: 550731f42b320314ba8cc42ee41050e6,
         type: 3}
       propertyPath: m_Center.x
@@ -236,6 +241,7 @@ MonoBehaviour:
   SpawnedObject: {fileID: 9029423858464687986, guid: 00ac403c4eb874e0096aadbd5254be35,
     type: 3}
   _spawnLocation: {fileID: 2192375615562977324}
+  _spawnRotation: {x: 0, y: 0, z: 0, w: 1}
   _throwForce: 400
   _nrPerActivation: 20
   _coneRadius: 50

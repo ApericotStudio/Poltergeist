@@ -5,6 +5,7 @@ public class GradeController : MonoBehaviour
 {
     [HideInInspector] public Grade Grade;
     private List<ObservableObject> _observableObjectsUsed = new();
+    private int _numberOfPhobias;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class GradeController : MonoBehaviour
         foreach(FearHandler fearHandler in visitorManager.VisitorCollection.GetComponentsInChildren<FearHandler>())
         {
             fearHandler.OnObjectUsed += OnObjectUsed;
+            fearHandler.activatedPhobia += OnPhobiaScare;
         }
         transform.GetComponent<GameManager>().OnTimePassedChanged += OnTimePassedChanged;
     }
@@ -37,8 +39,7 @@ public class GradeController : MonoBehaviour
         _observableObjectsUsed.Add(observableObject);
         Grade.DifferentObjectsUsed++;
     }
-
-    private void OnPhobiaScare()
+    private void OnPhobiaScare(int index)
     {
         Grade.PhobiaScares++;
     }

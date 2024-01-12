@@ -80,6 +80,7 @@ public class Throwable : MonoBehaviour, IPossessable, IObserver
         StartCoroutine(_cameraScript.ResetCamera());
         _cameraScript.LockCameraPosition = true;
         _lineRenderer.enabled = false;
+        _hitPointImage.gameObject.SetActive(false);
         Possessed = false;
     }
 
@@ -88,6 +89,7 @@ public class Throwable : MonoBehaviour, IPossessable, IObserver
         if(_observableObject.State == ObjectState.Idle)
         {
             _rb.AddForce(_aim * _throwForce, ForceMode.Impulse);
+            _hitPointImage.gameObject.SetActive(false);
         }        
     }
 
@@ -117,10 +119,12 @@ public class Throwable : MonoBehaviour, IPossessable, IObserver
                 LineRenderer.SetPosition(i, hit.point);
                 LineRenderer.positionCount = i + 1;
                 _hitPointImage.position = hit.point + hit.normal * 0.01f;
-                _hitPointImage.transform.up = hit.normal;                
+                _hitPointImage.transform.up = hit.normal;
+                _hitPointImage.gameObject.SetActive(true);
                 return;
             }
         }
+        _hitPointImage.gameObject.SetActive(true);
         _hitPointImage.position = LineRenderer.GetPosition(i);
     }
 
