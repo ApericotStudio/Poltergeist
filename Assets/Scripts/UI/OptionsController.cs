@@ -88,7 +88,7 @@ public class OptionsController : MonoBehaviour
 
     private void OnSensitivitySliderValueChanged(float value)
     {
-        _thirdPersonController.SetSensitivity(value);
+        _thirdPersonController?.SetSensitivity(value);
         PlayerPrefs.SetFloat(PlayerPrefsVariable.Sensitivity.ToString(), value);
         PlayerPrefs.Save();
     }
