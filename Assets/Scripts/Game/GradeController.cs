@@ -6,10 +6,25 @@ public class GradeController : MonoBehaviour
     [HideInInspector] public Grade Grade;
     private List<ObservableObject> _observableObjectsUsed = new();
     private int _numberOfPhobias;
-
+    private List<ObservableObject> _observableObjectPhobia = new();
+    [SerializeField]
+    private List<GradeCriteria> _gradeCriterias;
     private void Awake()
     {
         Grade = new Grade();
+        switch (_gradeCriterias.Count)
+        {
+            case 2:
+                Grade.GradeObjects = _gradeCriterias[0];
+                Grade.GradeTime = _gradeCriterias[1];
+                break;
+            case 3:
+                Grade.GradeObjects = _gradeCriterias[0];
+                Grade.GradePhobias = _gradeCriterias[1];
+                Grade.GradeTime = _gradeCriterias[2];
+                break;
+        }
+
         SetupSubscriptions();
     }
 
@@ -20,7 +35,7 @@ public class GradeController : MonoBehaviour
         foreach(FearHandler fearHandler in visitorManager.VisitorCollection.GetComponentsInChildren<FearHandler>())
         {
             fearHandler.OnObjectUsed += OnObjectUsed;
-            fearHandler.activatedPhobia += OnPhobiaScare;
+            fearHandler.OnObjectPhobia += OnPhobiaScare;
         }
         transform.GetComponent<GameManager>().OnTimePassedChanged += OnTimePassedChanged;
     }
@@ -39,9 +54,15 @@ public class GradeController : MonoBehaviour
         _observableObjectsUsed.Add(observableObject);
         Grade.DifferentObjectsUsed++;
     }
-    private void OnPhobiaScare(int index)
+    private void OnPhobiaScare(ObservableObject observableObject)
     {
-        Grade.PhobiaScares++;
+        if (!_observableObjectPhobia.Contains(observableObject))
+        {
+            _observableObjectPhobia.Add(observableObject);
+            Grade.PhobiaScares++;
+
+            _numberOfPhobias++;
+        }
     }
 
     private void OnTimePassedChanged(int value)
