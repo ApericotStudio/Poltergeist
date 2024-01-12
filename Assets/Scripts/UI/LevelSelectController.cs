@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class LevelSelectController : MonoBehaviour
 {
@@ -18,6 +18,7 @@ public class LevelSelectController : MonoBehaviour
 
     [Header("Image References")]
     [SerializeField] private Image _gradeImage;
+    [SerializeField] private List<Image> _levelSelectedImages = new();
 
     [Header("Scene References")]
     [SerializeField] private string _mainMenuScene;
@@ -50,23 +51,22 @@ public class LevelSelectController : MonoBehaviour
         Grade grade = levelGradeHandler.Load(_levelCatalog.Levels[0].SceneName);
         if (grade == null)
         {
-            print("0");
-            SelectLevel(_levelCatalog.Levels[0]);
+            SelectLevel(0);
         }
         else
         {
-            SelectLevel(_levelCatalog.Levels[1]);
+            SelectLevel(1);
         }
     }
 
     private void OnAssignmentButtonPressed()
     {
-        SelectLevel(_levelCatalog.Levels[0]);
+        SelectLevel(0);
     }
 
     private void OnFinalExamButtonPressed()
     {
-        SelectLevel(_levelCatalog.Levels[1]);
+        SelectLevel(1);
     }
 
     private void OnStartButtonPressed()
@@ -79,8 +79,18 @@ public class LevelSelectController : MonoBehaviour
         SceneManager.LoadScene(_mainMenuScene);
     }
 
-    public void SelectLevel(Level level)
+    private void SelectLevel(int levelIndex)
     {
+        if (!LevelUnlocked(levelIndex))
+        {
+            return;
+        }
+        foreach (Image levelSelectedImage in _levelSelectedImages)
+        {
+            levelSelectedImage.enabled = false;
+        }
+        _levelSelectedImages[levelIndex].enabled = true;
+        Level level = _levelCatalog.Levels[levelIndex];
         LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
         Grade grade = levelGradeHandler.Load(level.SceneName);
         if (grade != null)
@@ -94,5 +104,21 @@ public class LevelSelectController : MonoBehaviour
         _levelTitleText.text = level.Title;
         _levelDescriptionText.text = level.Description;
         _selectedLevel = level;
+    }
+
+    /// <summary>
+    /// Checks if previous level has a grade
+    /// </summary>
+    private bool LevelUnlocked(int levelIndex)
+    {
+        if (levelIndex == 0)
+        {
+            return true;
+        }
+        Level previousLevel = _levelCatalog.Levels[levelIndex - 1];
+        LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
+        Grade grade = levelGradeHandler.Load(previousLevel.SceneName);
+        bool hasGrade = grade != null;
+        return hasGrade;
     }
 }
