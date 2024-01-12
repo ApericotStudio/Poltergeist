@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class EndGameScreen : MonoBehaviour
 {
@@ -35,7 +34,6 @@ public class EndGameScreen : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(result);
     }
 
     public void OnEnable()
