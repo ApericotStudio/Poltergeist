@@ -32,10 +32,6 @@ public class EndGameScreen : MonoBehaviour
         result = _gradeController.Grade;
     }
 
-    private void Update()
-    {
-    }
-
     public void OnEnable()
     {
         UpdateResults();
