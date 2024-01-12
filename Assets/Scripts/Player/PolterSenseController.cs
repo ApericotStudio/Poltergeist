@@ -9,7 +9,6 @@ public class PolterSenseController : MonoBehaviour
 
     public delegate void PolterSense(int index);
     public event PolterSense isEnabled;
-    private bool _tutorialShown = false;
 
     private void Start()
     {

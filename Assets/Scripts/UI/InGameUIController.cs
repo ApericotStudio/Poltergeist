@@ -21,9 +21,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _tutorialCardDescription;
     [SerializeField] private List<TutorialCardMessage> _tutorialCardMessages = new();
     private int _tutorialCardIndex = 0;
-    private int _tutorialStep = 0;
+
     private string _currentSceneName;
-    private string _tutorialScene = "Assignment";
     private string _mainGameScene = "FinalExam";
 
     [SerializeField] private Transform _visitorOverlayParent;

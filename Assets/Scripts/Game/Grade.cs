@@ -1,5 +1,9 @@
 public class Grade
 {
+    public GradeCriteria GradeObjects;
+    public GradeCriteria GradeTime;
+    public GradeCriteria GradePhobias;
+
     public Grade(GradeFile gradeFile)
     {
         VisitorsLeft = gradeFile.VisitorsLeft;
@@ -53,6 +57,7 @@ public class Grade
         }
         set
         {
+            Debug.WriteLine(_differentObjectsUsed);
             _differentObjectsUsed = value;
             _isDirty = true;
         }
@@ -65,6 +70,7 @@ public class Grade
         }
         set
         {
+            Debug.WriteLine(_phobiaScares);
             _phobiaScares = value;
             _isDirty = true;
         }
@@ -86,11 +92,9 @@ public class Grade
     {
         get
         {
-            int totalAmountOfObjects = 30; // this is an estimate
-            int objectsUsedPercentage = _differentObjectsUsed / totalAmountOfObjects * 100;
-            if (objectsUsedPercentage >= 80) return 4;
-            if (objectsUsedPercentage >= 50) return 3;
-            if (objectsUsedPercentage >= 25) return 2;
+            if (_differentObjectsUsed >= GradeObjects.Criteria_A) return 4;
+            if (_differentObjectsUsed >= GradeObjects.Criteria_B) return 3;
+            if (_differentObjectsUsed >= GradeObjects.Criteria_C) return 2;
             return 1;
         }
     }
@@ -99,9 +103,14 @@ public class Grade
     {
         get
         {
-            if (_phobiaScares >= 9) return 4;
-            if (_phobiaScares >= 4) return 3;
-            if (_phobiaScares >= 1) return 2;
+            if (!GradePhobias)
+            {
+                return 0;
+            }
+
+            if (_phobiaScares >= GradePhobias.Criteria_A) return 4;
+            if (_phobiaScares >= GradePhobias.Criteria_B) return 3;
+            if (_phobiaScares >= GradePhobias.Criteria_C) return 2;
             return 1;
         }
     }
@@ -110,16 +119,27 @@ public class Grade
     {
         get
         {
-            if (_timePassed <= 90) return 4;
-            if (_timePassed <= 180) return 3;
-            if (_timePassed <= 300) return 2;
+            if (_timePassed <= GradeTime.Criteria_A) return 4;
+            if (_timePassed <= GradeTime.Criteria_B) return 3;
+            if (_timePassed <= GradeTime.Criteria_C) return 2;
             return 1;
         }
     }
 
     private int CalculateResult()
     {
-        int totalScore = (_differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore) / 3;
+        int _divideBy;
+
+        if (_phobiaScaresScore == 0)
+        {
+            _divideBy = 2;
+        }
+        else
+        {
+            _divideBy = 3;
+        }
+
+        int totalScore = (_differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore) / _divideBy;
         return totalScore;
     }
 }
