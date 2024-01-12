@@ -14,10 +14,10 @@ public class MainMenuController : MonoBehaviour
     [Header("Canvas References")]
     [SerializeField] private GameObject _levelSelectCanvas;
     [SerializeField] private GameObject _settingsCanvas;
-    [SerializeField] private GameObject _creditsCanvas;
 
     [Header("Scene References")]
     [SerializeField] private string _introCutsceneScene;
+    [SerializeField] private string _creditsSceneName;
 
     [Header("Links")]
     [SerializeField] private string _feedbackFormLink = string.Empty;
@@ -59,6 +59,6 @@ public class MainMenuController : MonoBehaviour
 
     private void OnCreditsButtonPressed()
     {
-        _creditsCanvas.SetActive(true);
+        SceneManager.LoadScene(_creditsSceneName);
     }
 }
