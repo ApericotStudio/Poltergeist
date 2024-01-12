@@ -54,6 +54,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnApplicationFocus(bool focus)
+    {
+        UpdateCursor();
+    }
+
+    private void UpdateCursor()
+    {
+        if(Time.timeScale == 0 && _pauseCanvas.activeSelf)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else if(Time.timeScale == 1)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
     private void TogglePause()
     {
         if (Time.timeScale == 0 && _pauseCanvas.activeSelf)
