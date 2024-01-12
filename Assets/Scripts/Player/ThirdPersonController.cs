@@ -68,9 +68,6 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         [SerializeField]private bool LockCameraPosition = false;
 
-        public delegate void Movevement();
-        public event Movevement onMovement;
-
         [Header("Flying")]
         public float MinHeight;
         public float MaxHeight;
@@ -89,7 +86,6 @@ namespace StarterAssets
 
         // animation IDs
         private int _animIDSpeed;
-        private int _animIDGrounded;
         private int _animIDMotionSpeed;
 
 #if ENABLE_INPUT_SYSTEM 
