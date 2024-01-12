@@ -57,7 +57,6 @@ public class Grade
         }
         set
         {
-            Debug.WriteLine(_differentObjectsUsed);
             _differentObjectsUsed = value;
             _isDirty = true;
         }
@@ -70,7 +69,6 @@ public class Grade
         }
         set
         {
-            Debug.WriteLine(_phobiaScares);
             _phobiaScares = value;
             _isDirty = true;
         }
