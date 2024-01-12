@@ -159,7 +159,7 @@ MonoBehaviour:
   - {fileID: 1723794699024888309}
   - {fileID: 5471976844344392030}
   - {fileID: 4671480795057474575}
-  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  _highlightColor: {fileID: 0}
 --- !u!114 &4633142718710664111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,9 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de1a478009c8414e9303b12dd63f349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 15
+  SizeFear: {fileID: 0}
+  _minimumImpulse: {fileID: 0}
   _objectPhobia: 02000000
-  GeistCharge: 1
 --- !u!114 &2573790776020858459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverMessage: ring / stop
   _hasMax: 0
-  _maxUses: 10
+  MaxUses: 10
   _scary: 1
   InteractEvent:
     m_PersistentCalls:
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 1
+  outlineMode: 0
   outlineColor: {fileID: 0}
   outlineWidth: 7.5
   precomputeOutline: 0
