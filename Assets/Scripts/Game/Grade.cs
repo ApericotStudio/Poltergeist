@@ -10,6 +10,18 @@ public class Grade
         DifferentObjectsUsed = gradeFile.DifferentObjectsUsed;
         PhobiaScares = gradeFile.PhobiaScares;
         TimePassed = gradeFile.TimePassed;
+        switch (gradeFile.GradeCriterias.Count)
+        {
+            case 2:
+                GradeObjects = gradeFile.GradeCriterias[0];
+                GradeTime = gradeFile.GradeCriterias[1];
+                break;
+            case 3:
+                GradeObjects = gradeFile.GradeCriterias[0];
+                GradePhobias = gradeFile.GradeCriterias[1];
+                GradeTime = gradeFile.GradeCriterias[2];
+                break;
+        }
     }
 
     public Grade()
