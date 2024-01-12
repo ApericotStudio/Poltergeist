@@ -4,21 +4,26 @@ using UnityEngine.UI;
 
 public class CreditsController : MonoBehaviour
 {
-    [SerializeField] private Button _backButton;
     [SerializeField] private string _mainMenuSceneName;
+
+    [SerializeField] private Button _nextButton;
+    [SerializeField] private Button _backButton;
+
+    [SerializeField] private GameObject _audioCredits;
 
     private void Awake()
     {
         _backButton.onClick.AddListener(OnBackButtonPressed);
+        _nextButton.onClick.AddListener(OnNextButtonPressed);
     }
 
     private void OnBackButtonPressed()
     {
-        gameObject.SetActive(false);
+        SceneManager.LoadScene(_mainMenuSceneName);
     }
 
-    public void GoToMainMenu()
+    private void OnNextButtonPressed()
     {
-        SceneManager.LoadScene(_mainMenuSceneName);
+        Instantiate(_audioCredits);
     }
 }
