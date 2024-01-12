@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4671154671675125317}
   - component: {fileID: 5965797065065475788}
   - component: {fileID: 2984701132731881114}
+  - component: {fileID: 5639883580886200828}
   m_Layer: 3
   m_Name: PaintingGirl
   m_TagString: Untagged
@@ -135,7 +136,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -153,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderers:
   - {fileID: 8184490156097573802}
-  _highlightColor: {fileID: 0}
+  _highlightColor: {fileID: 11400000, guid: d0744834bedf20c479781b169de5616a, type: 2}
 --- !u!114 &2753171116395276784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,10 +182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcccc81285b52549b75ddee2fadf09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isBreakable: 1
+  _isBreakable: 0
   _destroyMinimumImpulse: 10
-  _hittingGroundClips: {fileID: 0}
-  _breakingClips: {fileID: 0}
+  _hittingGroundClips: {fileID: 11400000, guid: c2d1694e2fb71416da105816af02ee29,
+    type: 2}
+  _breakingClips: {fileID: 11400000, guid: c2d1694e2fb71416da105816af02ee29, type: 2}
 --- !u!114 &4671154671675125317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +253,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  _outlineChildren: 1
 --- !u!114 &2984701132731881114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,3 +267,100 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _torque: {x: 1, y: 0, z: 0}
+--- !u!82 &5639883580886200828
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440278783580584740}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 1da409b342ae7bb4980953671dc49a47,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
