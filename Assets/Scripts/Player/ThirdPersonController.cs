@@ -100,7 +100,8 @@ namespace StarterAssets
         private StarterAssetsInputs _input;
         private PossessionController _posControl;
         private GameObject _mainCamera;
-        private SkinnedMeshRenderer[] _meshRs;
+        private SkinnedMeshRenderer[] _skinnedMeshRs;
+        private MeshRenderer[] _meshRs;
 
         private const float _threshold = 0.01f;
 
@@ -163,7 +164,8 @@ namespace StarterAssets
             _playerInput = GetComponent<PlayerInput>();
             _posControl = gameObject.GetComponent<PossessionController>();
             _posControl.CurrentPossessionChanged.AddListener(TogglePlayerVisible);
-            _meshRs = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+            _skinnedMeshRs = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+            _meshRs = gameObject.GetComponentsInChildren<MeshRenderer>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -352,7 +354,9 @@ namespace StarterAssets
 
         public void TogglePlayerVisible()
         {
-            foreach (SkinnedMeshRenderer mesh in _meshRs) { mesh.enabled = _posControl.CurrentPossession == null; }
+            bool visible = _posControl.CurrentPossession == null;
+            foreach (SkinnedMeshRenderer mesh in _skinnedMeshRs) { mesh.enabled = visible; }
+            foreach (MeshRenderer mesh in _meshRs) { mesh.enabled = visible; }
         }
     }
 }
