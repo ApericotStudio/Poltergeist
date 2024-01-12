@@ -1,16 +1,11 @@
 using StarterAssets;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class TutorialController : MonoBehaviour
 {
     [SerializeField]
     private ThirdPersonController _playerController;
-    private FearHandler _fearHandler;
     private VisitorManager _visitorManager;
     private PolterSenseController _polterSenseController;
     private PossessionController _possessionController;
@@ -19,8 +14,6 @@ public class TutorialController : MonoBehaviour
 
     [SerializeField]
     private InGameUIController _uiController;
-
-    private int _tutorialIndex;
     private int _counter;
     private bool _firstTutorialShown = false;
 
@@ -72,7 +65,6 @@ public class TutorialController : MonoBehaviour
 
         _uiController.ShowTutorial(index);
         _counter = index + 1;
-        ++_tutorialIndex;
 
         unsubscribeEvents();
     }

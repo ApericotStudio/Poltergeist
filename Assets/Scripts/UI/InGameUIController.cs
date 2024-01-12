@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,9 +18,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _tutorialCardDescription;
     [SerializeField] private List<TutorialCardMessage> _tutorialCardMessages = new();
     private int _tutorialCardIndex = 0;
-
     private string _currentSceneName;
-    private string _mainGameScene = "FinalExam";
+    private readonly string _mainGameScene = "FinalExam";
 
     [SerializeField] private Transform _visitorOverlayParent;
     [SerializeField] private GameObject _visitorCollection;
@@ -37,26 +33,6 @@ public class InGameUIController : MonoBehaviour
     private void Update()
     {
         NextTutorial();
-    }
-
-    private void TestTutorialAndNotifications()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ShowNotification("I can't believe you've done this", 3);
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (_tutorialCardMessages.Count > _tutorialCardIndex)
-            {
-                SetTutorial(_tutorialCardMessages[_tutorialCardIndex]);
-                _tutorialCardIndex++;
-            }
-            else
-            {
-                _tutorialCard.SetActive(false);
-            }
-        }
     }
 
     public void ShowTutorial(int index)
