@@ -46,7 +46,10 @@ public class EndGameScreen : MonoBehaviour
     private void UpdateResults()
     {
         _timePassed.text = result.TimePassed.ToString() + " seconds";
-        _phobiaScares.text = result.PhobiaScares.ToString() + " times";
+        if(_phobiaScares != null)
+        {
+            _phobiaScares.text = result.PhobiaScares.ToString() + " times";
+        }
         _differentObjectsUsed.text = result.DifferentObjectsUsed.ToString() + " objects used";
         _gradeImage.sprite = _gradeConverter.GetGradeSprite(result.Result);
     }
