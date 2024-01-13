@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Grade
 {
     public GradeCriteria GradeObjects;
@@ -10,17 +12,24 @@ public class Grade
         DifferentObjectsUsed = gradeFile.DifferentObjectsUsed;
         PhobiaScares = gradeFile.PhobiaScares;
         TimePassed = gradeFile.TimePassed;
-        switch (gradeFile.GradeCriterias.Count)
+
+        // Get grading from file
+        GradeObjects = ScriptableObject.CreateInstance<GradeCriteria>();
+        GradeObjects.Criteria_A = gradeFile.ObjectsCriteria[0];
+        GradeObjects.Criteria_B = gradeFile.ObjectsCriteria[1];
+        GradeObjects.Criteria_C = gradeFile.ObjectsCriteria[2];
+
+        GradeTime = ScriptableObject.CreateInstance<GradeCriteria>();
+        GradeTime.Criteria_A = gradeFile.TimeCriteria[0];
+        GradeTime.Criteria_B = gradeFile.TimeCriteria[1];
+        GradeTime.Criteria_C = gradeFile.TimeCriteria[2];
+
+        if(gradeFile.PhobiasCriteria != null && gradeFile.PhobiasCriteria.Count == 3)
         {
-            case 2:
-                GradeObjects = gradeFile.GradeCriterias[0];
-                GradeTime = gradeFile.GradeCriterias[1];
-                break;
-            case 3:
-                GradeObjects = gradeFile.GradeCriterias[0];
-                GradePhobias = gradeFile.GradeCriterias[1];
-                GradeTime = gradeFile.GradeCriterias[2];
-                break;
+            GradePhobias = ScriptableObject.CreateInstance<GradeCriteria>();
+            GradePhobias.Criteria_A = gradeFile.PhobiasCriteria[0];
+            GradePhobias.Criteria_B = gradeFile.PhobiasCriteria[1];
+            GradePhobias.Criteria_C = gradeFile.PhobiasCriteria[2];
         }
     }
 
