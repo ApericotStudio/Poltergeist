@@ -2,14 +2,13 @@ using System.Collections.Generic;
 
 public class GradeFile
 {
-    public GradeFile(int result, int visitorsLeft, int differentObjectsUsed, int timePassed, List<GradeCriteria> gradeCriterias)
+    public GradeFile(int result, int visitorsLeft, int differentObjectsUsed, int phobiaScares, int timePassed)
     {
         Result = result;
         VisitorsLeft = visitorsLeft;
         DifferentObjectsUsed = differentObjectsUsed;
-        PhobiaScares = 0;
+        PhobiaScares = phobiaScares;
         TimePassed = timePassed;
-        GradeCriterias = gradeCriterias;
     }
 
     public int Result;
@@ -17,6 +16,4 @@ public class GradeFile
     public int DifferentObjectsUsed;
     public int PhobiaScares;
     public int TimePassed;
-
-    public List<GradeCriteria> GradeCriterias;
 }

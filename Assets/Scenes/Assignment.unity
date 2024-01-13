@@ -51544,6 +51544,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44666c2ccb5557f43b3aec70da29c3ab, type: 3}
+--- !u!20 &1699548303 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2274965528635729830, guid: 44666c2ccb5557f43b3aec70da29c3ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1699548302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1701805875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56243,6 +56249,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 1729944933779970553, guid: a209c4aab6536364e95f4d820d379001,
+        type: 3}
+      propertyPath: _scareCam
+      value: 
+      objectReference: {fileID: 1699548303}
+    - target: {fileID: 1729944933779970553, guid: a209c4aab6536364e95f4d820d379001,
+        type: 3}
+      propertyPath: _scareCamImage
+      value: 
+      objectReference: {fileID: 1236138637}
+    - target: {fileID: 1729944933779970553, guid: a209c4aab6536364e95f4d820d379001,
+        type: 3}
+      propertyPath: _visitorCollection
+      value: 
+      objectReference: {fileID: 1207009365}
     - target: {fileID: 1871557956774806525, guid: a209c4aab6536364e95f4d820d379001,
         type: 3}
       propertyPath: _audioMixer
