@@ -44,7 +44,7 @@ public class LevelGradeHandler
         gradeCriterias.Add(grade.GradeTime);
 
 
-        GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, (int)grade.TimePassed, gradeCriterias);
+        GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, grade.PhobiaScares, grade.TimePassed);
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));

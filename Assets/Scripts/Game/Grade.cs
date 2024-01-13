@@ -8,29 +8,12 @@ public class Grade
 
     public Grade(GradeFile gradeFile)
     {
+        _result = gradeFile.Result;
+        _isResultCalculated = true;
         VisitorsLeft = gradeFile.VisitorsLeft;
         DifferentObjectsUsed = gradeFile.DifferentObjectsUsed;
         PhobiaScares = gradeFile.PhobiaScares;
         TimePassed = gradeFile.TimePassed;
-
-        // Get grading from file
-        GradeObjects = ScriptableObject.CreateInstance<GradeCriteria>();
-        GradeObjects.Criteria_A = gradeFile.ObjectsCriteria[0];
-        GradeObjects.Criteria_B = gradeFile.ObjectsCriteria[1];
-        GradeObjects.Criteria_C = gradeFile.ObjectsCriteria[2];
-
-        GradeTime = ScriptableObject.CreateInstance<GradeCriteria>();
-        GradeTime.Criteria_A = gradeFile.TimeCriteria[0];
-        GradeTime.Criteria_B = gradeFile.TimeCriteria[1];
-        GradeTime.Criteria_C = gradeFile.TimeCriteria[2];
-
-        if(gradeFile.PhobiasCriteria != null && gradeFile.PhobiasCriteria.Count == 3)
-        {
-            GradePhobias = ScriptableObject.CreateInstance<GradeCriteria>();
-            GradePhobias.Criteria_A = gradeFile.PhobiasCriteria[0];
-            GradePhobias.Criteria_B = gradeFile.PhobiasCriteria[1];
-            GradePhobias.Criteria_C = gradeFile.PhobiasCriteria[2];
-        }
     }
 
     public Grade()
@@ -38,16 +21,16 @@ public class Grade
 
     }
 
-    private bool _isDirty = true;
+    private bool _isResultCalculated = false;
     private int _result;
     public int Result
     {
         get
         {
-            if (_isDirty)
+            if (!_isResultCalculated)
             {
                 _result = CalculateResult();
-                _isDirty = false;
+                _isResultCalculated = false;
             }
             return _result;
         }
@@ -67,7 +50,6 @@ public class Grade
         set
         {
             _visitorsLeft = value;
-            _isDirty = true;
         }
     }
     public int DifferentObjectsUsed
@@ -79,7 +61,6 @@ public class Grade
         set
         {
             _differentObjectsUsed = value;
-            _isDirty = true;
         }
     }
     public int PhobiaScares
@@ -91,7 +72,6 @@ public class Grade
         set
         {
             _phobiaScares = value;
-            _isDirty = true;
         }
     }
     public int TimePassed
@@ -103,7 +83,6 @@ public class Grade
         set
         {
             _timePassed = value;
-            _isDirty = true;
         }
     }
 
