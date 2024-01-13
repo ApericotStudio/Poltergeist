@@ -49866,8 +49866,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4061987694037499571, guid: 44666c2ccb5557f43b3aec70da29c3ab, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -54451,6 +54450,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 1729944933779970553, guid: a209c4aab6536364e95f4d820d379001,
+        type: 3}
+      propertyPath: _scareCam
+      value: 
+      objectReference: {fileID: 1699548303}
+    - target: {fileID: 1729944933779970553, guid: a209c4aab6536364e95f4d820d379001,
+        type: 3}
+      propertyPath: _scareCamImage
+      value: 
+      objectReference: {fileID: 1236138637}
+    - target: {fileID: 1729944933779970553, guid: a209c4aab6536364e95f4d820d379001,
+        type: 3}
+      propertyPath: _visitorCollection
+      value: 
+      objectReference: {fileID: 1207009365}
     - target: {fileID: 1871557956774806525, guid: a209c4aab6536364e95f4d820d379001,
         type: 3}
       propertyPath: _audioMixer
@@ -54495,11 +54509,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1148388120156649140, guid: a209c4aab6536364e95f4d820d379001,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1875107164}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a209c4aab6536364e95f4d820d379001, type: 3}
 --- !u!114 &1875107162 stripped
 MonoBehaviour:
@@ -54507,35 +54517,12 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1875107161}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875107163}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f4bb75d796dee24eb5751e28e039842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1875107163 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1148388120156649140, guid: a209c4aab6536364e95f4d820d379001,
-    type: 3}
-  m_PrefabInstance: {fileID: 1875107161}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1875107164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875107163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85c65b1dd858422428e77e09068750b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scareCam: {fileID: 1699548303}
-  _scareCamImage: {fileID: 1236138637}
-  _visitorCollection: {fileID: 1207009365}
-  _cameraOffset: {x: 0, y: 0, z: 1}
-  _followDuration: 3
 --- !u!1 &1877957567
 GameObject:
   m_ObjectHideFlags: 0
