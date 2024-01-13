@@ -26105,7 +26105,7 @@ PrefabInstance:
     - target: {fileID: 8522012494151237017, guid: c47129383c31e2d4eaeef471d8a277e4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.28571442
+      value: 0.28571445
       objectReference: {fileID: 0}
     - target: {fileID: 8522012494151237017, guid: c47129383c31e2d4eaeef471d8a277e4,
         type: 3}
@@ -35833,6 +35833,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6987827179420912006, guid: f68807a0db24d3741a657edf3572471a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7912238923740510477, guid: f68807a0db24d3741a657edf3572471a,
         type: 3}
       propertyPath: m_Name
@@ -35841,12 +35846,16 @@ PrefabInstance:
     - target: {fileID: 7912238923740510477, guid: f68807a0db24d3741a657edf3572471a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7912238923740510477, guid: f68807a0db24d3741a657edf3572471a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1236138640}
   m_SourcePrefab: {fileID: 100100000, guid: f68807a0db24d3741a657edf3572471a, type: 3}
 --- !u!224 &1236138636 stripped
 RectTransform:
@@ -35860,6 +35869,22 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1236138635}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1236138640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236138637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c65b1dd858422428e77e09068750b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scareCamImage: {fileID: 0}
+  _visitorCollection: {fileID: 1207009365}
+  _cameraOffset: {x: 0, y: 0, z: 1}
+  _followDuration: 3
 --- !u!1 &1240583176
 GameObject:
   m_ObjectHideFlags: 0
@@ -42824,7 +42849,7 @@ PrefabInstance:
     - target: {fileID: 4130052143407715334, guid: 385726608965c994a9b1facfadee75df,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000000029802322
+      value: 0.039
       objectReference: {fileID: 0}
     - target: {fileID: 4130052143407715334, guid: 385726608965c994a9b1facfadee75df,
         type: 3}
