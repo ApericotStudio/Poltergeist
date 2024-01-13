@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class VisitorManager : MonoBehaviour
@@ -37,7 +39,14 @@ public class VisitorManager : MonoBehaviour
         OnVisitorsLeftChanged?.Invoke(visitorsLeft);
         if (visitorsLeft <= 0)
         {
-            _gameManager.EndGame();
+            VisitorController lastVisitor = _visitors.Where(x => x.isActiveAndEnabled == true).FirstOrDefault();
+            StartCoroutine(EnableEndscreenAfterLastVisitorRunsAway(lastVisitor));
         }
+    }
+
+    private IEnumerator EnableEndscreenAfterLastVisitorRunsAway(VisitorController visitor)
+    {
+        yield return new WaitUntil(() =>!visitor.Agent.pathPending && visitor.Agent.remainingDistance <= 0.5f);
+        _gameManager.EndGame();
     }
 }
