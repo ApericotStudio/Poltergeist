@@ -37,13 +37,6 @@ public class LevelGradeHandler
     public void Save(Grade grade, string sceneName)
     {
         string fullPath = Path.Combine(_gradeDirPath, sceneName);
-        
-        List<GradeCriteria> gradeCriterias = new List<GradeCriteria>();
-        gradeCriterias.Add(grade.GradeObjects);
-        if (grade.GradePhobias != null) gradeCriterias.Add(grade.GradePhobias);
-        gradeCriterias.Add(grade.GradeTime);
-
-
         GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, grade.PhobiaScares, grade.TimePassed);
         try
         {
