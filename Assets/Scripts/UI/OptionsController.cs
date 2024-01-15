@@ -1,6 +1,7 @@
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum PlayerPrefsVariable
@@ -46,6 +47,9 @@ public class OptionsController : MonoBehaviour
     {
         SetSliders();
         SetToggles();
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(_volumeSlider.gameObject);
     }
 
     private void SetupSliders()
@@ -115,6 +119,7 @@ public class OptionsController : MonoBehaviour
     private void OnBackButtonPressed()
     {
         gameObject.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(EventSystem.current.firstSelectedGameObject);
         _backCanvas.SetActive(true);
     }
 }
