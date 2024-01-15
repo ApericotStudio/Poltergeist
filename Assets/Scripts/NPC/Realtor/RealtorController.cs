@@ -24,10 +24,8 @@ public class RealtorController : NpcController
     [Tooltip("The current check up origin of the realtor. This is the location the realtor will roam around.")]
     public Transform CurrentCheckUpOrigin;
     [Tooltip("Cooldown of soothing."), Range(0f, 30f), SerializeField]
-    private float _sootheCooldown = 15f;
+    private float _sootheCooldown = 0f;
     private float _sootheCooldownTimer = 0;
-    [Tooltip("Minimum fear change required to make realtor play soothing animation"), Range(0f, 50f), SerializeField]
-    private float _minimumFearToSoothe = 4f;
 
     private int _currentVisitorIndex = 0;
 
@@ -68,9 +66,9 @@ public class RealtorController : NpcController
         }
     }
 
-    public void Soothe(float fear, float difference, VisitorController visitor)
+    public void Soothe(VisitorController visitor)
     {
-        if (difference > _minimumFearToSoothe && _sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
+        if (_sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
         {
             _sootheCooldownTimer = _sootheCooldown;
             Agent.isStopped = true;
