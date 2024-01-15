@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,6 +15,11 @@ public class QuitConfirmationController : MonoBehaviour
     private void Awake()
     {
         SetupButtons();
+    }
+
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(_cancelButton.gameObject);
     }
 
     private void SetupButtons()
@@ -32,5 +38,6 @@ public class QuitConfirmationController : MonoBehaviour
     private void OnCancelButtonPressed()
     {
         gameObject.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(EventSystem.current.firstSelectedGameObject);
     }
 }

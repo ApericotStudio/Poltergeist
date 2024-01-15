@@ -11,6 +11,9 @@ public class LevelSelectController : MonoBehaviour
     [SerializeField] private Button _finalExamButton;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _backButton;
+    [SerializeField] private Color _selectedColor;
+    private ColorBlock color;
+    private List<Button> _buttons = new List<Button>();
 
     [Header("Text References")]
     [SerializeField] private TextMeshProUGUI _levelTitleText;
@@ -44,6 +47,19 @@ public class LevelSelectController : MonoBehaviour
         _finalExamButton.onClick.AddListener(OnFinalExamButtonPressed);
         _startButton.onClick.AddListener(OnStartButtonPressed);
         _backButton.onClick.AddListener(OnBackButtonPressed);
+
+        _buttons.Add(_assignmentButton);
+        _buttons.Add(_finalExamButton);
+        _buttons.Add(_startButton);
+        _buttons.Add(_backButton);
+
+        foreach (Button button in _buttons)
+        {
+            color = button.colors;
+            color.selectedColor = _selectedColor;
+
+            button.colors = color;
+        }
     }
 
     private void RetrieveProgress()

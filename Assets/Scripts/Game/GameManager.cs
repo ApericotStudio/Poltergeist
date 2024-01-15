@@ -59,6 +59,11 @@ public class GameManager : MonoBehaviour
         UpdateCursor();
     }
 
+    public void onButtonStart()
+    {
+        TogglePause();
+    }
+
     private void UpdateCursor()
     {
         if(Time.timeScale == 0 && _pauseCanvas.activeSelf)

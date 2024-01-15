@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Options",
+                    "type": "Button",
+                    "id": "269e34e6-b5a6-4371-8b4e-04e907801c08",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -473,6 +482,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "ConsoleToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01b7a8f7-0d84-4e74-82c9-be2b222516f5",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Options",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

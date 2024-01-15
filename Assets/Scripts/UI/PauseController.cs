@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PauseController : MonoBehaviour
@@ -35,6 +36,7 @@ public class PauseController : MonoBehaviour
     private void OnEnable()
     {
         SetProgress(_gradeController.Grade);
+        EventSystem.current.SetSelectedGameObject(_optionsButton.gameObject);
     }
 
     private void SetupButtons()
