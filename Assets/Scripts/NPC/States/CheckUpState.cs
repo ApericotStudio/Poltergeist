@@ -63,6 +63,16 @@ public class CheckUpState : IState
         Vector3 randomDirection = Random.insideUnitSphere * _realtorController.CheckUpRadius;
         randomDirection += _realtorController.CurrentCheckUpOrigin.position;
         NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, _realtorController.CheckUpRadius, 1);
+        
+        // Keep finding a point that is not behind a wall
+        int raycasts = 0;
+        int maxRaycasts = 3;
+        while (!Physics.Raycast(hit.position, _realtorController.CurrentCheckUpOrigin.position - hit.position,  _realtorController.CheckUpRadius, 1) && raycasts < maxRaycasts)
+        {
+            NavMesh.SamplePosition(randomDirection, out hit, _realtorController.CheckUpRadius, 1);
+            raycasts++;
+        }
+
         return hit.position;
     }
 }
