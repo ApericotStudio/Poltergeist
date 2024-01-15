@@ -18,6 +18,7 @@ public class HatCommand : ConsoleCommand
             GameObject hat = hats[index];
             //Vector3 offset = new Vector3(0, 0.15f, 0);
             GameObject coolHat = Instantiate(original: hat, parent: headbone.transform, position: headbone.transform.position, rotation: Quaternion.identity);
+            coolHat.transform.forward = headbone.transform.forward;
             return true;
         }
         return false;
