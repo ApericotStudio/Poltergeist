@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class EndGameScreen : MonoBehaviour
 {
@@ -20,18 +19,23 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private GradeController _gradeController;
     [SerializeField] private string _mainMenuSceneName = "MainMenuUI";
     [SerializeField] private string _levelSelectSceneName = "LevelSelectUI";
+    [SerializeField] private string _endCutsceneSceneName = "EndCutsceneUI";
     [SerializeField] private Image _gradeImage;
     [SerializeField] private GradeConverter _gradeConverter;
 
+    private Grade result;
     private void Awake()
     {
         _resitButton.onClick.AddListener(OnResitButtonClicked);
         _levelSelectButton.onClick.AddListener(OnLevelSelectButtonPressed);
         _mainMenuButton.onClick.AddListener(OnMainMenuButtonPressed);
+
+        result = _gradeController.Grade;
     }
 
     public void OnEnable()
     {
+        Time.timeScale = 0f;
         UpdateResults();
         CheckForHighestGrade();
     }
@@ -41,9 +45,11 @@ public class EndGameScreen : MonoBehaviour
     /// </summary>
     private void UpdateResults()
     {
-        Grade result = _gradeController.Grade;
         _timePassed.text = result.TimePassed.ToString() + " seconds";
-        _phobiaScares.text = result.PhobiaScares.ToString() + " times";
+        if(_phobiaScares != null)
+        {
+            _phobiaScares.text = result.PhobiaScares.ToString() + " times";
+        }
         _differentObjectsUsed.text = result.DifferentObjectsUsed.ToString() + " objects used";
         _gradeImage.sprite = _gradeConverter.GetGradeSprite(result.Result);
     }
@@ -73,16 +79,33 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnResitButtonClicked()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnLevelSelectButtonPressed()
     {
-        SceneManager.LoadScene(_levelSelectSceneName);
+        Time.timeScale = 1.0f;
+        if (SceneManager.GetActiveScene().name == "FinalExam")
+        {
+            SceneManager.LoadScene(_endCutsceneSceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(_levelSelectSceneName);
+        }
     }
 
     private void OnMainMenuButtonPressed()
     {
-        SceneManager.LoadScene(_mainMenuSceneName);
+        Time.timeScale = 1.0f;
+        if (SceneManager.GetActiveScene().name == "FinalExam")
+        {
+            SceneManager.LoadScene(_endCutsceneSceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(_mainMenuSceneName);
+        }
     }
 }

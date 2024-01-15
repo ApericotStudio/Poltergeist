@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1871557956774806525}
   - component: {fileID: 3028869041759280478}
   - component: {fileID: 7444451536167477588}
+  - component: {fileID: 6550857201775457575}
+  - component: {fileID: 1729944933779970553}
   m_Layer: 0
   m_Name: Game Managers
   m_TagString: Untagged
@@ -64,7 +66,9 @@ MonoBehaviour:
   OnEndGame:
     m_PersistentCalls:
       m_Calls: []
-  _timeLeft: 120
+  _pauseCanvas: {fileID: 0}
+  _timePassed: 0
+  _audioMixer: {fileID: 24100000, guid: 1da409b342ae7bb4980953671dc49a47, type: 2}
 --- !u!114 &3028869041759280478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d0e9a0480843c744a04e50e41eeb71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NpcCollection: {fileID: 0}
+  VisitorCollection: {fileID: 0}
   _gameManager: {fileID: 1871557956774806525}
 --- !u!114 &7444451536167477588
 MonoBehaviour:
@@ -91,4 +95,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4bb75d796dee24eb5751e28e039842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grade: {fileID: 0}
+  _gradeCriterias:
+  - {fileID: 11400000, guid: d5301e831ae094b4393b9a6fd3a200ea, type: 2}
+  - {fileID: 11400000, guid: e98a6cfe866766f489d76dcb55d4d017, type: 2}
+  - {fileID: 11400000, guid: 5a1a173fadaa10741bb1b2c9e56d2a40, type: 2}
+--- !u!114 &6550857201775457575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148388120156649140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f843e1ab40d86d442aad55ec91c2f712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerController: {fileID: 0}
+  _uiController: {fileID: 0}
+--- !u!114 &1729944933779970553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148388120156649140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c65b1dd858422428e77e09068750b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scareCam: {fileID: 0}
+  _scareCamImage: {fileID: 0}
+  _visitorCollection: {fileID: 0}
+  _cameraOffset: {x: 0, y: 0, z: 1}
+  _followDuration: 3

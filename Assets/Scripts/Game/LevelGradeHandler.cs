@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ public class LevelGradeHandler
     public void Save(Grade grade, string sceneName)
     {
         string fullPath = Path.Combine(_gradeDirPath, sceneName);
-        GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, (int)grade.TimePassed);
+        GradeFile gradeToStore = new GradeFile(grade.Result, grade.VisitorsLeft, grade.DifferentObjectsUsed, grade.PhobiaScares, grade.TimePassed);
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));

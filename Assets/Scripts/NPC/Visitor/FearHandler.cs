@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -35,9 +33,14 @@ public class FearHandler : MonoBehaviour
     private VisitorSenses _visitorSenses;
     private bool _isScared = false;
     private IEnumerator _coroutine;
+    private bool _firstScare = false;
 
     public delegate void Phobia(int index);
-    public event Phobia activatedPhobia; 
+    public event Phobia activatedPhobia;
+
+    public delegate void UsedObjectPhobia(ObservableObject observableObject);
+    public event UsedObjectPhobia OnObjectPhobia;
+
     private void Awake()
     {
         _visitorController = GetComponent<VisitorController>();
@@ -108,7 +111,13 @@ public class FearHandler : MonoBehaviour
         {
             if (phobia == _visitorController.VisitorPhobia && _visitorController.VisitorPhobia != ObjectPhobia.None)
             {
-                activatedPhobia?.Invoke(1);
+                if (!_firstScare)
+                {
+                    _firstScare = true;
+                    activatedPhobia?.Invoke(1);
+                }
+
+                OnObjectPhobia?.Invoke(observableObject);
                 phobiaValue = _phobiaValue;
                 break;
             }
@@ -120,6 +129,7 @@ public class FearHandler : MonoBehaviour
         if (_visitorController.SeenByRealtor)
         {
             soothe = _sootheMultiplier;
+            _visitorController.OnSoothe.Invoke(_visitorController);
         }
         else
         {

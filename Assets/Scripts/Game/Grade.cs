@@ -1,7 +1,15 @@
+using UnityEngine;
+
 public class Grade
 {
+    public GradeCriteria GradeObjects;
+    public GradeCriteria GradeTime;
+    public GradeCriteria GradePhobias;
+
     public Grade(GradeFile gradeFile)
     {
+        _result = gradeFile.Result;
+        _isResultCalculated = true;
         VisitorsLeft = gradeFile.VisitorsLeft;
         DifferentObjectsUsed = gradeFile.DifferentObjectsUsed;
         PhobiaScares = gradeFile.PhobiaScares;
@@ -13,16 +21,16 @@ public class Grade
 
     }
 
-    private bool _isDirty = true;
+    private bool _isResultCalculated = false;
     private int _result;
     public int Result
     {
         get
         {
-            if (_isDirty)
+            if (!_isResultCalculated)
             {
                 _result = CalculateResult();
-                _isDirty = false;
+                _isResultCalculated = false;
             }
             return _result;
         }
@@ -42,7 +50,6 @@ public class Grade
         set
         {
             _visitorsLeft = value;
-            _isDirty = true;
         }
     }
     public int DifferentObjectsUsed
@@ -54,7 +61,6 @@ public class Grade
         set
         {
             _differentObjectsUsed = value;
-            _isDirty = true;
         }
     }
     public int PhobiaScares
@@ -66,7 +72,6 @@ public class Grade
         set
         {
             _phobiaScares = value;
-            _isDirty = true;
         }
     }
     public int TimePassed
@@ -78,7 +83,6 @@ public class Grade
         set
         {
             _timePassed = value;
-            _isDirty = true;
         }
     }
 
@@ -86,11 +90,9 @@ public class Grade
     {
         get
         {
-            int totalAmountOfObjects = 30; // this is an estimate
-            int objectsUsedPercentage = _differentObjectsUsed / totalAmountOfObjects * 100;
-            if (objectsUsedPercentage >= 80) return 4;
-            if (objectsUsedPercentage >= 50) return 3;
-            if (objectsUsedPercentage >= 25) return 2;
+            if (_differentObjectsUsed >= GradeObjects.Criteria_A) return 4;
+            if (_differentObjectsUsed >= GradeObjects.Criteria_B) return 3;
+            if (_differentObjectsUsed >= GradeObjects.Criteria_C) return 2;
             return 1;
         }
     }
@@ -99,9 +101,14 @@ public class Grade
     {
         get
         {
-            if (_phobiaScares >= 9) return 4;
-            if (_phobiaScares >= 4) return 3;
-            if (_phobiaScares >= 1) return 2;
+            if (!GradePhobias)
+            {
+                return 0;
+            }
+
+            if (_phobiaScares >= GradePhobias.Criteria_A) return 4;
+            if (_phobiaScares >= GradePhobias.Criteria_B) return 3;
+            if (_phobiaScares >= GradePhobias.Criteria_C) return 2;
             return 1;
         }
     }
@@ -110,16 +117,27 @@ public class Grade
     {
         get
         {
-            if (_timePassed <= 90) return 4;
-            if (_timePassed <= 180) return 3;
-            if (_timePassed <= 300) return 2;
+            if (_timePassed <= GradeTime.Criteria_A) return 4;
+            if (_timePassed <= GradeTime.Criteria_B) return 3;
+            if (_timePassed <= GradeTime.Criteria_C) return 2;
             return 1;
         }
     }
 
     private int CalculateResult()
     {
-        int totalScore = (_differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore) / 3;
+        int _divideBy;
+
+        if (_phobiaScaresScore == 0)
+        {
+            _divideBy = 2;
+        }
+        else
+        {
+            _divideBy = 3;
+        }
+
+        int totalScore = (_differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore) / _divideBy;
         return totalScore;
     }
 }

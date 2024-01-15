@@ -15,8 +15,6 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
 
     private float _pausedTimeScale;
 
-    private static DeveloperConsoleBehaviour _instance;
-
     private DeveloperConsole _developerConsole;
 
     public DeveloperConsole DeveloperConsole
@@ -26,19 +24,6 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
             if (_developerConsole != null) { return _developerConsole; }
             return _developerConsole = new DeveloperConsole(_prefix, _commands);
         }
-    }
-
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        _instance = this;
-
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Toggle()

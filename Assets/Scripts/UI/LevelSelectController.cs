@@ -18,6 +18,7 @@ public class LevelSelectController : MonoBehaviour
 
     [Header("Image References")]
     [SerializeField] private Image _gradeImage;
+    [SerializeField] private Image _postItNote;
     [SerializeField] private List<Image> _levelSelectedImages = new();
 
     [Header("Scene References")]
@@ -52,10 +53,12 @@ public class LevelSelectController : MonoBehaviour
         if (grade == null)
         {
             SelectLevel(0);
+            _postItNote.enabled = true;
         }
         else
         {
             SelectLevel(1);
+            _postItNote.enabled = false;
         }
     }
 
