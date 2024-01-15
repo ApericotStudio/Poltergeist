@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Grade
 {
     public GradeCriteria GradeObjects;
@@ -6,6 +8,8 @@ public class Grade
 
     public Grade(GradeFile gradeFile)
     {
+        _result = gradeFile.Result;
+        _isResultCalculated = true;
         VisitorsLeft = gradeFile.VisitorsLeft;
         DifferentObjectsUsed = gradeFile.DifferentObjectsUsed;
         PhobiaScares = gradeFile.PhobiaScares;
@@ -17,16 +21,16 @@ public class Grade
 
     }
 
-    private bool _isDirty = true;
+    private bool _isResultCalculated = false;
     private int _result;
     public int Result
     {
         get
         {
-            if (_isDirty)
+            if (!_isResultCalculated)
             {
                 _result = CalculateResult();
-                _isDirty = false;
+                _isResultCalculated = false;
             }
             return _result;
         }
@@ -46,7 +50,6 @@ public class Grade
         set
         {
             _visitorsLeft = value;
-            _isDirty = true;
         }
     }
     public int DifferentObjectsUsed
@@ -58,7 +61,6 @@ public class Grade
         set
         {
             _differentObjectsUsed = value;
-            _isDirty = true;
         }
     }
     public int PhobiaScares
@@ -70,7 +72,6 @@ public class Grade
         set
         {
             _phobiaScares = value;
-            _isDirty = true;
         }
     }
     public int TimePassed
@@ -82,7 +83,6 @@ public class Grade
         set
         {
             _timePassed = value;
-            _isDirty = true;
         }
     }
 

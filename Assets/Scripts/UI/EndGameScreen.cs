@@ -35,6 +35,7 @@ public class EndGameScreen : MonoBehaviour
 
     public void OnEnable()
     {
+        Time.timeScale = 0f;
         UpdateResults();
         CheckForHighestGrade();
     }
@@ -45,7 +46,10 @@ public class EndGameScreen : MonoBehaviour
     private void UpdateResults()
     {
         _timePassed.text = result.TimePassed.ToString() + " seconds";
-        _phobiaScares.text = result.PhobiaScares.ToString() + " times";
+        if(_phobiaScares != null)
+        {
+            _phobiaScares.text = result.PhobiaScares.ToString() + " times";
+        }
         _differentObjectsUsed.text = result.DifferentObjectsUsed.ToString() + " objects used";
         _gradeImage.sprite = _gradeConverter.GetGradeSprite(result.Result);
     }
@@ -75,11 +79,13 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnResitButtonClicked()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnLevelSelectButtonPressed()
     {
+        Time.timeScale = 1.0f;
         if (SceneManager.GetActiveScene().name == "FinalExam")
         {
             SceneManager.LoadScene(_endCutsceneSceneName);
@@ -92,6 +98,7 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnMainMenuButtonPressed()
     {
+        Time.timeScale = 1.0f;
         if (SceneManager.GetActiveScene().name == "FinalExam")
         {
             SceneManager.LoadScene(_endCutsceneSceneName);
