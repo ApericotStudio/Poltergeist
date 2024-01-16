@@ -5359,11 +5359,14 @@ MonoBehaviour:
       m_Calls: []
   AnimationBlend: 0
   InspectTarget: {fileID: 0}
-  _investigateTime: 3
+  _investigateTime: 2
   PanickedTargetLocation: {fileID: 0}
-  PanickedSpeed: 5.335
+  PanickedSpeed: 7
   _fearValue: 0
   OnFearValueChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSoothe:
     m_PersistentCalls:
       m_Calls: []
   VisitorPhobia: 1
@@ -5389,6 +5392,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   _runAwayClip: {fileID: 8300000, guid: bbc2ccef03f0c9d4fbada66d830013d1, type: 3}
+  _mixerGroup: {fileID: 24300002, guid: 1da409b342ae7bb4980953671dc49a47, type: 2}
   FootstepVolume: 0.5
   RanAway: 0
   FearReductionHasCooldown: 0
