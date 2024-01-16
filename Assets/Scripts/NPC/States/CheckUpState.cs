@@ -20,6 +20,12 @@ public class CheckUpState : IState
         _realtorController.StartCoroutine(PeriodicallySetCheckUpOriginCoroutine());
     }
 
+    public void StopStateCoroutines()
+    {
+        _realtorController.StopCoroutine(CheckUpCoroutine());
+        _realtorController.StopCoroutine(PeriodicallySetCheckUpOriginCoroutine());
+    }
+
     private IEnumerator CheckUpCoroutine()
     {
         _realtorController.Agent.stoppingDistance = 0f;

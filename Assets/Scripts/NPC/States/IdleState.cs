@@ -16,7 +16,7 @@ public class IdleState : IState
     public IdleState(NpcController _npcController, IState StateToReturnTo, Animator _animator, string _animationName)
     {
         this._npcController = _npcController;
-        this._stateToReturnTo = StateToReturnTo;
+        _stateToReturnTo = StateToReturnTo;
         this._animator = _animator;
         this._animationName = _animationName;
     }
@@ -32,6 +32,12 @@ public class IdleState : IState
         }
 
         
+    }
+
+    public void StopStateCoroutines()
+    {
+        _npcController.StopCoroutine(IdleCoroutine());
+        _npcController.StopCoroutine(IdleCoroutineUntilAnimation());
     }
 
     private IEnumerator IdleCoroutine()
