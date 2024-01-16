@@ -66,7 +66,7 @@ public class InGameUIController : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+/*        if (Input.GetKeyDown(KeyCode.R))
         {
             if(_tutorialCardIndex > 5 || _tutorialCardIndex == 3)
             {
@@ -77,6 +77,19 @@ public class InGameUIController : MonoBehaviour
             {
                 _tutorialCard.SetActive(false);
             }
+        }*/
+    }
+
+    public void GoToNextTutorial()
+    {
+        if (_tutorialCardIndex > 5 || _tutorialCardIndex == 3)
+        {
+            ShowTutorial(_tutorialCardIndex + 1);
+        }
+
+        if (_currentSceneName == _mainGameScene)
+        {
+            _tutorialCard.SetActive(false);
         }
     }
 

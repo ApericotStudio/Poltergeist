@@ -33,6 +33,7 @@ namespace StarterAssets
 		[SerializeField] private UnityEvent _onConsoleToggleInput;
         [SerializeField] private UnityEvent _onOptionsInput;
         [SerializeField] private UnityEvent _onGhostFaceChangeInput;
+		[SerializeField] private UnityEvent _onSkipInput;
 
 		public UnityEvent OnCancelInput { get => _onCancelInput; set => _onCancelInput = value; }
 		public UnityEvent OnInteractPossessInput { get => _onInteractPossessInput; set => _onInteractPossessInput = value; }
@@ -42,6 +43,7 @@ namespace StarterAssets
 		public UnityEvent OnConsoleToggleInput { get => _onConsoleToggleInput; set => _onConsoleToggleInput = value; }
 		public UnityEvent OnGhostFaceChangeInput { get => _onGhostFaceChangeInput; set => _onGhostFaceChangeInput = value; }
         public UnityEvent OnOptionsInput { get => _onOptionsInput; set => _onOptionsInput = value; }
+        public UnityEvent OnSkipInput { get => _onSkipInput; set => _onSkipInput = value; }
 
 #if ENABLE_INPUT_SYSTEM
         private void OnMove(InputValue value)
@@ -148,6 +150,11 @@ namespace StarterAssets
         {
             _onOptionsInput.Invoke();
         }
+
+		private void OnSkip(InputValue value)
+		{
+			_onSkipInput.Invoke();
+		}
 #endif
 
 
