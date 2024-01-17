@@ -75,12 +75,12 @@ public class GameManager : MonoBehaviour
 
     private void TogglePause()
     {
-        if (Time.timeScale == 0 && _pauseCanvas.activeSelf)
+        if (Time.timeScale == 0)
         {
             PlayerPrefs.Save();
             Time.timeScale = 1;
             AudioListener.pause = false;
-            _pauseCanvas.SetActive(false);
+            _pauseCanvas.GetComponent<PauseController>().TogglePause(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             OnPauseToggled?.Invoke(false);
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0;
             AudioListener.pause = true;
-            _pauseCanvas.SetActive(true);
+            _pauseCanvas.GetComponent<PauseController>().TogglePause(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             OnPauseToggled?.Invoke(true);

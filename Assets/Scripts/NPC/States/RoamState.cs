@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class RoamState : IState
 {
     private readonly VisitorController _visitorController;
-    private bool _hasSwitchRoomCoroutine = false;
+    private Coroutine _periodicRoamCoroutine;
 
     public RoamState(VisitorController visitorController)
     {
@@ -15,11 +15,12 @@ public class RoamState : IState
     public void Handle()
     {
         _visitorController.StartCoroutine(RoamCoroutine());
-        if (!_hasSwitchRoomCoroutine)
-        {
-            _hasSwitchRoomCoroutine = true;
-            _visitorController.StartCoroutine(PeriodicallySwitchRoomCoroutine());
-        }
+        _periodicRoamCoroutine ??= _visitorController.StartCoroutine(PeriodicallySwitchRoomCoroutine());
+    }
+
+    public void StopStateCoroutines()
+    {
+        _visitorController.StopCoroutine(RoamCoroutine());
     }
 
     private IEnumerator RoamCoroutine()
@@ -49,14 +50,14 @@ public class RoamState : IState
     /// </summary>
     private IEnumerator PeriodicallySwitchRoomCoroutine()
     {
-        while (IsRoaming())
+        while (true)
         {
-            _visitorController.Agent.SetDestination(GetClosestLocationToInspectTarget());
             yield return new WaitUntil(() => _visitorController.Agent.remainingDistance < 0.5f && !_visitorController.Agent.pathPending);
             yield return new WaitForSeconds(_visitorController.TimeToSpendInRoom);
             _visitorController.SwitchRooms();
+            yield return new WaitUntil(() => IsRoaming());
+            _visitorController.Agent.SetDestination(GetClosestLocationToInspectTarget());
         }
-        _hasSwitchRoomCoroutine = false;
     }
 
     /// <summary>
