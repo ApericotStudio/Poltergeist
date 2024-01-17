@@ -14,6 +14,8 @@ public class VisitorController : NpcController
     private float _fearValue = 50f;
     [Tooltip("The event that will be invoked when the fear value changes.")]
     public UnityEvent<float, float, VisitorController> OnFearValueChange;
+    [Tooltip("The event that will be invoked when the realtor soothes the visitors fear.")]
+    public UnityEvent<VisitorController> OnSoothe;
     [Tooltip("Makes the visitor more scared for specific items based on the phobia")]
     public ObjectPhobia VisitorPhobia;
 

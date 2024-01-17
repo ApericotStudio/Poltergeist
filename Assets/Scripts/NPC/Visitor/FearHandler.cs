@@ -129,6 +129,7 @@ public class FearHandler : MonoBehaviour
         if (_visitorController.SeenByRealtor)
         {
             soothe = _sootheMultiplier;
+            _visitorController.OnSoothe.Invoke(_visitorController);
         }
         else
         {

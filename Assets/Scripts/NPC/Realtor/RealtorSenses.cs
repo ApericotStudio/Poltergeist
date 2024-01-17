@@ -44,7 +44,7 @@ public class RealtorSenses : BaseSenses
                 if (!SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
                     DetectedVisitors[i].SeenByRealtor = true;
-                    DetectedVisitors[i].OnFearValueChange.AddListener(_realtorController.Soothe);
+                    DetectedVisitors[i].OnSoothe.AddListener(_realtorController.Soothe);
                     SoothedVisitors.Add(DetectedVisitors[i]);
                 }
             }
@@ -53,7 +53,7 @@ public class RealtorSenses : BaseSenses
                 if (SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
                     DetectedVisitors[i].SeenByRealtor = false;
-                    DetectedVisitors[i].OnFearValueChange.RemoveListener(_realtorController.Soothe);
+                    DetectedVisitors[i].OnSoothe.RemoveListener(_realtorController.Soothe);
                     SoothedVisitors.Remove(DetectedVisitors[i]);
                 }
             }  
@@ -86,7 +86,7 @@ public class RealtorSenses : BaseSenses
         foreach(VisitorController visitor in SoothedVisitors)
         {
             visitor.SeenByRealtor = false;
-            visitor.OnFearValueChange.RemoveListener(_realtorController.Soothe);
+            visitor.OnSoothe.RemoveListener(_realtorController.Soothe);
         }
         SoothedVisitors.Clear();
     }

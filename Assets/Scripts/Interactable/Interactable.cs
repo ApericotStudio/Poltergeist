@@ -82,6 +82,11 @@ public class Interactable : MonoBehaviour
         }
     }
 
+    public void ChangeScary()
+    {
+        _scary = !_scary;
+    }
+
     private IEnumerator RechargeGeist()
     {
         _observableObject.GeistCharge = 0;
