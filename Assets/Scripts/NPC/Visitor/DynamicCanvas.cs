@@ -5,7 +5,7 @@ public class DynamicCanvas : MonoBehaviour
     [Header("Dynamic Canvas Settings")]
     [Tooltip("The transform that the canvas will follow."), SerializeField]
     private Transform _transformToFollow;
-
+    
     private void Update()
     {
         RotateTowardsPlayer();
