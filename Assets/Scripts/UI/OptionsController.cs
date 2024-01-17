@@ -119,6 +119,7 @@ public class OptionsController : MonoBehaviour
     private void OnTutorialTogglePressed(bool value)
     {
         PlayerPrefs.SetInt(PlayerPrefsVariable.Tutorial.ToString(), value ? 0 : 1);
+        PlayerPrefs.SetInt("FirstTutorial", value ? 0 : 1);
         PlayerPrefs.Save();
     }
 

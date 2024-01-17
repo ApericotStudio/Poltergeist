@@ -52,11 +52,28 @@ public class TutorialController : MonoBehaviour
         _gameManager = gameObject.GetComponent<GameManager>();
 
         int tutorial = PlayerPrefs.GetInt(PlayerPrefsVariable.Tutorial.ToString());
+        int firstTutorial = PlayerPrefs.GetInt("FirstTutorial");
+
+        _skipTutorialCanvas.SetActive(false);
 
         if (tutorial == 1)
         {
-            _skipTutorialCanvas.SetActive(false);
             SkipTutorial();
+            return;
+        }
+
+        //after toggling never show and continue only first tutorial will be skipped
+        if(firstTutorial == 1 && !_firstTutorialShown)
+        {
+            SkipTutorial();
+            return;
+        }
+
+        if(firstTutorial == 1 && _firstTutorialShown)
+        {
+            StartTutorial();
+            PlayerPrefs.SetInt(PlayerPrefsVariable.Tutorial.ToString(), 1);
+            PlayerPrefs.Save();
             return;
         }
 
@@ -75,9 +92,14 @@ public class TutorialController : MonoBehaviour
         _gameManager.UpdateCursor();
 
     }
-
     public void StartTutorial()
     {
+        if (_neverShow)
+        {
+            PlayerPrefs.SetInt("FirstTutorial", 1);
+            PlayerPrefs.Save();
+        }
+
         _skipTutorialCanvas.SetActive(false);
         Time.timeScale = 1;
         _gameManager.UpdateCursor();
@@ -104,6 +126,7 @@ public class TutorialController : MonoBehaviour
     {
         if (!_firstTutorialShown)
         {
+            Debug.Log(_counter);
             checkFirstTutorial();
         }
         else
@@ -124,6 +147,8 @@ public class TutorialController : MonoBehaviour
         {
             return;
         }
+
+        Debug.Log("d");
 
         _uiController.ShowTutorial(index);
         _counter = index + 1;
