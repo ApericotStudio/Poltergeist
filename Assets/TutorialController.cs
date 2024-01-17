@@ -51,7 +51,7 @@ public class TutorialController : MonoBehaviour
         _visitors = _visitorManager.VisitorCollection.GetComponentsInChildren<FearHandler>();
         _gameManager = gameObject.GetComponent<GameManager>();
 
-        int tutorial = PlayerPrefs.GetInt("SkipTutorial");
+        int tutorial = PlayerPrefs.GetInt(PlayerPrefsVariable.Tutorial.ToString());
 
         if (tutorial == 1)
         {
@@ -89,7 +89,7 @@ public class TutorialController : MonoBehaviour
     {
         if (_neverShow)
         {
-            PlayerPrefs.SetInt("SkipTutorial", 1);
+            PlayerPrefs.SetInt(PlayerPrefsVariable.Tutorial.ToString(), 1);
             PlayerPrefs.Save();
         }
 
@@ -102,7 +102,6 @@ public class TutorialController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_counter);
         if (!_firstTutorialShown)
         {
             checkFirstTutorial();
