@@ -50,12 +50,13 @@ public class RoamState : IState
     /// </summary>
     private IEnumerator PeriodicallySwitchRoomCoroutine()
     {
-        while (IsRoaming())
+        while (true)
         {
-            _visitorController.Agent.SetDestination(GetClosestLocationToInspectTarget());
             yield return new WaitUntil(() => _visitorController.Agent.remainingDistance < 0.5f && !_visitorController.Agent.pathPending);
             yield return new WaitForSeconds(_visitorController.TimeToSpendInRoom);
             _visitorController.SwitchRooms();
+            yield return new WaitUntil(() => IsRoaming());
+            _visitorController.Agent.SetDestination(GetClosestLocationToInspectTarget());
         }
     }
 
