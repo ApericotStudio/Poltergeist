@@ -24,6 +24,7 @@ public class HatCommand : ConsoleCommand
             if (!achievementUnlocked)
             {
                 Steamworks.SteamUserStats.SetAchievement("Mad Hatter");
+                Steamworks.SteamUserStats.StoreStats();
             }
 
             return true;

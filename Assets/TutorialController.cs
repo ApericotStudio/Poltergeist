@@ -76,6 +76,7 @@ public class TutorialController : MonoBehaviour
         if(!achievementUnlocked)
         {
             Steamworks.SteamUserStats.SetAchievement("PhobiaExploit");
+            Steamworks.SteamUserStats.StoreStats();
         }
     }
 
