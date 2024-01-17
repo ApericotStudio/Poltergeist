@@ -126,7 +126,6 @@ public class TutorialController : MonoBehaviour
     {
         if (!_firstTutorialShown)
         {
-            Debug.Log(_counter);
             checkFirstTutorial();
         }
         else
@@ -147,8 +146,6 @@ public class TutorialController : MonoBehaviour
         {
             return;
         }
-
-        Debug.Log("d");
 
         _uiController.ShowTutorial(index);
         _counter = index + 1;
