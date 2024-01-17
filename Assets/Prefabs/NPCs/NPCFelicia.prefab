@@ -5331,7 +5331,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 2
   m_Acceleration: 10
-  avoidancePriority: 40
+  avoidancePriority: 10
   m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -5364,6 +5364,9 @@ MonoBehaviour:
   PanickedSpeed: 5.335
   _fearValue: 0
   OnFearValueChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSoothe:
     m_PersistentCalls:
       m_Calls: []
   VisitorPhobia: 1

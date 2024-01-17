@@ -15,6 +15,11 @@ public class PanickedState : IState
         _visitorController.StartCoroutine(PanickedCoroutine());
     }
 
+    public void StopStateCoroutines()
+    {
+        _visitorController.StopCoroutine(PanickedCoroutine());
+    }
+
     private IEnumerator PanickedCoroutine()
     {
         _visitorController.Agent.speed = _visitorController.PanickedSpeed;

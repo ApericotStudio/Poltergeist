@@ -5,20 +5,20 @@ public class IdleState : IState
 {
     private readonly NpcController _npcController;
 
-    private IState _stateToReturnTo;
-    private Animator _animator;
-    private string _animationName;
+    private readonly IState _stateToReturnTo;
+    private readonly Animator _animator;
+    private readonly string _animationName;
 
-    public IdleState(NpcController _npcController)
+    public IdleState(NpcController npcController)
     {
-        this._npcController = _npcController;
+        _npcController = npcController;
     }
-    public IdleState(NpcController _npcController, IState StateToReturnTo, Animator _animator, string _animationName)
+    public IdleState(NpcController npcController, IState stateToReturnTo, Animator animator, string animationName)
     {
-        this._npcController = _npcController;
-        this._stateToReturnTo = StateToReturnTo;
-        this._animator = _animator;
-        this._animationName = _animationName;
+        _npcController = npcController;
+        _stateToReturnTo = stateToReturnTo;
+        _animator = animator;
+        _animationName = animationName;
     }
 
     public void Handle()
@@ -26,12 +26,17 @@ public class IdleState : IState
         if (_stateToReturnTo == null)
         {
             _npcController.StartCoroutine(IdleCoroutine());
-        } else
+        } 
+        else
         {
             _npcController.StartCoroutine(IdleCoroutineUntilAnimation());
         }
+    }
 
-        
+    public void StopStateCoroutines()
+    {
+        _npcController.StopCoroutine(IdleCoroutine());
+        _npcController.StopCoroutine(IdleCoroutineUntilAnimation());
     }
 
     private IEnumerator IdleCoroutine()
