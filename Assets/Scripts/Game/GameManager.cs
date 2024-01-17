@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void TogglePause()
+    public void TogglePause()
     {
         if (Time.timeScale == 0 && _pauseCanvas.activeSelf)
         {
