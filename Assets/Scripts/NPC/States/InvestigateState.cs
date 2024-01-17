@@ -25,6 +25,11 @@ public class InvestigateState : IState
         _npcController.StartCoroutine(InvestigateCoroutine());
     }
 
+    public void StopStateCoroutines()
+    {
+        _npcController.StopCoroutine(InvestigateCoroutine());
+    }
+
     /// <summary>
     /// Moves the npc to the location of the object that made a sound and then back to the roam location.
     /// </summary>
