@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class CheckUpState : IState
 {
     private readonly RealtorController _realtorController;
+    private Coroutine _periodicCheckUpCoroutine;
     
     public CheckUpState(RealtorController realtorController)
     {
@@ -16,14 +17,13 @@ public class CheckUpState : IState
 
     public void Handle()
     {
-        _realtorController.StartCoroutine(CheckUpCoroutine());
+        _periodicCheckUpCoroutine ??= _realtorController.StartCoroutine(PeriodicallySetCheckUpOriginCoroutine());
         _realtorController.StartCoroutine(PeriodicallySetCheckUpOriginCoroutine());
     }
 
     public void StopStateCoroutines()
     {
         _realtorController.StopCoroutine(CheckUpCoroutine());
-        _realtorController.StopCoroutine(PeriodicallySetCheckUpOriginCoroutine());
     }
 
     private IEnumerator CheckUpCoroutine()
