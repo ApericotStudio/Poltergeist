@@ -13,6 +13,6 @@ public class AudioCreditsController : MonoBehaviour
 
     private void OnBackButtonPressed()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
