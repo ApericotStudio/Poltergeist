@@ -42,6 +42,11 @@ public class NpcController : MonoBehaviour
         get => _currentState;
         set
         {
+            if (_currentState != null)
+            {
+                _currentState.StopStateCoroutines();
+            }
+
             _currentState = value;
             OnStateChange.Invoke(_currentState);
         }
