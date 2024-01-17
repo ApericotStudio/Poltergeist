@@ -54,9 +54,13 @@ public class EndGameScreen : MonoBehaviour
             _phobiaScares.text = result.PhobiaScares.ToString() + " times";
         }
         _differentObjectsUsed.text = result.DifferentObjectsUsed.ToString() + " objects used";
+
         _gradeImage.sprite = _gradeConverter.GetGradeSprite(result.Result);
         _gradeImageSpeed.sprite = _gradeConverter.GetGradeSprite(result.TimePassedScore);
-        _gradeImageResearch.sprite = _gradeConverter.GetGradeSprite(result.PhobiaScaresScore);
+        if (_gradeImageResearch)
+        {
+            _gradeImageResearch.sprite = _gradeConverter.GetGradeSprite(result.PhobiaScaresScore);
+        }
         _gradeImageResource.sprite = _gradeConverter.GetGradeSprite(result.DifferentObjectsUsedScore);
     }
 
