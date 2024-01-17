@@ -24,6 +24,6 @@ public class CreditsController : MonoBehaviour
 
     private void OnNextButtonPressed()
     {
-        Instantiate(_audioCredits);
+        _audioCredits.SetActive(true);
     }
 }
