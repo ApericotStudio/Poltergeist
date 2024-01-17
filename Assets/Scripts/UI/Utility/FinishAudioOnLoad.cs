@@ -14,6 +14,7 @@ public class FinishAudioOnLoad : MonoBehaviour
 
     private void FinishPlaying(Scene scene)
     {
+        SceneManager.sceneUnloaded -= FinishPlaying;
         if (_audioSource.isPlaying)
         {
             Destroy(gameObject, _audioSource.clip.length);
