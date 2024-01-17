@@ -97,6 +97,15 @@ public class Grade
         }
     }
 
+
+    public int DifferentObjectsUsedScore
+    {
+        get
+        {
+            return _differentObjectsUsedScore;
+        }
+    }
+
     private int _phobiaScaresScore
     {
         get
@@ -113,6 +122,14 @@ public class Grade
         }
     }
 
+    public int PhobiaScaresScore
+    {
+        get
+        {
+            return _phobiaScaresScore;
+        }
+    }
+
     private int _timePassedScore
     {
         get
@@ -121,6 +138,14 @@ public class Grade
             if (_timePassed <= GradeTime.Criteria_B) return 3;
             if (_timePassed <= GradeTime.Criteria_C) return 2;
             return 1;
+        }
+    }
+
+    public int TimePassedScore
+    {
+        get
+        {
+            return _timePassedScore;
         }
     }
 
@@ -137,6 +162,7 @@ public class Grade
             _divideBy = 3;
         }
 
+        Debug.Log(_timePassedScore);
         int totalScore = (_differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore) / _divideBy;
         return totalScore;
     }

@@ -21,6 +21,9 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private string _levelSelectSceneName = "LevelSelectUI";
     [SerializeField] private string _endCutsceneSceneName = "EndCutsceneUI";
     [SerializeField] private Image _gradeImage;
+    [SerializeField] private Image _gradeImageSpeed;
+    [SerializeField] private Image _gradeImageResearch;
+    [SerializeField] private Image _gradeImageResource;
     [SerializeField] private GradeConverter _gradeConverter;
 
     private Grade result;
@@ -52,6 +55,9 @@ public class EndGameScreen : MonoBehaviour
         }
         _differentObjectsUsed.text = result.DifferentObjectsUsed.ToString() + " objects used";
         _gradeImage.sprite = _gradeConverter.GetGradeSprite(result.Result);
+        _gradeImageSpeed.sprite = _gradeConverter.GetGradeSprite(result.TimePassedScore);
+        _gradeImageResearch.sprite = _gradeConverter.GetGradeSprite(result.PhobiaScaresScore);
+        _gradeImageResource.sprite = _gradeConverter.GetGradeSprite(result.DifferentObjectsUsedScore);
     }
 
     /// <summary>
