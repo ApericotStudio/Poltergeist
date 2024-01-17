@@ -162,7 +162,6 @@ public class Grade
             _divideBy = 3;
         }
 
-        Debug.Log(_timePassedScore);
         int totalScore = (_differentObjectsUsedScore + _phobiaScaresScore + _timePassedScore) / _divideBy;
         return totalScore;
     }
