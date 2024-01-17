@@ -16,6 +16,8 @@ public class TutorialController : MonoBehaviour
 
     [SerializeField]
     private InGameUIController _uiController;
+    [SerializeField]
+    private GameObject _continueButton;
     private int _counter;
     private bool _firstTutorialShown = false;
     private bool _skippingTutorial = false;
@@ -33,6 +35,11 @@ public class TutorialController : MonoBehaviour
         {
             _firstTutorialShown = true;
         }
+    }
+
+    public void DisableButton(bool isOn)
+    {
+        _continueButton.SetActive(!isOn);
     }
     // Start is called before the first frame update
     void Start()
