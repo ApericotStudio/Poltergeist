@@ -14,6 +14,7 @@ public class PauseController : MonoBehaviour
     [SerializeField] private GameObject _options;
     [SerializeField] private GameObject _buttonMap;
     [SerializeField] private GameObject _quitConfirmation;
+    private Canvas _pauseCanvas;
 
     [Header("Progress References")]
     [SerializeField] private TextMeshProUGUI _timePassed;
@@ -30,11 +31,23 @@ public class PauseController : MonoBehaviour
     {
         SetupButtons();
         AddNpcOverlays();
+        _pauseCanvas = GetComponent<Canvas>();
     }
 
-    private void OnEnable()
+    public void TogglePause(bool enable)
     {
-        SetProgress(_gradeController.Grade);
+        if (enable)
+        {
+            _pauseCanvas.enabled = true;
+            SetProgress(_gradeController.Grade);
+        }
+        else
+        {
+            _buttonMap.SetActive(false);
+            _quitConfirmation.SetActive(false);
+            _options.SetActive(false);
+            _pauseCanvas.enabled = false;
+        }
     }
 
     private void SetupButtons()
@@ -47,12 +60,11 @@ public class PauseController : MonoBehaviour
 
     private void OnResumeButtonPressed()
     {
-        gameObject.SetActive(false);
+        TogglePause(false);
     }
 
     private void OnOptionsButtonPressed()
     {
-        gameObject.SetActive(false);
         _options.SetActive(true);
     }
 

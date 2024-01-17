@@ -9,15 +9,9 @@ public class ButtonMappingController : MonoBehaviour
     private void Awake()
     {
         _backButton.onClick.AddListener(OnBackButtonPressed);
-        _gameManager.OnPauseToggled += OnPauseToggled;
     }
 
     private void OnBackButtonPressed()
-    {
-        gameObject.SetActive(false);
-    }
-
-    private void OnPauseToggled(bool paused)
     {
         gameObject.SetActive(false);
     }
