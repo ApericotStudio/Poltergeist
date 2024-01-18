@@ -539,7 +539,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 2
   m_Acceleration: 10
-  avoidancePriority: 10
+  avoidancePriority: 40
   m_AngularSpeed: 200
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -586,7 +586,6 @@ MonoBehaviour:
   FootstepVolume: 0.5
   CurrentCheckUpOrigin: {fileID: 0}
   _sootheCooldown: 15
-  _minimumFearToSoothe: 4
 --- !u!114 &2200864632212857450
 MonoBehaviour:
   m_ObjectHideFlags: 0

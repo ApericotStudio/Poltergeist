@@ -16,11 +16,21 @@ public class HatCommand : ConsoleCommand
             System.Random random = new System.Random();
             int index = random.Next(hats.Count);
             GameObject hat = hats[index];
-            //Vector3 offset = new Vector3(0, 0.15f, 0);
             GameObject coolHat = Instantiate(original: hat, parent: headbone.transform, position: headbone.transform.position, rotation: Quaternion.identity);
             coolHat.transform.forward = headbone.transform.forward;
+            CheckForHatAchievement();
             return true;
         }
         return false;
+    }
+
+    private void CheckForHatAchievement()
+    {
+        Steamworks.SteamUserStats.GetAchievement("Mad Hatter", out bool achieved);
+        if (!achieved)
+        {
+            Steamworks.SteamUserStats.SetAchievement("Mad Hatter");
+            Steamworks.SteamUserStats.StoreStats();
+        }
     }
 }
