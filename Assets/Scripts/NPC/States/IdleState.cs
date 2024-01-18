@@ -41,7 +41,11 @@ public class IdleState : IState
 
     private IEnumerator IdleCoroutine()
     {
+        _npcController.LookAt(_npcController.InspectTarget);
+        _npcController.StartCoroutine(_npcController.UpdateLookWeight(1f));
         yield return new WaitForSeconds(Random.Range(3f, 5f));
+        _npcController.StartCoroutine(_npcController.UpdateLookWeight(0f));
+        yield return new WaitUntil(() => _npcController.LookWeight <= 0.1f);
         if (IsIdle())
         {
             if (_npcController is VisitorController)

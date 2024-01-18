@@ -22,6 +22,7 @@ public class ScaredState : IState
 
     private IEnumerator ScaredCoroutine()
     {
+        _visitorController.StartCoroutine(_visitorController.UpdateLookWeight(0f));
         _visitorController.Agent.speed = _visitorController.PanickedSpeed;
         _visitorController.SwitchRooms();
         _visitorController.Agent.stoppingDistance = 0f;

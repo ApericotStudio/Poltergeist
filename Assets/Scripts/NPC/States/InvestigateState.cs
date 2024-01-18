@@ -36,6 +36,11 @@ public class InvestigateState : IState
     /// <returns></returns>
     private IEnumerator InvestigateCoroutine()
     {
+        if(_npcController.LookWeight > 0f)
+        {
+            _npcController.StartCoroutine(_npcController.UpdateLookWeight(0f));
+        }
+        yield return new WaitUntil(() => _npcController.LookWeight <= 0.1f);
         _npcController.Agent.speed = _npcController.InvestigatingSpeed;
         _npcController.Agent.stoppingDistance = 1f;
         _npcController.Agent.SetDestination(NearestPointOnTargetFromPlayer());
@@ -43,7 +48,7 @@ public class InvestigateState : IState
         // This while loop continues as long as the npc's navigation path is still being calculated (pathPending) 
         // or the remaining distance to the target is greater than the stopping distance. 
         // This ensures the NPC continues moving until it has reached its destination.
-
+        _npcController.StartCoroutine(_npcController.UpdateLookWeight(1f));
         while (_npcController.Agent.pathPending || _npcController.Agent.remainingDistance > _npcController.Agent.stoppingDistance)
         {
             if (_npcController.CurrentState is not InvestigateState)
@@ -55,9 +60,10 @@ public class InvestigateState : IState
         }
 
         yield return new WaitForSeconds(_investigateTime);
-
+        _npcController.StartCoroutine(_npcController.UpdateLookWeight(0f));
         if(IsInvestigating())
         {
+            yield return new WaitUntil(() => _npcController.LookWeight <= 0.1f);
             _npcController.CurrentState = _stateToReturnTo;
         }
     }
