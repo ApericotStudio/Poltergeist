@@ -14,6 +14,7 @@ public class MainMenuController : MonoBehaviour
     [Header("Canvas References")]
     [SerializeField] private GameObject _levelSelectCanvas;
     [SerializeField] private GameObject _settingsCanvas;
+    [SerializeField] private Animator _canvasAnimator;
 
     [Header("Scene References")]
     [SerializeField] private string _introCutsceneScene;
@@ -26,6 +27,14 @@ public class MainMenuController : MonoBehaviour
     private void Awake()
     {
         SetupButtons();
+    }
+
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            _canvasAnimator.SetBool("Pressed", true);
+        }
     }
 
     private void SetupButtons()
