@@ -1,10 +1,14 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class VisitorOverlayController : MonoBehaviour
 {
+    private FearHandler _fearHandler;
+
     [SerializeField] private Image _face;
     [SerializeField] private Image _filler;
+    [SerializeField] private Image _phobiaBadge;
 
     [SerializeField] private Sprite _investigateFace;
     [SerializeField] private Sprite _panickedFace;
@@ -15,6 +19,14 @@ public class VisitorOverlayController : MonoBehaviour
     {
         visitorController.OnStateChange.AddListener(OnVisitorStateChanged);
         visitorController.OnFearValueChange.AddListener(OnFearValueChanged);
+        _fearHandler = visitorController.gameObject.GetComponent<FearHandler>();
+        _fearHandler.OnObjectPhobia += OnPhobiaScare;
+    }
+
+    public void OnPhobiaScare(ObservableObject observableObject)
+    {
+        _fearHandler.OnObjectPhobia -= OnPhobiaScare;
+        _phobiaBadge.enabled = true;
     }
 
     private void OnFearValueChanged(float fearvalue, float feardifference, VisitorController controller)
