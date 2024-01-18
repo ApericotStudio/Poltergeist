@@ -30,7 +30,7 @@ public class ReactionHandler : MonoBehaviour
 
     [Header("Chance to play voiceline on state enter")]
     [SerializeField, Range(0, 100)]
-    private int _investigateVoicelineChance = 100;
+    private int _investigateVoicelineChance = 40;
     private int _investigateVoiceLineUnsuccesfullAttempts = 0;
     [SerializeField, Range(0, 100)]
     private int _investigateEndVoicelineChance = 40;
