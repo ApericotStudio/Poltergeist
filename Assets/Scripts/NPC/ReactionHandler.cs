@@ -13,7 +13,9 @@ public class ReactionHandler : MonoBehaviour
     private AudioClipList _investigateAudioClips;
     [Tooltip("The audio clip that will be played when the NPC stops investigating."), SerializeField]
     private AudioClipList _investigateEndAudioClips;
-    
+    [Tooltip("The audio clip that will be played when the Realtor is Soothing."), SerializeField]
+    private AudioClipList _soothingAudioClips;
+
     [Header("Reaction Indicator Settings")]
     [Tooltip("The image that will be used to display the reaction sprite."), SerializeField]
     private Image _reactionImage;
@@ -28,7 +30,7 @@ public class ReactionHandler : MonoBehaviour
 
     [Header("Chance to play voiceline on state enter")]
     [SerializeField, Range(0, 100)]
-    private int _investigateVoicelineChance = 40;
+    private int _investigateVoicelineChance = 100;
     private int _investigateVoiceLineUnsuccesfullAttempts = 0;
     [SerializeField, Range(0, 100)]
     private int _investigateEndVoicelineChance = 40;
@@ -99,6 +101,9 @@ public class ReactionHandler : MonoBehaviour
 
         switch (_npcController.CurrentState)
         {
+            case SootheState:
+                TryPlayVoiceline(_soothingAudioClips.GetRandom(), _investigateVoicelineChance, ref _investigateVoiceLineUnsuccesfullAttempts);
+                break;
             case InvestigateState when _previousState is not ScaredState && _previousState is not PhobiaState:
                 TryPlayVoiceline(_investigateAudioClips.GetRandom(), _investigateVoicelineChance, ref _investigateVoiceLineUnsuccesfullAttempts);
                 ToggleAnimation("Investigating");

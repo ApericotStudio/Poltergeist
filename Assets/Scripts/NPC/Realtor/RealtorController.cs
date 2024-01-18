@@ -23,14 +23,12 @@ public class RealtorController : NpcController
     public float FootstepVolume = 0.5f;
     [Tooltip("The current check up origin of the realtor. This is the location the realtor will roam around.")]
     public Transform CurrentCheckUpOrigin;
-    [Tooltip("Cooldown of soothing."), Range(0f, 30f), SerializeField]
-    private float _sootheCooldown = 0f;
-    private float _sootheCooldownTimer = 0;
 
     private int _currentVisitorIndex = 0;
 
     private CheckUpState _checkUpState;
     private IdleState _idleAfterInvestigateState;
+    private SootheState _sootheState;
 
     private void Awake()
     {
@@ -39,6 +37,7 @@ public class RealtorController : NpcController
         _checkUpState = new CheckUpState(this);
         _idleAfterInvestigateState = new IdleState(this, _checkUpState, Animator, "Investigate");
         InvestigateStateInstance = new InvestigateState(this, _idleAfterInvestigateState);
+        _sootheState = new SootheState(this);
     }
 
     private void Start() {
@@ -68,41 +67,10 @@ public class RealtorController : NpcController
 
     public void Soothe(VisitorController visitor)
     {
-        if (_sootheCooldownTimer <= 0 && Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
+        if (CurrentState is not SootheState)
         {
-            _sootheCooldownTimer = _sootheCooldown;
-            Agent.isStopped = true;
-            Agent.velocity = Vector3.zero;
-            Animator.SetTrigger("Soothe");
-            LookAt(visitor.gameObject.GetComponent<VisitorSenses>().HeadTransform);
-            StartCoroutine(WaitForSoothe(visitor));
-        }
-    }
-
-    private IEnumerator WaitForSoothe(VisitorController visitor)
-    {
-        //wait until animation is Soothe animation.
-        yield return new WaitWhile(() => !Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"));
-        //rotate to visitor while you are in the soothe animation.
-        while (Animator.GetCurrentAnimatorStateInfo(0).IsName("Soothe"))
-        {
-            Vector3 rotationDir = visitor.transform.position - this.transform.position;
-            rotationDir.y = 0;
-            Quaternion rotationQuat = Quaternion.LookRotation(rotationDir);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotationQuat, Time.deltaTime);
-            yield return new WaitForEndOfFrame();
-        }
-        LookAt(InspectTarget);
-        Agent.isStopped = false;
-        StartCoroutine(SootheCooldown());
-    }
-
-    private IEnumerator SootheCooldown()
-    {
-        while (_sootheCooldownTimer >= 0)
-        {
-            _sootheCooldownTimer -= Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            _sootheState.Visitor = visitor;
+            CurrentState = _sootheState;
         }
     }
 }
