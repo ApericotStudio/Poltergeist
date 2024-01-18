@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class VisitorOverlayController : MonoBehaviour
 {
     private FearHandler _fearHandler;
+    private InGameUIController _inGameUIController;
 
     [SerializeField] private Image _face;
     [SerializeField] private Image _filler;
@@ -14,6 +14,12 @@ public class VisitorOverlayController : MonoBehaviour
     [SerializeField] private Sprite _panickedFace;
     [SerializeField] private Sprite _restingFace;
     [SerializeField] private Sprite _scaredFace;
+
+    public void Setup(VisitorController visitorController, InGameUIController inGameUIController)
+    {
+        Setup(visitorController);
+        _inGameUIController = inGameUIController;
+    }
 
     public void Setup(VisitorController visitorController)
     {
@@ -27,6 +33,10 @@ public class VisitorOverlayController : MonoBehaviour
     {
         _fearHandler.OnObjectPhobia -= OnPhobiaScare;
         _phobiaBadge.enabled = true;
+        if (_inGameUIController != null)
+        {
+            _inGameUIController.ShowNotification("Phobia discovered!", 6);
+        }
     }
 
     private void OnFearValueChanged(float fearvalue, float feardifference, VisitorController controller)
