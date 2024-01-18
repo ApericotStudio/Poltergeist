@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -98,6 +99,10 @@ public class LevelSelectController : MonoBehaviour
         SceneManager.LoadScene(_mainMenuScene);
     }
 
+    private void Update()
+    {
+
+    }
     private void SelectLevel(int levelIndex)
     {
         if (!LevelUnlocked(levelIndex))
