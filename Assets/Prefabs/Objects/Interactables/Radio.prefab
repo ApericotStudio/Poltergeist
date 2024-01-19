@@ -234,17 +234,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d55173b23c165c14183f7e7066940abe,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.238868
+      value: 10.113
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d55173b23c165c14183f7e7066940abe,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.47844705
+      value: 0.484
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d55173b23c165c14183f7e7066940abe,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.9092939
+      value: -1.919
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d55173b23c165c14183f7e7066940abe,
         type: 3}
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderers:
   - {fileID: 5688357871008438328}
-  _highlightColor: {fileID: 11400000, guid: 1f0984fb97070b9408decc0bbdb3b41f, type: 2}
+  _highlightColor: {fileID: 11400000, guid: d0744834bedf20c479781b169de5616a, type: 2}
 --- !u!82 &7105249835302055398
 AudioSource:
   m_ObjectHideFlags: 0
@@ -811,10 +811,25 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4241175066629943953, guid: 984b737b2ad49754baa78c3ab4df5819,
+        type: 3}
+      propertyPath: _offset.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241175066629943953, guid: 984b737b2ad49754baa78c3ab4df5819,
+        type: 3}
+      propertyPath: _offset.z
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5590740082484501297, guid: 984b737b2ad49754baa78c3ab4df5819,
         type: 3}
       propertyPath: m_Name
       value: GeistChargeIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 9192879747522470886, guid: 984b737b2ad49754baa78c3ab4df5819,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
