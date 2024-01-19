@@ -28,6 +28,10 @@ public class CheckUpState : IState
 
     private IEnumerator CheckUpCoroutine()
     {
+        if(_realtorController.LookWeight > 0f)
+        {
+            _realtorController.StartCoroutine(_realtorController.UpdateLookWeight(0f));          
+        }
         _realtorController.Agent.stoppingDistance = 0f;
         _realtorController.Agent.speed = _realtorController.RoamingSpeed;
 
