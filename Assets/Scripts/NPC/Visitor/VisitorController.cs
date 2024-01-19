@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Audio;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class VisitorController : NpcController
 {
@@ -17,6 +18,8 @@ public class VisitorController : NpcController
     public UnityEvent<float, float, VisitorController> OnFearValueChange;
     [Tooltip("Makes the visitor more scared for specific items based on the phobia")]
     public ObjectPhobia VisitorPhobia;
+    [SerializeField]
+    private Image _aura;
 
     [Header("Roaming Settings")]
     [Tooltip("The current room the visitor is in.")]
@@ -46,7 +49,24 @@ public class VisitorController : NpcController
     [HideInInspector]
     public bool FearReductionHasCooldown = false;
     [HideInInspector]
-    public bool SeenByRealtor;
+   private bool _seenByRealtor = false;
+    [HideInInspector]
+    public bool SeenByRealtor 
+    {
+        get => _seenByRealtor;
+        set
+        {
+            _seenByRealtor = value;
+            if(_seenByRealtor)
+            {
+                _aura.color = new Color(_aura.color.r, _aura.color.g, _aura.color.b, 1f);
+            }
+            else
+            {
+                _aura.color = new Color(_aura.color.r, _aura.color.g, _aura.color.b, 0f);
+            }
+        }
+    }
     [HideInInspector]
     public int CurrentRoomIndex = 0;
 
