@@ -46,14 +46,6 @@ public class GameManager : MonoBehaviour
         _audioMixer.SetFloat("GameVol", Mathf.Log10(volume) * 20);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
-    }
-
     private void OnApplicationFocus(bool focus)
     {
         UpdateCursor();
@@ -73,7 +65,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void TogglePause()
+    public void TogglePause()
     {
         if (Time.timeScale == 0)
         {
