@@ -33,7 +33,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            _canvasAnimator.SetBool("Pressed", true);
+            _canvasAnimator?.SetBool("Pressed", true);
         }
     }
 
