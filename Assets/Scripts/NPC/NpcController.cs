@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -8,6 +9,8 @@ public class NpcController : MonoBehaviour
     [Header("NPC Settings")]
     [Tooltip("The speed the npc will move when investigating."), Range(1f, 5f)]
     public float InvestigatingSpeed = 2f;
+    [Tooltip("The time it takes for the NPC to look at a target."), Range(0f, 5f)]
+    private float _lookTurningTime = 2f;
     [Tooltip("The event that will be invoked when the npc changes state.")]
     public UnityEvent<IState> OnStateChange;
 
@@ -25,7 +28,7 @@ public class NpcController : MonoBehaviour
     [HideInInspector]
     public Transform InspectTarget;
 
-    private Transform lookAtTarget = null;
+    private Transform _lookAtTarget = null;
 
     [SerializeField]
     [Tooltip("Amount of time NPC will look at object before wallking away"), Range(1f, 10f)]
@@ -34,19 +37,15 @@ public class NpcController : MonoBehaviour
     private IState _currentState;
 
     public InvestigateState InvestigateStateInstance { get; protected set; }
-    
-    private float lookWeight = 0f;
+    [HideInInspector]
+    public float LookWeight = 0f;
 
     public IState CurrentState
     {
         get => _currentState;
         set
         {
-            if (_currentState != null)
-            {
-                _currentState.StopStateCoroutines();
-            }
-
+            _currentState?.StopStateCoroutines();
             _currentState = value;
             OnStateChange.Invoke(_currentState);
         }
@@ -83,34 +82,29 @@ public class NpcController : MonoBehaviour
         }
     }
 
+    public IEnumerator UpdateLookWeight(float weight)
+    {
+        float elapsedTime = 0f;
+        while(elapsedTime < _lookTurningTime)
+        {
+            LookWeight = Mathf.Lerp(LookWeight, weight, elapsedTime / _lookTurningTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
     private void OnAnimatorIK()
     {
-        if (CurrentState is InvestigateState or IdleState)
+        if(_lookAtTarget != null)
         {
-            if (lookAtTarget != null)
-            {
-                lookWeight = Mathf.Lerp(lookWeight, 1f, Time.deltaTime * 2.5f);
-                Animator.SetLookAtPosition(lookAtTarget.position);
-            }
-            else
-            {
-                lookWeight = Mathf.Lerp(lookWeight, 0f, Time.deltaTime * 2.5f);
-            }
+            Animator.SetLookAtPosition(_lookAtTarget.position);
         }
-        else
-        {
-            lookWeight = Mathf.Lerp(lookWeight, 0f, Time.deltaTime * 2.5f);
-        }
-        if(lookAtTarget != null)
-        {
-            Animator.SetLookAtPosition(lookAtTarget.position);
-        }
-        Animator.SetLookAtWeight(lookWeight, 0.3f, 0.9f, 0, 0);
+        Animator.SetLookAtWeight(LookWeight, 0.3f, 0.9f, 0, 0);
     }
 
     public void LookAt(Transform target)
     {
-        lookAtTarget = target;
+        _lookAtTarget = target;
     }
 
     private void Animate()

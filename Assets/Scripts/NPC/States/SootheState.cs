@@ -43,7 +43,7 @@ public class SootheState : IState
         _agent.isStopped = true;
         _agent.velocity = Vector3.zero;
         _animator.SetTrigger("Soothe");
-        _npcController.LookAt(Visitor.gameObject.GetComponent<VisitorSenses>().HeadTransform);
+        _npcController.StartCoroutine(LookAtSoothingSubject());
         _npcController.StartCoroutine(WaitForSoothe(Visitor));
     }
 
@@ -63,5 +63,16 @@ public class SootheState : IState
         _npcController.LookAt(_npcController.InspectTarget);
         _agent.isStopped = false;
         _npcController.CurrentState = _npcController.InvestigateStateInstance;
+    }
+
+    private IEnumerator LookAtSoothingSubject()
+    {
+        if(_npcController.LookWeight > 0f)
+        {
+            _npcController.StartCoroutine(_npcController.UpdateLookWeight(0f));
+        }
+        yield return new WaitUntil(() => _npcController.LookWeight <= 0.1f);
+        _npcController.LookAt(Visitor.gameObject.GetComponent<VisitorSenses>().HeadTransform);
+        _npcController.StartCoroutine(_npcController.UpdateLookWeight(1f));
     }
 }

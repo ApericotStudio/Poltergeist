@@ -22,6 +22,7 @@ public class PanickedState : IState
 
     private IEnumerator PanickedCoroutine()
     {
+        _visitorController.StartCoroutine(_visitorController.UpdateLookWeight(0f));
         _visitorController.Agent.speed = _visitorController.PanickedSpeed;
         _visitorController.Agent.stoppingDistance = 0f;
         _visitorController.Agent.SetDestination(_visitorController.PanickedTargetLocation.position);
