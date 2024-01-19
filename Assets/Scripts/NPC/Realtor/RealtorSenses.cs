@@ -21,9 +21,12 @@ public class RealtorSenses : BaseSenses
     [Header("Collission Layers")]
     [SerializeField] private LayerMask _sootheMask;
 
+    private System.Random _random;
+
     protected override void Awake()
     {
         _realtorController = GetComponent<RealtorController>();
+        _random = new System.Random();
         base.Awake();
         StartCoroutine(DecreaseNpcFear());
     }
@@ -44,7 +47,6 @@ public class RealtorSenses : BaseSenses
                 if (!SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
                     DetectedVisitors[i].SeenByRealtor = true;
-                    DetectedVisitors[i].OnSoothe.AddListener(_realtorController.Soothe);
                     SoothedVisitors.Add(DetectedVisitors[i]);
                 }
             }
@@ -53,7 +55,6 @@ public class RealtorSenses : BaseSenses
                 if (SoothedVisitors.Contains(DetectedVisitors[i]))
                 {
                     DetectedVisitors[i].SeenByRealtor = false;
-                    DetectedVisitors[i].OnSoothe.RemoveListener(_realtorController.Soothe);
                     SoothedVisitors.Remove(DetectedVisitors[i]);
                 }
             }  
@@ -68,16 +69,27 @@ public class RealtorSenses : BaseSenses
         switch (observableObject.State)
         {
             case ObjectState.Interacted:
-                _realtorController.InspectTarget = observableObject.transform;
-                _realtorController.Investigate();
+                RealtorReaction(observableObject);
                 break;
             case ObjectState.Hit:
-                _realtorController.InspectTarget = observableObject.transform;
-                _realtorController.Investigate();
+                RealtorReaction(observableObject);
                 break;
             default:
                 return;
             }
+    }
+
+    private void RealtorReaction(ObservableObject observableObject)
+    {
+        _realtorController.InspectTarget = observableObject.transform;
+        if (SoothedVisitors.Count > 0)
+        {
+            int index = _random.Next(SoothedVisitors.Count);
+            _realtorController.Soothe(SoothedVisitors[index]);
+        } else
+        {
+            _realtorController.Investigate();
+        }
     }
     
     protected override void ClearDetectedTargets()
@@ -86,7 +98,6 @@ public class RealtorSenses : BaseSenses
         foreach(VisitorController visitor in SoothedVisitors)
         {
             visitor.SeenByRealtor = false;
-            visitor.OnSoothe.RemoveListener(_realtorController.Soothe);
         }
         SoothedVisitors.Clear();
     }

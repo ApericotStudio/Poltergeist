@@ -17,6 +17,12 @@ public class RandomRoamState : IState
         _visitorController.StartCoroutine(PeriodicallySetRoamOriginCoroutine());
     }
 
+    public void StopStateCoroutines()
+    {
+        _visitorController.StopCoroutine(RoamCoroutine());
+        _visitorController.StopCoroutine(PeriodicallySetRoamOriginCoroutine());
+    }
+
     private IEnumerator RoamCoroutine()
     {
         _visitorController.Agent.stoppingDistance = 0f;

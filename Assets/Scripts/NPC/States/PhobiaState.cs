@@ -15,6 +15,11 @@ public class PhobiaState : IState
         _visitorController.StartCoroutine(ScaredCoroutine());
     }
 
+    public void StopStateCoroutines()
+    {
+        _visitorController.StopCoroutine(ScaredCoroutine());
+    }
+
     private IEnumerator ScaredCoroutine()
     {
         _visitorController.Agent.speed = _visitorController.PanickedSpeed;

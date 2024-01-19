@@ -69,6 +69,17 @@ public class TutorialController : MonoBehaviour
         unsubscribeEvents();
     }
 
+    private void CheckForPhobiaAchievement(int index)
+    {
+        Steamworks.SteamUserStats.GetAchievement("PhobiaExploit", out bool achievementUnlocked);
+
+        if(!achievementUnlocked)
+        {
+            Steamworks.SteamUserStats.SetAchievement("PhobiaExploit");
+            Steamworks.SteamUserStats.StoreStats();
+        }
+    }
+
     private void unsubscribeEvents()
     {
         _polterSenseController.isEnabled -= showTutorial;
@@ -120,6 +131,7 @@ public class TutorialController : MonoBehaviour
                 foreach (FearHandler visitor in _visitors)
                 {
                     visitor.activatedPhobia += showTutorial;
+                    visitor.activatedPhobia += CheckForPhobiaAchievement;
                 }
                 break;
         }
