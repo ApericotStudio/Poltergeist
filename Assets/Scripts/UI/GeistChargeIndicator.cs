@@ -9,51 +9,17 @@ public class GeistChargeIndicator : MonoBehaviour
     // private float _minimumFillerSize = 0.5f;
 
     [SerializeField] private Vector3 _offset;
+
     private Transform _playerCam;
+    [HideInInspector] public bool BeingLookedAt = false;
+    [HideInInspector] public bool IsPossessed;
 
-    private bool _beingLookedAt = false;
-    public bool BeindLookedAt
-    {
-        get
-        {
-            return _beingLookedAt;
-        }
-        set
-        {
-            _beingLookedAt = value;
-            OnInfoUpdate();
-        }
-    }
-
-    private bool _isPossessed;
-    public bool IsPossessed
-    {
-        get
-        {
-            return _isPossessed;
-        }
-        set
-        {
-            _isPossessed = value;
-            OnInfoUpdate();
-        }
-    }
-
-    private void OnInfoUpdate()
-    {
-        bool shouldBeShown = false;
-
-        if (_isPossessed || _beingLookedAt)
-        {
-            shouldBeShown = true;
-        }
-
-        _uiComponent.SetActive(shouldBeShown);
-    }
+    private ObservableObject _observableObject;
 
     private void Awake()
     {
-        GetComponentInParent<ObservableObject>().OnGeistChargeChanged += OnGeistChargeValueChange;
+        _observableObject = GetComponentInParent<ObservableObject>();
+        _observableObject.OnGeistChargeChanged += OnGeistChargeValueChange;
         _offset = _uiComponent.transform.localPosition;
         _playerCam = Camera.main.transform;
     }
@@ -62,6 +28,11 @@ public class GeistChargeIndicator : MonoBehaviour
     {
         _uiComponent.transform.position = transform.parent.position + _offset;
         transform.LookAt(transform.position + _playerCam.forward);
+        
+        if(_observableObject.State == ObjectState.Broken)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnGeistChargeValueChange(float value)
@@ -70,11 +41,19 @@ public class GeistChargeIndicator : MonoBehaviour
         //_filler.transform.localScale = new Vector3(desiredScale, desiredScale, 1);
 
         _filler.fillAmount = value;
+        _uiComponent.SetActive(ShouldShowCharge(value));
+    }
+
+    private bool ShouldShowCharge(float value)
+    {
+        return value < 1
+        && (IsPossessed || BeingLookedAt
+        && _observableObject.State != ObjectState.Broken);
     }
 
     public void BeforeDestroy()
     {
-        GetComponentInParent<ObservableObject>().OnGeistChargeChanged -= OnGeistChargeValueChange;
+        _observableObject.OnGeistChargeChanged -= OnGeistChargeValueChange;
         Destroy(_uiComponent);
     }
 }

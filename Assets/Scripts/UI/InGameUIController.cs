@@ -53,10 +53,14 @@ public class InGameUIController : MonoBehaviour
         }
         else
         {
-            _tutorialCard.SetActive(false);
-            _tutorialCardNext.SetActive(false);
-
+            StopTutorial();
         }
+    }
+
+    public void StopTutorial()
+    {
+        _tutorialCard.SetActive(false);
+        _tutorialCardNext.SetActive(false);
     }
 
     private void NextTutorial()
@@ -112,7 +116,7 @@ public class InGameUIController : MonoBehaviour
         foreach (VisitorController controller in _visitorCollection.GetComponentsInChildren<VisitorController>())
         {
             GameObject visitorOverlay = Instantiate(controller.VisitorOverlayPrefab, _visitorOverlayParent);
-            visitorOverlay.GetComponent<VisitorOverlayController>().Setup(controller);
+            visitorOverlay.GetComponent<VisitorOverlayController>().Setup(controller, this);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class HairDryer : MonoBehaviour
 {
@@ -32,14 +33,18 @@ public class HairDryer : MonoBehaviour
 
     private IEnumerator TurnOn()
     {
-        AudioSource.PlayClipAtPoint(_turnOnSound, transform.position);
+        _audioSource.outputAudioMixerGroup.audioMixer.GetFloat("GameVol", out float volume);
+        volume = Mathf.Pow(10, volume / 20);
+        AudioSource.PlayClipAtPoint(_turnOnSound, transform.position, volume);
         yield return new WaitForSeconds(_turnOnSound.length);
         _audioSource.Play();
     }
 
     private void TurnOff()
     {
-        AudioSource.PlayClipAtPoint(_turnOffSound, transform.position);
+        _audioSource.outputAudioMixerGroup.audioMixer.GetFloat("GameVol", out float volume);
+        volume = Mathf.Pow(10, volume / 20);
+        AudioSource.PlayClipAtPoint(_turnOffSound, transform.position, volume);
         _audioSource.Stop();
     }
 

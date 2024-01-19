@@ -21,6 +21,9 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private string _levelSelectSceneName = "LevelSelectUI";
     [SerializeField] private string _endCutsceneSceneName = "EndCutsceneUI";
     [SerializeField] private Image _gradeImage;
+    [SerializeField] private Image _gradeImageSpeed;
+    [SerializeField] private Image _gradeImageResearch;
+    [SerializeField] private Image _gradeImageResource;
     [SerializeField] private GradeConverter _gradeConverter;
 
     private Grade result;
@@ -51,7 +54,14 @@ public class EndGameScreen : MonoBehaviour
             _phobiaScares.text = result.PhobiaScares.ToString() + " times";
         }
         _differentObjectsUsed.text = result.DifferentObjectsUsed.ToString() + " objects used";
+
         _gradeImage.sprite = _gradeConverter.GetGradeSprite(result.Result);
+        _gradeImageSpeed.sprite = _gradeConverter.GetGradeSprite(result.TimePassedScore);
+        if (_gradeImageResearch)
+        {
+            _gradeImageResearch.sprite = _gradeConverter.GetGradeSprite(result.PhobiaScaresScore);
+        }
+        _gradeImageResource.sprite = _gradeConverter.GetGradeSprite(result.DifferentObjectsUsedScore);
     }
 
     /// <summary>
@@ -66,6 +76,7 @@ public class EndGameScreen : MonoBehaviour
         if (currentGrade == null)
         {
             newHighestGrade = true;
+            CheckForLevelAchievement(SceneManager.GetActiveScene().name);
         }
         else if (currentGrade.Result < _gradeController.Grade.Result)
         {
@@ -74,6 +85,73 @@ public class EndGameScreen : MonoBehaviour
         if (newHighestGrade)
         {
             levelGradeHandler.Save(_gradeController.Grade, SceneManager.GetActiveScene().name);
+            CheckForBothAAchievement();
+            CheckForAllObjectsUsedAchievement(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    private void CheckForLevelAchievement(string sceneName)
+    {
+        if(sceneName == "Assignment")
+        {
+            Steamworks.SteamUserStats.GetAchievement("FirstLevelComplete", out bool achievementUnlocked);
+
+            if (!achievementUnlocked)
+            {
+                Steamworks.SteamUserStats.SetAchievement("FirstLevelComplete");
+                Steamworks.SteamUserStats.StoreStats();
+            }
+        }
+        else if(sceneName == "FinalExam")
+        {
+            Steamworks.SteamUserStats.GetAchievement("SecondLevelComplete", out bool achievementUnlocked);
+            if(!achievementUnlocked)
+            {
+                Steamworks.SteamUserStats.SetAchievement("SecondLevelComplete");
+                Steamworks.SteamUserStats.StoreStats();
+            }
+        }
+        
+    }
+
+    private void CheckForBothAAchievement()
+    {
+        LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
+        Grade firstLevelGrade = levelGradeHandler.Load("Assignment");
+        Grade secondLevelGrade = levelGradeHandler.Load("FinalExam");
+
+        if(firstLevelGrade != null && secondLevelGrade != null)
+        {
+            if (firstLevelGrade.Result == 4 && secondLevelGrade.Result == 4)
+            {
+                Steamworks.SteamUserStats.GetAchievement("AchieveABothLevels", out bool achievementUnlocked);
+                if (!achievementUnlocked)
+                {
+                    Steamworks.SteamUserStats.SetAchievement("AchieveABothLevels");
+                    Steamworks.SteamUserStats.StoreStats();
+                }
+            }
+        }
+    }
+
+    private void CheckForAllObjectsUsedAchievement(string sceneName)
+    {
+        Steamworks.SteamUserStats.GetAchievement("UseAllObjects", out bool achievementUnlocked);
+        // Achievement already unlocked, so skip
+        if (achievementUnlocked)
+        {
+            return;
+        }
+        if (sceneName == "FinalExam")
+        {
+            LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
+            Grade grade = levelGradeHandler.Load(sceneName);
+
+            if(grade != null && grade.DifferentObjectsUsed == 45)
+            {
+                Steamworks.SteamUserStats.SetAchievement("UseAllObjects");
+                Steamworks.SteamUserStats.StoreStats();
+            }
         }
     }
 

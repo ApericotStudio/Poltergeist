@@ -111,12 +111,7 @@ public class FearHandler : MonoBehaviour
         {
             if (phobia == _visitorController.VisitorPhobia && _visitorController.VisitorPhobia != ObjectPhobia.None)
             {
-                if (!_firstScare)
-                {
-                    _firstScare = true;
-                    activatedPhobia?.Invoke(1);
-                }
-
+                activatedPhobia?.Invoke(1);
                 OnObjectPhobia?.Invoke(observableObject);
                 phobiaValue = _phobiaValue;
                 break;
@@ -129,7 +124,6 @@ public class FearHandler : MonoBehaviour
         if (_visitorController.SeenByRealtor)
         {
             soothe = _sootheMultiplier;
-            _visitorController.OnSoothe.Invoke(_visitorController);
         }
         else
         {

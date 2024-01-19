@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Fridge : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class Fridge : MonoBehaviour
     private AudioClip _openSound;
     [Tooltip("Sound played when the fridge is closed."), SerializeField]
     private AudioClip _closeSound;
+    [Tooltip("The AudioMixerGroup that the sounds will play on"), SerializeField]
+    private AudioMixerGroup _mixerGroup;
     
     private Animator _animator;
     private Highlight _highlight;
@@ -25,9 +28,13 @@ public class Fridge : MonoBehaviour
     private void OnOpen()
     {
         _highlight.Highlightable(false);
-        
+
         if (_openSound != null)
-            AudioSource.PlayClipAtPoint(_openSound, transform.position);
+        {
+            _mixerGroup.audioMixer.GetFloat("GameVol", out float volume);
+            volume = Mathf.Pow(10, volume / 20);
+            AudioSource.PlayClipAtPoint(_openSound, transform.position, volume);
+        }
     }
 
     private void OnClose()
@@ -36,6 +43,11 @@ public class Fridge : MonoBehaviour
         _highlight.Highlighted(true);
 
         if(_closeSound != null)
-            AudioSource.PlayClipAtPoint(_closeSound, transform.position);
+        {
+            _mixerGroup.audioMixer.GetFloat("GameVol", out float volume);
+            volume = Mathf.Pow(10, volume / 20);
+            AudioSource.PlayClipAtPoint(_closeSound, transform.position, volume);
+        }
+            
     }
 }

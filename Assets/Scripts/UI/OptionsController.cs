@@ -10,7 +10,8 @@ public enum PlayerPrefsVariable
     Sensitivity,
     Brightness,
     Contrast,
-    Fullscreen
+    Fullscreen,
+    Tutorial
 }
 
 public class OptionsController : MonoBehaviour
@@ -23,6 +24,7 @@ public class OptionsController : MonoBehaviour
 
     [Header("Toggle References")]
     [SerializeField] private Toggle _fullscreenToggle;
+    [SerializeField] private Toggle _tutorialToggle;
 
     [Header("Button References")]
     [SerializeField] private Button _backButton;
@@ -71,11 +73,13 @@ public class OptionsController : MonoBehaviour
     private void SetupToggles()
     {
         _fullscreenToggle.onValueChanged.AddListener(OnFullscreenTogglePressed);
+        _tutorialToggle.onValueChanged.AddListener(OnTutorialTogglePressed);
     }
 
     private void SetToggles()
     {
         _fullscreenToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsVariable.Fullscreen.ToString(), Screen.fullScreen ? 1 : 0) == 1;
+        _tutorialToggle.isOn = PlayerPrefs.GetInt(PlayerPrefsVariable.Tutorial.ToString()) == 0;
     }
 
     private void SetupButtons()
@@ -113,6 +117,13 @@ public class OptionsController : MonoBehaviour
     {
         Screen.fullScreen = value;
         PlayerPrefs.SetInt(PlayerPrefsVariable.Fullscreen.ToString(), value ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    private void OnTutorialTogglePressed(bool value)
+    {
+        PlayerPrefs.SetInt(PlayerPrefsVariable.Tutorial.ToString(), value ? 0 : 1);
+        PlayerPrefs.SetInt("FirstTutorial", value ? 0 : 1);
         PlayerPrefs.Save();
     }
 

@@ -26,7 +26,9 @@ public class Sink : MonoBehaviour
     {
         if (_water.isPlaying)
         {
-            AudioSource.PlayClipAtPoint(_turnOffSound, transform.position);
+            _audioSource.outputAudioMixerGroup.audioMixer.GetFloat("GameVol", out float volume);
+            volume = Mathf.Pow(10, volume / 20);
+            AudioSource.PlayClipAtPoint(_turnOffSound, transform.position, volume);
             StartCoroutine(ReduceParticles());
         }
         else
