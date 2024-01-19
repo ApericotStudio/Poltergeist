@@ -92,6 +92,8 @@ public class EndGameScreen : MonoBehaviour
 
     private void CheckForLevelAchievement(string sceneName)
     {
+        if (!SteamManager.Initialized) return;
+
         if(sceneName == "Assignment")
         {
             Steamworks.SteamUserStats.GetAchievement("FirstLevelComplete", out bool achievementUnlocked);
@@ -116,6 +118,8 @@ public class EndGameScreen : MonoBehaviour
 
     private void CheckForBothAAchievement()
     {
+        if (!SteamManager.Initialized) return;
+
         LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
         Grade firstLevelGrade = levelGradeHandler.Load("Assignment");
         Grade secondLevelGrade = levelGradeHandler.Load("FinalExam");
@@ -136,6 +140,8 @@ public class EndGameScreen : MonoBehaviour
 
     private void CheckForAllObjectsUsedAchievement(string sceneName)
     {
+        if (!SteamManager.Initialized) return;
+
         Steamworks.SteamUserStats.GetAchievement("UseAllObjects", out bool achievementUnlocked);
         // Achievement already unlocked, so skip
         if (achievementUnlocked)
