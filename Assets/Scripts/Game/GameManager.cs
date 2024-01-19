@@ -59,9 +59,9 @@ public class GameManager : MonoBehaviour
         UpdateCursor();
     }
 
-    private void UpdateCursor()
+    public void UpdateCursor()
     {
-        if(Time.timeScale == 0 && _pauseCanvas.activeSelf)
+        if(Time.timeScale == 0)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;

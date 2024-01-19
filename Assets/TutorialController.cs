@@ -1,11 +1,13 @@
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class TutorialController : MonoBehaviour
 {
     [SerializeField]
     private ThirdPersonController _playerController;
+    private GameManager _gameManager;
     private VisitorManager _visitorManager;
     private PolterSenseController _polterSenseController;
     private PossessionController _possessionController;
@@ -14,9 +16,18 @@ public class TutorialController : MonoBehaviour
 
     [SerializeField]
     private InGameUIController _uiController;
+    [SerializeField]
+    private GameObject _continueButton;
     private int _counter;
     private bool _firstTutorialShown = false;
+    private bool _skippingTutorial = false;
+    private bool _neverShow = false;
+    [SerializeField]
+    private GameObject _skipTutorialCanvas;
+    [SerializeField]
+    private GameObject _TutorialCanvas;
 
+    public bool NeverShow { get => _neverShow; set => _neverShow = value; }
 
     private void Awake()
     {
@@ -24,6 +35,11 @@ public class TutorialController : MonoBehaviour
         {
             _firstTutorialShown = true;
         }
+    }
+
+    public void DisableButton(bool isOn)
+    {
+        _continueButton.SetActive(!isOn);
     }
     // Start is called before the first frame update
     void Start()
@@ -33,14 +49,82 @@ public class TutorialController : MonoBehaviour
         _interactController = _playerController.GetComponent<InteractController>();
         _visitorManager = gameObject.GetComponent<VisitorManager>();
         _visitors = _visitorManager.VisitorCollection.GetComponentsInChildren<FearHandler>();
+        _gameManager = gameObject.GetComponent<GameManager>();
 
+        int tutorial = PlayerPrefs.GetInt(PlayerPrefsVariable.Tutorial.ToString());
+        int firstTutorial = PlayerPrefs.GetInt("FirstTutorial");
+
+        _skipTutorialCanvas.SetActive(false);
+
+        if (tutorial == 1)
+        {
+            SkipTutorial();
+            return;
+        }
+
+        //after toggling never show and continue only first tutorial will be skipped
+        if(firstTutorial == 1 && !_firstTutorialShown)
+        {
+            SkipTutorial();
+            return;
+        }
+
+        if(firstTutorial == 1 && _firstTutorialShown)
+        {
+            StartTutorial();
+            PlayerPrefs.SetInt(PlayerPrefsVariable.Tutorial.ToString(), 1);
+            PlayerPrefs.Save();
+            return;
+        }
+
+        if (_firstTutorialShown)
+        {
+            StartTutorial();
+            return;
+        }
+
+        else
+        {
+            Time.timeScale = 0;
+            _skipTutorialCanvas.SetActive(true);
+
+        }
+        _gameManager.UpdateCursor();
+
+    }
+    public void StartTutorial()
+    {
+        if (_neverShow)
+        {
+            PlayerPrefs.SetInt("FirstTutorial", 1);
+            PlayerPrefs.Save();
+        }
+
+        _skipTutorialCanvas.SetActive(false);
+        Time.timeScale = 1;
+        _gameManager.UpdateCursor();
         showTutorial(0);
+        _TutorialCanvas.SetActive(true);
+    }
+
+    public void SkipTutorial()
+    {
+        if (_neverShow)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsVariable.Tutorial.ToString(), 1);
+            PlayerPrefs.Save();
+        }
+
+        Time.timeScale = 1;
+        _gameManager.UpdateCursor();
+        _skipTutorialCanvas.SetActive(false);
+        _uiController.StopTutorial();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!_firstTutorialShown)
+        if (!_firstTutorialShown)
         {
             checkFirstTutorial();
         }
@@ -86,6 +170,7 @@ public class TutorialController : MonoBehaviour
         _interactController.hasInteracted -= showTutorial;
         _playerController.hasMoved -= showTutorial;
         _possessionController.hasPossessed -= showTutorial;
+
         foreach (FearHandler visitor in _visitors)
         {
             visitor.activatedPhobia -= showTutorial;
