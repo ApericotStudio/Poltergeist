@@ -32,7 +32,7 @@ public class VisitorOverlayController : MonoBehaviour
     public void OnPhobiaScare(ObservableObject observableObject)
     {
         _fearHandler.OnObjectPhobia -= OnPhobiaScare;
-        _phobiaBadge.enabled = true;
+        _phobiaBadge.gameObject.SetActive(true);
         if (_inGameUIController != null)
         {
             _inGameUIController.ShowNotification("Phobia discovered!", 6);
