@@ -99,7 +99,7 @@ public class InGameUIController : MonoBehaviour
         foreach (VisitorController controller in _visitorCollection.GetComponentsInChildren<VisitorController>())
         {
             GameObject visitorOverlay = Instantiate(controller.VisitorOverlayPrefab, _visitorOverlayParent);
-            visitorOverlay.GetComponent<VisitorOverlayController>().Setup(controller);
+            visitorOverlay.GetComponent<VisitorOverlayController>().Setup(controller, this);
         }
     }
 }
