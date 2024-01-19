@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -16,6 +17,9 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject _settingsCanvas;
     [SerializeField] private Animator _canvasAnimator;
 
+    [Header("Audio References")]
+    [SerializeField] private AudioMixerGroup _audioMixerGroup;
+
     [Header("Scene References")]
     [SerializeField] private string _introCutsceneScene;
     [SerializeField] private string _creditsSceneName;
@@ -29,12 +33,23 @@ public class MainMenuController : MonoBehaviour
         SetupButtons();
     }
 
+    private void Start()
+    {
+        VolumeCheck();
+    }
+
     private void Update()
     {
         if (Input.anyKeyDown)
         {
             _canvasAnimator?.SetBool("Pressed", true);
         }
+    }
+
+    private void VolumeCheck()
+    {
+        float volume = PlayerPrefs.GetFloat(PlayerPrefsVariable.Volume.ToString(), 1);
+        _audioMixerGroup.audioMixer.SetFloat("GameVol", Mathf.Log10(volume) * 20);
     }
 
     private void SetupButtons()
