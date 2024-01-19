@@ -15,7 +15,7 @@ public class GeistChargeLookingAtController : MonoBehaviour
     {
         if (_previousGeistChargeIndicator != null)
         {
-            _previousGeistChargeIndicator.BeindLookedAt = false;
+            _previousGeistChargeIndicator.BeingLookedAt = false;
             _previousGeistChargeIndicator = null;
         }
         if (_visionController.LookingAt == null)
@@ -25,7 +25,7 @@ public class GeistChargeLookingAtController : MonoBehaviour
         GeistChargeIndicator geistChargeIndicator = _visionController.LookingAt.GetComponentInChildren<GeistChargeIndicator>();
         if (geistChargeIndicator != null)
         {
-            geistChargeIndicator.BeindLookedAt = true;
+            geistChargeIndicator.BeingLookedAt = true;
         }
         _previousGeistChargeIndicator = geistChargeIndicator;
     }
