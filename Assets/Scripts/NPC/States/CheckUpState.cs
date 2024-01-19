@@ -18,7 +18,7 @@ public class CheckUpState : IState
     public void Handle()
     {
         _periodicCheckUpCoroutine ??= _realtorController.StartCoroutine(PeriodicallySetCheckUpOriginCoroutine());
-        _realtorController.StartCoroutine(PeriodicallySetCheckUpOriginCoroutine());
+        _realtorController.StartCoroutine(CheckUpCoroutine());
     }
 
     public void StopStateCoroutines()
