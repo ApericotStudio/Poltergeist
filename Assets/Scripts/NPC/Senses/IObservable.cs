@@ -1,0 +1,7 @@
+public interface IObservableObject
+{
+    void AddObserver(IObserver observer);
+    void RemoveObserver(IObserver observer);
+    void ClearObservers();
+    void NotifyObservers();
+}
