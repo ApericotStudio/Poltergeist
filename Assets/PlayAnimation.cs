@@ -20,14 +20,6 @@ public class PlayAnimation : MonoBehaviour
 
     public void ToggleAnimation()
     {
-        _isOn = !_isOn;
-        if (_isOn)
-        {
-            _animator.SetBool("isOn", _isOn);
-        }
-        else
-        {
-            _animator.SetBool("isOn", _isOn);
-        }
+        _animator.SetBool("isOn", !_animator.GetBool("isOn"));
     }
 }
