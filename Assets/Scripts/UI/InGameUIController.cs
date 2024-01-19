@@ -53,10 +53,14 @@ public class InGameUIController : MonoBehaviour
         }
         else
         {
-            _tutorialCard.SetActive(false);
-            _tutorialCardNext.SetActive(false);
-
+            StopTutorial();
         }
+    }
+
+    public void StopTutorial()
+    {
+        _tutorialCard.SetActive(false);
+        _tutorialCardNext.SetActive(false);
     }
 
     private void NextTutorial()

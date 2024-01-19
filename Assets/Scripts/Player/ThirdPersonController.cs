@@ -161,8 +161,8 @@ namespace StarterAssets
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+/*            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;*/
             AssignAnimationIDs();
         }
 
@@ -256,7 +256,6 @@ namespace StarterAssets
 
             if (_input.Move != Vector2.zero && !_tutorialShown)
             {
-                _tutorialShown = true;
                 hasMoved?.Invoke(1);
             }
 
