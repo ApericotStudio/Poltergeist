@@ -26,6 +26,8 @@ public class HatCommand : ConsoleCommand
 
     private void CheckForHatAchievement()
     {
+        if (!SteamManager.Initialized) return;
+
         Steamworks.SteamUserStats.GetAchievement("Mad Hatter", out bool achieved);
         if (!achieved)
         {

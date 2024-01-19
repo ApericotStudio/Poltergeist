@@ -40,9 +40,9 @@ public class MainMenuController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && _canvasAnimator != null)
         {
-            _canvasAnimator?.SetBool("Pressed", true);
+            _canvasAnimator.SetBool("Pressed", true);
         }
     }
 
