@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 public class VisitorController : NpcController
@@ -35,6 +36,8 @@ public class VisitorController : NpcController
     [Tooltip("The audio clip that will be played when visitor runs out of the house")]
     [SerializeField]
     private AudioClip _runAwayClip;
+    [Tooltip("The AudioMixerGroup that the sounds will play on"), SerializeField]
+    private AudioMixerGroup _mixerGroup;
     [Tooltip("The volume of the footstep audio clips.")]
     [Range(0f, 1f)]
     public float FootstepVolume = 0.5f;
@@ -131,7 +134,9 @@ public class VisitorController : NpcController
 
     public void Despawn()
     {
-        AudioSource.PlayClipAtPoint(_runAwayClip, transform.position);
+        _mixerGroup.audioMixer.GetFloat("GameVol", out float volume);
+        volume = Mathf.Pow(10, volume / 20);
+        AudioSource.PlayClipAtPoint(_runAwayClip, transform.position, volume);
         gameObject.SetActive(false);
     }
 }
