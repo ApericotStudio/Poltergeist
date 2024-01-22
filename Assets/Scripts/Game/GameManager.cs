@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject _pauseCanvas;
+    [SerializeField] private GameObject _developerConsole;
 
     [Header("Adjustable variables")]
     [SerializeField] private int _timePassed;
@@ -73,18 +74,24 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             AudioListener.pause = false;
             _pauseCanvas.GetComponent<PauseController>().TogglePause(false);
+            if(_developerConsole.activeSelf)
+            {
+                _developerConsole.SetActive(false);
+            }
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             OnPauseToggled?.Invoke(false);
         }
-        else if (Time.timeScale == 1)
+        else if(!_developerConsole.activeSelf)
         {
-            Time.timeScale = 0;
-            AudioListener.pause = true;
-            _pauseCanvas.GetComponent<PauseController>().TogglePause(true);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            OnPauseToggled?.Invoke(true);
+            if (Time.timeScale == 1) {
+                Time.timeScale = 0;
+                AudioListener.pause = true;
+                _pauseCanvas.GetComponent<PauseController>().TogglePause(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                OnPauseToggled?.Invoke(true);
+            }
         }
     }
 
