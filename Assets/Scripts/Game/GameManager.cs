@@ -15,12 +15,14 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject _pauseCanvas;
+    [SerializeField] private GameObject _developerConsole;
 
     [Header("Adjustable variables")]
     [SerializeField] private int _timePassed;
 
     [SerializeField] private AudioMixer _audioMixer;
 
+    private bool _gameEnded;
     private void Awake()
     {
         float volume = PlayerPrefs.GetFloat(PlayerPrefsVariable.Volume.ToString(), 1);
@@ -67,17 +69,25 @@ public class GameManager : MonoBehaviour
 
     public void TogglePause()
     {
+        if(_gameEnded)
+        {
+            return;
+        }
         if (Time.timeScale == 0)
         {
             PlayerPrefs.Save();
             Time.timeScale = 1;
             AudioListener.pause = false;
             _pauseCanvas.GetComponent<PauseController>().TogglePause(false);
+            if(_developerConsole.activeSelf)
+            {
+                _developerConsole.SetActive(false);
+            }
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             OnPauseToggled?.Invoke(false);
         }
-        else if (Time.timeScale == 1)
+        else
         {
             Time.timeScale = 0;
             AudioListener.pause = true;
@@ -91,6 +101,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         OnEndGame.Invoke();
+        _gameEnded = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         StopCoroutine(ManageTimeLeft());
