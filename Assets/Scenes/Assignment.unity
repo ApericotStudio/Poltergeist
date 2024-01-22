@@ -41757,7 +41757,7 @@ PrefabInstance:
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
       propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
@@ -41767,6 +41767,11 @@ PrefabInstance:
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
       propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
+      propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
@@ -41781,6 +41786,11 @@ PrefabInstance:
       objectReference: {fileID: 1875107163}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
+      propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1311301147}
+    - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
       propertyPath: _onConsoleToggleInput.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1311301147}
@@ -41791,8 +41801,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
+      propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
       propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: TogglePause
+      objectReference: {fileID: 0}
+    - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
+      propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: TogglePausedBool
       objectReference: {fileID: 0}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
@@ -41811,12 +41831,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
+      propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DeveloperConsoleBehaviour, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
       propertyPath: _onConsoleToggleInput.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DeveloperConsoleBehaviour, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
       propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
+      propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
@@ -43026,6 +43056,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7539330332391930180, guid: e1e48e4a12ff3d7478d2a334fa2f62c3,
     type: 3}
   m_PrefabInstance: {fileID: 1436130905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1443682142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1005529010, guid: 0083d9cd5230bde45b6290423d4a1d0d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1311301146}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1444750335
 GameObject:
@@ -56192,6 +56228,11 @@ PrefabInstance:
       propertyPath: _pauseCanvas
       value: 
       objectReference: {fileID: 843652852}
+    - target: {fileID: 1871557956774806525, guid: a209c4aab6536364e95f4d820d379001,
+        type: 3}
+      propertyPath: _developerConsole
+      value: 
+      objectReference: {fileID: 1443682142}
     - target: {fileID: 2888640853675573933, guid: a209c4aab6536364e95f4d820d379001,
         type: 3}
       propertyPath: _gameEndScreen
