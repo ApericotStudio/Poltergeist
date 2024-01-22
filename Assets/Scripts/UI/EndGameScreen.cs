@@ -41,6 +41,7 @@ public class EndGameScreen : MonoBehaviour
         Time.timeScale = 0f;
         UpdateResults();
         CheckForHighestGrade();
+        CheckForAchievements();
     }
 
     /// <summary>
@@ -64,6 +65,13 @@ public class EndGameScreen : MonoBehaviour
         _gradeImageResource.sprite = _gradeConverter.GetGradeSprite(result.DifferentObjectsUsedScore);
     }
 
+    private void CheckForAchievements()
+    {
+        CheckForLevelAchievement(SceneManager.GetActiveScene().name);
+        CheckForBothAAchievement();
+        CheckForAllObjectsUsedAchievement(SceneManager.GetActiveScene().name);
+    }
+
     /// <summary>
     /// Checks if player has achieved a new highest grade and if so save it
     /// </summary>
@@ -76,7 +84,6 @@ public class EndGameScreen : MonoBehaviour
         if (currentGrade == null)
         {
             newHighestGrade = true;
-            CheckForLevelAchievement(SceneManager.GetActiveScene().name);
         }
         else if (currentGrade.Result < _gradeController.Grade.Result)
         {
@@ -85,8 +92,6 @@ public class EndGameScreen : MonoBehaviour
         if (newHighestGrade)
         {
             levelGradeHandler.Save(_gradeController.Grade, SceneManager.GetActiveScene().name);
-            CheckForBothAAchievement();
-            CheckForAllObjectsUsedAchievement(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -153,7 +158,7 @@ public class EndGameScreen : MonoBehaviour
             LevelGradeHandler levelGradeHandler = new LevelGradeHandler();
             Grade grade = levelGradeHandler.Load(sceneName);
 
-            if(grade != null && grade.DifferentObjectsUsed == 45)
+            if(grade != null && grade.DifferentObjectsUsed >= 45)
             {
                 Steamworks.SteamUserStats.SetAchievement("UseAllObjects");
                 Steamworks.SteamUserStats.StoreStats();
