@@ -84,9 +84,18 @@ public class RealtorSenses : BaseSenses
         _realtorController.InspectTarget = observableObject.transform;
         if (SoothedVisitors.Count > 0)
         {
-            int index = _random.Next(SoothedVisitors.Count);
-            _realtorController.Soothe(SoothedVisitors[index]);
-        } else
+            foreach (VisitorController visitor in SoothedVisitors)
+            {
+                if(visitor.GetComponent<VisitorSenses>()
+                .DetectedObjects.ContainsKey(observableObject))
+                {
+                    _realtorController.Soothe(visitor);
+                    return;
+                }
+
+            }
+        } 
+        else
         {
             _realtorController.Investigate();
         }

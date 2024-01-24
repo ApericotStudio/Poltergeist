@@ -31,9 +31,9 @@ namespace StarterAssets
         [SerializeField] private UnityEvent _onPolterSenseEnterInput;
         [SerializeField] private UnityEvent _onPolterSenseLeaveInput;
 		[SerializeField] private UnityEvent _onConsoleToggleInput;
-        [SerializeField] private UnityEvent _onOptionsInput;
         [SerializeField] private UnityEvent _onGhostFaceChangeInput;
 		[SerializeField] private UnityEvent _onSkipInput;
+		[SerializeField] private UnityEvent _onPauseToggleInput;
 
 		public UnityEvent OnCancelInput { get => _onCancelInput; set => _onCancelInput = value; }
 		public UnityEvent OnInteractPossessInput { get => _onInteractPossessInput; set => _onInteractPossessInput = value; }
@@ -42,8 +42,8 @@ namespace StarterAssets
 		public UnityEvent OnThrowInput { get => _onThrowInput; set => _onThrowInput = value; }
 		public UnityEvent OnConsoleToggleInput { get => _onConsoleToggleInput; set => _onConsoleToggleInput = value; }
 		public UnityEvent OnGhostFaceChangeInput { get => _onGhostFaceChangeInput; set => _onGhostFaceChangeInput = value; }
-        public UnityEvent OnOptionsInput { get => _onOptionsInput; set => _onOptionsInput = value; }
         public UnityEvent OnSkipInput { get => _onSkipInput; set => _onSkipInput = value; }
+		public UnityEvent OnPauseToggleInput { get => _onPauseToggleInput; set => _onPauseToggleInput = value; }
 
 #if ENABLE_INPUT_SYSTEM
         private void OnMove(InputValue value)
@@ -146,15 +146,14 @@ namespace StarterAssets
 			_onConsoleToggleInput.Invoke();
         }
 
-        private void OnOptions(InputValue value)
-        {
-            _onOptionsInput.Invoke();
-        }
-
 		private void OnSkip(InputValue value)
 		{
 			_onSkipInput.Invoke();
 		}
+		private void OnPauseToggle(InputValue value)
+        {
+			_onPauseToggleInput.Invoke();
+        }
 #endif
 
 
