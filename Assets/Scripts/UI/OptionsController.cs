@@ -49,8 +49,7 @@ public class OptionsController : MonoBehaviour
     {
         SetSliders();
         SetToggles();
-
-        EventSystem.current.SetSelectedGameObject(null);
+        
         EventSystem.current.SetSelectedGameObject(_volumeSlider.gameObject);
     }
 

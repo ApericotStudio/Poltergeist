@@ -40,7 +40,7 @@ public class PauseController : MonoBehaviour
         if (enable)
         {
             _pauseCanvas.enabled = true;
-            EventSystem.current.SetSelectedGameObject(_optionsButton.gameObject);
+            EventSystem.current.SetSelectedGameObject(ResumeButton.gameObject);
             SetProgress(_gradeController.Grade);
         }
         else

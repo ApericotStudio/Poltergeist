@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class InGameUIController : MonoBehaviour
@@ -17,6 +18,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _tutorialCardTitle;
     [SerializeField] private TextMeshProUGUI _tutorialCardDescription;
     [SerializeField] private List<TutorialCardMessage> _tutorialCardMessages = new();
+    [SerializeField] private GameObject _continueButton;
+
     private int _tutorialCardIndex = 0;
     private string _currentSceneName;
     private readonly string _mainGameScene = "FinalExam";
@@ -33,6 +36,11 @@ public class InGameUIController : MonoBehaviour
     private void Update()
     {
         NextTutorial();
+    }
+
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(_continueButton);
     }
 
     public void ShowTutorial(int index)

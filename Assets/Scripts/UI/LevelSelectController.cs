@@ -14,7 +14,7 @@ public class LevelSelectController : MonoBehaviour
     [SerializeField] private Button _backButton;
     [SerializeField] private Color _selectedColor;
     private ColorBlock color;
-    private List<Button> _buttons = new List<Button>();
+    private List<Button> _buttons = new();
 
     [Header("Text References")]
     [SerializeField] private TextMeshProUGUI _levelTitleText;
@@ -71,11 +71,13 @@ public class LevelSelectController : MonoBehaviour
         {
             SelectLevel(0);
             _postItNote.enabled = true;
+            _finalExamButton.interactable = false;
         }
         else
         {
             SelectLevel(1);
             _postItNote.enabled = false;
+            _finalExamButton.interactable = true;
         }
     }
 
