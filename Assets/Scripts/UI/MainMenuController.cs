@@ -42,6 +42,7 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         VolumeCheck();
+        EventSystem.current.SetSelectedGameObject(_playButton.gameObject);
     }
 
     private void Update()

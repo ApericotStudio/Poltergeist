@@ -12,11 +12,11 @@ public class ButtonMappingController : MonoBehaviour
         _backButton.onClick.AddListener(OnBackButtonPressed);
     }
 
-
     private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
     }
+    
     private void OnBackButtonPressed()
     {
         gameObject.SetActive(false);
