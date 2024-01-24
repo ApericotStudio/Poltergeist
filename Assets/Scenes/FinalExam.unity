@@ -18830,6 +18830,11 @@ PrefabInstance:
       propertyPath: _thirdPersonController
       value: 
       objectReference: {fileID: 1724966205}
+    - target: {fileID: 3401835212256463620, guid: 9dbbfc3e03e53934793180b1669667cf,
+        type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3753961809939355021, guid: 9dbbfc3e03e53934793180b1669667cf,
         type: 3}
       propertyPath: m_Name
@@ -40315,6 +40320,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
+      propertyPath: _onSkipInput.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 975944787}
+    - target: {fileID: 5825212740872587239, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
       propertyPath: _onPauseToggleInput.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -42912,6 +42922,7 @@ GameObject:
   - component: {fileID: 1484813947}
   - component: {fileID: 1484813946}
   - component: {fileID: 1484813948}
+  - component: {fileID: 1484813949}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -42990,6 +43001,19 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!114 &1484813949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484813944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae59ae844dac2f428d48b3cd787bf21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInput: {fileID: 1724966214}
 --- !u!1001 &1485362040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50312,6 +50336,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1724966214 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3183686283985870205, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 1401192492}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1726005468 stripped
@@ -59094,6 +59130,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 569.82
       objectReference: {fileID: 0}
+    - target: {fileID: 8148180483576403964, guid: 639a93b08af88f542b79608ff6bb95c6,
+        type: 3}
+      propertyPath: _playerInput
+      value: 
+      objectReference: {fileID: 1724966214}
     - target: {fileID: 8148180483576403964, guid: 639a93b08af88f542b79608ff6bb95c6,
         type: 3}
       propertyPath: _visitorCollection

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class InGameUIController : MonoBehaviour
@@ -17,8 +19,10 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private GameObject _tutorialCardNext;
     [SerializeField] private TextMeshProUGUI _tutorialCardTitle;
     [SerializeField] private TextMeshProUGUI _tutorialCardDescription;
+    [SerializeField] private TextMeshProUGUI _tutorialCardContinue;
     [SerializeField] private List<TutorialCardMessage> _tutorialCardMessages = new();
     [SerializeField] private GameObject _continueButton;
+    [SerializeField] private PlayerInput _playerInput;
 
     private int _tutorialCardIndex = 0;
     private string _currentSceneName;
@@ -36,6 +40,14 @@ public class InGameUIController : MonoBehaviour
     private void Update()
     {
         NextTutorial();
+        if (_playerInput.currentControlScheme == "Gamepad")
+        {
+            _tutorialCardContinue.text = "Press Select to continue";
+        }
+        else
+        {
+            _tutorialCardContinue.text = "Press R to continue";
+        }
     }
 
     private void OnEnable()
