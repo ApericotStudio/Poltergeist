@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ButtonMappingController : MonoBehaviour
 {
     [SerializeField] private Button _backButton;
+    [SerializeField] private Button _mouseKeyboardButton;
     [SerializeField] private GameManager _gameManager;
 
     private void Awake()
@@ -14,7 +15,7 @@ public class ButtonMappingController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
+        EventSystem.current.SetSelectedGameObject(_mouseKeyboardButton.gameObject);
     }
     
     private void OnBackButtonPressed()
