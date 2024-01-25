@@ -8,6 +8,8 @@ public class DetectController : MonoBehaviour
     [SerializeField]
     private PlayerInput _playerInput;
     private GameObject _previousSelectedObject;
+    [SerializeField]
+    private bool _isMainMenu = false;
 
     private void Update()
     {
@@ -24,7 +26,7 @@ public class DetectController : MonoBehaviour
         else
         {
             EventSystem.current.SetSelectedGameObject(null);
-            if(Time.timeScale == 0)
+            if(Time.timeScale == 0 || _isMainMenu)
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
