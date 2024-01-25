@@ -22798,6 +22798,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 733092091}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &733092094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1417452152993203407, guid: 54aa7315938e5b04aa34b99788258452,
+    type: 3}
+  m_PrefabInstance: {fileID: 733092091}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &733092095 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 521786257247021831, guid: 54aa7315938e5b04aa34b99788258452,
+    type: 3}
+  m_PrefabInstance: {fileID: 733092091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &733669158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 588959716672834462, guid: c990191652041b04b8d761c825c3013a,
@@ -24564,6 +24576,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &826237290 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1417452152993203407, guid: 54aa7315938e5b04aa34b99788258452,
+    type: 3}
+  m_PrefabInstance: {fileID: 826237287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &826237291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 521786257247021831, guid: 54aa7315938e5b04aa34b99788258452,
+    type: 3}
+  m_PrefabInstance: {fileID: 826237287}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &828067804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41736,9 +41760,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2737445689226592248, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
+      propertyPath: _mnkPrompt
+      value: 
+      objectReference: {fileID: 826237291}
+    - target: {fileID: 2737445689226592248, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
       propertyPath: _hoverMessage
       value: 
       objectReference: {fileID: 826237289}
+    - target: {fileID: 2737445689226592248, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
+      propertyPath: _controllerPrompt
+      value: 
+      objectReference: {fileID: 826237290}
     - target: {fileID: 4568446454504023457, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
       propertyPath: m_Name
@@ -41861,9 +41895,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6054839349699883581, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
+      propertyPath: _mnkPrompt
+      value: 
+      objectReference: {fileID: 733092095}
+    - target: {fileID: 6054839349699883581, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
       propertyPath: _hoverMessage
       value: 
       objectReference: {fileID: 733092092}
+    - target: {fileID: 6054839349699883581, guid: fd407f3f5167c4500ad62e8ade4f13ca,
+        type: 3}
+      propertyPath: _controllerPrompt
+      value: 
+      objectReference: {fileID: 733092094}
     - target: {fileID: 6409222504376928784, guid: fd407f3f5167c4500ad62e8ade4f13ca,
         type: 3}
       propertyPath: OutputAudioMixerGroup
@@ -61183,6 +61227,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 569.82
       objectReference: {fileID: 0}
+    - target: {fileID: 8148180483576403964, guid: 639a93b08af88f542b79608ff6bb95c6,
+        type: 3}
+      propertyPath: _playerInput
+      value: 
+      objectReference: {fileID: 1401192493}
     - target: {fileID: 8148180483576403964, guid: 639a93b08af88f542b79608ff6bb95c6,
         type: 3}
       propertyPath: _visitorCollection

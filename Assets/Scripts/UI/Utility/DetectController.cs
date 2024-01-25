@@ -24,8 +24,11 @@ public class DetectController : MonoBehaviour
         else
         {
             EventSystem.current.SetSelectedGameObject(null);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if(Time.timeScale == 0)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 }

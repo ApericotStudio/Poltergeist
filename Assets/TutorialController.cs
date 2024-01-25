@@ -156,7 +156,7 @@ public class TutorialController : MonoBehaviour
     private void unsubscribeEvents()
     {
         _polterSenseController.isEnabled -= showTutorial;
-        _interactController.hasInteracted -= showTutorial;
+        _interactController.HasInteracted -= showTutorial;
         _playerController.hasMoved -= showTutorial;
         _possessionController.hasPossessed -= showTutorial;
 
@@ -177,7 +177,7 @@ public class TutorialController : MonoBehaviour
                 _polterSenseController.isEnabled += showTutorial;
                 break;
             case 3:
-                _interactController.hasInteracted += showTutorial;
+                _interactController.HasInteracted += showTutorial;
                 break;
             case 4:
                 _possessionController.hasPossessed += showTutorial;

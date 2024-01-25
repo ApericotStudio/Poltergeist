@@ -2,6 +2,7 @@ using UnityEngine;
 using StarterAssets;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PossessionController : MonoBehaviour, IObserver
 {
@@ -26,13 +27,43 @@ public class PossessionController : MonoBehaviour, IObserver
     private int _amountofPossessions = 0;
 
     private bool _hasHit = false;
+
+    [Header("Prompts")]
+    [SerializeField]
+    private GameObject _mnkPrompt;
+    [SerializeField]
+    private GameObject _controllerPrompt;
+
+    private PlayerInput _playerInput;
+    
     private void Awake()
     {
         _thirdPersonController = GetComponent<ThirdPersonController>();
         _visionController = GetComponent<VisionController>();
         _audioSource = GetComponent<AudioSource>();
+        _playerInput = GetComponent<PlayerInput>();
 
         _visionController.LookingAtChanged.AddListener(HandleDisplayingPossessionPrompt);
+    }
+
+    private void Update() 
+    {
+        if(_hoverMessage.enabled) {
+            if (_playerInput.currentControlScheme == "Gamepad") {
+                _mnkPrompt.SetActive(false);
+                _controllerPrompt.SetActive(true);
+            } 
+            else 
+            {
+                _mnkPrompt.SetActive(true);
+                _controllerPrompt.SetActive(false);
+            } 
+        }
+        else 
+        {
+            _mnkPrompt.SetActive(false);
+            _controllerPrompt.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -130,7 +161,7 @@ public class PossessionController : MonoBehaviour, IObserver
             if (possessableAndNotBroken)
             {
                 _hoverMessage.enabled = true;
-                _hoverMessage.text = "Press [E] to possess";
+                _hoverMessage.text = _hoverMessage.text.Replace("...", "Possess");
                 return;
             }
         }
