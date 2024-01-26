@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -39,9 +40,11 @@ public class EndGameScreen : MonoBehaviour
     public void OnEnable()
     {
         Time.timeScale = 0f;
+        EventSystem.current.SetSelectedGameObject(null);
         UpdateResults();
         CheckForHighestGrade();
         CheckForAchievements();
+        EventSystem.current.SetSelectedGameObject(_mainMenuButton.gameObject);
     }
 
     /// <summary>
