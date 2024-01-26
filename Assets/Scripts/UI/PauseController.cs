@@ -49,6 +49,7 @@ public class PauseController : MonoBehaviour
             _quitConfirmation.SetActive(false);
             _options.SetActive(false);
             _pauseCanvas.enabled = false;
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 

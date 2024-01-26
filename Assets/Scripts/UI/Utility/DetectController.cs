@@ -19,7 +19,10 @@ public class DetectController : MonoBehaviour
         }
         if (_playerInput.currentControlScheme == "Gamepad")
         {
-            EventSystem.current.SetSelectedGameObject(_previousSelectedObject);
+            if(Time.timeScale == 0 || _isMainMenu)
+            {
+                EventSystem.current.SetSelectedGameObject(_previousSelectedObject);
+            }
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
