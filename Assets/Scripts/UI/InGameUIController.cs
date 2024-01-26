@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class InGameUIController : MonoBehaviour
@@ -16,7 +19,11 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private GameObject _tutorialCardNext;
     [SerializeField] private TextMeshProUGUI _tutorialCardTitle;
     [SerializeField] private TextMeshProUGUI _tutorialCardDescription;
+    [SerializeField] private TextMeshProUGUI _tutorialCardContinue;
     [SerializeField] private List<TutorialCardMessage> _tutorialCardMessages = new();
+    [SerializeField] private GameObject _continueButton;
+    [SerializeField] private PlayerInput _playerInput;
+
     private int _tutorialCardIndex = 0;
     private string _currentSceneName;
     private readonly string _mainGameScene = "FinalExam";
@@ -33,6 +40,19 @@ public class InGameUIController : MonoBehaviour
     private void Update()
     {
         NextTutorial();
+        if (_playerInput.currentControlScheme == "Gamepad")
+        {
+            _tutorialCardContinue.text = "Press Select to continue";
+        }
+        else
+        {
+            _tutorialCardContinue.text = "Press R to continue";
+        }
+    }
+
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(_continueButton);
     }
 
     public void ShowTutorial(int index)
@@ -70,7 +90,7 @@ public class InGameUIController : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+/*        if (Input.GetKeyDown(KeyCode.R))
         {
             if(_tutorialCardIndex > 5 || _tutorialCardIndex == 3)
             {
@@ -81,6 +101,19 @@ public class InGameUIController : MonoBehaviour
             {
                 _tutorialCard.SetActive(false);
             }
+        }*/
+    }
+
+    public void GoToNextTutorial()
+    {
+        if (_tutorialCardIndex > 5 || _tutorialCardIndex == 3)
+        {
+            ShowTutorial(_tutorialCardIndex + 1);
+        }
+
+        if (_currentSceneName == _mainGameScene)
+        {
+            _tutorialCard.SetActive(false);
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ public class LevelSelectController : MonoBehaviour
     [SerializeField] private Button _finalExamButton;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _backButton;
+    [SerializeField] private Color _selectedColor;
+    private ColorBlock color;
+    private List<Button> _buttons = new();
 
     [Header("Text References")]
     [SerializeField] private TextMeshProUGUI _levelTitleText;
@@ -44,6 +48,19 @@ public class LevelSelectController : MonoBehaviour
         _finalExamButton.onClick.AddListener(OnFinalExamButtonPressed);
         _startButton.onClick.AddListener(OnStartButtonPressed);
         _backButton.onClick.AddListener(OnBackButtonPressed);
+
+        _buttons.Add(_assignmentButton);
+        _buttons.Add(_finalExamButton);
+        _buttons.Add(_startButton);
+        _buttons.Add(_backButton);
+
+        foreach (Button button in _buttons)
+        {
+            color = button.colors;
+            color.selectedColor = _selectedColor;
+
+            button.colors = color;
+        }
     }
 
     private void RetrieveProgress()
@@ -54,11 +71,13 @@ public class LevelSelectController : MonoBehaviour
         {
             SelectLevel(0);
             _postItNote.enabled = true;
+            _finalExamButton.interactable = false;
         }
         else
         {
             SelectLevel(1);
             _postItNote.enabled = false;
+            _finalExamButton.interactable = true;
         }
     }
 
@@ -82,6 +101,10 @@ public class LevelSelectController : MonoBehaviour
         SceneManager.LoadScene(_mainMenuScene);
     }
 
+    private void Update()
+    {
+
+    }
     private void SelectLevel(int levelIndex)
     {
         if (!LevelUnlocked(levelIndex))

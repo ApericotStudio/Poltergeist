@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PauseController : MonoBehaviour
@@ -39,6 +40,7 @@ public class PauseController : MonoBehaviour
         if (enable)
         {
             _pauseCanvas.enabled = true;
+            EventSystem.current.SetSelectedGameObject(ResumeButton.gameObject);
             SetProgress(_gradeController.Grade);
         }
         else
@@ -47,6 +49,7 @@ public class PauseController : MonoBehaviour
             _quitConfirmation.SetActive(false);
             _options.SetActive(false);
             _pauseCanvas.enabled = false;
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 

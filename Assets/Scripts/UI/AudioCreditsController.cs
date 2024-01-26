@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class AudioCreditsController : MonoBehaviour
@@ -9,6 +10,16 @@ public class AudioCreditsController : MonoBehaviour
     private void Awake()
     {
         _backButton.onClick.AddListener(OnBackButtonPressed);
+    }
+
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(_backButton.gameObject);
+    }
+
+    private void OnDisable()
+    {
+        EventSystem.current.SetSelectedGameObject(EventSystem.current.firstSelectedGameObject);
     }
 
     private void OnBackButtonPressed()

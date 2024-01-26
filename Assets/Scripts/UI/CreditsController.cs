@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,6 +16,11 @@ public class CreditsController : MonoBehaviour
     {
         _backButton.onClick.AddListener(OnBackButtonPressed);
         _nextButton.onClick.AddListener(OnNextButtonPressed);
+    }
+
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(_nextButton.gameObject);
     }
 
     private void OnBackButtonPressed()
